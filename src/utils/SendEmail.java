@@ -1,4 +1,4 @@
-package services.tools;
+package utils;
 import java.util.Date;
 import java.util.Properties;
 import javax.mail.Authenticator;
