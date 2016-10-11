@@ -11,4 +11,10 @@ public class KasuDB {
 				return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root",""));}
 			catch (ClassNotFoundException e) {e.printStackTrace();return null;}
 	}
+	
+	public static Connection SQLConnection(String password) throws SQLException {
+		try {Class.forName("com.mysql.jdbc.Driver");
+			return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root",password));}
+		catch (ClassNotFoundException e) {e.printStackTrace();return null;}
+	}
 }

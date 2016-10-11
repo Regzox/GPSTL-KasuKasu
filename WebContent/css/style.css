@@ -1,0 +1,41 @@
+body {
+	font-family: Calibri;
+	background-color: #ff5050; 
+}
+
+.capital {
+	margin-top: 5%;
+	font-size : 2em;
+	margin-bottom: 5%;
+}
+
+.sub-capital {
+	margin-top: 5%;
+	font-size : 1.3em;
+	margin-bottom: 5%;
+}
+
+.layer-center {
+	display: block;
+    margin: auto;
+    text-align: center;
+    width: 70%;
+}
+
+.layer-left {
+	display: block;
+    margin: auto;
+    text-align: left;
+    width: 60%;
+}
+
+.notifier {
+	border-radius: 5px;
+	background-color: #ff7777;
+	color : white;
+	display: block;
+    margin: auto;
+    text-align: center;
+    width: 70%;
+    transition: 2s;
+}
