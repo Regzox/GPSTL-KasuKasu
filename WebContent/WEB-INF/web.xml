@@ -16,7 +16,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CreateUserServlet</servlet-name>
-		<url-pattern>/KasuKasu/createuser</url-pattern>
+		<url-pattern>/createuser</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
