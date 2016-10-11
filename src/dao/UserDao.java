@@ -50,7 +50,7 @@ public class UserDao {
 		if (!rs.next())
 			throw new Exception("No users for this email");
 		
-		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getInt("numero"));
+		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getString("numero"));
 		
 		if (rs.next())
 			throw new Exception("Duplicate email exists in the database");
@@ -79,7 +79,7 @@ public class UserDao {
 		if (!rs.next())
 			throw new Exception("No users for this email");
 		
-		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getInt("numero"));
+		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getString("numero"));
 		
 		if (rs.next())
 			throw new Exception("Duplicate email exists in the database");

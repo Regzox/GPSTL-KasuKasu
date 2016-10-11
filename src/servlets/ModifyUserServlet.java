@@ -100,7 +100,7 @@ public class ModifyUserServlet extends HttpServlet {
 		}
 
 		try {
-			user = new entities.User(email, password, name, firstname, Integer.parseInt(phone));
+			user = new entities.User(email, password, name, firstname, phone);
 			User.updateUser(oldEmail, oldPassword, user);
 			resp.getWriter().append("Your account has correctly been updated");
 		} catch (Exception e) {
