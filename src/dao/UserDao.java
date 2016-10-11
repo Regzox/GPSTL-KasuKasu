@@ -138,7 +138,7 @@ public class UserDao {
 	 * @throws DbException
 	 * @return void 
 	 */
-	public static void addUser(String email,String mdp,String nom,String prenom,int numero) throws SQLException{ 
+	public static void addUser(String email,String mdp,String nom,String prenom,String numero) throws SQLException{ 
 		String sql = "INSERT INTO USERS(email,mdp,nom,prenom,numero) VALUES ('"+email+"' , '"+mdp+"' , '"+nom+"' , '"+prenom+"' , '"+numero+"') ;";
 		System.out.println(sql);
 		Connection c = KasuDB.SQLConnection();
@@ -149,7 +149,7 @@ public class UserDao {
 	}
 	
 	public static void main(String[] args) throws SQLException {
-		addUser("email", "mdp", "nom", "prenom", 1);
+		addUser("email", "mdp", "nom", "prenom", "1");
 	}
 	
 }

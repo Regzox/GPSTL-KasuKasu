@@ -20,7 +20,7 @@ public class User {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static boolean createUser(String email,String mdp,String nom,String prenom, int numero) throws SQLException{		
+	public static boolean createUser(String email,String mdp,String nom,String prenom, String numero) throws SQLException{		
 		//Verification de la non existance de l'email utilisateur  
 		if (UserDao.userExists(email))
 			return false;

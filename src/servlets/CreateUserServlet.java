@@ -55,7 +55,7 @@ public class CreateUserServlet extends HttpServlet {
 				String mdp = request.getParameter ("mdp");
 				String nom = request.getParameter ("nom");
 				String prenom = request.getParameter ("pnom");
-				int numero = Integer.parseInt(request.getParameter("numero"));
+				String numero = request.getParameter("numero");
 
 
 				//Creer l'utilisteur en bdd via le service associE
