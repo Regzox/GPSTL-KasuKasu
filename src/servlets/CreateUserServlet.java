@@ -31,20 +31,11 @@ public class CreateUserServlet extends HttpServlet {
 					&&map.containsKey("prenom")  && !request.getParameter ("prenom").equals("")
 					&&map.containsKey("numero")  && !request.getParameter ("numero").equals("")){
 
-<<<<<<< HEAD
 				response.getWriter().print(
 						User.createUser(request.getParameter ("email"), request.getParameter ("mdp"),
 								request.getParameter ("nom"), request.getParameter ("prenom"),
 								request.getParameter("numero")
 								));
-=======
-				//Recuperation des parametres puisqu'ils sont presents
-				String email = request.getParameter ("email");
-				String mdp = request.getParameter ("mdp");
-				String nom = request.getParameter ("nom");
-				String prenom = request.getParameter ("prenom");
-				String numero = request.getParameter("numero");
->>>>>>> 13b1e5495506e9af4ec5cc9c505a116db7f50f46
 
 			}else throw new Exception("Wrong Url! Missing parameters\n Il manque des parametres à l'URL!");
 
