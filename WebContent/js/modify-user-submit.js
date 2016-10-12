@@ -4,6 +4,15 @@ var clearNotifier = function () {
 	}, 10000);
 }
 
+var encrypt = function (algorithm, value) {
+	switch (algorithm) {
+	case "md5" :
+		return md5(value);
+	default :
+		return value;
+	}
+}
+
 var submit = function () {
 
 	var oe = $("#old-email-input").val(),
@@ -13,13 +22,15 @@ var submit = function () {
 		nn = $("#new-name-input").val(),
 		nf = $("#new-firstname-input").val(),
 		nph = $("#new-phone-input").val(),
-		wrg = "";
+		wrg = "",
+		algenc = "none";
 	
 	if (oe == "")
 		wrg += "No current email typed <br/>";
 	
 	if (op != "")
-		op = md5(op);
+		op = encrypt(algenc, op);
+		
 	else
 		wrg += "No current password typed <br/>";
 	
@@ -27,7 +38,7 @@ var submit = function () {
 		wrg +="No changes to apply <br/>";
 	
 	if (np != "")
-		np = md5(np);
+		np = encrypt(algenc, np);
 	
 	if (wrg != "") {
 		$("#notifier").html(wrg);
