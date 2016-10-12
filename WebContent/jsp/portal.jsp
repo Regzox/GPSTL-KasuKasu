@@ -19,7 +19,7 @@
 		
 		<button type="button" class="btn btn-primary btn-block">Create your account [No link]</button>
 		<button type="button" class="btn btn-primary btn-block" onclick="window.open('/KasuKasu/jsp/modifyUser.jsp')">Modify your account</button>
-		<button type="button" class="btn btn-primary btn-block">Sign in [No link]</button>
+		<button type="button" class="btn btn-primary btn-block" onclick="window.location.href='/KasuKasu/jsp/connexion.jsp';">Sign in </button>
 	</div>
 
 </body>
