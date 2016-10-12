@@ -54,7 +54,7 @@ public class CreateUserServlet extends HttpServlet {
 				String email = request.getParameter ("email");
 				String mdp = request.getParameter ("mdp");
 				String nom = request.getParameter ("nom");
-				String prenom = request.getParameter ("pnom");
+				String prenom = request.getParameter ("prenom");
 				String numero = request.getParameter("numero");
 
 
