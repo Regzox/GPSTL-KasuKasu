@@ -2,12 +2,15 @@ package services;
 
 import java.sql.SQLException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import dao.UserDao;
+import utils.Tools;
 
 /**
  * * @author Anagbla Jean, Daniel RADEAU
  * */
-
 public class User {
 
 	/**
@@ -19,13 +22,15 @@ public class User {
 	 * @param numero
 	 * @return
 	 * @throws SQLException
+	 * @throws JSONException 
 	 */
-	public static boolean createUser(String email,String mdp,String nom,String prenom, String numero) throws SQLException{		
-		//Verification de la non existance de l'email utilisateur  
+	public static JSONObject createUser(String email,String mdp,String nom,String prenom, String numero) 
+			throws SQLException, JSONException{		
 		if (UserDao.userExists(email))
-			return false;
+			return Tools.serviceMessage("User's email already exists.");
+
 		UserDao.addUser(email,mdp,nom,prenom,numero);
-		return true;
+		return Tools.serviceMessage(1);
 	}
 	
 	/**
