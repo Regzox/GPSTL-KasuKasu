@@ -51,7 +51,7 @@ function verif(mdp, confirmation)
 
 
 function enregistre(nom, prenom, numero, email, mdp) 
-{
+{	
 	$.ajax(
 			
 	{
