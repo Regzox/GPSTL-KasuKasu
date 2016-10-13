@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import entities.User;
-import exceptions.UserNotFindException;
+import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
 
@@ -45,7 +45,7 @@ public class UserDao {
 	 */
 	public static User getUser(String email)
 		throws SQLException,
-		UserNotFindException,
+		UserNotFoundException,
 		UserNotUniqueException
 	{
 		String sqlQuery = "SELECT * FROM USERS WHERE email='" + email +"';";
@@ -54,7 +54,7 @@ public class UserDao {
 		ResultSet rs = s.executeQuery(sqlQuery);
 
 		if (!rs.next())
-			throw new UserNotFindException();
+			throw new UserNotFoundException();
 
 		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getString("numero"));
 
@@ -78,7 +78,7 @@ public class UserDao {
 	 */
 	public static User getUser(int id)
 		throws SQLException,
-		UserNotFindException,
+		UserNotFoundException,
 		UserNotUniqueException
 	{	
 		String sqlQuery = "SELECT * FROM USERS WHERE id='" + id +"';";
@@ -87,7 +87,7 @@ public class UserDao {
 		ResultSet rs = s.executeQuery(sqlQuery);
 
 		if (!rs.next())
-			throw new UserNotFindException();
+			throw new UserNotFoundException();
 
 		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getString("numero"));
 
@@ -111,7 +111,7 @@ public class UserDao {
 
 	public static void updateUser(User oldUser, User newUser) 
 		throws SQLException,
-		UserNotFindException,
+		UserNotFoundException,
 		UserNotUniqueException
 	{
 		String sqlQuery = "SELECT * FROM USERS WHERE email='" + oldUser.getEmail() +"';";
@@ -120,7 +120,7 @@ public class UserDao {
 		ResultSet rs = s.executeQuery(sqlQuery);
 
 		if (!rs.next())
-			throw new UserNotFindException();
+			throw new UserNotFoundException();
 
 		sqlQuery = "UPDATE USERS SET " + 
 				"email = '" + newUser.getEmail() + 

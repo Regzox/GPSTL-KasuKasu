@@ -1,14 +1,14 @@
 package exceptions;
 
-public class UserNotFindException extends DatabaseException {
+public class UserNotFoundException extends DatabaseException {
 
 	private static final long serialVersionUID = 79704483614180802L;
 	
-	public UserNotFindException(String msg) {
+	public UserNotFoundException(String msg) {
 		super(msg);
 	}
 	
-	public UserNotFindException() {
+	public UserNotFoundException() {
 		super("User not find");
 	}
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import exceptions.UserNotFindException;
+import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import services.User;
 
@@ -48,14 +48,14 @@ public class ConnectUserServlet extends HttpServlet {
 					try {
 						user = User.getUser(mail);
 						verified = (user.getPassword().compareTo(pass) == 0);
-					} catch (UserNotFindException e) {
+					} catch (UserNotFoundException e) {
 						System.out.println(e.getMessage());
 					} catch	(UserNotUniqueException e) {
 						System.out.println(e.getMessage());
 					}
 				} else {
 					System.out.println(
-						"[Warning] Email or passwaord empty : \n" +
+						"[Warning] Email or password empty : \n" +
 						"\temail : " + mail + '\n' +
 						"\tpassword : " + pass);
 				}

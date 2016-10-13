@@ -19,7 +19,97 @@
 </head>
 <body>
 
+    <form method="post" onsubmit="">
+        <fieldset>
+            
+            <legend>Type your current</legend>
+            
+            <div class='form-group row'>
+                <label for='old-email-input' class='col-xs-2 col-form-label'>Email *</label>
+                <div class='col-xs-10'>
+                    <input 	class = 'form-control' 
+                            type = 'email' 
+                            value = ''
+                            id = 'old-email-input'
+                            name = 'old-email-input'
+                            required >
+                </div>
+            </div>
+            
+            <div class='form-group row'>
+				<label for='old-password-input' class='col-xs-2 col-form-label'>Password *</label>
+				<div class='col-xs-10'>
+					<input 	class = 'form-control' 
+							type = 'password' 
+							value = ''
+							id = 'old-password-input'
+							name = 'old-password-input'
+							required >
+				</div>
+			</div>
+            
+            <hr />
+            
+            <div class='form-group row'>
+				<label for='new-email-input' class='col-xs-2 col-form-label'>Email</label>
+				<div class='col-xs-10'>
+					<input 	class = 'form-control'
+					 		type = 'email'
+					 		value = ''
+					 		id = 'new-email-input'
+					 		name = 'new-email-input' >
+				</div>
+			</div>
 
+			<div class='form-group row'>
+				<label for='new-password-input' class='col-xs-2 col-form-label'>Password</label>
+				<div class='col-xs-10'>
+					<input 	class = 'form-control'
+				 		type = 'password'
+				 		value = ''
+				 		id = 'new-password-input'
+				 		name = 'new-password-input' >
+				</div>
+			</div>
+
+			<div class='form-group row'>
+				<label for='new-name-input' class='col-xs-2 col-form-label'>Name</label>
+				<div class='col-xs-10'>
+					<input 	class = 'form-control'
+				 		type = 'text'
+				 		value = ''
+				 		id = 'new-name-input'
+				 		name = 'new-name-input' >
+				</div>
+			</div>
+
+			<div class='form-group row'>
+				<label for='new-firstname-input' class='col-xs-2 col-form-label'>First Name</label>
+				<div class='col-xs-10'>
+					<input 	class = 'form-control'
+				 		type = 'text'
+				 		value = ''
+				 		id = 'new-firstname-input'
+				 		name = 'new-firstname-input' >
+				</div>
+			</div>
+
+			<div class='form-group row'>
+				<label for='new-phone-input' class='col-xs-2 col-form-label'>Telephone</label>
+				<div class='col-xs-10'>
+					<input 	class = 'form-control'
+				 		type = 'text'
+				 		value = ''
+				 		id = 'new-phone-input'
+				 		name = 'new-phone-input' >
+				</div>
+			</div>
+            
+            <input type="submit" value="Validate" />
+            
+        </fieldset>
+    </form>
+    
 	<div class='layer-center'>
 	
 	<p class='capital'>Change your account information</p>
