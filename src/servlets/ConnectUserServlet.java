@@ -55,7 +55,7 @@ public class ConnectUserServlet extends HttpServlet {
 					}
 				} else {
 					System.out.println(
-						"[Warning] Email or passwaord empty : \n" +
+						"[Warning] Email or password empty : \n" +
 						"\temail : " + mail + '\n' +
 						"\tpassword : " + pass);
 				}
