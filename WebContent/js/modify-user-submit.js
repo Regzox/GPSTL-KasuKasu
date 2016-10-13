@@ -1,66 +1,50 @@
-var clearNotifier = function () {
-	setTimeout(() => {
-		$("#notifier").html('');
-	}, 10000);
-}
+var notify = function (notification) {
 
-var encrypt = function (algorithm, value) {
-	switch (algorithm) {
-	case "md5" :
-		return md5(value);
-	default :
-		return value;
+	window.console.log(notification);
+
+	var container = document.createElement("div");
+
+	if (notification.success != undefined) {
+		$(container).html(notification.success);
+		$(container).addClass("success");
+	} else if (notification.warning != undefined) {
+		$(container).html(notification.warning);
+		$(container).addClass("warning");
+	} else if (notification.error != undefined) {
+		$(container).html(notification.error);
+		$(container).addClass("error");
 	}
+
+	setTimeout(function () {
+		$(container).remove();
+	}, 3000);
+
+	$("#notifier").append(container);
 }
 
-var submit = function () {
-	
-	var oe = $("#old-email-input").val(),
-		op = $("#old-password-input").val(),
-		ne = $("#new-email-input").val(),
-		np = $("#new-password-input").val()
-		nn = $("#new-name-input").val(),
-		nf = $("#new-firstname-input").val(),
-		nph = $("#new-phone-input").val(),
-		wrg = "",
-		algenc = "none";
-	
-	if (oe == "")
-		wrg += "No current email typed <br/>";
-	
-	if (op != "")
-		op = encrypt(algenc, op);
-		
-	else
-		wrg += "No current password typed <br/>";
-	
-	if (ne == "" && np == "" && nn == "" && nf == "" && nph == "")
-		wrg +="No changes to apply <br/>";
-	
-	if (np != "")
-		np = encrypt(algenc, np);
-	
-	if (wrg != "") {
-		$("#notifier").html(wrg);
-		clearNotifier();
+var validation = function (form) {            	
+	var json = {
+			oldEmail : form.old_email_input.value,
+			oldPassword : form.old_password_input.value,
+			newEmail : form.new_email_input.value,
+			newPassword : form.new_password_input.value,
+			newName : form.new_name_input.value,
+			newFirstname : form.new_firstname_input.value,
+			newPhone : form.new_phone_input.value
+	};
+
+	if (	json.newEmail == "" &&
+			json.newPassword == "" &&
+			json.newName == "" &&
+			json.newFirstname == "" &&
+			json.newPhone == "") {
+		notify({ warning : "No changes to apply" });
 		return;
 	}
 
-	var set = {
-			oldEmail : oe,
-			oldPassword : op,
-			newEmail : ne,
-			newPassword : np,
-			newName : nn,
-			newFirstname : nf,
-			newPhone : nph
-	};
-	$.post("/KasuKasu/modify", set)
+	$
+	.post("/KasuKasu/modify", json)
 	.done(function (data) {
-		$("#notifier").html(data);
-		$("#notifier").html($("#notifier").html() + "<br/>You will be redirected to the dashboard");
-		setTimeout(() => {
-			window.location.href = "/KasuKasu/dashboard.jsp";
-		}, 3000);
+		notify($.parseJSON(data));
 	})
-}
+}            

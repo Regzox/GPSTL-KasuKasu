@@ -6,17 +6,17 @@ body {
 /* .show pour le debug d'affichage */
 
 .show {
-	background-color : inherit;
+	background-color : unset;
 }
 
 .show:hover {
-	background-color : green;
+	background-color : rgb(255, 255, 128);
 }
 
 .capital {
-	margin-top: 5%;
+	padding-top: 5%;
 	font-size : 2em;
-	margin-bottom: 5%;
+	padding-bottom: 5%;
 }
 
 .sub-capital {
@@ -51,11 +51,15 @@ body {
 	text-align: center;
 }
 
+.left {
+	text-align: left;
+}
+
 .align {
 	vertical-align: center;
 }
 
-.fit {
+.fit-width {
 	width : 100%;
 }
 
@@ -64,12 +68,66 @@ body {
 }
 
 .notifier {
-	border-radius: 5px;
-	background-color: #ff7777;
-	color : white;
 	display: block;
-    margin: auto;
+	height : 72px;
+	overflow : auto;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
     text-align: center;
-    width: 70%;
-    transition: 2s;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+.width-80 {
+	width : 80%;
+}
+
+.button {
+	background-color: rgb(64, 224, 64);
+	padding: 10px;
+	color: white;
+	font-weight: bold;
+	border-radius: 10px 0px 10px 0px;
+	border: none;
+	transition: background-color 0.5s;
+}
+
+.success {
+	margin: 3px;
+	background-color: rgb(64, 232, 64);
+	color: white;
+}
+
+.warning {
+	margin: 3px;
+	background-color: rgb(255, 200, 64);
+	color: white;
+}
+
+.error {
+	margin: 3xp;
+	background-color: rgb(255, 80, 80);
+	color: white;
+}
+
+.button:hover {
+	background-color: rgb(64, 172, 64);
+	transition: background-color 0.5s;
 }
