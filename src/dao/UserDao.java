@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import entities.User;
+import exceptions.UserNotFindException;
+import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
 
 /**
@@ -41,19 +43,23 @@ public class UserDao {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	public static User getUser(String email) throws SQLException, Exception {		
+	public static User getUser(String email)
+		throws SQLException,
+		UserNotFindException,
+		UserNotUniqueException
+	{
 		String sqlQuery = "SELECT * FROM USERS WHERE email='" + email +"';";
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
 		ResultSet rs = s.executeQuery(sqlQuery);
 
 		if (!rs.next())
-			throw new Exception("No users for this email");
+			throw new UserNotFindException();
 
 		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getString("numero"));
 
 		if (rs.next())
-			throw new Exception("Duplicate email exists in the database");
+			throw new UserNotUniqueException();
 
 		rs.close();
 		s.close();
@@ -70,19 +76,23 @@ public class UserDao {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	public static User getUser(int id) throws SQLException, Exception {		
+	public static User getUser(int id)
+		throws SQLException,
+		UserNotFindException,
+		UserNotUniqueException
+	{	
 		String sqlQuery = "SELECT * FROM USERS WHERE id='" + id +"';";
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
 		ResultSet rs = s.executeQuery(sqlQuery);
 
 		if (!rs.next())
-			throw new Exception("No users for this email");
+			throw new UserNotFindException();
 
 		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getString("numero"));
 
 		if (rs.next())
-			throw new Exception("Duplicate email exists in the database");
+			throw new UserNotUniqueException();
 
 		rs.close();
 		s.close();
@@ -99,15 +109,18 @@ public class UserDao {
 	 * @throws Exception
 	 */
 
-	public static void updateUser(User oldUser, User newUser) throws SQLException, Exception {
-
+	public static void updateUser(User oldUser, User newUser) 
+		throws SQLException,
+		UserNotFindException,
+		UserNotUniqueException
+	{
 		String sqlQuery = "SELECT * FROM USERS WHERE email='" + oldUser.getEmail() +"';";
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
 		ResultSet rs = s.executeQuery(sqlQuery);
 
 		if (!rs.next())
-			throw new Exception("No users for this email");
+			throw new UserNotFindException();
 
 		sqlQuery = "UPDATE USERS SET " + 
 				"email = '" + newUser.getEmail() + 
@@ -118,7 +131,7 @@ public class UserDao {
 				"' WHERE email = '" + oldUser.getEmail() + "';";
 
 		if (rs.next())
-			throw new Exception("Duplicate email exists in the database");
+			throw new UserNotUniqueException();
 
 		s.executeUpdate(sqlQuery);
 
@@ -138,7 +151,9 @@ public class UserDao {
 	 * @param numero
 	 * @throws SQLException
 	 */
-	public static void addUser(String email,String mdp,String nom,String prenom,String numero) throws SQLException{ 
+	public static void addUser(String email,String mdp,String nom,String prenom,String numero) 
+		throws SQLException
+	{ 
 		String sql = "INSERT INTO USERS(email,mdp,nom,prenom,numero) VALUES ("
 				+ "'"+email+"' , '"+mdp+"' , '"+nom+"' , '"+prenom+"' , '"+numero+"'"
 				+ ") ;";

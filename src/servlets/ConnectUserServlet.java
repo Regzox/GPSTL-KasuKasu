@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import exceptions.UserNotFindException;
+import exceptions.UserNotUniqueException;
 import services.User;
 
 public class ConnectUserServlet extends HttpServlet {
@@ -37,29 +39,50 @@ public class ConnectUserServlet extends HttpServlet {
 			String mail = request.getParameter("mail");
 			String pass = request.getParameter("pass");
 
-			boolean verified=false;
-			if(mail!=null && pass!=null){
-				entities.User user=User.getUser(mail);
-				verified=user.getPassword().compareTo(pass)==0;
-					
+			boolean verified = false;
+			
+			entities.User user = null;
+			
+			if(mail!=null && pass!=null) {
+				if (!mail.equals("") && !pass.equals("")) {
+					try {
+						user = User.getUser(mail);
+						verified = (user.getPassword().compareTo(pass) == 0);
+					} catch (UserNotFindException e) {
+						System.out.println(e.getMessage());
+					} catch	(UserNotUniqueException e) {
+						System.out.println(e.getMessage());
+					}
+				} else {
+					System.out.println(
+						"[Warning] Email or passwaord empty : \n" +
+						"\temail : " + mail + '\n' +
+						"\tpassword : " + pass);
+				}
 			}
 
 			if(verified){
-				Cookie c_mail=new Cookie("mail",mail);
-				Cookie c_pass=new Cookie("pass",pass);
-				response.addCookie(c_mail);
-				response.addCookie(c_pass);
-				PrintWriter out = response.getWriter();
-				out.println("<html>");
-				out.println("<head>");
-				out.println("<title>Connexion success !</title>");
-				out.println("</head>");
-				out.println("<body>");
-				out.println("<h1>You are now connected</h1>");
-				out.println("</body>");
-				out.println("</html>");
-				out.flush();
-				out.close();
+//				Cookie c_mail=new Cookie("mail",mail);
+//				Cookie c_pass=new Cookie("pass",pass);
+				Cookie cookieId = new Cookie("userId", Integer.toString(user.getId()));
+				
+//				response.addCookie(c_mail);
+//				response.addCookie(c_pass);
+				response.addCookie(cookieId);
+//				PrintWriter out = response.getWriter();
+//				out.println("<html>");
+//				out.println("<head>");
+//				out.println("<title>Connexion success !</title>");
+//				out.println("</head>");
+//				out.println("<body>");
+//				out.println("<h1>You are now connected</h1>");
+//				out.println("</body>");
+//				out.println("</html>");
+//				out.flush();
+//				out.close();
+				
+				response.sendRedirect("/KasuKasu/dashboard.jsp");
+				
 				System.out.println("User connexion successfull");
 
 			}else{

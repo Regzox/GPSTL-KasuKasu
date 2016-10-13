@@ -5,19 +5,74 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script type="text/javascript" src="js/enregistrement.js"></script>
-<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<!-- <script type="text/javascript" src="js/jquery-3.1.1.js"></script> -->
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
+<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 
 <title>Inscription</title>
 </head>
     <body>
-        <form action="javascript:(function(){return;})()" method="get"
+        <form class="layer-center" action="/KasuKasu/createuser" method="get"
 				OnSubmit="javascript:enregistrement(this)">
 				
-            <fieldset>
+			<p class="capital">Vous pouvez vous inscrire via ce formulaire</p>
+            
+            <div class="layer-sign-in">
+            	<fieldset>
                 <legend>Inscription</legend>
-                <p>Vous pouvez vous inscrire via ce formulaire.</p>
+                <p class="information"><em>* Champs obligatoires</em></p>
                 
-                <label for="prenom">Prénom </label>
+                <div class="form-group row">
+					<label for="prenom" class="col-xs-6 col-form-label">Prénom *</label>
+					<div class="col-xs-6 center">
+						<input class="fit" type="text" required id="prenom" name="prenom" value="" size="20" maxlength="20" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label for="nom" class="col-xs-6 col-form-label">Nom *</label>
+					<div class="col-xs-6 center">
+						<input class="fit" type="text" required id="nom" name="nom" value="" size="20" maxlength="20" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label for="numero" class="col-xs-6 col-form-label">Téléphone *</label>
+					<div class="col-xs-6 center">
+						<input class="fit" type="text" required id="numero" name="numero" value="" size="20" maxlength="20" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label for="email" class="col-xs-6 col-form-label">Email *</label>
+					<div class="col-xs-6 center">
+						<input class="fit" type="email" required id="email" name="email" value="" size="20" maxlength="20" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label for="mdp" class="col-xs-6 col-form-label">Mot de passe *</label>
+					<div class="col-xs-6 center">
+						<input class="fit" type="password" required id="mdp" name="mdp" value="" size="20" maxlength="20" />
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label for="confirmation" class="col-xs-6 col-form-label">Confirmation du mot de passe *</label>
+					<div class="col-xs-6 center">
+						<input class="fit" type="password" required id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
+					</div>
+				</div>
+				
+				<input type="submit" class="btn btn-primary btn-block" value="Inscription">
+				</fieldset>
+            </div>
+            
+                
+                <!-- <label for="prenom">Prénom </label>
                 <input type="text" required id="prenom" name="prenom" value="" size="20" maxlength="20" />
                 <br />
                 
@@ -44,9 +99,7 @@
                 <br />
 
                 <input type="submit" value="Inscription" />
-                <br />
-
-            </fieldset>
+                <br /> -->
 
         </form>
 

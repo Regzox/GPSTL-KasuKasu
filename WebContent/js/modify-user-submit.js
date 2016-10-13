@@ -14,7 +14,7 @@ var encrypt = function (algorithm, value) {
 }
 
 var submit = function () {
-
+	
 	var oe = $("#old-email-input").val(),
 		op = $("#old-password-input").val(),
 		ne = $("#new-email-input").val(),
@@ -58,7 +58,9 @@ var submit = function () {
 	$.post("/KasuKasu/modify", set)
 	.done(function (data) {
 		$("#notifier").html(data);
-		clearNotifier();
-	});
-
+		$("#notifier").html($("#notifier").html() + "<br/>You will be redirected to the dashboard");
+		setTimeout(() => {
+			window.location.href = "/KasuKasu/dashboard.jsp";
+		}, 3000);
+	})
 }

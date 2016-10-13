@@ -17,9 +17,8 @@
 		<p class='capital'>Welcome to KasuKasu !<p>
 		<p>The web site where you can share your items with your friends</p>
 		
-		<button type="button" class="btn btn-primary btn-block" onclick="window.location('/KasuKasu/createuser.jsp')">Create your account</button>
-		<button type="button" class="btn btn-primary btn-block" onclick="window.open('/KasuKasu/modifyUser.jsp')">Modify your account</button>
-		<button type="button" class="btn btn-primary btn-block" onclick="window.location.href='/KasuKasu/connexion.jsp';">Sign in </button>
+		<button type="button" class="btn btn-primary btn-block" onclick="window.location.href = '/KasuKasu/createuser.jsp';">Create your account</button>
+		<button type="button" class="btn btn-primary btn-block" onclick="window.location.href = '/KasuKasu/connexion.jsp';">Sign in </button>
 	</div>
 
 </body>

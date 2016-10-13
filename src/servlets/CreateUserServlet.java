@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import services.User;
+import utils.Tools;
 
 /**
  * * @author Anagbla Jean */
@@ -29,14 +30,19 @@ public class CreateUserServlet extends HttpServlet {
 					&&map.containsKey("mdp")     && !request.getParameter ("mdp").equals("")
 					&&map.containsKey("nom")	 && !request.getParameter ("nom").equals("")
 					&&map.containsKey("prenom")  && !request.getParameter ("prenom").equals("")
-					&&map.containsKey("numero")  && !request.getParameter ("numero").equals("")){
+					&&map.containsKey("numero")  && !request.getParameter ("numero").equals("")
+					&&map.containsKey("confirmation") && !request.getParameter("confirmation").equals("")){
 
-				response.getWriter().print(
-						User.createUser(request.getParameter ("email"), request.getParameter ("mdp"),
-								request.getParameter ("nom"), request.getParameter ("prenom"),
-								request.getParameter("numero")
-								));
-
+				if (request.getParameter("mdp").equals(request.getParameter("confirmation"))) {
+					response.getWriter().print(
+							User.createUser(request.getParameter ("email"), request.getParameter ("mdp"),
+									request.getParameter ("nom"), request.getParameter ("prenom"),
+									request.getParameter("numero")
+									));
+				} else {
+					response.getWriter().print(
+						Tools.serviceMessage("Le mot de passe et sa confirmation ne sont pas similaires !"));
+				}
 			}else throw new Exception("Wrong Url! Missing parameters\n Il manque des parametres à l'URL!");
 
 		}catch (Exception e) {

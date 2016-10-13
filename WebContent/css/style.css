@@ -3,6 +3,16 @@ body {
 	background-color: #ff5050; 
 }
 
+/* .show pour le debug d'affichage */
+
+.show {
+	background-color : inherit;
+}
+
+.show:hover {
+	background-color : green;
+}
+
 .capital {
 	margin-top: 5%;
 	font-size : 2em;
@@ -27,6 +37,30 @@ body {
     margin: auto;
     text-align: left;
     width: 60%;
+}
+
+.layer-sign-in {
+	display: block;
+    margin: auto;
+    text-align: left;
+    width: 60%;
+    background-color : white;
+}
+
+.center {
+	text-align: center;
+}
+
+.align {
+	vertical-align: center;
+}
+
+.fit {
+	width : 100%;
+}
+
+.information {
+	font-size : 0.8em;
 }
 
 .notifier {
