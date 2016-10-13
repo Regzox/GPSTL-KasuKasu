@@ -4,109 +4,116 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<script type="text/javascript" src="js/enregistrement.js"></script>
-<!-- <script type="text/javascript" src="js/jquery-3.1.1.js"></script> -->
+
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
-<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="/KasuKasu/js/enregistrement.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+
+
 
 <title>Inscription</title>
 </head>
-    <body>
-        <form class="layer-center" action="/KasuKasu/createuser" method="get"
+    <body onload="javascript:Captcha()">
+    
+    	<div class='layer-center'>
+    	
+    	<p class='capital'>Inscription</p>
+    	
+    
+		<div id='notifier' class='notifier'></div>
+            
+            <div class='layer-left'>
+   
+    
+    
+            <form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:enregistrement(this)">
-				
-			<p class="capital">Vous pouvez vous inscrire via ce formulaire</p>
-            
-            <div class="layer-sign-in">
-            	<fieldset>
-                <legend>Inscription</legend>
-                <p class="information"><em>* Champs obligatoires</em></p>
+
                 
-                <div class="form-group row">
-					<label for="prenom" class="col-xs-6 col-form-label">Prénom *</label>
-					<div class="col-xs-6 center">
-						<input class="fit" type="text" required id="prenom" name="prenom" value="" size="20" maxlength="20" />
-					</div>
+           <div class="form-group row">
+				<label for="prenom" class="col-xs-2 col-form-label">Prénom</label>
+				<div class="col-xs-10">
+					<input class="form-control" type="text" value=""
+						id="prenom">
 				</div>
-				
-				<div class="form-group row">
-					<label for="nom" class="col-xs-6 col-form-label">Nom *</label>
-					<div class="col-xs-6 center">
-						<input class="fit" type="text" required id="nom" name="nom" value="" size="20" maxlength="20" />
-					</div>
+			</div>
+
+           <div class="form-group row">
+				<label for="nom" class="col-xs-2 col-form-label">Nom</label>
+				<div class="col-xs-10">
+					<input class="form-control" type="text" value=""
+						id="nom">
 				</div>
-				
-				<div class="form-group row">
-					<label for="numero" class="col-xs-6 col-form-label">Téléphone *</label>
-					<div class="col-xs-6 center">
-						<input class="fit" type="text" required id="numero" name="numero" value="" size="20" maxlength="20" />
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					<label for="email" class="col-xs-6 col-form-label">Email *</label>
-					<div class="col-xs-6 center">
-						<input class="fit" type="email" required id="email" name="email" value="" size="20" maxlength="20" />
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					<label for="mdp" class="col-xs-6 col-form-label">Mot de passe *</label>
-					<div class="col-xs-6 center">
-						<input class="fit" type="password" required id="mdp" name="mdp" value="" size="20" maxlength="20" />
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					<label for="confirmation" class="col-xs-6 col-form-label">Confirmation du mot de passe *</label>
-					<div class="col-xs-6 center">
-						<input class="fit" type="password" required id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
-					</div>
-				</div>
-				
-				<input type="submit" class="btn btn-primary btn-block" value="Inscription">
-				</fieldset>
-            </div>
-            
-                
-                <!-- <label for="prenom">Prénom </label>
-                <input type="text" required id="prenom" name="prenom" value="" size="20" maxlength="20" />
-                <br />
-                
-                <label for="nom">Nom </label>
-                <input type="text" required id="nom" name="nom" value="" size="20" maxlength="20" />
-                <br />               
+			</div>              
               
-                <label for="numero">Numéro de téléphone (ex: 0678451526) </label>
-                <input type="text" required pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$" id="numero" name="numero" value="" size="20" maxlength="20" />
-                <br />
+			<div class="form-group row">
+				<label for="numero" class="col-xs-2 col-form-label">Telephone</label>
+				<div class="col-xs-10">
+					<input class="form-control" type="text" value=""
+						id="numero" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
+				</div>
+			</div>
                 
-                <label for="email">Adresse email </label>
-                <input type="email" required id="email" name="email" value="" size="20" maxlength="60" />
-                <br />
+ 			<div class="form-group row">
+				<label for="email" class="col-xs-2 col-form-label">Email</label>
+				<div class="col-xs-10">
+					<input class="form-control" type="email"
+						value="" id="email">
+				</div>
+			</div>
 
 
-                <label for="mdp">Mot de passe (minimum 6 caractères) </label>
-                <input type="password" required pattern=".{6,}" id="mdp" name="mdp" value="" size="20" maxlength="20" />
-                <br />
+			<div class="form-group row">
+				<label for="mdp" class="col-xs-2 col-form-label">Mot de passe</label>
+				<div class="col-xs-10">
+					<input class="form-control" type="password" value=""
+						id="mdp">
+				</div>
+			</div>
 
+			<div class="form-group row">
+				<label for="confirmation" class="col-xs-2 col-form-label">Confirmer le mot de passe</label>
+				<div class="col-xs-10">
+					<input class="form-control" type="password" value=""
+						id="confirmation">
+				</div>
+			</div>
+			
+					<hr />
+			
+			
+			<div class="form-group row">
+				<div class="col-xs-10">
+				
+					Entrez le code suivant		
+						
+				   
+					<input class="form-control" type="text" value="" id="captcha" disabled="disabled">
+					<input type="button" id="refresh" value ="Nouveau code" onClick="javascript:Captcha()"/>
+					<input class="form-control" type="text" value="" id="captcha_rep">
+					
+					
+				</div>
+			</div>
 
-                <label for="confirmation">Confirmation du mot de passe </label>
-                <input type="password" required pattern=".{6,}" id="confirmation" name="confirmation" value="" size="20" maxlength="20" />
-                <br />
+                
+                <input type="submit" class="btn btn-primary btn-block"></button>
+                
 
-                <input type="submit" value="Inscription" />
-                <br /> -->
 
         </form>
+        
+        
+        		</div>
+        		        		</div>
+        		
+        
 
     </body>
 
 </html>
-
 
 
 

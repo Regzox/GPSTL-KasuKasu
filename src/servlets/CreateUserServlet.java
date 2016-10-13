@@ -33,7 +33,9 @@ public class CreateUserServlet extends HttpServlet {
 					&&map.containsKey("numero")  && !request.getParameter ("numero").equals("")
 					&&map.containsKey("confirmation") && !request.getParameter("confirmation").equals("")){
 
-				if (request.getParameter("mdp").equals(request.getParameter("confirmation"))) {
+				if (request.getParameter("mdp").equals(request.getParameter("confirmation"))) 
+				{
+					System.out.println("coucou");
 					response.getWriter().print(
 							User.createUser(request.getParameter ("email"), request.getParameter ("mdp"),
 									request.getParameter ("nom"), request.getParameter ("prenom"),
@@ -43,7 +45,7 @@ public class CreateUserServlet extends HttpServlet {
 					response.getWriter().print(
 						Tools.serviceMessage("Le mot de passe et sa confirmation ne sont pas similaires !"));
 				}
-			}else throw new Exception("Wrong Url! Missing parameters\n Il manque des parametres à l'URL!");
+			}else throw new Exception("Wrong Url! Missing parameters\n Il manque des parametres ï¿½ l'URL!");
 
 		}catch (Exception e) {
 			e.printStackTrace(); //local debug
