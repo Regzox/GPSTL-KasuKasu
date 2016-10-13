@@ -6,6 +6,6 @@
 <title>Une erreur s'est produite</title>
 </head>
 <body>
-<h2>Une erreur s'est produite!</h2>
+<h2 align="center">Une erreur s'est produite!</h2>
 </body>
 </html>

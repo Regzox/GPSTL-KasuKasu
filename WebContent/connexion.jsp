@@ -10,7 +10,7 @@
 
 <h1>Connexion</h1>
 
-<form action="/KasuKasu/connectuser">
+<form action="/KasuKasu/connectuser" >
 	Enter your mail and password <br>
 	Mail : <input type="text" name="mail" size="30px">
 	Password : <input type="password" name="pass" size="30px">
