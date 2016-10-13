@@ -3,9 +3,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Une erreur s'est produite</title>
+<title>An error occurred</title>
 </head>
 <body>
-<h2 align="center">Une erreur s'est produite!</h2>
+<h2 align="center">Sorry, An error occurred !</h2>
 </body>
 </html>
