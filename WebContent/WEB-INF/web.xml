@@ -41,5 +41,15 @@
     		<servlet-name>ConnectUserServlet</servlet-name>
     		<url-pattern>/connectuser</url-pattern>
   	</servlet-mapping>
+  	    <servlet>
+    <description></description>
+    <display-name>RetrievePasswordServlet</display-name>
+    <servlet-name>RetrievePasswordServlet</servlet-name>
+    <servlet-class>servlets.RetrievePasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RetrievePasswordServlet</servlet-name>
+    <url-pattern>/retrievepassword</url-pattern>
+  </servlet-mapping>
 	
 </web-app>

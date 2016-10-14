@@ -17,7 +17,7 @@ public class SendEmail {
 	private final static String from="from@xxx.xxx"; 
 
 
-	public static void sendMail(String to) {
+	public static void sendMail(String to, String subject, String contenu) {
 		
 		final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 		// Get a Properties object
@@ -44,14 +44,14 @@ public class SendEmail {
 			msg.setFrom(new InternetAddress(from));
 			msg.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to,false));
 			
-			msg.setSubject("xxx");
-			msg.setText("xxx");
+			msg.setSubject(subject);
+			msg.setText(contenu);
 			msg.setSentDate(new Date());
 			Transport.send(msg);
 		}catch (MessagingException e){ System.out.println("Erreur d'envoi, cause: " + e);}
 	}
 	
 	public static void main(String[] args) {
-		sendMail("to@xxx.xxx");
+		sendMail("to@xxx.xxx", "subject", "contenu");
 	}
 }
