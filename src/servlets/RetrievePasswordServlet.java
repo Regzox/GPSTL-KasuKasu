@@ -38,7 +38,7 @@ public class RetrievePasswordServlet extends HttpServlet {
 
 			PrintWriter out = response.getWriter();
 
-			String mail = request.getParameter("email");
+			String mail = request.getParameter("mail");
 
 			entities.User user = null;
 

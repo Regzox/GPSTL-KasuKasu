@@ -15,6 +15,8 @@
 	Mail : <input type="text" name="mail" size="30px">
 	Password : <input type="password" name="pass" size="30px">
 	<input type="submit" value="submit">
+	<br>
+	<a href="/KasuKasu/retrievePassword.jsp">Mot de passe oublié?</a>
 </form>
 </body>
 </html>
