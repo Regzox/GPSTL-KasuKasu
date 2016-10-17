@@ -15,16 +15,35 @@ import kasudb.KasuDB;
  */
 
 public class UserDao {
+
 	/**
 	 * METHODE NAME 	: userExists
-	 * DESCRIPTION 		: test l'existence du login dans la base de donnees des utilisateurs 	 
-	 * @param login
+	 * DESCRIPTION 		: verify if the email exists  in database 
 	 * @return boolean
-	 * @throws DbException
-	 */
+	 * @param email
+	 * @throws SQLException	 */
 	public static boolean userExists(String email) throws SQLException {
 		boolean answer=false;
 		String sql = "SELECT * FROM USERS WHERE email= '"+email+"' ;";
+		Connection c = KasuDB.SQLConnection();
+		Statement s = c.createStatement();
+		ResultSet rs = s.executeQuery(sql); 
+		answer=rs.next();	
+		rs.close();
+		s.close();
+		c.close();	
+		return answer;
+	}
+
+	/**
+	 * METHODE NAME 	: userExists
+	 * DESCRIPTION 		: verify if the user id exists  in database  	 
+	 * @return boolean
+	 * @param id
+	 * @throws SQLException	 */
+	public static boolean userExists(int id) throws SQLException {
+		boolean answer=false;
+		String sql = "SELECT * FROM USERS WHERE id= '"+id+"' ;";
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
 		ResultSet rs = s.executeQuery(sql); 
@@ -44,9 +63,9 @@ public class UserDao {
 	 * @throws Exception
 	 */
 	public static User getUser(String email)
-		throws SQLException,
-		UserNotFoundException,
-		UserNotUniqueException
+			throws SQLException,
+			UserNotFoundException,
+			UserNotUniqueException
 	{
 		String sqlQuery = "SELECT * FROM USERS WHERE email='" + email +"';";
 		Connection c = KasuDB.SQLConnection();
@@ -77,9 +96,9 @@ public class UserDao {
 	 * @throws Exception
 	 */
 	public static User getUser(int id)
-		throws SQLException,
-		UserNotFoundException,
-		UserNotUniqueException
+			throws SQLException,
+			UserNotFoundException,
+			UserNotUniqueException
 	{	
 		String sqlQuery = "SELECT * FROM USERS WHERE id='" + id +"';";
 		Connection c = KasuDB.SQLConnection();
@@ -110,9 +129,9 @@ public class UserDao {
 	 */
 
 	public static void updateUser(User oldUser, User newUser) 
-		throws SQLException,
-		UserNotFoundException,
-		UserNotUniqueException
+			throws SQLException,
+			UserNotFoundException,
+			UserNotUniqueException
 	{
 		String sqlQuery = "SELECT * FROM USERS WHERE email='" + oldUser.getEmail() +"';";
 		Connection c = KasuDB.SQLConnection();
@@ -143,17 +162,15 @@ public class UserDao {
 
 	/**
 	 * METHODE NAME 		: addUser
-	 * DESCRIPTION 			: Ajoute un nouvel utilisateur dans la base de donnees des utilisateurs   
+	 * DESCRIPTION 			: add a new user in database   
 	 * @param email
 	 * @param mdp
 	 * @param nom
 	 * @param prenom
 	 * @param numero
-	 * @throws SQLException
-	 */
+	 * @throws SQLException	 */
 	public static void addUser(String email,String mdp,String nom,String prenom,String numero) 
-		throws SQLException
-	{ 
+			throws SQLException	{ 
 		String sql = "INSERT INTO USERS(email,mdp,nom,prenom,numero) VALUES ("
 				+ "'"+email+"' , '"+mdp+"' , '"+nom+"' , '"+prenom+"' , '"+numero+"'"
 				+ ") ;";
@@ -165,7 +182,26 @@ public class UserDao {
 		c.close();
 	}
 
+	/**
+	 * METHODE NAME 		: confirmUser
+	 * DESCRIPTION 			: confirm an user account (email is checked)
+	 * @param id
+	 * @throws SQLException	 */
+	public static void confirmUser(int id) throws SQLException {
+		String sql= "UPDATE USERS SET " + 
+				"checked= '" + true +"' WHERE id = '" + id+ "';";
+		Connection c = KasuDB.SQLConnection();
+		Statement s = c.createStatement();
+		ResultSet rs = s.executeQuery(sql); 	
+		rs.close();
+		s.close();
+		c.close();
+	}
+
+	/**
+	 * local test
+	 * @param args
+	 * @throws SQLException	 */
 	public static void main(String[] args) throws SQLException {
 		addUser("email", "mdp", "nom", "prenom", "1");}
-
 }

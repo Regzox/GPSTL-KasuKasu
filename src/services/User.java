@@ -6,6 +6,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import dao.UserDao;
+import exceptions.UserNotFoundException;
+import linguee.Lingua;
+import utils.SendEmail;
 import utils.Tools;
 
 /**
@@ -30,9 +33,14 @@ public class User {
 			return Tools.serviceMessage("User's email already exists.");
 
 		UserDao.addUser(email,mdp,nom,prenom,numero);
+		//TODO if we implements language choices , change fr-FR by dyn language selection
+		SendEmail.sendMail(email,
+				Lingua.latin.get("welcomeMailSubject").get("fr-FR"),
+				Lingua.latin.get("welcomeMailMessage").get("fr-FR")
+				);
 		return Tools.serviceMessage(1);
 	}
-	
+
 	/**
 	 * Met à jour les informations de l'utilisateur correspondant à l'email et au mot de passe par celle contenues
 	 * dans l'instance d'entities.User
@@ -43,7 +51,7 @@ public class User {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	
+
 	public static boolean updateUser(String email, String password, entities.User newUser) throws SQLException, Exception {
 		entities.User oldUser = UserDao.getUser(email);
 		if (!oldUser.getPassword().equals(password))
@@ -51,7 +59,7 @@ public class User {
 		UserDao.updateUser(oldUser, newUser);
 		return true;
 	}
-	
+
 	/**
 	 * Récupère l'utilisateur correspondant à l'email passé en paramètre
 	 * @param email
@@ -59,11 +67,20 @@ public class User {
 	 * @throws SQLException
 	 * @throws Exception
 	 */
-	
+
 	public static entities.User getUser(String email) throws SQLException, Exception {
 		entities.User user = UserDao.getUser(email);
 		if (user != null)
 			return user;
 		return null;
+	}
+
+	public static void confirmUser(int id) throws UserNotFoundException, SQLException{ 
+
+		if(!UserDao.userExists(id))
+			throw new UserNotFoundException();
+
+		UserDao.confirmUser(id);
+
 	}
 }

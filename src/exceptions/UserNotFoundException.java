@@ -9,7 +9,7 @@ public class UserNotFoundException extends DatabaseException {
 	}
 	
 	public UserNotFoundException() {
-		super("User not find");
+		super("User not found");
 	}
 
 }
