@@ -31,6 +31,7 @@ public class CreateUserServlet extends HttpServlet {
 					&&map.containsKey("prenom")  && !request.getParameter ("prenom").equals("")
 					&&map.containsKey("numero")  && !request.getParameter ("numero").equals(""))
 			{
+				//TODO CREATE COOKIE FOR SESSION TRACKING
 				response.getWriter().print(
 						User.createUser(request.getParameter ("email"), request.getParameter ("mdp"),
 								request.getParameter ("nom"), request.getParameter ("prenom"),

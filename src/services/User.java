@@ -7,7 +7,9 @@ import org.json.JSONObject;
 
 import dao.UserDao;
 import exceptions.UserNotFoundException;
+import exceptions.UserNotUniqueException;
 import linguee.Lingua;
+import linguee.StringNotFoundException;
 import utils.SendEmail;
 import utils.Tools;
 
@@ -26,18 +28,27 @@ public class User {
 	 * @return
 	 * @throws SQLException
 	 * @throws JSONException 
+	 * @throws UserNotUniqueException 
+	 * @throws UserNotFoundException 
 	 */
 	public static JSONObject createUser(String email,String mdp,String nom,String prenom, String numero) 
-			throws SQLException, JSONException{		
+			throws SQLException, JSONException, UserNotFoundException, UserNotUniqueException{		
 		if (UserDao.userExists(email))
 			return Tools.serviceMessage("User's email already exists.");
 
 		UserDao.addUser(email,mdp,nom,prenom,numero);
 		//TODO if we implements language choices , change fr-FR by dyn language selection
-		SendEmail.sendMail(email,
-				Lingua.latin.get("welcomeMailSubject").get("fr-FR"),
-				Lingua.latin.get("welcomeMailMessage").get("fr-FR")
-				);
+		try {
+
+			SendEmail.sendMail(email,
+					Lingua.get("welcomeMailSubject","fr-FR"),
+					Lingua.get("welcomeMailMessage","fr-FR")
+					+"http://localhost:8080/KasuKasu/confirm?id="+UserDao.getUser(email).getId()
+					);
+		} catch (StringNotFoundException e) { 
+			System.out.println("Dictionary Error : Mail not send");
+			e.printStackTrace(); 
+		}
 		return Tools.serviceMessage(1);
 	}
 
@@ -76,11 +87,8 @@ public class User {
 	}
 
 	public static void confirmUser(int id) throws UserNotFoundException, SQLException{ 
-
 		if(!UserDao.userExists(id))
 			throw new UserNotFoundException();
-
 		UserDao.confirmUser(id);
-
 	}
 }

@@ -8,9 +8,12 @@ CREATE TABLE IF NOT EXISTS `USERS`(
 					`mdp` VARCHAR(255) NOT NULL,
 					`nom` VARCHAR(255) NOT NULL,
 					`prenom` VARCHAR(255) NOT NULL,
-					`numero` CHAR(12) NOT NULL
-					);
-
+					`numero` CHAR(12) NOT NULL,
+					`accountdate` TIMESTAMP NOT NULL,
+					`checked` INT(1) DEFAULT 0 
+-- 0(waiting for confirmation) , 1(confirmed)
+					);				
+					
 -- Index pour la table USERS : definition de la cle primaire
 ALTER TABLE `USERS` ADD PRIMARY KEY (`id`);
 

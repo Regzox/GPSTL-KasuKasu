@@ -12,10 +12,9 @@ import javax.mail.internet.MimeMessage;
 
 public class SendEmail {
 
-	private final static String username = "xxx@gmail.com"; 
-	private final static String password = "xxx";
-	private final static String from="from@xxx.xxx"; 
-
+	private final static String username = "kasukasufr@gmail.com"; 
+	private final static String password = "usakusak";
+	private final static String from="kasukasufr@gmail.com"; 
 
 	public static void sendMail(String to, String subject, String contenu) {
 		
@@ -52,6 +51,5 @@ public class SendEmail {
 	}
 	
 	public static void main(String[] args) {
-		sendMail("to@xxx.xxx", "subject", "contenu");
-	}
+		sendMail("kasukasufr@gmail.com", "subject", "contenu"); }
 }

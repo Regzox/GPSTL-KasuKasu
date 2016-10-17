@@ -31,6 +31,7 @@ public class ConfirmAccountServlet extends HttpServlet {
 			else 
 				throw new Exception("Wrong Url! Missing parameters\n Il manque des parametres dans l'URL!");
 
+			//TODO ad id to url or add cookie (after checking if not exists)
 			response.sendRedirect("/KasuKasu/dashboard.jsp");
 			
 		}catch (Exception e) {

@@ -1,34 +1,13 @@
-createuser.jsp
-mettre les maxLength des inputs a 255 pour fit avec la db
-ne gere pas les retour d'erreur de la servlet associee : en cas d'email deja present notamment 
-revoir le traite reponse d'enregistrement.js avant redirection
+createuser.jsp 
+	voir (image) parse error à quoi ca correspond ?
 
 connectuser 
 
 	passer en assynchrone avec un inscription.js et du jsonObject server side
-	
-	null pointer exception en cas de user inconnu- catch throw new Exception("No users for this email"); PERSONNALISER LEXCEPT pour mieux la gerer 
-	
-	boolean verified=false;
-			if(mail!=null && pass!=null){
-				entities.User user=User.getUser(mail);
-				verified=user.getPassword().compareTo(pass)==0;
-					
-					attention verifier "" au lieu de null 
-					
-				 
-				 pas tres safe de laisser les identifiants de connexion 
-				 Cookie c_mail=new Cookie("mail",mail);
-				Cookie c_pass=new Cookie("pass",pass); 
-				mieux de laisser l'id et retrouver l'id
-				
-enregistrement.js : eviter les alert c'est desagreable pour l utilisateur mieux de rebalancer a func_erreur 
-(via les parametres caches(inutile de modifier la signature))
-
-portal.jsp
-ce serait bien de ranger modif user a l interieur du online mode
+    pas tres safe de laisser les identifiants de connexion 
+	Cookie c_mail=new Cookie("mail",mail);
+	Cookie c_pass=new Cookie("pass",pass); 
 
 
-
-***Note perso:
-taf : modify-user-submit.js services/User.java  UserDao.java
+in faut pouvoir bloquer l'acces à un user non confirmé apres 24h
+au niveau de connectuser et des autres pages (session tracking reflechir a comment faire)				

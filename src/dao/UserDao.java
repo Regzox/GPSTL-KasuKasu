@@ -9,6 +9,7 @@ import entities.User;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
+import utils.Tools;
 
 /**
  * @author Anagbla Jean, Daniel RADEAU
@@ -171,9 +172,9 @@ public class UserDao {
 	 * @throws SQLException	 */
 	public static void addUser(String email,String mdp,String nom,String prenom,String numero) 
 			throws SQLException	{ 
-		String sql = "INSERT INTO USERS(email,mdp,nom,prenom,numero) VALUES ("
-				+ "'"+email+"' , '"+mdp+"' , '"+nom+"' , '"+prenom+"' , '"+numero+"'"
-				+ ") ;";
+		String sql = "INSERT INTO USERS(email,mdp,nom,prenom,numero,accountdate) VALUES ("
+				+ "'"+email+"' , '"+mdp+"' , '"+nom+"' , '"+prenom+"' , '"+numero
+				+"' , '" +Tools.getCurrentTimeStamp()+ "' ) ;";
 		System.out.println(sql); //sql debug
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
@@ -189,11 +190,10 @@ public class UserDao {
 	 * @throws SQLException	 */
 	public static void confirmUser(int id) throws SQLException {
 		String sql= "UPDATE USERS SET " + 
-				"checked= '" + true +"' WHERE id = '" + id+ "';";
+				"checked= '" + 1 +"' WHERE id = '" + id+ "' ;";
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
-		ResultSet rs = s.executeQuery(sql); 	
-		rs.close();
+		s.executeUpdate(sql); 	
 		s.close();
 		c.close();
 	}
