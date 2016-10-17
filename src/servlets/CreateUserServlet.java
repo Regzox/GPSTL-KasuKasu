@@ -22,6 +22,8 @@ public class CreateUserServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
+			
+			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();
 			response.setContentType("text/plain");
 

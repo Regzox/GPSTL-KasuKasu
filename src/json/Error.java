@@ -12,5 +12,13 @@ public class Error extends JSONObject {
 			e.printStackTrace();
 		}
 	}
+	
+	public Error(JSONObject object) {
+		try {
+			this.put("success", object);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
