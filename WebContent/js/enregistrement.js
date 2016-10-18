@@ -169,8 +169,7 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 		success : traiteReponseEnregistrement,
 		error : function(XHR, testStatus, errorThrown) 
 		{
-			alert(XHR + "" + testStatus + "" + errorThrown);
-			//console.log(json.stringify(XHR + "" + testStatus + "" + errorThrown));
+ 			console.log(json.stringify(XHR + " " + testStatus + " " + errorThrown));
 
 		}
 	});
