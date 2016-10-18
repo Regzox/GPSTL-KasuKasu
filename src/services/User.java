@@ -39,7 +39,6 @@ public class User {
 		UserDao.addUser(email,mdp,nom,prenom,numero);
 		//TODO if we implements language choices , change fr-FR by dyn language selection
 		try {
-
 			SendEmail.sendMail(email,
 					Lingua.get("welcomeMailSubject","fr-FR"),
 					Lingua.get("welcomeMailMessage","fr-FR")
