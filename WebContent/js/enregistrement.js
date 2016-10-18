@@ -151,10 +151,23 @@ function verif(nom, prenom, numero, email, mdp, confirmation)
 }
 
 
+/**
+ **************************************************
+ */
+function setCookie(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+ d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + ";" + expires + ";";
+	} 
+/**
+ **************************************************
+ */
+
 function enregistre(prenom, nom, numero, email, mdp, confirmation) 
 {
 	 var userlang = navigator.language || navigator.userLanguage; 
-	 document.cookie = "language="+userlang;
+	 setCookie("language",userlang,365);
 	 
 	$.ajax({
 		type : "POST",
