@@ -7,11 +7,15 @@
 <title>Welcome to KasuKasu !</title>
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/header.css">
+
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script	type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+	<%@ include file="/fragments/header.jspf" %>
 
 	<div class='layer-center'>
 		<p class='capital'>Welcome to KasuKasu !<p>

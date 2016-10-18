@@ -22,7 +22,9 @@ var notify = function (notification) {
 	$("#notifier").append(container);
 }
 
-var validation = function (form) {            	
+var validation = function (form) { 
+	$("#myModal").modal('hide');
+	
 	var json = {
 			oldEmail : form.old_email_input.value,
 			oldPassword : form.old_password_input.value,

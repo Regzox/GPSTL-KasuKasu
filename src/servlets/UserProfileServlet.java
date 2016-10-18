@@ -34,6 +34,7 @@ public class UserProfileServlet extends HttpServlet {
 		}
 		
 		JSONObject object = User.getUsersJSONProfileWhere("email", request.getParameter("email"));
+		//object = User.filterUserPassword(object);
 		
 		if (object instanceof Error || object instanceof Warning)
 			response.getWriter().println(object);

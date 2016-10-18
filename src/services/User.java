@@ -1,6 +1,7 @@
 package services;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONException;
@@ -9,11 +10,11 @@ import org.json.JSONObject;
 import dao.UserDao;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
+import json.Error;
+import json.Warning;
 import linguee.Lingua;
 import linguee.StringNotFoundException;
 import utils.SendEmail;
-import json.Error;
-import json.Warning;
 import utils.Tools;
 
 /**
@@ -120,7 +121,7 @@ public class User {
 				
 				userJSON.put("id", user.getId());
 				userJSON.put("email", user.getEmail());
-				userJSON.put("password", user.getPassword());
+				//userJSON.put("password", user.getPassword());
 				userJSON.put("name", user.getName());
 				userJSON.put("firstname", user.getFirstname());
 				userJSON.put("phone", user.getPhone());
@@ -138,6 +139,31 @@ public class User {
 			return new Warning("Not users found for '" + field + "' = '" + value + "'");
 		
 		return usersJSON;
+	}
+	
+	public static JSONObject filterUserPassword(JSONObject userJSON) {
+		JSONObject userWithoutPassword = new JSONObject();
+		Iterator<String> users = (Iterator<String>)userJSON.keys();
+		
+		try {
+		
+		while (users.hasNext()) {
+			String user = users.next();
+			Iterator<String> profile = ((JSONObject) userJSON.get(user)).keys();
+			System.out.println(user);
+			while (profile.hasNext()) {
+				String key = profile.next();
+				System.out.println(key);
+				if (key.equals("password"))
+					continue;
+				userWithoutPassword.put(key, ((JSONObject) userJSON.get(user)).get(key));
+			}
+		}
+		
+		} catch (JSONException e) {
+			return new Error("Filtering JSON password failure !");
+		}
+		return userWithoutPassword;
 	}
 	
 	/**
