@@ -22,7 +22,7 @@
     	<p class='capital'>Inscription</p>
     	
     
-		<div id='notifier' class='notifier'></div>
+		 <!--  <div id='notifier' class='notifier'></div> -->
             
             <div class='layer-left'>
    
@@ -40,21 +40,31 @@
 				</div>
 			</div>
 
+			
+			<div id='error_prenom'></div> 
+			
+
            <div class="form-group row">
-				<label for="nom" class="col-xs-2 col-form-label">Nom</label>
+			   <label for="nom" class="col-xs-2 col-form-label">Nom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
 						id="nom">
 				</div>
-			</div>              
+			</div> 
+			
+			<div id='error_nom'></div> 
+			             
               
 			<div class="form-group row">
-				<label for="numero" class="col-xs-2 col-form-label">Telephone</label>
+				<label for="numero" class="col-xs-2 col-form-label" >Téléphone</label>
 				<div class="col-xs-10">
-					<input class="form-control" type="text" value=""
+					<input class="form-control" type="text" value="" placeholder="Nombre à 10 chiffres"
 						id="numero" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
 				</div>
 			</div>
+			
+			<div id='error_telephone'></div> 
+			
                 
  			<div class="form-group row">
 				<label for="email" class="col-xs-2 col-form-label">Email</label>
@@ -63,15 +73,21 @@
 						value="" id="email">
 				</div>
 			</div>
+			
+			<div id='error_email'></div> 
+			
 
 
 			<div class="form-group row">
-				<label for="mdp" class="col-xs-2 col-form-label">Mot de passe</label>
+				<label for="mdp" class="col-xs-2 col-form-label" >Mot de passe</label>
 				<div class="col-xs-10">
-					<input class="form-control" type="password" value=""
+					<input class="form-control" type="password" value="" placeholder="Minimum 8 caractères"
 						id="mdp">
 				</div>
 			</div>
+			
+			<div id='error_mdp'></div> 
+			
 
 			<div class="form-group row">
 				<label for="confirmation" class="col-xs-2 col-form-label">Confirmer le mot de passe</label>
@@ -80,6 +96,9 @@
 						id="confirmation">
 				</div>
 			</div>
+			
+			<div id='error_confirmation'></div> 
+			
 			
 					<hr />
 			
@@ -97,6 +116,9 @@
 					
 				</div>
 			</div>
+			
+			<div id='error_captcha'></div> 
+			
 
                 
                 <input type="submit" class="btn btn-primary btn-block"></button>
@@ -114,6 +136,5 @@
     </body>
 
 </html>
-
 
 
