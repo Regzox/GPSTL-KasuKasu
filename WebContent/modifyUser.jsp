@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -63,45 +63,64 @@
 				<div class="form-group row">
 					<label for="new_email_input" class="col-xs-3 col-form-label">New email</label>
 					<div class="col-xs-9">
-						<input class="form-control" type="email" value=""
-							id="new_email_input" name="new_email_input" placeholder="Your new email (optional)">
+						<input 	class="form-control" 
+								type="email" value=""
+								id="new_email_input" 
+								name="new_email_input" 
+								placeholder="Your new email (optional)" 
+								maxlength="255">
 					</div>
 				</div>
 
 				<div class="form-group row">
 					<label for="new_password_input" class="col-xs-3 col-form-label"
-						pattern=".{0}|.{8,64}">New password</label>
+						>New password</label>
 					<div class="col-xs-9">
-						<input class="form-control" type="password" value=""
-							id="new_password_input" name="new_password_input" placeholder="Your new password (optional)">
+						<input 	class="form-control" 
+								type="password" 
+								value=""
+								id="new_password_input" 
+								name="new_password_input" 
+								placeholder="Your new password (optional)"
+								pattern=".{0}|.{8,64}">
 					</div>
 				</div>
 
 				<div class="form-group row">
-					<label for="new_name_input" class="col-xs-3 col-form-label"
-						pattern=".{0}|.{1,64}">New name</label>
+					<label for="new_name_input" class="col-xs-3 col-form-label">New name</label>
 					<div class="col-xs-9">
-						<input class="form-control" type="text" value=""
-							id="new_name_input" name="new_name_input" placeholder="Your new name (optional)">
+						<input	class="form-control" 
+								type="text" 
+								value=""
+								id="new_name_input" 
+								name="new_name_input" 
+								placeholder="Your new name (optional)"
+								pattern=".{0}|.{1,64}">
 					</div>
 				</div>
 
 				<div class="form-group row">
-					<label for="new_firstname_input" class="col-xs-3 col-form-label"
-						pattern=".{0}|.{1,64}">New first name</label>
+					<label for="new_firstname_input" class="col-xs-3 col-form-label">New first name</label>
 					<div class="col-xs-9">
-						<input class="form-control" type="text" value=""
-							id="new_firstname_input" name="new_firstname_input" placeholder="Your new first name (optional)">
+						<input	class="form-control" 
+								type="text" value=""
+								id="new_firstname_input" 
+								name="new_firstname_input" 
+								placeholder="Your new first name (optional)"
+								pattern=".{0}|.{1,64}">
 					</div>
 				</div>
 
 				<div class="form-group row">
-					<label for="new_phone_input" class="col-xs-3 col-form-label"
-						pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
-						New phone</label>
+					<label for="new_phone_input" class="col-xs-3 col-form-label">New phone</label>
 					<div class="col-xs-9">
-						<input class="form-control" type="text" value=""
-							id="new_phone_input" name="new_phone_input" placeholder="Your new phone (optional)">
+						<input 	class="form-control" 
+								type="text" 
+								value=""
+								id="new_phone_input" 
+								name="new_phone_input" 
+								placeholder="Your new phone (optional)"
+								pattern="[0][0-9]{9}">
 					</div>
 				</div>
 
