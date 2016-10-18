@@ -10,4 +10,8 @@ connectuser
 
 
 in faut pouvoir bloquer l'acces à un user non confirmé apres 24h
-au niveau de connectuser et des autres pages (session tracking reflechir a comment faire)				
+au niveau de connectuser et des autres pages (session tracking reflechir a comment faire)
+
+dans 
+modifUserServlet c'est Map<String, String[]> map = req.getParameterMap();
+au lieu de  Map<String, String> map = req.getParameterMap();				
