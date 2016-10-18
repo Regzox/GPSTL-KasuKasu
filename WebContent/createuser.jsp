@@ -36,7 +36,7 @@
 				<label for="prenom" class="col-xs-2 col-form-label">Prénom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
-						id="prenom">
+						id="prenom" maxlength="255">
 				</div>
 			</div>
 
@@ -48,7 +48,7 @@
 			   <label for="nom" class="col-xs-2 col-form-label">Nom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
-						id="nom">
+						id="nom" maxlength="255">
 				</div>
 			</div> 
 			
@@ -59,9 +59,10 @@
 				<label for="numero" class="col-xs-2 col-form-label" >Téléphone</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value="" placeholder="Nombre à 10 chiffres"
-						id="numero" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
+						id="numero" pattern="[0][0-9]{9}">
 				</div>
 			</div>
+			
 			
 			<div id='error_telephone'></div> 
 			
@@ -70,7 +71,7 @@
 				<label for="email" class="col-xs-2 col-form-label">Email</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="email"
-						value="" id="email">
+						value="" id="email" maxlength="255">
 				</div>
 			</div>
 			
@@ -82,7 +83,7 @@
 				<label for="mdp" class="col-xs-2 col-form-label" >Mot de passe</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="password" value="" placeholder="Minimum 8 caractères"
-						id="mdp">
+						id="mdp" maxlength="255">
 				</div>
 			</div>
 			
@@ -93,7 +94,7 @@
 				<label for="confirmation" class="col-xs-2 col-form-label">Confirmer le mot de passe</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="password" value=""
-						id="confirmation">
+						id="confirmation" maxlength="255">
 				</div>
 			</div>
 			
@@ -111,7 +112,7 @@
 				   
 					<input class="form-control" type="text" value="" id="captcha" disabled="disabled">
 					<input type="button" id="refresh" value ="Nouveau code" onClick="javascript:Captcha()"/>
-					<input class="form-control" type="text" value="" id="captcha_rep">
+					<input class="form-control" type="text" value="" id="captcha_rep" maxlength="255">
 					
 					
 				</div>

@@ -170,6 +170,8 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 		error : function(XHR, testStatus, errorThrown) 
 		{
 			alert(XHR + "" + testStatus + "" + errorThrown);
+			//console.log(json.stringify(XHR + "" + testStatus + "" + errorThrown));
+
 		}
 	});
 	
