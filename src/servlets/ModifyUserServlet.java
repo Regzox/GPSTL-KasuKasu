@@ -32,6 +32,7 @@ public class ModifyUserServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		@SuppressWarnings("unchecked")
 		Map<String, String> map = req.getParameterMap();
 		String oldEmail = null, oldPassword = null, email = null, password = null, name = null, firstname = null, phone = null;
 		entities.User oldUser = null, user = null;

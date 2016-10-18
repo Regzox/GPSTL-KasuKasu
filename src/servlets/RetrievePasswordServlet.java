@@ -40,12 +40,10 @@ public class RetrievePasswordServlet extends HttpServlet {
 
 			String mail = request.getParameter("mail");
 
-			entities.User user = null;
-
 			if(mail != null){
 				if(!mail.equals("")){
 					try{
-						user = User.getUser(mail);
+						User.getUser(mail); // Retrait de déclaration de entities.User user inutile 
 					} catch(UserNotFoundException e){
 						JSONObject error = new JSONObject();
 						error.put("error", "unknown email");

@@ -13,4 +13,12 @@ public class Warning extends JSONObject {
 		}
 	}
 
+	public Warning(JSONObject object) {
+		try {
+			this.put("success", object);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

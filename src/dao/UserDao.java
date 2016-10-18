@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import entities.User;
 import exceptions.UserNotFoundException;
@@ -119,6 +121,35 @@ public class UserDao {
 		c.close();	
 
 		return user;
+	}
+	
+	/**
+	 * Retourne la liste des utilisateurs où le champ 'fields' à pour valeur 'value'. 
+	 * @param field
+	 * @param value
+	 * @return
+	 * @throws SQLException
+	 */
+	
+	public static List<User> getUsersWhere(String field, String value) throws SQLException {
+		List<User> users = new ArrayList<User>();
+		String sql = "select * from users where " + field + "='" + value + "';";
+		Connection connection = KasuDB.SQLConnection();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(sql);
+		
+		while (resultSet.next()) {
+			User user = new User (
+					resultSet.getInt("id"),
+					resultSet.getString("email"),
+					resultSet.getString("mdp"),
+					resultSet.getString("nom"),
+					resultSet.getString("prenom"),
+					resultSet.getString("numero"));
+			users.add(user);
+		}
+		
+		return users;
 	}
 
 	/**
