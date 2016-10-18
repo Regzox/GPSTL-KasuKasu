@@ -64,7 +64,7 @@
 					<label for="new_email_input" class="col-xs-3 col-form-label">New email</label>
 					<div class="col-xs-9">
 						<input class="form-control" type="email" value=""
-							id="new_email_input" name="new_email_input" placeholder="Your new email (optional)">
+							id="new_email_input" name="new_email_input" placeholder="Your new email (optional)" maxlength="255">
 					</div>
 				</div>
 
@@ -97,7 +97,7 @@
 
 				<div class="form-group row">
 					<label for="new_phone_input" class="col-xs-3 col-form-label"
-						pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
+						pattern="[0][0-9]{9}">
 						New phone</label>
 					<div class="col-xs-9">
 						<input class="form-control" type="text" value=""
