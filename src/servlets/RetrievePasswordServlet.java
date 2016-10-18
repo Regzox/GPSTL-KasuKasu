@@ -43,7 +43,7 @@ public class RetrievePasswordServlet extends HttpServlet {
 			if(mail != null){
 				if(!mail.equals("")){
 					try{
-						User.getUser(mail); // Retrait de d�claration de entities.User user inutile 
+						User.getUser(mail); // Retrait de d�claration de entities.User user inutile 
 					} catch(UserNotFoundException e){
 						JSONObject error = new JSONObject();
 						error.put("error", "unknown email");
@@ -61,7 +61,7 @@ public class RetrievePasswordServlet extends HttpServlet {
 
 			System.out.println("Envoie du mail à : "+ mail);
 			String contenu = "Voici votre mot de passe : " + mdp;
-			String sujet = "Récupération du mot de passe";
+			String sujet = "Recuperation du mot de passe";
 			SendEmail.sendMail(mail, sujet, contenu);
 
 			out.flush();
