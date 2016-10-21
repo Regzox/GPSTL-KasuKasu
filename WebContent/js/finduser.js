@@ -50,9 +50,10 @@ function ProcessFindUser(rep)
 		var endmessage ="</table>";
 
 		var bodymessage ="";
-
+		if(rep.users != undefined)
 		$.each(rep.users, function(user, profile) {
 			var x,y,z;
+			if(user !='warning'){
 			$.each(profile, function(field, value) {
 				//console.log(field); console.log(value);
 				if(field=='name')
@@ -61,14 +62,19 @@ function ProcessFindUser(rep)
 					y=value;
 				if(field=='id')
 					z=value;
-				
 			});
+			
 			bodymessage = bodymessage+
 				"<tr>" +
 				"<td>"+x+"</td>" +
 				"<td>"+y+"</td>"+
 				"<td><a href=\"profil/?id="+z+"\"> Voir Profil </a></td>"+
 				"</tr>";
+			}else{
+				message="Aucun utilisateur ne correspond.";
+				bodymessage="";
+				endmessage="";
+			}
 		});
 	var div=(message+bodymessage+endmessage);
 	func_message(div);

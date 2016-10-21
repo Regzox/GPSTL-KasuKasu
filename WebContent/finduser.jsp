@@ -26,7 +26,7 @@
 			<div class="form-group row">
 				<label for="email" class="col-xs-4 col-form-label">Rechercher par </label>
 				<div class="col-xs-4">
-					<SELECT name="search" size="1">
+					<SELECT name="search" size="1" class="form-control">
 						<OPTION value="nom">Nom</OPTION>
 						<OPTION value="prenom">Prénom</OPTION>
 						<OPTION value="email">Email</OPTION>
