@@ -1,0 +1,15 @@
+<div class="sidebar-wrapper">
+	<div class="sidebar-nav">
+		<div class="sidebar-logo">
+			<img src="/KasuKasu/images/KasuKasu.png" class="sidebar-image" draggable="false"></img>
+		</div>
+		<div class="navigable">
+			<div onclick="doGet('#page')">Profile</div>
+			<div>Friends</div>
+			<div onclick="
+				$(location).attr('href', '/KasuKasu/modifyUser.jsp')
+			">Dashboard</div>
+		</div>
+		
+	</div>
+</div>

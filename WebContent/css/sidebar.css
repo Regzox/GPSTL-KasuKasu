@@ -1,0 +1,61 @@
+.sidebar-wrapper {
+	width: 12.5%;
+	z-index: 1000;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    background-color: rgb(142, 234, 142);
+    overflow-x: hidden;
+    
+    -webkit-user-select: none;
+  	-moz-user-select: none;
+  	-ms-user-select: none;
+  	user-select: none;
+  	
+  	font-size: 1.25em;
+  		
+}
+
+.sidebar-nav {
+	position: relative;
+ 	margin: 0%;
+	padding: 0%;
+	
+	list-style: none;
+	font-family: Calibri;
+	
+	text-align: center;
+	
+	color: white;
+	
+  	
+}
+
+.sidebar-nav div {
+	padding-top: 5%;
+	padding-bottom: 5%;
+	transition: background-color 0.33s, color 0.33s;
+}
+
+.sidebar-nav .navigable div:hover {
+	padding-top: 5%;
+	padding-bottom: 5%;
+	background-color: rgb(122, 214, 122);
+	transform: scale(1.2);
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.33s, color 0.33s, transform 0.2s;
+}
+
+.sidebar-image {
+	padding-top: 10%;
+	padding-bottom: 10%;
+	width: 70%;
+	height: 70%;
+	transition: transform 0.33s;
+}
+
+.sidebar-image:hover {
+	transform: scale(1.2) rotate(10deg);
+	transition: transform 0.33s;
+}

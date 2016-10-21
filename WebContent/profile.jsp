@@ -6,36 +6,56 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/sidebar.css" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript">
+
+	
 		
-	var doGet = function () {
+	var doGet = function (containerId) {
 		$.get("/KasuKasu/profile", {
 			email : "d.radeau@gmail.com" // A remplacer par un emal dans votre base de données
 		})
 		.done(function (data) {
-			document.body.innerHTML += "<br/>" + "Resultats disponibles : <br/>";
+			//$(containerId).html($(containerId).html() + "<br/>" + "Resultats disponibles : <br/>");
+			//document.body.innerHTML += "<br/>" + "Resultats disponibles : <br/>";
 			var json = $.parseJSON(data);
 			
 			console.log(json);
 			
 			$.each(json.success, function(user, profile) {
 				$.each(profile, function (field, value) {
-					document.body.innerHTML += field + ":" + value + "<br/>";
+					//document.body.innerHTML += field + ":" + value + "<br/>";
+					$(containerId).html($(containerId).html() + "<br/>" +  field + ":" + value + "<br/>");
 				})
 			});
 		});
 	}
 	
+	function session_id() {
+	    return /SESS\w*ID=([^;]+)/i.test(document.cookie) ? RegExp.$1 : false;
+	}
+	
+	
+	//window.onload = doGet('#page');
+	//console.log("ssi : " + session_id());
+	
 </script>
 
 </head>
-<body>
+<body style="margin: 0%; padding: 0%;">
 
-	Page de test de la fonctionnalité afficher profile.
+	<div id="page" class="show" style="width: 87.5%;
+	float: right;">
+		<!-- Page de test de la fonctionnalité afficher profile.
+		<button onclick="doGet(page)">Test</button> -->
+	</div>
 
-	<button onclick="doGet()">TEST</button>
+	
+	
+	<%@ include file="/fragments/sidebar.jspf" %>
 
 </body>
 </html>

@@ -71,8 +71,9 @@ public class ConnectUserServlet extends HttpServlet {
 				session.setAttribute("userId", Integer.toString(user.getId()));
 				response.addCookie(cookieId);
 				
-				js.put("response", 1);
+//				js.put("response", 1);
 				response.getWriter().print(js);
+				
 				//response.sendRedirect("/KasuKasu/dashboard.jsp");
 				System.out.println("User connexion successfull");
 				
