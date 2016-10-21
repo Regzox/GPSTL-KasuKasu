@@ -154,7 +154,7 @@ function verif(nom, prenom, numero, email, mdp, confirmation)
 function enregistre(prenom, nom, numero, email, mdp, confirmation) 
 {
 	 var userlang = navigator.language || navigator.userLanguage; 
-	 document.cookie = "language="+userlang;
+	 document.cookie = "language="+userlang+"; expires=Thu, 21 Dec 2021 12:00:00 UTC;";
 	 
 	$.ajax({
 		type : "POST",

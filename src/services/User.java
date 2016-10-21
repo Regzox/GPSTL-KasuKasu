@@ -56,7 +56,7 @@ public class User {
 	}
 
 	/**
-	 * Met à jour les informations de l'utilisateur correspondant à l'email et au mot de passe par celle contenues
+	 * Met ï¿½ jour les informations de l'utilisateur correspondant ï¿½ l'email et au mot de passe par celle contenues
 	 * dans l'instance d'entities.User
 	 * @param email
 	 * @param password
@@ -75,7 +75,7 @@ public class User {
 	}
 
 	/**
-	 * Retourne un objet json représentant une liste d'utilisateurs trouvés pour le champ 'field' et sa valeur 'value'
+	 * Retourne un objet json reprï¿½sentant une liste d'utilisateurs trouvï¿½s pour le champ 'field' et sa valeur 'value'
 	 * 
 	 * Exemple : 	getUsersJSONProfileWhere("nom", "PIERRE") returns
 	 * 				{ 	user0 : { 
@@ -126,7 +126,7 @@ public class User {
 				userJSON.put("firstname", user.getFirstname());
 				userJSON.put("phone", user.getPhone());
 				
-				usersJSON.put("user" +index, userJSON);
+				usersJSON.put("user" +(index++), userJSON);
 			}
 			
 		} catch (SQLException e) {
@@ -167,7 +167,7 @@ public class User {
 	}
 	
 	/**
-	 * Récupère l'utilisateur correspondant à l'email passé en paramètre
+	 * Rï¿½cupï¿½re l'utilisateur correspondant ï¿½ l'email passï¿½ en paramï¿½tre
 	 * @param email
 	 * @return
 	 * @throws SQLException

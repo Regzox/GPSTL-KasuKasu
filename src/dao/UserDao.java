@@ -59,7 +59,7 @@ public class UserDao {
 
 	/**
 	 * EN : getUser(email) : Returns the object representation of the user designed by the email passed in parameters.
-	 * FR : getUser(email) : Retourne un objet représentant l'utilisateur dont l'email correspond à celui passer en paramètre.
+	 * FR : getUser(email) : Retourne un objet reprï¿½sentant l'utilisateur dont l'email correspond ï¿½ celui passer en paramï¿½tre.
 	 * @param email
 	 * @return
 	 * @throws SQLException
@@ -92,7 +92,7 @@ public class UserDao {
 
 	/**
 	 * EN : getUser(email) : Returns the object representation of the user designed by the id passed in parameters.
-	 * FR : getUser(email) : Retourne un objet représentant l'utilisateur dont l'id correspond à celui passer en paramètre.
+	 * FR : getUser(email) : Retourne un objet reprï¿½sentant l'utilisateur dont l'id correspond ï¿½ celui passer en paramï¿½tre.
 	 * @param id
 	 * @return
 	 * @throws SQLException
@@ -124,7 +124,7 @@ public class UserDao {
 	}
 	
 	/**
-	 * Retourne la liste des utilisateurs où le champ 'fields' à pour valeur 'value'. 
+	 * Retourne la liste des utilisateurs oï¿½ le champ 'fields' ï¿½ pour valeur 'value'. 
 	 * @param field
 	 * @param value
 	 * @return
@@ -133,7 +133,7 @@ public class UserDao {
 	
 	public static List<User> getUsersWhere(String field, String value) throws SQLException {
 		List<User> users = new ArrayList<User>();
-		String sql = "select * from users where " + field + "='" + value + "';";
+		String sql = "SELECT * FROM USERS WHERE " + field + "='" + value + "';";
 		Connection connection = KasuDB.SQLConnection();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
@@ -148,6 +148,10 @@ public class UserDao {
 					resultSet.getString("numero"));
 			users.add(user);
 		}
+		
+		resultSet.close();
+		statement.close();
+		connection.close();
 		
 		return users;
 	}
