@@ -77,4 +77,14 @@
 		<servlet-name>FindUserServlet</servlet-name>
 		<url-pattern>/finduser</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>CheckConnectionServlet</display-name>
+		<servlet-name>CheckConnectionServlet</servlet-name>
+		<servlet-class>servlets.CheckConnectionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckConnectionServlet</servlet-name>
+		<url-pattern>/check-connection</url-pattern>
+	</servlet-mapping>
 </web-app>

@@ -10,6 +10,5 @@
 				$(location).attr('href', '/KasuKasu/modifyUser.jsp')
 			">Dashboard</div>
 		</div>
-		
 	</div>
 </div>

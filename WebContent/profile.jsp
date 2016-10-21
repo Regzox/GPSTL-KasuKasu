@@ -10,9 +10,8 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/check-connection.js"></script>
 <script type="text/javascript">
-
-	
 		
 	var doGet = function (containerId) {
 		$.get("/KasuKasu/profile", {
@@ -33,14 +32,10 @@
 			});
 		});
 	}
-	
-	function session_id() {
-	    return /SESS\w*ID=([^;]+)/i.test(document.cookie) ? RegExp.$1 : false;
-	}
-	
-	
-	//window.onload = doGet('#page');
-	//console.log("ssi : " + session_id());
+ 	
+	document.onreadystatechange = function () {		
+		checkConnection();
+	} 
 	
 </script>
 
