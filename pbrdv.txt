@@ -1,0 +1,14 @@
+une semaine timeout pourr conserver un compte
+tous les messages en mm tps
+l'indicatif du numero ou elargir le numero à l'international
+captcha 4 images et choisir la bonne image genre quelqun de connu 2 h 2 f
+la mme questipn a chaque fois
+
+user exists ??
+ficihier texte por parametrer les langues 
+serialiser le dico
+tous les patametre dans un fihchier de parametre ou une pafge htm de parametrisation de lapp
+message de confirmation 
+que le mot de passe pour confirmer (ancien ) pour valider les modif
+envoyer un mail a l'ancienne adresse pour verifier que c'est bien le user
+tout parametrer

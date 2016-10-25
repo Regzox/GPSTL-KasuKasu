@@ -14,4 +14,6 @@ au niveau de connectuser et des autres pages (session tracking reflechir a comme
 
 dans 
 modifUserServlet c'est Map<String, String[]> map = req.getParameterMap();
-au lieu de  Map<String, String> map = req.getParameterMap();				
+au lieu de  Map<String, String> map = req.getParameterMap();
+
+double appel axja : use un boolean pr bloquer un second appel tq la reponse du premier n'est pas back 			

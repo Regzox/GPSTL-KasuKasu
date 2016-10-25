@@ -130,7 +130,7 @@ function verif(nom, prenom, numero, email, mdp, confirmation)
 		return false;
 	} 
 	
-	if (!ValidCaptcha())
+	/*if (!ValidCaptcha())
 	{
 		//func_erreur_inscription("Captcha incompatible");
 		//notify({ warning : "Captcha incompatible" });
@@ -142,7 +142,7 @@ function verif(nom, prenom, numero, email, mdp, confirmation)
 
 		return false;
 		
-	}
+	}*/
 	
 	else 
 	{
@@ -169,7 +169,7 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 		success : traiteReponseEnregistrement,
 		error : function(XHR, testStatus, errorThrown) 
 		{
- 			console.log(json.stringify(XHR + " " + testStatus + " " + errorThrown));
+ 			console.log(JSON.stringify(XHR + " " + testStatus + " " + errorThrown));
 
 		}
 	});
