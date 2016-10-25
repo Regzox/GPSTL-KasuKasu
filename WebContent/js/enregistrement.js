@@ -35,7 +35,7 @@ function enregistrement(formulaire)
 
 
 
-function verif(nom, prenom, numero, email, mdp, confirmation) 
+function verif(prenom,nom, numero, email, mdp, confirmation) 
 {
 	if(prenom.length==0)
 	{
