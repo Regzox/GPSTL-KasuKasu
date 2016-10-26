@@ -1,3 +1,8 @@
+#page {
+	width: 87.5%;
+	float: right;
+}
+
 .sidebar-wrapper {
 	width: 12.5%;
 	z-index: 1000;

@@ -17,7 +17,7 @@
 
 	<%@ include file="/fragments/header.jspf" %>
 
-	<div class='layer-center'>
+	<div id='page' class='layer-center'>
 		<p class='capital'>Welcome to KasuKasu !<p>
 		<p>The web site where you can share your items with your friends</p>
 		

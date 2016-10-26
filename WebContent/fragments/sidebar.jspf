@@ -1,13 +1,33 @@
+<%@ page import="enumerations.Url" %>
+
 <div class="sidebar-wrapper">
 	<div class="sidebar-nav">
 		<div class="sidebar-logo">
-			<img src="/KasuKasu/images/KasuKasu.png" class="sidebar-image" draggable="false"></img>
+			<img src="/KasuKasu/images/KasuKasu.png" class="sidebar-image" draggable="false"
+			alt="KasuKasu portal" title="KasuKasu portal"
+			onclick="
+				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
+				if ( !(~$(location).attr('href').indexOf('<%= Url.PORTAL.value() %>')))
+					$(location).attr('href', '<%= Url.PORTAL.value() %>');
+			"></img>
 		</div>
 		<div class="navigable">
-			<div onclick="doGet('#page')">Profile</div>
-			<div>Friends</div>
 			<div onclick="
-				$(location).attr('href', '/KasuKasu/modifyUser.jsp')
+				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
+				if ( !(~$(location).attr('href').indexOf('<%= Url.PROFILE.value() %>')))
+					$(location).attr('href', '<%= Url.PROFILE.value() %>');
+			">Profile</div>
+			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.MODIFY_USER.value() %>')))
+					$(location).attr('href', '<%= Url.MODIFY_USER.value() %>');
+			">Modifications</div>
+			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.FIND_USER.value() %>')))
+					$(location).attr('href', '<%= Url.FIND_USER.value() %>');
+			">Find a friend</div>
+			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.DASHBOARD.value() %>')))
+					$(location).attr('href', '<%= Url.DASHBOARD.value() %>');
 			">Dashboard</div>
 		</div>
 	</div>

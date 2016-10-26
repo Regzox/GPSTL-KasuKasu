@@ -64,8 +64,8 @@ function ProcessLoginRequest(rep)
 	}
 	else 
 	{
-		window.location.href = "dashboard.jsp";
-		
+		alert("TEST");
+		window.location.href = kasukasu.private.dashboard;
 	}
 }
 

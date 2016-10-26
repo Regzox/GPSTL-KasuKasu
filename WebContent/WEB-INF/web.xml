@@ -3,10 +3,44 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
+	
 	<display-name>KasuKasu</display-name>
+	
 	<welcome-file-list>
 		<welcome-file>portal.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<!-- FILTERS -->
+		
+	<filter>
+		<filter-name>ConnectionFilter</filter-name>
+		<filter-class>filters.ConnectionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ConnectionFilter</filter-name>
+		<url-pattern>/restricted/*</url-pattern>
+	</filter-mapping>
+		
+	<filter>
+		<filter-name>SidebarFilter</filter-name>
+		<filter-class>filters.SidebarFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SidebarFilter</filter-name>
+		<url-pattern>/restricted/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>JSFilter</filter-name>
+		<filter-class>filters.JSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>JSFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- SERVLETS -->
+	
 	<servlet>
 		<description></description>
 		<display-name>CreateUserServlet</display-name>
