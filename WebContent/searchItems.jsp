@@ -7,7 +7,7 @@
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
-
+<script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/searchItems.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <title>Recherche d'objets</title>
@@ -24,16 +24,14 @@
 
 			<div class="form-group row">
 				<div class="col-xs-10">
-					<input type="text" class="form-control" name="iquery" value="" id="items-query-input">
+					<input type="text" class="form-control" name="iquery" value="" id="iquery">
 				</div>
 			</div>
 
 			<input type="submit" class="btn btn-primary btn-block"
 				value="Rechercher"> <br>
 				
-			<div id="found-items" class="abootsraper">
-					
-			</div>
+			<div id="found-items" class="abootsraper"></div>
 			
 		</form>
 		

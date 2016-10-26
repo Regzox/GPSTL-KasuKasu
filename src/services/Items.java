@@ -19,29 +19,30 @@ public class Items {
 		JSONArray jar =new JSONArray();
 		for(ObjetRSV orsv :ItemsMR.search(query))
 			jar.put(new JSONObject()
-					.put("iditem",orsv.getDbo().get("_id"))
-					.put("idowner",orsv.getDbo().get("idowner"))
+					.put("id",orsv.getDbo().get("_id"))
+					.put("type","item")
+					.put("owner",orsv.getDbo().get("owner"))
 					.put("title",orsv.getDbo().get("title"))
 					.put("group",orsv.getDbo().get("group"))
 					.put("longitude",orsv.getDbo().get("longitude"))
 					.put("latitude",orsv.getDbo().get("latitude"))
-					.put("pubdate",orsv.getDbo().get("date"))
+					.put("date",orsv.getDbo().get("date"))
 					.put("description", orsv.getDbo().get("description")));
 		return new JSONObject().put("items",jar);
 	}
 
 
 	public static void main(String[] args) throws JSONException, IOException {
-		/*ItemsMR.collection.drop();
+		ItemsMR.collection.drop();
 		//http://www.cdiscount.com/telephonie/telephone-mobile/samsung-galaxy-j5-2016-blanc/f-1440402-sam8806088323503.html#mpos=2|cd
 		ItemsMR.collection.insert(
 				new BasicDBObject()
 				.append("title","SAMSUNG Galaxy J5 2016 Blanc")
-				.append("idowner",1)
+				.append("owner",1)
 				.append("group","friends")
 				.append("longitude",Math.random())
 				.append("latitude",Math.random())
-				.append("pubdate",new Date())
+				.append("date",new Date())
 				.append("description",
 						" Taille d'écran : 5.2 pouces 1.5 GHz -"
 						+ " Quadruple coeur 4G Résolution du capteur : "
@@ -51,14 +52,14 @@ public class Items {
 						+ " Cartes mémoire flash prises en charge : microSDXC - jusqu'à 128 Go"));
 
 		//http://www.cdiscount.com/telephonie/telephone-mobile/samsung-galaxy-j5-or/f-1440402-samsungsmj500o.html?idOffre=117989573#mpos=3|mp
-		ItemsMR.collection.insert(
+		/*ItemsMR.collection.insert(
 				new BasicDBObject()
 				.append("title","Samsung Galaxy J5 Or")
-				.append("idowner",3)
+				.append("owner",3)
 				.append("group","friends")
 				.append("longitude",Math.random())
 				.append("latitude",Math.random())
-				.append("pubdate",new Date())
+				.append("date",new Date())
 				.append("description",
 						"Taille d'écran : 5 pouces 1.2 GHz -"
 						+ " Quadruple coeur 3G Résolution du capteur : "
@@ -72,11 +73,11 @@ public class Items {
 		ItemsMR.collection.insert(
 				new BasicDBObject()
 				.append("title","Samsung Galaxy S5 Or")
-				.append("idowner",2)
+				.append("owner",2)
 				.append("group","friends")
 				.append("longitude",Math.random())
 				.append("latitude",Math.random())
-				.append("pubdate",new Date())
+				.append("date",new Date())
 				.append("description",
 						"Taille d'écran : 5.1 pouces 2.3 GHz - 8 coeurs 4G "
 						+ " Résolution du capteur : "
@@ -91,11 +92,11 @@ public class Items {
 		ItemsMR.collection.insert(
 				new BasicDBObject()
 				.append("title","APPLE iPhone 5S 16 Go Blanc 4G")
-				.append("idowner",2)
+				.append("owner",3)
 				.append("group","friends")
 				.append("longitude",Math.random())
 				.append("latitude",Math.random())
-				.append("pubdate",new Date())
+				.append("date",new Date())
 				.append("description","Taille d'écran : 4 "
 						+ "Type : Apple A7 4G "
 						+ "Résolution du capteur : 8 Megapixel"
@@ -107,13 +108,14 @@ public class Items {
 						+ "téléconférence, numérotation vocale, vibreur"));*/	
 
 		String line ="";
+		System.out.println("Que recherchez vous ? : ");
 		while(!(line = new BufferedReader(new InputStreamReader(System.in)).readLine().toLowerCase())
-				.equals("joan")) {
+				.equals("!")) {
 			System.out.println("Search : "+line);
 			JSONArray res=((JSONArray)search(line).get("items"));
 			for(int i=0; i< res.length();i++)
 				System.out.println("Results["+i+"] : "
-						+((JSONObject)res.get(i)).get("title"));
+						+((JSONObject)res.get(i))/*.get("title")*/);
 		}
 	}
 }

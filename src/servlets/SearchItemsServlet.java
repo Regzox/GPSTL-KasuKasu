@@ -20,6 +20,8 @@ public class SearchItemsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
+			//TODO LATER CHECK SESSION OK 
+			
 			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();
 			response.setContentType("text/plain");
