@@ -1,4 +1,4 @@
-package linguee;
+package lingua;
 
 import java.util.HashMap;
 import java.util.Map;

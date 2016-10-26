@@ -1,4 +1,4 @@
-package mongo;
+package dao.mongo;
 
 import com.mongodb.DBObject;
 

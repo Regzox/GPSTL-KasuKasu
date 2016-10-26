@@ -12,8 +12,8 @@ import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import json.Error;
 import json.Warning;
-import linguee.Lingua;
-import linguee.StringNotFoundException;
+import lingua.Lingua;
+import lingua.StringNotFoundException;
 import utils.SendEmail;
 import utils.Tools;
 

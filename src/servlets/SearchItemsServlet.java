@@ -20,25 +20,27 @@ public class SearchItemsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-
 			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();
 			response.setContentType("text/plain");
 
-			if(map.containsKey("query")
-					&& !request.getParameter("query").equals(""))
-				response.getWriter().print(
-						Items.search(request.getParameter("query")));
-			else 
-				throw new Exception("Wrong Url! Missing parameters\n Il manque des parametres dans l'URL!");
-
+			if(!map.containsKey("query"))
+				throw new Exception("Url is missing parameters"); 
+			if(request.getParameter("query").equals(""))
+				throw new Exception("Url is missing parameters");
+			
+			response.getWriter().print(Items.search(request.getParameter("query")));
+			
 		}catch (Exception e) {
+			//TODO ERROR HERE
+			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"
 			e.printStackTrace(); //local debug
 			response.getWriter().print(new json.Error(e.getMessage()));
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);}
+		doGet(request, response);
+	}
 
 }

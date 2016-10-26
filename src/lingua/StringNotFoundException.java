@@ -1,4 +1,4 @@
-package linguee;
+package lingua;
 
 public class StringNotFoundException extends Exception {
 	 
