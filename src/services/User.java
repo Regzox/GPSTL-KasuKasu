@@ -8,12 +8,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import dao.UserDao;
+import exceptions.StringNotFoundException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import json.Error;
 import json.Warning;
-import linguee.Lingua;
-import linguee.StringNotFoundException;
+import lingua.Lingua;
 import utils.SendEmail;
 import utils.Tools;
 

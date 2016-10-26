@@ -121,4 +121,14 @@
 		<servlet-name>CheckConnectionServlet</servlet-name>
 		<url-pattern>/check-connection</url-pattern>
 	</servlet-mapping>
+	 <servlet>
+    <description></description>
+    <display-name>SearchItemsServlet</display-name>
+    <servlet-name>SearchItemsServlet</servlet-name>
+    <servlet-class>servlets.SearchItemsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchItemsServlet</servlet-name>
+    <url-pattern>/searchitems</url-pattern>
+  </servlet-mapping>
 </web-app>
