@@ -3,6 +3,8 @@ package lingua;
 import java.util.HashMap;
 import java.util.Map;
 
+import exceptions.StringNotFoundException;
+
 /**
  * @author AJoan
  */
