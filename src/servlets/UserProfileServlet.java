@@ -1,7 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,16 +32,13 @@ public class UserProfileServlet extends HttpServlet {
 			return;
 		}
 		
-//		@SuppressWarnings("unchecked")
-//		Map<String, String> map = request.getParameterMap();
-//		
-//		if (!map.containsKey("email")) {
-//			response.getWriter().print(new Error("The request parameters map doesn't contains the key 'email'"));
-//			return;
-//		}
-		
-		JSONObject object = User.getUsersJSONProfileWhere("id", (String) session.getAttribute("userId"));
-		//object = User.filterUserPassword(object);
+		JSONObject object = null;
+		System.out.println(request.getParameter("id"));
+		if (request.getParameter("id") == null || request.getParameter("id").equals("")) {
+			object = User.getUsersJSONProfileWhere("id", (String) session.getAttribute("userId"));
+		} else {
+			object = User.getUsersJSONProfileWhere("id", (String) request.getParameter("id"));
+		}
 		
 		if (object instanceof Error || object instanceof Warning)
 			response.getWriter().println(object);
