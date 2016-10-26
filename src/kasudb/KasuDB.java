@@ -1,8 +1,12 @@
 package kasudb;
 
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
 
 public class KasuDB {
 
@@ -17,4 +21,11 @@ public class KasuDB {
 			return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root",password));}
 		catch (ClassNotFoundException e) {e.printStackTrace();return null;}
 	}
+
+	
+	public static DBCollection getCollection(String coll) {
+		try {return new Mongo("127.0.0.1",27017).getDB("KASUDB").getCollection(coll);}
+		catch (UnknownHostException e) {e.printStackTrace();return null;}
+	}	
 }
+ 
