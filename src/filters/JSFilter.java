@@ -109,6 +109,9 @@ public class JSFilter implements Filter
 	            	responseModified = responseModified.replace(headEnd, js + '\n' + headEnd);
 	            
 	            response.getWriter().write(responseModified);
+	        } else {
+	        	if (wrappedResponse.toString() != null)
+	        		response.getWriter().write(wrappedResponse.toString());
 	        }
         } else {
         	if (wrappedResponse.toString() != null)

@@ -13,7 +13,8 @@ public enum Url {
 	DASHBOARD("/restricted/dashboard.jsp"),
 	FIND_USER("/restricted/finduser.jsp"),
 	MODIFY_USER("/restricted/modifyUser.jsp"),
-	PROFILE("/restricted/profile.jsp")
+	PROFILE("/restricted/profile.jsp"),
+	SEARCHITEMS("/searchitems.jsp")
 	;
 	
 	protected final String displayName = "/KasuKasu";
