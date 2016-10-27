@@ -110,6 +110,10 @@ public class SidebarFilter implements Filter {
 	            	            
 	            response.getWriter().write(responseModified);
 	        }
+	        else {
+	        	if (responseWrapper.toString() != null)
+	        		response.getWriter().write(responseWrapper.toString());
+	        }
         } else {
         	if (responseWrapper.toString() != null)
         		response.getWriter().write(responseWrapper.toString());
