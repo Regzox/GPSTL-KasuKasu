@@ -127,8 +127,20 @@
     <servlet-name>SearchItemsServlet</servlet-name>
     <servlet-class>servlets.SearchItemsServlet</servlet-class>
   </servlet>
+	 <servlet>
+	 	<description>
+	 	</description>
+	 	<display-name>AddObject</display-name>
+	 	<servlet-name>AddObject</servlet-name>
+	 	<servlet-class>servlets.AddObject</servlet-class>
+	 </servlet>
   <servlet-mapping>
     <servlet-name>SearchItemsServlet</servlet-name>
     <url-pattern>/searchitems</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AddObject</servlet-name>
+  	<url-pattern>
+  	/addobject</url-pattern>
   </servlet-mapping>
 </web-app>
