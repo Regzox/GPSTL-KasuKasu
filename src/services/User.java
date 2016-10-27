@@ -1,9 +1,11 @@
 package services;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -97,7 +99,6 @@ public class User {
 	 * @param value
 	 * @return
 	 */
-	
 	public static JSONObject getUsersJSONProfileWhere(String field, String value) {
 		
 		JSONObject usersJSON = new JSONObject();
@@ -137,6 +138,45 @@ public class User {
 		
 		if (users.isEmpty())
 			return new Warning("Not users found for '" + field + "' = '" + value + "'");
+		
+		return usersJSON;
+	}
+	
+	public static JSONObject getUsersJSONProfileFromIds(ArrayList<Integer> ids) throws UserNotFoundException, UserNotUniqueException{
+		
+		JSONObject usersJSON = new JSONObject();
+		JSONArray usersArray = new JSONArray();
+		if (ids == null)
+			return new Error("Ids value is null");
+	
+		List<entities.User> users = new ArrayList<entities.User>();
+		
+		try {
+			for(Integer i : ids)
+			users.add(UserDao.getUser(i));
+	
+			for (entities.User user : users) {
+				JSONObject userJSON = new JSONObject();
+				
+				userJSON.put("id", user.getId());
+				userJSON.put("email", user.getEmail());
+				//userJSON.put("password", user.getPassword());
+				userJSON.put("name", user.getName());
+				userJSON.put("firstname", user.getFirstname());
+				userJSON.put("phone", user.getPhone());
+				
+				usersArray.put(userJSON);
+			}
+			usersJSON.put("users", usersArray);
+			
+		} catch (SQLException e) {
+			return new Error("Internal SQL error");
+		} catch (JSONException e) {
+			return new Error("JSON exception");
+		}
+		
+		if (users.isEmpty())
+			return new Warning("No users found");
 		
 		return usersJSON;
 	}
