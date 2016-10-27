@@ -205,7 +205,7 @@ public class UserDao {
 	 * @param prenom
 	 * @param numero
 	 * @throws SQLException	 */
-	public static void addUser(String email,String mdp,String nom,String prenom,String numero) 
+	public static void addUser(String email,String mdp,String nom,String prenom,String numero)
 			throws SQLException	{ 
 		String sql = "INSERT INTO USERS(email,mdp,nom,prenom,numero,accountdate) VALUES ("
 				+ "'"+email+"' , '"+mdp+"' , '"+nom+"' , '"+prenom+"' , '"+numero

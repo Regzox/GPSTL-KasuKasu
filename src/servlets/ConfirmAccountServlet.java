@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import enumerations.Url;
 import services.User;
 
 /**
@@ -34,11 +35,11 @@ public class ConfirmAccountServlet extends HttpServlet {
 			User.confirmUser(Integer.parseInt(request.getParameter ("id")));
 
 			//TODO ad id to url or add cookie (after checking if not exists)
-			response.sendRedirect("/KasuKasu/dashboard.jsp");
+			response.sendRedirect(Url.DASHBOARD.localPath());
 
 		}catch (Exception e) {
 			e.printStackTrace(); //local debug
 			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher("errorpage.jsp").forward(request, response);}
+			request.getRequestDispatcher(Url.ERROR_PAGE.localPath()).forward(request, response);}
 	}
 }

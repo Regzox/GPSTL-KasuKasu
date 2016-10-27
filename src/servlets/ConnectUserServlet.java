@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
+import enumerations.Url;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import services.User;
@@ -87,7 +88,7 @@ public class ConnectUserServlet extends HttpServlet {
 		}catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher("errorpage.jsp").forward(request, response);
+			request.getRequestDispatcher(Url.ERROR_PAGE.localPath()).forward(request, response);
 		}
 
 	}

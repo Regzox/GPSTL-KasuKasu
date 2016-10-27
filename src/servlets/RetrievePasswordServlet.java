@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import enumerations.Url;
 import exceptions.UserNotFoundException;
 import services.User;
 import utils.SendEmail;
@@ -68,7 +69,7 @@ public class RetrievePasswordServlet extends HttpServlet {
 			out.close();
 	}catch(Exception e){
 		e.printStackTrace();
-		request.getRequestDispatcher("errorpage.jsp").forward(request, response);
+		request.getRequestDispatcher(Url.ERROR_PAGE.localPath()).forward(request, response);
 	}
 
 }

@@ -36,9 +36,14 @@ public class CreateUserServlet extends HttpServlet {
 					|| request.getParameter ("numero").equals(""))
 				throw new Exception("Url is missing parameters.");
 
+			System.out.println(request.getParameter("prenom"));
+			
 			response.getWriter().print(
-					User.createUser(request.getParameter ("email"), request.getParameter ("mdp"),
-							request.getParameter ("nom"), request.getParameter ("prenom"),
+					User.createUser(
+							request.getParameter ("email"),
+							request.getParameter ("mdp"),
+							request.getParameter ("nom"), 
+							request.getParameter ("prenom"),
 							request.getParameter("numero")));}				
 
 		catch (Exception e) {//TODO ERROR HERE
