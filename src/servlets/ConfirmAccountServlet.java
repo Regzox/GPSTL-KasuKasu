@@ -26,14 +26,16 @@ public class ConfirmAccountServlet extends HttpServlet {
 			//TODO
 			//mettre un id c mieux qe mettre lemail en clair sinon n'imorte qui peut confirmer nip 
 			//@ùail l'id c'est mieux une clé serait encore mieux mais new tab to disscus with others
-			if(	map.containsKey("id")&& !request.getParameter("id").equals("")) 	
-						User.confirmUser(Integer.parseInt(request.getParameter ("id")));
-			else 
-				throw new Exception("Wrong Url! Missing parameters\n Il manque des parametres dans l'URL!");
+			if(!map.containsKey("id"))
+				throw new Exception("Wrong Url! Missing parameters");
+			if(request.getParameter("id").equals(""))
+				throw new Exception("Wrong Url! Missing parameters");
+
+			User.confirmUser(Integer.parseInt(request.getParameter ("id")));
 
 			//TODO ad id to url or add cookie (after checking if not exists)
 			response.sendRedirect("/KasuKasu/dashboard.jsp");
-			
+
 		}catch (Exception e) {
 			e.printStackTrace(); //local debug
 			request.setAttribute("error", e); //remote debug

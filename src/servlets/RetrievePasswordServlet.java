@@ -57,7 +57,7 @@ public class RetrievePasswordServlet extends HttpServlet {
 				}
 			}
 
-			String mdp = User.getUser(mail).getPassword();
+			String mdp = User.getUser(mail).getPassword(); //TODO PB not safe
 
 			System.out.println("Envoie du mail à : "+ mail);
 			String contenu = "Voici votre mot de passe : " + mdp;

@@ -10,7 +10,6 @@ function Item(id,owner,group,date,longitude,latitude,title,description){
 	this.latitude=latitude;
 	this.title=title;
 	this.description=description;
-	
 } 
 
 
@@ -27,7 +26,7 @@ Item.revival=function(key,value){
 			alert("revive -> error = "+r.error);
 		}
 		return (r);
-	}else if(isNumber(key)&& value.type=="item"){ //tab index
+	}else if(isNumber(key) && value.type=="item"){ //tab index
 		var i = new Item(value.id,value.owner,value.group,value.date,
 				value.longitude,value.latitude,value.title,value.description);
 		return (i);
@@ -54,13 +53,6 @@ Item.traiteReponseJSON=function(json){
 	}else
 		alert("server error ! : " +jsob.error);
 };
-
-
-
-
-
-
-
 
 
 
