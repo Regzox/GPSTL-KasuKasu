@@ -1,13 +1,13 @@
 function retrieveFriendsFunc() 
 {
-		printHTML("#notifier","");
-		retrieveFriends(1);
+	printHTML("#notifier","");
+	retrieveFriends(1);
 }
 
 function retrieveRequestsFunc() 
 {
-		printHTML("#notifier","");
-		retrieveRequests(2);
+	printHTML("#notifier","");
+	retrieveRequests(2);
 }
 
 function retrieveFriends(requestv) 
@@ -40,22 +40,22 @@ function retrieveRequests(requestv)
 
 function ProcessRetrieveFriends(rep) 
 {
-		var message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-		"</tr>";
-		var endmessage ="</table>";
-		var bodymessage ="";
-		
-		var jsonData =rep.result;//= JSON.parse(rep);
-		if(jsonData.users.length == 0){
-			message="Aucun Amis :(";
-			bodymessage="";
-			endmessage="";
-		}
+	var message = "<table class=\"table\">" +
+	"<tr>" +
+	"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+	"</tr>";
+	var endmessage ="</table>";
+	var bodymessage ="";
+
+	var jsonData =rep.result;//= JSON.parse(rep);
+	if(jsonData.users == undefined || jsonData.users.length == 0){
+		message="Aucun Amis :(";
+		bodymessage="";
+		endmessage="";
+	}else{
 		for (var i = 0; i < jsonData.users.length; i++) {
-		    var user = jsonData.users[i];
-		    
+			var user = jsonData.users[i];
+
 			bodymessage = bodymessage+
 			"<tr>" +
 			"<td>"+user.name+"</td>" +
@@ -64,30 +64,30 @@ function ProcessRetrieveFriends(rep)
 			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=2&id="+user.id+"\"> Supprimer Amis </a></td>"
 			"</tr>";
 		}
-
+	}
 	var div=(message+bodymessage+endmessage);
 	func_message(div);
 }
 
 function ProcessRetrieveRequests(rep) 
 {
-		
-		var message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Nom</th><th>Prenom</th><th>Profil</th><th>Accepter</th><th>Refuser</th>" +
-		"</tr>";
-		var endmessage ="</table>";
-		var bodymessage ="";
-		
-		var jsonData = rep.result;//JSON.parse(rep);
-		if(jsonData.users.length == 0){
-			message="Aucune Requete d'amis :(";
-			bodymessage="";
-			endmessage="";
-		}
+
+	var message = "<table class=\"table\">" +
+	"<tr>" +
+	"<th>Nom</th><th>Prenom</th><th>Profil</th><th>Accepter</th><th>Refuser</th>" +
+	"</tr>";
+	var endmessage ="</table>";
+	var bodymessage ="";
+
+	var jsonData = rep.result;//JSON.parse(rep);
+	if(jsonData.users == undefined || jsonData.users.length == 0){
+		message="Aucune Requete d'amis :(";
+		bodymessage="";
+		endmessage="";
+	}else{
 		for (var i = 0; i < jsonData.users.length; i++) {
-		    var user = jsonData.users[i];
-		    
+			var user = jsonData.users[i];
+
 			bodymessage = bodymessage+
 			"<tr>" +
 			"<td>"+user.name+"</td>" +
@@ -97,7 +97,7 @@ function ProcessRetrieveRequests(rep)
 			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=4&id="+user.id+"\"> Refuser Requete </a></td>"
 			"</tr>";
 		}
-
+	}
 	var div=(message+bodymessage+endmessage);
 	func_message(div);
 }
