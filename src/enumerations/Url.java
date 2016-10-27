@@ -89,4 +89,9 @@ public enum Url {
 		
 		return json;
 	}
+	
+	@Override
+	public String toString() {
+		return url;
+	}
 }

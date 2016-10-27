@@ -69,7 +69,7 @@ public class RetrievePasswordServlet extends HttpServlet {
 			out.close();
 	}catch(Exception e){
 		e.printStackTrace();
-		request.getRequestDispatcher(Url.ERROR_PAGE.localPath()).forward(request, response);
+		request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);
 	}
 
 }

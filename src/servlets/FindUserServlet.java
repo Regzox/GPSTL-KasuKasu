@@ -44,7 +44,7 @@ public class FindUserServlet extends HttpServlet {
 		}catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher(Url.ERROR_PAGE.localPath()).forward(request, response);
+			request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);
 		}
 	}
 }
