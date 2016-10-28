@@ -37,11 +37,11 @@ public class FriendsAndRequestServlet extends HttpServlet {
 				switch(Integer.parseInt(typeOfRequest)){
 				case 1 :
 					js.put("result", User.getUsersJSONProfileFromIds(Friends.myFriendsArray(userId)));
-					js.put("success", "Friend added");
+					js.put("success", "Friends List");
 					break;
 				case 2 : // removeFriend
 					js.put("result", User.getUsersJSONProfileFromIds(Friends.pendingRequestsArray(userId)));
-					js.put("success", "Friend removed");
+					js.put("success", "Pending Requests List");
 					break;
 				default:
 					js.put("error", "type of request unknown");

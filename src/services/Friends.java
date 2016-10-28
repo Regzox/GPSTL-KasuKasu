@@ -43,14 +43,19 @@ public class Friends {
 
 	public static void  addRequest(String idfrom,String idto)throws SQLException
 	{
-		FriendsDao.addFriend(idfrom, idto);
+		FriendsDao.addRequest(idfrom, idto);
 	}
 
 	public static void  removeRequest(String idfrom,String idto)throws SQLException
 	{
 		FriendsDao.removeRequest(idfrom, idto);
 	}
-
+	
+	public static boolean isPending(String idfrom,String idto)throws SQLException
+	{
+		return FriendsDao.isPending(idfrom,idto);
+	}
+	
 	public static JSONObject pendingRequests(String user)throws SQLException, JSONException
 	{
 		JSONObject pendingRequestsJSON=new JSONObject();

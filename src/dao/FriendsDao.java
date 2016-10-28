@@ -100,4 +100,20 @@ public class FriendsDao {
 		
 		return pendingRequests;	
 	}
+
+	public static boolean isPending(String idfrom, String idto) throws SQLException {
+		String sql = "SELECT * FROM FRIENDREQUESTS WHERE (idfrom='"+idfrom+"' AND idto='"+idto+"');";
+		Connection connection = KasuDB.SQLConnection();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(sql);
+
+		boolean isPending=resultSet.next();
+
+		resultSet.close();
+		statement.close();
+		connection.close();
+
+		return isPending;
+		
+	}
 }

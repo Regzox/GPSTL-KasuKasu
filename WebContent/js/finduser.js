@@ -68,8 +68,8 @@ function ProcessFindUser(rep)
 				"<tr>" +
 				"<td>"+x+"</td>" +
 				"<td>"+y+"</td>"+
-				"<td><a href=\"profil/?id="+z+"\"> Voir Profil </a></td>"+
-				"<td><a href=\"friendsmanagement?typeOfRequest=3&id="+z+"\"> Ajouter amis </a></td>"+
+				"<td><a href=\"/KasuKasu/profil/?id="+z+"\"> Voir Profil </a></td>"+
+				"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=3&id="+z+"\"> Ajouter amis </a></td>"+
 				"</tr>";
 			}else{
 				message="Aucun utilisateur ne correspond.";

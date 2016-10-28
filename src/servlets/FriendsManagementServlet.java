@@ -33,13 +33,23 @@ public class FriendsManagementServlet extends HttpServlet{
 				jsResponse.put("error", "ID of the other user is empty or null");
 			}else if(typeOfRequest.isEmpty() || typeOfRequest == null){
 				jsResponse.put("error", "No type of request specified");
+			}else if(userId == otherId){
+				jsResponse.put("error", "You can't request or add yourself as a Friend");
 			}else{
 				switch(Integer.parseInt(typeOfRequest)){
 				case 1 : // addFriend
-					Friends.addFriend(userId,otherId);
-					Friends.removeRequest(otherId, userId);
-					Friends.removeRequest(userId, otherId);
-					jsResponse.put("success", "Friend added");
+					if(!Friends.areFriends(userId, otherId)){
+						if(Friends.isPending(otherId,userId)){
+							Friends.addFriend(userId,otherId);
+							Friends.removeRequest(otherId, userId);
+							Friends.removeRequest(userId, otherId);
+							jsResponse.put("success", "Friend added");
+						}else{
+							jsResponse.put("success", "You don't have any request from this user");
+						}
+					}else{
+						jsResponse.put("success", "Already Friend");
+					}
 					break;
 				case 2 : // removeFriend
 					Friends.removeFriend(userId,otherId);
@@ -49,7 +59,7 @@ public class FriendsManagementServlet extends HttpServlet{
 					// From -> To
 					if(!Friends.areFriends(userId, otherId)){
 						Friends.addRequest(userId,otherId);
-						jsResponse.put("success", "Friend added");
+						jsResponse.put("success", "Friend request sent");
 					}else{
 						jsResponse.put("success", "Already Friend");
 					}
