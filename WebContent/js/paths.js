@@ -13,7 +13,9 @@ var kasukasu = {
 		dashboard: ROOT + RESTRICTED + "/dashboard.jsp",
 		find_user: ROOT + RESTRICTED + "/finduser.jsp",
 		modify_user: ROOT + RESTRICTED + "/modifyUser.jsp",
-		profile: ROOT + RESTRICTED + "/profile.jsp"
+		profile: ROOT + RESTRICTED + "/profile.jsp",
+		myfriends: ROOT + RESTRICTED + "/myfriends.jsp",
+		pendingrequests: ROOT + RESTRICTED + "/pendingrequests.jsp"
 	}
 };
 

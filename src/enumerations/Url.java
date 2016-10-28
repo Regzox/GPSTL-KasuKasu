@@ -14,7 +14,9 @@ public enum Url {
 	FIND_USER("/restricted/finduser.jsp"),
 	MODIFY_USER("/restricted/modifyUser.jsp"),
 	PROFILE("/restricted/profile.jsp"),
-	SEARCHITEMS("/searchitems.jsp")
+	SEARCHITEMS("/searchitems.jsp"),
+	MY_FRIENDS("/restricted/myfriends.jsp"),
+	PENDING_REQUESTS("/restricted/pendingrequests.jsp")
 	;
 	
 	protected final String displayName = "/KasuKasu";
@@ -88,5 +90,10 @@ public enum Url {
 		}
 		
 		return json;
+	}
+	
+	@Override
+	public String toString() {
+		return url;
 	}
 }

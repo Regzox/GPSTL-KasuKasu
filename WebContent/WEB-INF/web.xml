@@ -1,146 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	
-	<display-name>KasuKasu</display-name>
-	
-	<welcome-file-list>
-		<welcome-file>portal.jsp</welcome-file>
-	</welcome-file-list>
-	
-	<!-- FILTERS -->
-		
-	<filter>
-		<filter-name>ConnectionFilter</filter-name>
-		<filter-class>filters.ConnectionFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>ConnectionFilter</filter-name>
-		<url-pattern>/restricted/*</url-pattern>
-	</filter-mapping>
-		
-	<filter>
-		<filter-name>SidebarFilter</filter-name>
-		<filter-class>filters.SidebarFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>SidebarFilter</filter-name>
-		<url-pattern>/restricted/*</url-pattern>
-	</filter-mapping>
-	
-	<filter>
-		<filter-name>JSFilter</filter-name>
-		<filter-class>filters.JSFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>JSFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
-	<!-- SERVLETS -->
-	
-	<servlet>
-		<description></description>
-		<display-name>CreateUserServlet</display-name>
-		<servlet-name>CreateUserServlet</servlet-name>
-		<servlet-class>servlets.CreateUserServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CreateUserServlet</servlet-name>
-		<url-pattern>/createuser</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>ModifyUserServlet</display-name>
-		<servlet-name>ModifyUserServlet</servlet-name>
-		<servlet-class>servlets.ModifyUserServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ModifyUserServlet</servlet-name>
-		<url-pattern>/modify</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>ConnectUserServlet</display-name>
-		<servlet-name>ConnectUserServlet</servlet-name>
-		<servlet-class>servlets.ConnectUserServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ConnectUserServlet</servlet-name>
-		<url-pattern>/connectuser</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>RetrievePasswordServlet</display-name>
-		<servlet-name>RetrievePasswordServlet</servlet-name>
-		<servlet-class>servlets.RetrievePasswordServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>RetrievePasswordServlet</servlet-name>
-		<url-pattern>/retrievepassword</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>ConfirmAccountServlet</display-name>
-		<servlet-name>ConfirmAccountServlet</servlet-name>
-		<servlet-class>servlets.ConfirmAccountServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ConfirmAccountServlet</servlet-name>
-		<url-pattern>/confirm</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>UserProfileServlet</display-name>
-		<servlet-name>UserProfileServlet</servlet-name>
-		<servlet-class>servlets.UserProfileServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>UserProfileServlet</servlet-name>
-		<url-pattern>/profile</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>FindUserServlet</display-name>
-		<servlet-name>FindUserServlet</servlet-name>
-		<servlet-class>servlets.FindUserServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>FindUserServlet</servlet-name>
-		<url-pattern>/finduser</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<description></description>
-		<display-name>CheckConnectionServlet</display-name>
-		<servlet-name>CheckConnectionServlet</servlet-name>
-		<servlet-class>servlets.CheckConnectionServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CheckConnectionServlet</servlet-name>
-		<url-pattern>/check-connection</url-pattern>
-	</servlet-mapping>
-	 <servlet>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>KasuKasu</display-name>
+  <welcome-file-list>
+    <welcome-file>portal.jsp</welcome-file>
+  </welcome-file-list>
+  <filter>
+    <filter-name>ConnectionFilter</filter-name>
+    <filter-class>filters.ConnectionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ConnectionFilter</filter-name>
+    <url-pattern>/restricted/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>SidebarFilter</filter-name>
+    <filter-class>filters.SidebarFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SidebarFilter</filter-name>
+    <url-pattern>/restricted/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>JSFilter</filter-name>
+    <filter-class>filters.JSFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JSFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CreateUserServlet</display-name>
+    <servlet-name>CreateUserServlet</servlet-name>
+    <servlet-class>servlets.CreateUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateUserServlet</servlet-name>
+    <url-pattern>/createuser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ModifyUserServlet</display-name>
+    <servlet-name>ModifyUserServlet</servlet-name>
+    <servlet-class>servlets.ModifyUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifyUserServlet</servlet-name>
+    <url-pattern>/modify</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConnectUserServlet</display-name>
+    <servlet-name>ConnectUserServlet</servlet-name>
+    <servlet-class>servlets.ConnectUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConnectUserServlet</servlet-name>
+    <url-pattern>/connectuser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RetrievePasswordServlet</display-name>
+    <servlet-name>RetrievePasswordServlet</servlet-name>
+    <servlet-class>servlets.RetrievePasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RetrievePasswordServlet</servlet-name>
+    <url-pattern>/retrievepassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConfirmAccountServlet</display-name>
+    <servlet-name>ConfirmAccountServlet</servlet-name>
+    <servlet-class>servlets.ConfirmAccountServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfirmAccountServlet</servlet-name>
+    <url-pattern>/confirm</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserProfileServlet</display-name>
+    <servlet-name>UserProfileServlet</servlet-name>
+    <servlet-class>servlets.UserProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserProfileServlet</servlet-name>
+    <url-pattern>/profile</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindUserServlet</display-name>
+    <servlet-name>FindUserServlet</servlet-name>
+    <servlet-class>servlets.FindUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindUserServlet</servlet-name>
+    <url-pattern>/finduser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckConnectionServlet</display-name>
+    <servlet-name>CheckConnectionServlet</servlet-name>
+    <servlet-class>servlets.CheckConnectionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckConnectionServlet</servlet-name>
+    <url-pattern>/check-connection</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <description></description>
     <display-name>SearchItemsServlet</display-name>
     <servlet-name>SearchItemsServlet</servlet-name>
     <servlet-class>servlets.SearchItemsServlet</servlet-class>
   </servlet>
-	 <servlet>
-	 	<description>
+  <servlet>
+    <description>
 	 	</description>
-	 	<display-name>AddObject</display-name>
-	 	<servlet-name>AddObject</servlet-name>
-	 	<servlet-class>servlets.AddObject</servlet-class>
-	 </servlet>
+    <display-name>AddObject</display-name>
+    <servlet-name>AddObject</servlet-name>
+    <servlet-class>servlets.AddObject</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>SearchItemsServlet</servlet-name>
     <url-pattern>/searchitems</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>AddObject</servlet-name>
-  	<url-pattern>
+    <servlet-name>AddObject</servlet-name>
+    <url-pattern>
   	/addobject</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>FriendsManagementServlet</display-name>
+    <servlet-name>FriendsManagementServlet</servlet-name>
+    <servlet-class>servlets.FriendsManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FriendsManagementServlet</servlet-name>
+    <url-pattern>/friendsmanagement</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>FriendsAndRequestServlet</display-name>
+    <servlet-name>FriendsAndRequestServlet</servlet-name>
+    <servlet-class>servlets.FriendsAndRequestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FriendsAndRequestServlet</servlet-name>
+    <url-pattern>/friendsandrequest</url-pattern>
   </servlet-mapping>
 </web-app>

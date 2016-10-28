@@ -18,7 +18,7 @@ function enregistrement(formulaire)
 	var confirmation = formulaire.confirmation.value;
 
 
-	var ok = verif(nom, prenom, numero, email, mdp, confirmation);
+	var ok = verif(prenom, nom, numero, email, mdp, confirmation);
 	if (ok) 
 	{
 		//printHTML("#notifier","");
@@ -29,7 +29,7 @@ function enregistrement(formulaire)
 		printHTML("#error_mdp","");
 		printHTML("#error_confirmation","");
 		printHTML("#error_captcha","");
-		enregistre(nom, prenom, numero, email, mdp, confirmation);
+		enregistre(prenom, nom, numero, email, mdp, confirmation);
 	}
 }
 
