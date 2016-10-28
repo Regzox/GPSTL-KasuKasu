@@ -3,7 +3,7 @@ package dao.mongo;
 import com.mongodb.DBObject;
 
 /**
- * @author AJoan
+ * @author ANAGBLA Joan
  *Principe : 
  *RSV : Relevance Score Value 
  *Le RSV ou score de pertinence est calcule par :
@@ -34,4 +34,10 @@ public class ObjetRSV implements Comparable<ObjetRSV>{
 
 	public int compareTo(ObjetRSV o) {
 		return rsv.compareTo(o.getRsv());}
+	
+	@Override
+	public String toString() {
+		return "(dbo="+dbo+")& (score rsv="+rsv+")";
+	}
+	
 }

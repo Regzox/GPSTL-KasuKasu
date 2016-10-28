@@ -12,10 +12,13 @@ import com.mongodb.BasicDBObject;
 
 import dao.mongo.ItemsMR;
 import dao.mongo.ObjetRSV;
+import exceptions.DatabaseException;
 
+/**
+ *@author ANAGBLA Joan */
 public class Items {
 
-	public static JSONObject search(String query) throws JSONException{		
+	public static JSONObject search(String query) throws JSONException, DatabaseException{		
 		JSONArray jar =new JSONArray();
 		for(ObjetRSV orsv :ItemsMR.search(query))
 			jar.put(new JSONObject()
@@ -32,7 +35,7 @@ public class Items {
 	}
 
 
-	public static void main(String[] args) throws JSONException, IOException {
+	public static void main(String[] args) throws JSONException, IOException, DatabaseException {
 		ItemsMR.collection.drop();
 		//http://www.cdiscount.com/telephonie/telephone-mobile/samsung-galaxy-j5-2016-blanc/f-1440402-sam8806088323503.html#mpos=2|cd
 		ItemsMR.collection.insert(
@@ -52,7 +55,7 @@ public class Items {
 						+ " Cartes mémoire flash prises en charge : microSDXC - jusqu'à 128 Go"));
 
 		//http://www.cdiscount.com/telephonie/telephone-mobile/samsung-galaxy-j5-or/f-1440402-samsungsmj500o.html?idOffre=117989573#mpos=3|mp
-		/*ItemsMR.collection.insert(
+		ItemsMR.collection.insert(
 				new BasicDBObject()
 				.append("title","Samsung Galaxy J5 Or")
 				.append("owner",3)
@@ -61,7 +64,7 @@ public class Items {
 				.append("latitude",Math.random())
 				.append("date",new Date())
 				.append("description",
-						"Taille d'écran : 5 pouces 1.2 GHz -"
+						" Taille d'écran : 5 pouces 1.2 GHz -"
 						+ " Quadruple coeur 3G Résolution du capteur : "
 						+ " 13 mégapixels Capacité de la mémoire interne : 8 Go "
 						+ " Système d'exploitation : Android 5.1 (Lollipop)"
@@ -79,14 +82,14 @@ public class Items {
 				.append("latitude",Math.random())
 				.append("date",new Date())
 				.append("description",
-						"Taille d'écran : 5.1 pouces 2.3 GHz - 8 coeurs 4G "
+						" Taille d'écran : 5.1 pouces 2.3 GHz - 8 coeurs 4G "
 						+ " Résolution du capteur : "
 						+ " 12 mégapixels Capacité de la mémoire interne : 32 Go"
-						+" Système d'exploitation : Android 6.0 (Marshmallow) "
+						+ " Système d'exploitation : Android 6.0 (Marshmallow) "
 						+ " Composants intégrés : Caméra arrière, caméra avant, "
 						+ " lecteur audio, enregistreur vocal, "
 						+ " capteur de fréquence cardiaque, navigation "
-						+ "Cartes mémoire flash prises en charge : microSDXC - jusqu'à 200 Go"));
+						+ " Cartes mémoire flash prises en charge : microSDXC - jusqu'à 200 Go"));
 
 		//http://www.cdiscount.com/telephonie/telephone-mobile/apple-iphone-5s-16-go-argent-4g/f-1440402-iphone5s16gsi.html#mpos=5|cd
 		ItemsMR.collection.insert(
@@ -98,14 +101,14 @@ public class Items {
 				.append("latitude",Math.random())
 				.append("date",new Date())
 				.append("description","Taille d'écran : 4 "
-						+ "Type : Apple A7 4G "
-						+ "Résolution du capteur : 8 Megapixel"
+						+ " Type : Apple A7 4G "
+						+ " Résolution du capteur : 8 Megapixel"
 						+ "	Capacité de la mémoire interne : 16 Go"
 						+ "	Système d'exploitation : iOS 7"
 						+ "	Composants intégrés : Caméra arrière, caméra avant, "
-						+ "enregistreur vocal, navigation Fonctions du téléphone :"
+						+ " enregistreur vocal, navigation Fonctions du téléphone :"
 						+ " Téléphone à haut parleur, commande vocale, compteur d'appels, "
-						+ "téléconférence, numérotation vocale, vibreur"));*/	
+						+ " téléconférence, numérotation vocale, vibreur"));
 
 		String line ="";
 		System.out.println("Que recherchez vous ? : ");
@@ -115,7 +118,7 @@ public class Items {
 			JSONArray res=((JSONArray)search(line).get("items"));
 			for(int i=0; i< res.length();i++)
 				System.out.println("Results["+i+"] : "
-						+((JSONObject)res.get(i))/*.get("title")*/);
+						+((JSONObject)res.get(i)).get("title"));
 		}
 	}
 }

@@ -18,6 +18,7 @@
 
 		<p class='capital'>Trouvez des Objets à proximité de vos points d'emprunt</p>
 
+		<div id='notifier'></div>
 		
 		<form action="javascript:(function(){return;})()" method="get"
 			OnSubmit="javascript:searchItems(this)">
@@ -34,8 +35,6 @@
 			<div id="found-items" class="abootsraper"></div>
 			
 		</form>
-		
-		<div id='notifier'></div>
 	</div>
 </body>
 </html>

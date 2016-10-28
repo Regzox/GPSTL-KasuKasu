@@ -1,7 +1,6 @@
 //$("#iquery").focus()
 function Item(id,owner,group,date,longitude,latitude,title,description){
-	alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","
-			+description+")");
+	//alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","+description+")");
 	this.id=id;
 	this.owner=owner;
 	this.group=group;
@@ -19,41 +18,71 @@ Item.revival=function(key,value){
 		var r;
 		if((value.error==undefined) || (value.error==0)){
 			r=value;  //whole tab
-			alert("revival  -> items = "+JSON.stringify(r));
+			//alert("revival  -> items = "+JSON.stringify(r));
 		}else{
 			r =new Object();
 			r.error=value.error;
-			alert("revive -> error = "+r.error);
+			//alert("revive -> error = "+r.error);
 		}
 		return (r);
+		
 	}else if(isNumber(key) && value.type=="item"){ //tab index
 		var i = new Item(value.id,value.owner,value.group,value.date,
 				value.longitude,value.latitude,value.title,value.description);
 		return (i);
-	}else if(key =="date"){
-		var d=new Date(value);
-		alert("revival -> date = "+d);
-		return d;
 	}else{
-		alert("revival -> value = "+value);
+		//alert("revival -> value = "+value);
 		return (value);
 	}
 };
 
 
 Item.traiteReponseJSON=function(json){	
-	alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob=JSON.parse(JSON.stringify(json),Item.revival);
-	alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
+	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
+	 var jsob =JSON.parse(JSON.stringify(json),Item.revival);
+	 items = jsob.items;
+	//alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
 	if(jsob.error==undefined){
-		//alert(jsob.title)
-		//alert("after parsing we got that posts in html : "+obj.getHTML());
-		//printHTML("#div_post_zone",obj.getHTML());  //printSup pour etre correct surtt kan on va charger la suite 
+		var fhtm="<br><div id=\"itemsBox\">";	
+
+		if(items.length==0)
+			fhtm+="<h3>Il n'y a aucun objet disponible correspondant à  vos critères de recherche.</h3>";
+		
+//<a href=\"main.jsp?id="+environnement.actif.id+"&login="+environnement.actif.login+"&key="+environnement.key+"\">contacts</a> 
+		for(var i in items){
+			//alert(JSON.stringify(items[i]));
+			fhtm+=(items[i]).getHTML();
+			//alert("JSOB.htmling : "+items[i].getHTML());
+		}		
+		fhtm+="</div>\n"; 
+//		alert("items.html = "+fhtm);  
+		printHTML("#found-items",fhtm); 
 	}else
-		alert("server error ! : " +jsob.error);
+		console.log("server error ! : " +jsob.error+"\n");
 };
 
+
+Item.prototype.getHTML=function(){  
+	//alert("Item ->getHtml ");
+	var s;
+	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
+	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\"><a href=\"/borrowthis\"><b>"+this.title+"</b></a></div>\n";	
+	s+="<div class=\"item-infos\">";
+	s+="<span class=\"visible-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-latitude-info"+this.id+"\">"+this.latitude+"</span>";
+	s+="</div> ";
+	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
+	s+="<div class=\"item-more\">";
+	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
+	s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"iwantit_btn\" " +
+	"id=\"iwantit_btn"+this.id+"\" OnClick=\"javascript:alert('je demande l objet !')\"/>\n";
+	s+="</div>";
+	s+="</div><hr><br>\n";
+	return s;
+};
 
 
 function searchMRItems(query){

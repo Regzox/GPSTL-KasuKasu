@@ -21,3 +21,21 @@ ALTER TABLE `USERS` ADD PRIMARY KEY (`id`);
 ALTER TABLE `USERS` MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 -- ----------------------------------------------------------------------------
+-- STRUCTURE DE LA TABLE DES TERM FREQUENCY (TF)
+CREATE TABLE IF NOT EXISTS `TF` (
+				`word` VARCHAR(255) NOT NULL,
+				`docID` VARCHAR(255) NOT NULL,
+				`tf` INT(100) NOT NULL,
+				`defdate` DATETIME NOT NULL
+				);
+					
+-- ----------------------------------------------------------------------------
+-- STRUCTURE DE LA TABLE DES DOCUMENT FREQUENCY (DF)
+CREATE TABLE IF NOT EXISTS `DF`(
+				`word` VARCHAR(255) NOT NULL,
+				`df` INT(100) NOT NULL,
+				`defdate` DATETIME NOT NULL
+				);
+				
+				
+				
