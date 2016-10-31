@@ -60,7 +60,7 @@ function ProcessRetrieveFriends(rep)
 			"<tr>" +
 			"<td>"+user.name+"</td>" +
 			"<td>"+user.firstname+"</td>"+
-			"<td><a href=\"/KasuKasu/profil/?id="+user.id+"\"> Voir Profil </a></td>"+
+			"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+user.id+"\"> Voir Profil </a></td>"+
 			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=2&id="+user.id+"\"> Supprimer Amis </a></td>"
 			"</tr>";
 		}
@@ -92,7 +92,7 @@ function ProcessRetrieveRequests(rep)
 			"<tr>" +
 			"<td>"+user.name+"</td>" +
 			"<td>"+user.firstname+"</td>"+
-			"<td><a href=\"/KasuKasu/profil/?id="+user.id+"\"> Voir Profil </a></td>"+
+			"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+user.id+"\"> Voir Profil </a></td>"+
 			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=1&id="+user.id+"\"> Accepter Requete </a></td>"+
 			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=4&id="+user.id+"\"> Refuser Requete </a></td>"
 			"</tr>";
