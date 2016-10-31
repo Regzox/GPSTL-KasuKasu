@@ -296,7 +296,9 @@ public class User {
 		List<entities.User> users = UserDao.getUsersWhere("id", id);
 		if (users.size() == 1)
 			return users.get(0);
-		throw new UserNotUniqueException();
+		if (users.size() > 1)
+			throw new UserNotUniqueException();
+		else return null;
 	}
 
 	public static void confirmUser(int id) throws UserNotFoundException, SQLException{ 

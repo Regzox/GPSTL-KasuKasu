@@ -18,12 +18,6 @@
 <script type="text/javascript" src="/KasuKasu/js/check-connection.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/profile.js"></script>
 
-<script type="text/javascript">
-	window.onload = function() {
-		fillProfileById();
-	}
-</script>
-
 </head>
 <body>
 
@@ -35,13 +29,12 @@
 	<%
 		String id = request.getParameter("id");
 		entities.User user = User.getUserById(id);
-		System.out.println(user.getEmail());
 		JSONObject json = User.getUserImage(user);
 		String url = null;
 		if (json instanceof Warning)
-			System.out.println(json.getString("warning"));
+			System.out.println("WARNING : " + json.getString("warning"));
 		else if (json instanceof Error)
-			System.out.println(json.getString("error"));
+			System.out.println("ERROR : " + json.getString("error"));
 		else
 			url = json.getString("success");
 	%>

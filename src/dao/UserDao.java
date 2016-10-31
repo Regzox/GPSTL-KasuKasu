@@ -124,7 +124,7 @@ public class UserDao {
 	}
 	
 	/**
-	 * Retourne la liste des utilisateurs oï¿½ le champ 'fields' ï¿½ pour valeur 'value'. 
+	 * Retourne la liste des utilisateurs où le champ 'fields' a pour valeur 'value'. 
 	 * @param field
 	 * @param value
 	 * @return
