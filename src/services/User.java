@@ -10,10 +10,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import dao.UserDao;
+import dao.UsersImagesDao;
 import exceptions.StringNotFoundException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import json.Error;
+import json.Success;
 import json.Warning;
 import lingua.Lingua;
 import utils.SendEmail;
@@ -77,24 +79,24 @@ public class User {
 	}
 
 	/**
-	 * Retourne un objet json repr�sentant une liste d'utilisateurs trouv�s pour le champ 'field' et sa valeur 'value'
+	 * Retourne un objet json representant une liste d'utilisateurs trouves pour le champ 'field' et sa valeur 'value' <br/>
 	 * 
-	 * Exemple : 	getUsersJSONProfileWhere("nom", "PIERRE") returns
-	 * 				{ 	user0 : { 
-	 * 						id : "42",
-	 * 						email : "truc@gmail.com",
-	 * 						password : "123456",
-	 * 						name : "PIERRE",
-	 * 						firstname : "Jean",
-	 * 						phone : "0611223344" },
-	 *  				user1 : { 
-	 * 						id : "30",
-	 * 						email : "bidulle@gmail.com",
-	 * 						password : "123456",
-	 * 						name : "PIERRE",
-	 * 						firstname : "Victor",
-	 * 						phone : "0611223344" }
-	 * 				}
+	 * Exemple : 	&nbspgetUsersJSONProfileWhere("nom", "PIERRE") returns <br/>
+	 * 				{ 	user0 : { <br/>
+	 * 						id : "42", <br/>
+	 * 						email : "truc@gmail.com", <br/>
+	 * 						password : "123456", <br/>
+	 * 						name : "PIERRE", <br/>
+	 * 						firstname : "Jean", <br/>
+	 * 						phone : "0611223344" }, <br/>
+	 *  				user1 : { <br/>
+	 * 						id : "30", <br/>
+	 * 						email : "bidulle@gmail.com", <br/>
+	 * 						password : "123456", <br/>
+	 * 						name : "PIERRE", <br/>
+	 * 						firstname : "Victor", <br/>
+	 * 						phone : "0611223344" } <br/>
+	 * 				} <br/>
 	 * @param field
 	 * @param value
 	 * @return
@@ -181,14 +183,83 @@ public class User {
 		return usersJSON;
 	}
 	
+	/**
+	 * Get user image path
+	 * @param user
+	 * @return
+	 */
+	
+	public static JSONObject getUserImage(entities.User user) {
+		JSONObject response = null;
+		
+		try {
+			String url = UsersImagesDao.getUserImage(user);
+			response = new Success(url);
+		} catch (SQLException e) {
+			response = new Error("SQLException when getting user picture : " + e.toString());
+		} catch (Exception e) {
+			response = new Warning("No picture for this user");
+		}
+		
+		return response;
+	}
+	
+	/**
+	 * Put new url for user image
+	 * 
+	 * @param user
+	 * @param url
+	 * @return
+	 */
+	
+	public static JSONObject putUserImage(entities.User user, String url) {
+		JSONObject response = null;
+		
+		try {
+			UsersImagesDao.addUserImage(user, url);
+			response = new Success("Picture successfully added");
+		} catch (SQLException e) {
+			try {
+				UsersImagesDao.updateUserImage(user, url);
+				response = new Success("Picture successfully updated");
+			} catch (SQLException f) {
+				f.printStackTrace();
+				response = new Error("Adding and updating picture failed");
+			}
+		}
+		
+		return response;
+	}
+	
+	/**
+	 * Remove user image
+	 * @param user
+	 * @return
+	 */
+	
+	public static JSONObject removeUserPIcture (entities.User user) {
+		JSONObject response = null;
+		
+		try {
+			UsersImagesDao.removeUserImage(user);
+			response = new Success("Picture successfully removed");
+		} catch (SQLException e) {
+			response = new Error("Removing picture failed");
+		}
+		
+		return response;
+	}
+	
 	public static JSONObject filterUserPassword(JSONObject userJSON) {
 		JSONObject userWithoutPassword = new JSONObject();
+		@SuppressWarnings("unchecked")
 		Iterator<String> users = (Iterator<String>)userJSON.keys();
 		
 		try {
 		
 		while (users.hasNext()) {
 			String user = users.next();
+			@SuppressWarnings("unchecked")
 			Iterator<String> profile = ((JSONObject) userJSON.get(user)).keys();
 			System.out.println(user);
 			while (profile.hasNext()) {
@@ -207,7 +278,7 @@ public class User {
 	}
 	
 	/**
-	 * R�cup�re l'utilisateur correspondant � l'email pass� en param�tre
+	 * Recupere l'utilisateur correspondant a l'email passe en parametre
 	 * @param email
 	 * @return
 	 * @throws SQLException
@@ -219,6 +290,13 @@ public class User {
 		if (user != null)
 			return user;
 		return null;
+	}
+	
+	public static entities.User getUserById(String id) throws SQLException, Exception {
+		List<entities.User> users = UserDao.getUsersWhere("id", id);
+		if (users.size() == 1)
+			return users.get(0);
+		throw new UserNotUniqueException();
 	}
 
 	public static void confirmUser(int id) throws UserNotFoundException, SQLException{ 

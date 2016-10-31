@@ -31,7 +31,7 @@
 			<div id="notifier" class="notifier"></div>
 
 			<form id="modify" class="layer-left" action="javascript:void(0)"
-				method="post" onsubmit="alert('test');validation(this)">
+				method="post" onsubmit="validation(this)">
 				<fieldset>
 
 					<!-- <legend>Type your current</legend>

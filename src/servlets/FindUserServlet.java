@@ -5,7 +5,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import enumerations.Url;
@@ -23,7 +22,7 @@ public class FindUserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		/******/
 		try{
-			HttpSession session=request.getSession();
+			
 			/** TODO
 			 * 	Si l'utilisateur n'est pas connecté
 			 *  Le Renvoyer sur la page de connexion

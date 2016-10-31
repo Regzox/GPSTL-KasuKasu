@@ -21,7 +21,7 @@ ALTER TABLE `USERS` ADD PRIMARY KEY (`id`);
 ALTER TABLE `USERS` MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 -- ----------------------------------------------------------------------------
-<<<<<<< HEAD
+
 -- STRUCTURE DE LA TABLE DES TERM FREQUENCY (TF)
 CREATE TABLE IF NOT EXISTS `TF` (
 				`word` VARCHAR(255) NOT NULL,
@@ -37,10 +37,6 @@ CREATE TABLE IF NOT EXISTS `DF`(
 				`df` INT(100) NOT NULL,
 				`defdate` DATETIME NOT NULL
 				);
-				
-				
-				
-=======
 
 -- STRUCTURE DE LA TABLE DES AMIS (FRIENDS)
 CREATE TABLE IF NOT EXISTS FRIENDS 
@@ -51,4 +47,10 @@ CREATE TABLE IF NOT EXISTS FRIENDS
 CREATE TABLE IF NOT EXISTS FRIENDREQUESTS
 	(idfrom INT(100) NOT NULL REFERENCES USERS (id),
 	 idto INT(100) NOT NULL REFERENCES USERS (id));
->>>>>>> 58ea9b905acd1137e21adbb7917758ce0be5a199
+
+-- ----------------------------------------------------------------------------
+-- STRUCTURE DE LA TABLE DES IMAGES (IMAGES)
+CREATE TABLE IF NOT EXISTS IMAGES 
+	(`user_id` INT(100) NOT NULL REFERENCES USERS (id),
+	 `path` VARCHAR(255) NOT NULL);
+ALTER TABLE `IMAGES` ADD PRIMARY KEY (`user_id`);

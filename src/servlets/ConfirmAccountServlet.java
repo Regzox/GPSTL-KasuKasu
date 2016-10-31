@@ -23,7 +23,8 @@ public class ConfirmAccountServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			Map<String,String[]> map=request.getParameterMap();
+			@SuppressWarnings("unchecked")
+			Map<String,String[]> map = request.getParameterMap();
 			//TODO
 			//mettre un id c mieux qe mettre lemail en clair sinon n'imorte qui peut confirmer nip 
 			//@ùail l'id c'est mieux une clé serait encore mieux mais new tab to disscus with others

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
  *
  */
 
-public class SidebarFilter implements Filter {
+public class CSSFilter implements Filter {
 	@SuppressWarnings("unused")
     private FilterConfig filterConfig = null;
 	
@@ -30,7 +30,8 @@ public class SidebarFilter implements Filter {
 	 */
 	
 	private String[] includes = {
-			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/sidebar.css' />"
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/sidebar.css' />",
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/bootstrap.min.css' />"
 	};
 
 	class CharResponseWrapper extends HttpServletResponseWrapper {

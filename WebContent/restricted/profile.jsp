@@ -6,40 +6,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/KasuKasu/css/profile.css" />
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/check-connection.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/profile.js"></script>
+
 <script type="text/javascript">
 		
-	/* var doGet = function (containerId) {
-		$.get("/KasuKasu/profile", {
-			email : "d.radeau@gmail.com" // A remplacer par un emal dans votre base de données
-		})
-		.done(function (data) {
-			var json = $.parseJSON(data);
-			
-			console.log(json);
-			
-			$.each(json.success, function(user, profile) {
-				$.each(profile, function (field, value) {
-					$(containerId).html($(containerId).html() + "<br/>" +  field + ":" + value + "<br/>");
-				})
-			});
-		});
-	} */
-	
-	var getMyCard = function (container_id) {
+	/* var getMyProfile = function (container_id) {
 		$.get("/KasuKasu/profile")
 		.done(function (data) {
 			var json = $.parseJSON(data),
-			 	page = $(container_id);
+			 	page = $(container_id),
 			 	card = $(document.createElement("div")),
 			 	my_id = $(document.createElement("div")),
 			 	my_email = $(document.createElement("div")),
 			 	my_firstname = $(document.createElement("div")),
 			 	my_name = $(document.createElement("div")),
-			 	my_phone = $(document.createElement("div"));
+			 	my_phone = $(document.createElement("div")),
+			 	my_image = $(document.createElement("div"));
 						
 			my_id.append(json.success.user0.id);
 			my_email.append(json.success.user0.email);
@@ -47,19 +35,23 @@
 			my_name.append(json.success.user0.name);
 			my_phone.append(json.success.user0.phone);
 			
-			card.append(my_id, my_email, my_firstname, my_name, my_phone);
-			card.addClass("layer-center");
+			$(card).attr("id", "card");
+			$(my_image).attr("id", "image");
+			
+			card.append(my_image, my_id, my_email, my_firstname, my_name, my_phone);
+			card.addClass("layer-left");
+			card.addClass("show");
 			
 			page.html(card);
 			
 		});
 	}
 	
-	var getCardById = function (container_id, userId) {
+	var getProfileById = function (container_id, userId) {
 		$.get("/KasuKasu/profile?id=" + userId)
 		.done(function (data) {
 			var json = $.parseJSON(data),
-			 	page = $(container_id);
+			 	page = $(container_id),
 			 	card = $(document.createElement("div")),
 			 	my_id = $(document.createElement("div")),
 			 	my_email = $(document.createElement("div")),
@@ -74,24 +66,42 @@
 			my_phone.append(json.success.user0.phone);
 			
 			card.append(my_id, my_email, my_firstname, my_name, my_phone);
-			card.addClass("layer-center");
+			card.addClass("layer-left");
 			
 			page.html(card);
 			
 		});
 	}
-
-	// Requête GET asynchrone pour charger les données dans le conteneur 'page'
-	getMyCard('#page');
 	
+	var getMyImage = function (container_id) {
+		$.get("/KasuKasu/imagesservlet")
+		.done(function (data) {
+			var json = $.parseJSON(data),
+		 		page = $(container_id);
+			
+			page.html(page.html() + "<img width='300px' height='300px' src='" + json.success + "'></img>")
+		});
+	}
+	
+	getMyProfile('#page');
+	getMyImage('#image'); */
+	
+	
+	
+
+	window.onload = function () {
+		fillMyProfile();
+	}
+			
 </script>
 
 </head>
-<body style="margin: 0%; padding: 0%;">
+<body>
 
 	<%@ include file="/fragments/sidebar.jspf" %>
 
 	<div id="page">
+		<%@ include file="/fragments/profile.jspf" %>		
 	</div>
 	
 </body>

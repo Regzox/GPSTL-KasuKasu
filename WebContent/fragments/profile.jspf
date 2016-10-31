@@ -1,0 +1,25 @@
+<div id="profile">
+	<table>
+		<tr>
+			<td colspan="2" id="image-wrapper">
+				<img id="image" width="200px" height="200px" src=""></img>	
+			</td>
+		</tr>
+		
+		<tr class="row" >
+			<td class ="title">Id</td> <td class="information" id="id"></td>
+		</tr>
+		<tr class="row" >
+			<td class ="title">Prénom</td> <td class="information" id="firstname"> </td>
+		</tr>
+		<tr class="row" >
+			<td class ="title">Nom</td> <td class="information" id="name"> </td>
+		</tr>
+		<tr class="row" >
+			<td class ="title">Email</td> <td class="information" id="email"> </td>
+		</tr>
+		<tr class="row" >
+			<td class ="title">Téléphone</td> <td class="information" id="phone"> </td>					
+		</tr>
+	</table>
+</div>
