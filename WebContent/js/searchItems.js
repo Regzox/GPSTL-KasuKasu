@@ -1,4 +1,3 @@
-//$("#iquery").focus()
 function Item(id,owner,group,date,longitude,latitude,title,description){
 	//alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","+description+")");
 	this.id=id;
@@ -49,8 +48,7 @@ Item.traiteReponseJSON=function(json){
 		if(items.length==0)
 			fhtm+="<h3>Il n'y a aucun objet disponible correspondant à  vos critères de recherche.</h3>";
 		
-//<a href=\"main.jsp?id="+environnement.actif.id+"&login="+environnement.actif.login+"&key="+environnement.key+"\">contacts</a> 
-		for(var i in items){
+ 		for(var i in items){
 			//alert(JSON.stringify(items[i]));
 			fhtm+=(items[i]).getHTML();
 			//alert("JSOB.htmling : "+items[i].getHTML());
