@@ -7,7 +7,7 @@ function enregistrement(formulaire)
 	printHTML("#error_mdp","");
 	printHTML("#error_confirmation","");
 	printHTML("#error_captcha","");
-	
+
 
 
 	var nom = formulaire.nom.value;
@@ -37,19 +37,20 @@ function enregistrement(formulaire)
 
 function verif(prenom,nom, numero, email, mdp, confirmation) 
 {
+	var bool = true;
 	if(prenom.length==0)
 	{
 		//func_erreur_inscription("Prenom manquant");
 		//notify({ warning : "Prenom manquant" });
 		printHTML("#error_prenom","Prenom manquant");
 		$("#error_prenom").css({
-						"color":"red",
-						"font-size": "80%"
-					});
+			"color":"red",
+			"font-size": "80%"
+		});
 
-		return false;
+		bool = false;
 	}
-	
+
 	if(nom.length==0)
 	{
 		//func_erreur_inscription("Nom manquant");
@@ -60,9 +61,9 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"font-size": "80%"
 		});
 
-		return false;
+		bool = false;
 	}
-	
+
 	if(numero.length==0)
 	{
 		//func_erreur_inscription("Telephone manquant");
@@ -73,9 +74,9 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"font-size": "80%"
 		});
 
-		return false;
+		bool = false;
 	}
-	
+
 	if(email.length==0)
 	{
 		//func_erreur_inscription("Email manquant");
@@ -86,7 +87,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"font-size": "80%"
 		});
 
-		return false;
+		bool = false;
 	}
 
 	if(mdp.length==0)
@@ -98,11 +99,11 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-		
 
-		return false;
+
+		bool = false;
 	}
-	
+
 	if(mdp.length<8)
 	{
 		//func_erreur_inscription("Mot de passe trop court");
@@ -113,10 +114,10 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"font-size": "80%"
 		});
 
-		return false;
+		bool = false;
 	}
 
-	
+
 	if(mdp != confirmation)	
 	{
 		//func_erreur_inscription("Mots de passe incompatibles");
@@ -127,9 +128,9 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"font-size": "80%"
 		});
 
-		return false;
+		bool = false;
 	} 
-	
+
 	/*if (!ValidCaptcha())
 	{
 		//func_erreur_inscription("Captcha incompatible");
@@ -141,41 +142,38 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 		});
 
 		return false;
-		
+
 	}*/
-	
-	else 
-	{
-		return true;
-	}
+
+	return bool;
 }
 
 
 function enregistre(prenom, nom, numero, email, mdp, confirmation) 
 {
-	 var userlang = navigator.language || navigator.userLanguage; 
-	 document.cookie = "language="+userlang+"; expires=Thu, 21 Dec 2021 12:00:00 UTC;";
-	 
+	var userlang = navigator.language || navigator.userLanguage; 
+	document.cookie = "language="+userlang+"; expires=Thu, 21 Dec 2021 12:00:00 UTC;";
+
 	$.ajax({
 		type : "POST",
 		url : "createuser",
-		 xhrFields: 
-		 {
-			      withCredentials: true
-		 },
+		xhrFields: 
+		{
+			withCredentials: true
+		},
 		data : "prenom=" + prenom + "&nom=" + nom + "&numero=" + numero + "&email="
-				+ email+ "&mdp=" + mdp + "&confirmation=" + confirmation,
+		+ email+ "&mdp=" + mdp + "&confirmation=" + confirmation,
 		dataType : "json",
 		success : traiteReponseEnregistrement,
 		error : function(XHR, testStatus, errorThrown) 
 		{
- 			console.log(JSON.stringify(XHR + " " + testStatus + " " + errorThrown));
+			console.log(JSON.stringify(XHR + " " + testStatus + " " + errorThrown));
 
 		}
 	});
-	
 
-	
+
+
 
 }
 
@@ -191,22 +189,22 @@ function traiteReponseEnregistrement(rep)
 	else if (rep.message!=undefined)
 	{
 		if (rep.message!="1") func_erreur_inscription(rep.message);
-		else window.location.href = "dashboard.jsp";
+		else window.location.href = kasukasu.private.dashboard;
 	}
 	else 
 	{
-		window.location.href = "dashboard.jsp";
+		window.location.href = kasukasu.private.dashboard;
 	}
 }
 
 
 function func_erreur_inscription(msg)
 {
-		printHTML("#error_email",msg);
-		$("#error_email").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+	printHTML("#error_email",msg);
+	$("#error_email").css({
+		"color":"red",
+		"font-size": "80%"
+	});
 }
 
 
@@ -219,34 +217,33 @@ function printHTML(dom,htm)
 
 function Captcha()
 {
-    var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
-    var i;
-    for (i=0;i<6;i++)
-    {
-      var a = alpha[Math.floor(Math.random() * alpha.length)];
-      var b = alpha[Math.floor(Math.random() * alpha.length)];
-      var c = alpha[Math.floor(Math.random() * alpha.length)];
-      var d = alpha[Math.floor(Math.random() * alpha.length)];
-      var e = alpha[Math.floor(Math.random() * alpha.length)];
-      var f = alpha[Math.floor(Math.random() * alpha.length)];
-      var g = alpha[Math.floor(Math.random() * alpha.length)];
-     }
-   var code = a +  b +  + c +  d + e + f +  g;
+	var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+	var i;
+	for (i=0;i<6;i++)
+	{
+		var a = alpha[Math.floor(Math.random() * alpha.length)];
+		var b = alpha[Math.floor(Math.random() * alpha.length)];
+		var c = alpha[Math.floor(Math.random() * alpha.length)];
+		var d = alpha[Math.floor(Math.random() * alpha.length)];
+		var e = alpha[Math.floor(Math.random() * alpha.length)];
+		var f = alpha[Math.floor(Math.random() * alpha.length)];
+		var g = alpha[Math.floor(Math.random() * alpha.length)];
+	}
+	var code = a +  b +  + c +  d + e + f +  g;
 
-   document.getElementById('captcha').value=code;
- }
- function ValidCaptcha()
- {
-     var string1 = document.getElementById('captcha').value;
-     var string2 = document.getElementById('captcha_rep').value;
-     if (string1 == string2)
-     {
-       return true;
-     }
-     else
-     {        
-       return false;
-     }
- }
-
+	document.getElementById('captcha').value=code;
+}
+function ValidCaptcha()
+{
+	var string1 = document.getElementById('captcha').value;
+	var string2 = document.getElementById('captcha_rep').value;
+	if (string1 == string2)
+	{
+		return true;
+	}
+	else
+	{        
+		return false;
+	}
+}
 

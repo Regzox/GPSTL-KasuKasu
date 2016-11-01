@@ -200,4 +200,14 @@
     <servlet-name>GroupMembersServlet</servlet-name>
     <url-pattern>/GroupMembersServlet</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>CreateObject</display-name>
+    <servlet-name>CreateObject</servlet-name>
+    <servlet-class>servlets.CreateObject</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateObject</servlet-name>
+    <url-pattern>/createobject</url-pattern>
+  </servlet-mapping>
 </web-app>

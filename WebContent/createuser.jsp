@@ -58,11 +58,13 @@
 			<div class="form-group row">
 				<label for="numero" class="col-xs-2 col-form-label" >Téléphone</label>
 				<div class="col-xs-10">
-					<input class="form-control" type="text" value="" placeholder="Nombre à 10 chiffres"
-						id="numero" pattern="[0][0-9]{9}">
+					<input class="form-control" type="tel" value="" 
+						id="numero"  pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
 				</div>
 			</div>
 			
+			
+
 			
 			<div id='error_telephone'></div> 
 			
@@ -137,5 +139,4 @@
     </body>
 
 </html>
-
 
