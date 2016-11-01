@@ -17,14 +17,14 @@
 				if ( !(~$(location).attr('href').indexOf('<%= Url.PROFILE.value() %>')))
 					$(location).attr('href', '<%= Url.PROFILE.value() %>');
 			">Profil</div>
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.MODIFY_USER.value() %>')))
-					$(location).attr('href', '<%= Url.MODIFY_USER.value() %>');
-			">Modifier profil</div>
-						<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.UPLOAD.value() %>')))
-					$(location).attr('href', '<%= Url.UPLOAD.value() %>');
-			">Changer d'image</div>
+<%-- 			<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.MODIFY_USER.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.MODIFY_USER.value() %>'); --%>
+<%-- 			">Modifier profil</div> --%>
+<%-- 						<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.UPLOAD.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.UPLOAD.value() %>'); --%>
+<%-- 			">Changer d'image</div> --%>
 			<div onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.FIND_USER.value() %>')))
 					$(location).attr('href', '<%= Url.FIND_USER.value() %>');
@@ -41,7 +41,22 @@
 				if ( !(~$(location).attr('href').indexOf('<%= Url.PENDING_REQUESTS.value() %>')))
 					$(location).attr('href', '<%= Url.PENDING_REQUESTS.value() %>');
 			">Requetes d'amis</div>
-
+				<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.GROUPE.value() %>')))
+					$(location).attr('href', '<%= Url.GROUPE.value() %>');
+			">Mes groupes d'amis</div>
+			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.CREATEOBJECT.value() %>')))
+					$(location).attr('href', '<%= Url.CREATEOBJECT.value() %>');
+			">Ajouter un prêt</div>
+			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.DEMANDESRECUES.value() %>')))
+					$(location).attr('href', '<%= Url.DEMANDESRECUES.value() %>');
+			">Demandes d'emprunts reçues</div>
+			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.RECHERCHEROBJECT.value() %>')))
+					$(location).attr('href', '<%= Url.RECHERCHEROBJECT.value() %>');
+			">Rechercher un objet</div>
 		</div>
 	</div>
 </div>

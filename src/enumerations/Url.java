@@ -17,7 +17,15 @@ public enum Url {
 	SEARCHITEMS("/searchitems.jsp"),
 	MY_FRIENDS("/restricted/myfriends.jsp"),
 	PENDING_REQUESTS("/restricted/pendingrequests.jsp"),
-	UPLOAD("/restricted/upload.jsp")
+	UPLOAD("/restricted/upload.jsp"),
+	GROUPE("/groupe.jsp"),
+	CREATEOBJECT("/createobject.jsp"),
+	DEMANDESRECUES("/demande.jsp"),
+	RECHERCHEROBJECT("/recherche.jsp"),
+
+
+
+
 	;
 	
 	protected final String displayName = "/KasuKasu";

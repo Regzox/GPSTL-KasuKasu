@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet"
+	href="/KasuKasu/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/profile.css" />
 
@@ -98,11 +99,27 @@
 </head>
 <body>
 
-	<%@ include file="/fragments/sidebar.jspf" %>
+	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id="page">
-		<%@ include file="/fragments/profile.jspf" %>		
+
+
+
+
+		<%@ include file="/fragments/profile.jspf"%>
+		<br /> 
+		<a href="/KasuKasu/restricted/modifyUser.jsp"> Modifier mes informations</a> 
+		<br /> 
+		<a href="/KasuKasu/restricted/upload.jsp"> 	Changer d'image</a>
+
+
+
+
+
 	</div>
-	
+
+
+
+
 </body>
 </html>
