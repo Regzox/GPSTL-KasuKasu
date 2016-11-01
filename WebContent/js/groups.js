@@ -7,13 +7,6 @@ function Group(id,name,type,owner,date){
 	this.date=date;
 } 
 
-function Member(id,name){
-	alert("new Member("+id+","+name);
-	this.id=id;
-	this.name=name;
-	this.type=type;
-} 
-
 Group.revival=function(key,value){
 	alert("revival begin");
 	if(key=="groups"){ 
@@ -31,11 +24,8 @@ Group.revival=function(key,value){
 	}else if(isNumber(key) && value.type=="group"){ //tab index
 		var i = new Group(value.id,value.name,value.owner,value.type,value.date);
 		return (i);
-
-	}else if(isNumber(key) && value.type=="member"){ //tab index
-		var i = new Member(value.id,value.name,value.type);
-		return (i);
-	}		else{
+	}
+	else{
 		alert("revival -> value = "+value);
 		return (value);
 	}
@@ -79,20 +69,6 @@ Group.prototype.getHTML=function(){
 	return s;
 };
 
-this.name=name;
-Member.prototype.getHTML=function(){  
-	alert("Member ->getHtml ");
-	var s;
-	s="<div class=\"MemberBox\" id=\"MemberBox"+this.id+"\">";
-	s+="<div class=\"Member-name\" id=\"Member-name"+this.id+"\"><a href=\"/gotoMember\"><b>"+this.name+"</b></a></div>\n";	
-	s+="<div class=\"Member-infos\">";
-	s+="<span style=\"display:none;\" class=\"hiden-Member-info\" id=\"Member-Member-info"+this.id+"\">"+this.Member+"</span>";
-	s+="</div> ";
-	s+="</div><hr><br>\n";
-	return s;
-};
-
-
 
 function userGroups(){
 	$.ajax({
@@ -106,31 +82,8 @@ function userGroups(){
 		}
 	});
 }
-function groupMembers(gid){
-	$.ajax({
-		type : "GET",
-		url : "groupmembers",
-		data : "gid="+gid,
-		dataType : "JSON",
-		success : Group.traiteReponseJSON,
-		error : function(xhr,status,errorthrown){
-			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
-		}
-	});
-}
-function addMember(gid,member){
-	$.ajax({
-		type : "POST",
-		url : "addmember",
-		data :  "gid="+gid+"&member="+member,
-		dataType : "JSON",
-		success : Group.traiteReponseJSON,
-		error : function(xhr,status,errorthrown){
-			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
-		}
-	});
-}
-function createGroup(gid,member){
+
+function createGroup(name){
 	$.ajax({
 		type : "POST",
 		url : "creategroup",
