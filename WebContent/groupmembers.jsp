@@ -4,23 +4,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
-<link type="text/css" rel="stylesheet"
-	href="/KasuKasu/css/bootstrap.min.css">
-
-<script type="text/javascript" src="/KasuKasu/js/finduser.js"></script>
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
+<script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/groupmembers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<title>Rechercher Utilisateur</title>
+<title>Membres du groupe</title>
 </head>
 <body>
-
-	<%@ include file="/fragments/sidebar.jspf"%>
-
+	
+<script type="text/javascript">
+//function getID(id){ggid=id;console.log("ggid="+ggid);return id;}
+function go(){<%out.println("groupMembers('"+request.getParameter("gid")+"');");%>};
+$(go);	
+</script>
+	
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Rechercher Utilisateur</p>
+			<p class='capital'>Gerer votre groupe</p>
 
+			<div id='notifier'></div>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this)">
@@ -49,7 +52,8 @@
 					value="Chercher"> <br>
 			</form>
 
-			<div id='notifier'></div>
+			<div id="found-members" class="abootsraper"></div>
+			
 		</div>
 	</div>
 </body>

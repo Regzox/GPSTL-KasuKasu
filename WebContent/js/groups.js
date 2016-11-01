@@ -40,7 +40,7 @@ Group.traiteReponseJSON=function(json){
 		var fhtm="<br><div id=\"groupsBox\">";	
 
 		if(groups .length==0)
-			fhtm+="<h3>Il n'y a aucun group pour le moment.</h3>";
+			fhtm+="<h3>Il n'y a aucun groupe pour le moment.</h3>";
 
 		for(var i in groups){
 			//alert(JSON.stringify(groups[i]));
@@ -58,7 +58,9 @@ Group.prototype.getHTML=function(){
 	//alert("Group ->getHtml ");
 	var s;
 	s="<div class=\"groupBox\" id=\"groupBox"+this.id+"\">";
-	s+="<div class=\"group-name\" id=\"group-name"+this.id+"\"><a href=\"/gotogroup\"><b>"+this.name+"</b></a></div>\n";	
+	s+="<div class=\"group-name\" id=\"group-name"+this.id+"\">" +
+	"<a href=\"groupmembers.jsp?gid="+this.id+"&gname="+this.name+" \"><b>"+this.name+"</b></a>" +
+	"</div>\n";	
 	s+="<div class=\"group-infos\">";
 	s+="<span style=\"display:none;\" class=\"hiden-group-info\" id=\"group-group-info"+this.id+"\">"+this.group+"</span>";
 	s+="<span class=\"group-date\" id=\"group-date"+this.id+"\">"+this.date+"</span>\n";

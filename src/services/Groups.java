@@ -44,16 +44,17 @@ public class Groups {
 					.put("date",dbo.get("date")));}
 		return new JSONObject().put("groups",jar);}
 
-	 
+
 	public static JSONObject groupMembers(String groupID) throws JSONException, DatabaseException, SQLException{
 		BasicDBList members= GroupsDB.groupMembers(groupID);
 		JSONArray jar = new JSONArray();
-		for(Object member : members){
-			jar.put(new JSONObject()
-			.put("id",(Integer)member)
-			.put("type","name")
-			.put("name",UserDao.getUser((Integer)member).getFirstname()
-					+" "+UserDao.getUser((Integer)member).getName()));}
-		  return new JSONObject().put("members",jar);}  
-	 
-	}
+		if(members!=null)
+			for(Object member : members){
+				jar.put(new JSONObject()
+						.put("id",(Integer)member)
+						.put("type","name")
+						.put("name",UserDao.getUser((Integer)member).getFirstname()
+								+" "+UserDao.getUser((Integer)member).getName()));}
+		return new JSONObject().put("members",jar);}  
+
+}

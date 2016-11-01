@@ -1,3 +1,97 @@
+/**Only for first debugs*/ 
+function printJSONMembers(rep){printHTML("#found-Members", JSON.stringify(rep));}
+
+function finduser(form) 
+{
+	var search = form.search.value;
+	var val = form.value.value;
+
+	var ok = checkInput(search, val);
+	if (ok) 
+	{
+		printHTML("#notifier","");
+		findUserJS(search, val);
+	}
+}
+
+function checkInput(search, val) 
+{
+	if(val.length==0)
+	{
+		func_message("Champ Vide");
+		return false;
+	}
+	else 
+	{
+		return true;
+	}
+}
+
+
+function findUserJS(searchv, valuev) 
+{
+	$.ajax({
+		type : "POST",
+		url : "/KasuKasu/finduser",
+		data : {search : searchv, value : valuev},
+		dataType : "JSON",
+		success : ProcessFindUser,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+function ProcessFindUser(rep) 
+{
+		var message = "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+		"</tr>";
+		var endmessage ="</table>";
+
+		var bodymessage ="";
+		if(rep.users != undefined)
+		$.each(rep.users, function(user, profile) {
+			var x,y,z;
+			if(user !='warning'){
+			$.each(profile, function(field, value) {
+				//console.log(field); console.log(value);
+				if(field=='name')
+					x=value;
+				if(field=='firstname')
+					y=value;
+				if(field=='id')
+					z=value;
+			});
+			
+			bodymessage = bodymessage+
+				"<tr>" +
+				"<td>"+x+"</td>" +
+				"<td>"+y+"</td>"+
+				"<td><a href=\"/KasuKasu/profil/?id="+z+"\"> Voir Profil </a></td>"+
+				"<td><a id=\"joanlinkasbutton\" onClick=\"addMember("+0+","+z+")\" href=\"\"> Ajouter au groupe </a></td>"+
+				"</tr>";
+			}else{
+				message="Aucun utilisateur ne correspond.";
+				bodymessage="";
+				endmessage="";
+			}
+		});
+	var div=(message+bodymessage+endmessage);
+	func_message(div);
+}
+
+function func_message(msg)
+{
+	printHTML("#notifier",msg);
+}
+
+
+function printHTML(dom,htm)
+{ 
+	$(dom).html(htm);
+}
 function Member(id,name){
 	alert("new Member("+id+","+name);
 	this.id=id;
@@ -6,16 +100,16 @@ function Member(id,name){
 } 
 
 Member.revival=function(key,value){
-	alert("revival begin");
+	//alert("revival begin");
 	if(key=="members"){ 
 		var r;
 		if((value.error==undefined) || (value.error==0)){
 			r=value;  //whole tab
-			alert("revival  -> Members = "+JSON.stringify(r));
+			//alert("revival  -> Members = "+JSON.stringify(r));
 		}else{
 			r =new Object();
 			r.error=value.error;
-			alert("revive -> error = "+r.error);
+			//alert("revive -> error = "+r.error);
 		}
 		return (r);
 
@@ -24,7 +118,7 @@ Member.revival=function(key,value){
 		return (i);
 	}		
 	else{
-		alert("revival -> value = "+value);
+		//alert("revival -> value = "+value);
 		return (value);
 	}
 };
@@ -43,12 +137,12 @@ Member.traiteReponseJSON=function(json){
 			fhtm+="<h3>Il n'y a aucun membre pour le moment.</h3>";
 
 		for(var i in members){
-			alert(JSON.stringify(Members[i]));
+			//alert(JSON.stringify(Members[i]));
 			fhtm+=(members[i]).getHTML();
-			alert("JSOB.htmling : "+members[i].getHTML());
+			//alert("JSOB.htmling : "+members[i].getHTML());
 		}		
 		fhtm+="</div>\n"; 
-		alert("Members.html = "+fhtm);  
+		//alert("Members.html = "+fhtm);  
 		printHTML("#found-members",fhtm); 
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
@@ -67,8 +161,6 @@ Member.prototype.getHTML=function(){
 	s+="</div><hr><br>\n";
 	return s;
 };
-
-
 
 function groupMembers(gid){
 	$.ajax({
@@ -94,5 +186,3 @@ function addMember(gid,member){
 		}
 	});
 }
-/**Only for first debugs*/ 
-function printJSONMembers(rep){printHTML("#found-Members", JSON.stringify(rep));}

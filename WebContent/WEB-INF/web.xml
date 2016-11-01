@@ -194,7 +194,7 @@
     <description></description>
     <display-name>GroupMembersServlet</display-name>
     <servlet-name>GroupMembersServlet</servlet-name>
-    <servlet-class>servlets.groupmembers</servlet-class>
+    <servlet-class>servlets.GroupMembersServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>GroupMembersServlet</servlet-name>

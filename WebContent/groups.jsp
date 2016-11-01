@@ -31,7 +31,7 @@
 			</div>
 
 			<input type="submit" class="btn btn-primary btn-block"
-				value="Creer"> <br>
+				value="Creer un nouveau groupe"> <br>
 				
 			<div id="found-groups" class="abootsraper"></div>
 			
