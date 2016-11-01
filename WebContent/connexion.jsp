@@ -35,7 +35,9 @@
 
 
 			<div class="form-group row">
-				<label for="mdp" class="col-xs-2 col-form-label">Password</label>
+<!-- 				<label for="mdp" class="col-xs-2 col-form-label">Password</label> -->
+								<label for="mdp" class="col-xs-2 col-form-label">Mot de passe</label>
+				
 				<div class="col-xs-10">
 					<input class="form-control" name="pass" type="password" value=""
 						id="pass">

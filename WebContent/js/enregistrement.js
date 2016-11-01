@@ -6,7 +6,7 @@ function enregistrement(formulaire)
 	printHTML("#error_email","");
 	printHTML("#error_mdp","");
 	printHTML("#error_confirmation","");
-	printHTML("#error_captcha","");
+	//printHTML("#error_captcha","");
 
 
 

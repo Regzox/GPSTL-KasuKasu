@@ -16,19 +16,23 @@
 				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
 				if ( !(~$(location).attr('href').indexOf('<%= Url.PROFILE.value() %>')))
 					$(location).attr('href', '<%= Url.PROFILE.value() %>');
-			">Profile</div>
+			">Profil</div>
 			<div onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.MODIFY_USER.value() %>')))
 					$(location).attr('href', '<%= Url.MODIFY_USER.value() %>');
-			">Modifications</div>
+			">Modifier profil</div>
+						<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.UPLOAD.value() %>')))
+					$(location).attr('href', '<%= Url.UPLOAD.value() %>');
+			">Changer d'image</div>
 			<div onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.FIND_USER.value() %>')))
 					$(location).attr('href', '<%= Url.FIND_USER.value() %>');
-			">Find a friend</div>
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.DASHBOARD.value() %>')))
-					$(location).attr('href', '<%= Url.DASHBOARD.value() %>');
-			">Dashboard</div>
+			">Rechercher un utilisateur</div>
+<%-- 			<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.DASHBOARD.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.DASHBOARD.value() %>'); --%>
+<%-- 			">Dashboard</div> --%>
 			<div onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.MY_FRIENDS.value() %>')))
 					$(location).attr('href', '<%= Url.MY_FRIENDS.value() %>');
@@ -37,10 +41,7 @@
 				if ( !(~$(location).attr('href').indexOf('<%= Url.PENDING_REQUESTS.value() %>')))
 					$(location).attr('href', '<%= Url.PENDING_REQUESTS.value() %>');
 			">Requetes d'amis</div>
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.UPLOAD.value() %>')))
-					$(location).attr('href', '<%= Url.UPLOAD.value() %>');
-			">Changer d'image</div>
+
 		</div>
 	</div>
 </div>

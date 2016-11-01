@@ -103,24 +103,24 @@
 			<div id='error_confirmation'></div> 
 			
 			
-					<hr />
+<!-- 					<hr /> -->
 			
 			
-			<div class="form-group row">
-				<div class="col-xs-10">
+<!-- 			<div class="form-group row"> -->
+<!-- 				<div class="col-xs-10"> -->
 				
-					Entrez le code suivant		
+<!-- 					Entrez le code suivant		 -->
 						
 				   
-					<input class="form-control" type="text" value="" id="captcha" disabled="disabled">
-					<input type="button" id="refresh" value ="Nouveau code" onClick="javascript:Captcha()"/>
-					<input class="form-control" type="text" value="" id="captcha_rep" maxlength="255">
+<!-- 					<input class="form-control" type="text" value="" id="captcha" disabled="disabled"> -->
+<!-- 					<input type="button" id="refresh" value ="Nouveau code" onClick="javascript:Captcha()"/> -->
+<!-- 					<input class="form-control" type="text" value="" id="captcha_rep" maxlength="255"> -->
 					
 					
-				</div>
-			</div>
+<!-- 				</div> -->
+<!-- 			</div> -->
 			
-			<div id='error_captcha'></div> 
+<!-- 			<div id='error_captcha'></div>  -->
 			
 
                 

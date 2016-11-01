@@ -11,31 +11,15 @@
 
 <script type="text/javascript" src="/KasuKasu/js/connexion.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<title>Récupération de mot de passe</title>
+<title>Erreur</title>
 </head>
 <body>
 
 	<div class='layer-center'>
 
-		<p class='capital'>Récupération de votre mot de passe</p>
+		<p class='capital'>Email inexistant</p>
 
-
-		<form action="/KasuKasu/retrievepassword">
-
-
-			<div class="form-group row">
-				<label for="email" class="col-xs-2 col-form-label">Email</label>
-				<div class="col-xs-10">
-					<input class="form-control" name="mail" type="email" value=""
-						id="mail">
-				</div>
-			</div>
-
-
-		
-			<input type="submit" class="btn btn-primary btn-block"
-				value="Envoyer"> 
-		</form>
+		 <a href="/KasuKasu/portal.jsp">Retour à l'accueil</a>
 	</div>
 </body>
 </html>

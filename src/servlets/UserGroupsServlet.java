@@ -20,7 +20,9 @@ public class UserGroupsServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try{
 			response.setContentType("text/plain");
-			response.getWriter().print(Groups.userGroups(0));	
+			response.getWriter().print(Groups.userGroups(0));
+			System.out.println(Groups.userGroups(0).toString());
+
 			
 		}catch (Exception e) {//TODO ERROR HERE
 			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"

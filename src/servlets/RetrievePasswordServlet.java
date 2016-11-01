@@ -48,7 +48,9 @@ public class RetrievePasswordServlet extends HttpServlet {
 					} catch(UserNotFoundException e){
 						JSONObject error = new JSONObject();
 						error.put("error", "unknown email");
-						out.print(error);
+						request.getRequestDispatcher("error.jsp").forward(request, response);
+
+						//out.print(error);
 						return;
 					}
 				}else{
@@ -64,9 +66,16 @@ public class RetrievePasswordServlet extends HttpServlet {
 			String contenu = "Voici votre mot de passe : " + mdp;
 			String sujet = "Recuperation du mot de passe";
 			SendEmail.sendMail(mail, sujet, contenu);
+			
+			request.getRequestDispatcher("portal.jsp").forward(request, response);
+
+			
+
 
 			out.flush();
 			out.close();
+			
+
 	}catch(Exception e){
 		e.printStackTrace();
 		request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);

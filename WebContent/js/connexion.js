@@ -17,19 +17,22 @@ function checkInput(mail, pass)
 {
 	if(mail.length==0)
 	{
-		func_error_login("Mail missing");
+		//func_error_login("Email missing");
+		func_error_login("Email manquant");
 		return false;
 	}
 
 	if(pass.length==0)
 	{
-		func_error_login("Password missing");
+		//func_error_login("Password missing");
+		func_error_login("Mot de passe manquant");
 		return false;
 	}
 	
 	if(pass.length<8)
 	{
-		func_error_login("Password too short");
+		//func_error_login("Password too short");
+		func_error_login("Mot de passe trop court");
 		return false;
 	}
 	else 
@@ -72,6 +75,10 @@ function ProcessLoginRequest(rep)
 function func_error_login(msg)
 {
 		printHTML("#notifier",msg);
+		$("#notifier").css({
+			"color":"red",
+			"font-size": "80%"
+		})
 }
 
 

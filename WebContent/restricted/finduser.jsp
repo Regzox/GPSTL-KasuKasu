@@ -19,7 +19,7 @@
 
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Rechercher Utilisateur</p>
+			<p class='capital'>Rechercher un utilisateur</p>
 
 
 			<form action="javascript:(function(){return;})()" method="get"
