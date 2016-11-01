@@ -71,6 +71,7 @@ Group.prototype.getHTML=function(){
 
 
 function userGroups(){
+	alert("ug");
 	$.ajax({
 		type : "GET",
 		url : "usergroups",
@@ -84,16 +85,27 @@ function userGroups(){
 }
 
 function createGroup(name){
+	if(name.value.length==0)
+		return;
 	$.ajax({
 		type : "POST",
 		url : "creategroup",
-		data : "name="+name,
+		data : "name="+name.value,
 		dataType : "JSON",
-		success : Group.traiteReponseJSON,
+		success : refresh,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
 	});
 }
+
+function refresh(result){
+	//window.location.reload();//n'efface pas les inputs! why?
+	window.location.href="/KasuKasu/groups.jsp";
+}
+
+
+
+
 /**Only for first debugs*/ 
 function printJSONGroups(rep){printHTML("#found-Groups", JSON.stringify(rep));}

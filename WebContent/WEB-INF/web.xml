@@ -188,7 +188,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UserGroupsServlet</servlet-name>
-    <url-pattern>/UserGroupsServlet</url-pattern>
+    <url-pattern>/usergroups</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -198,6 +198,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>GroupMembersServlet</servlet-name>
-    <url-pattern>/GroupMembersServlet</url-pattern>
+    <url-pattern>/groupmembers</url-pattern>
   </servlet-mapping>
 </web-app>

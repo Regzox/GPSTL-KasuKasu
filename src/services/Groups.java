@@ -22,7 +22,7 @@ import exceptions.DatabaseException;
  * @author Anagbla Jean 
  * **@goodToKnow ! FLUENT STYLE CODE*/
 public class Groups {
-
+	//TODO gerer les groupes homonymes
 	public static void createGroup(String name,int userId) 
 			throws DatabaseException,JSONException{		
 		GroupsDB.openGroup(name,userId);}

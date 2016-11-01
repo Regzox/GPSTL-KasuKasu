@@ -31,7 +31,7 @@ public class CreateGroupServlet extends HttpServlet {
 				throw new Exception("Url is missing parameters.");
 
 			Groups.createGroup(request.getParameter("name"),0);	
-
+			response.getWriter().print(new json.Success("Ohayo mina-san"));
 		}catch (Exception e) {//TODO ERROR HERE
 			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"
 			e.printStackTrace(); //local debug
