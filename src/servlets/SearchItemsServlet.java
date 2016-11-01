@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import services.Items;
 
@@ -20,7 +21,14 @@ public class SearchItemsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			//TODO LATER CHECK SESSION OK 
+			//TODO CHECK SESSION OK uncomment after offline tests 
+			//HttpSession session=request.getSession();
+			//if(session ==null)
+			//{response.getWriter().print(new json.Error("User not conected!"))
+			//;return;}
+			//if(sessiongetAttribute("userId") ==null){
+			//response.getWriter().print(new json.Error("User not conected!"));
+			//return;}
 			
 			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();

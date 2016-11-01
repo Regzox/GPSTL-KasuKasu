@@ -35,7 +35,7 @@ public class ConfirmAccountServlet extends HttpServlet {
 
 			User.confirmUser(Integer.parseInt(request.getParameter ("id")));
 
-			//TODO ad id to url or add cookie (after checking if not exists)
+			//TODO create session if not exists before redirect
 			response.sendRedirect(Url.DASHBOARD.value());
 
 		}catch (Exception e) {

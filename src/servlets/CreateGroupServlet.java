@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import services.Groups;
 
@@ -30,8 +31,11 @@ public class CreateGroupServlet extends HttpServlet {
 			if( request.getParameter("name").equals(""))
 				throw new Exception("Url is missing parameters.");
 
-			Groups.createGroup(request.getParameter("name"),0);	
-
+			//HttpSession session=request.getSession();
+			//int userID=Integer.parseInt((String) session.getAttribute("userId"));
+			int userID=0;
+			Groups.createGroup(request.getParameter("name"),userID);	
+			response.getWriter().print(new json.Success("Ohayo mina-san"));
 		}catch (Exception e) {//TODO ERROR HERE
 			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"
 			e.printStackTrace(); //local debug

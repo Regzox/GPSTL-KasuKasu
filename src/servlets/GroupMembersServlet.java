@@ -19,6 +19,10 @@ public class GroupMembersServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doGet(request, response);
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
 			response.setContentType("text/plain");
 			@SuppressWarnings("unchecked")
@@ -37,10 +41,6 @@ public class GroupMembersServlet extends HttpServlet {
 			e.printStackTrace(); //local debug
 			response.getWriter().print(new json.Error(e.getMessage())); 
 		}
-	}
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
 	}
 
 }

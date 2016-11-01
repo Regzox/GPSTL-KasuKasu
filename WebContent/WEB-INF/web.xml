@@ -184,21 +184,21 @@
     <description></description>
     <display-name>UserGroupsServlet</display-name>
     <servlet-name>UserGroupsServlet</servlet-name>
-    <servlet-class>servlets.usergroups</servlet-class>
+    <servlet-class>servlets.UserGroupsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UserGroupsServlet</servlet-name>
-    <url-pattern>/UserGroupsServlet</url-pattern>
+    <url-pattern>/usergroups</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>GroupMembersServlet</display-name>
     <servlet-name>GroupMembersServlet</servlet-name>
-    <servlet-class>servlets.groupmembers</servlet-class>
+    <servlet-class>servlets.GroupMembersServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>GroupMembersServlet</servlet-name>
-    <url-pattern>/GroupMembersServlet</url-pattern>
+    <url-pattern>/groupmembers</url-pattern>
   </servlet-mapping>
     <servlet>
     <description></description>
