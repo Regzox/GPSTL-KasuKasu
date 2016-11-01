@@ -23,8 +23,6 @@ $(go);
 		<div class='layer-center'>
 			<p class='capital'>Gerer votre groupe</p>
 
-			<div id='notifier'></div>
-
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this)">
 
@@ -52,6 +50,9 @@ $(go);
 					value="Chercher"> <br>
 			</form>
 
+			<div id='notifier'></div>
+			<br><br><hr><br>
+			<h2>Liste des membres du groupe</h2>
 			<div id="found-members" class="abootsraper"></div>
 			
 		</div>
