@@ -33,7 +33,7 @@
 			<input type="submit" class="btn btn-primary btn-block"
 				value="Creer"> <br>
 				
-			<div id="found-items" class="abootsraper"></div>
+			<div id="found-groups" class="abootsraper"></div>
 			
 		</form>
 	</div>

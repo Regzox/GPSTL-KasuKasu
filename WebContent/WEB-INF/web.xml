@@ -184,7 +184,7 @@
     <description></description>
     <display-name>UserGroupsServlet</display-name>
     <servlet-name>UserGroupsServlet</servlet-name>
-    <servlet-class>servlets.usergroups</servlet-class>
+    <servlet-class>servlets.UserGroupsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>UserGroupsServlet</servlet-name>
