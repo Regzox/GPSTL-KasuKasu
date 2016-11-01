@@ -108,9 +108,9 @@
 
 		<%@ include file="/fragments/profile.jspf"%>
 		<br /> 
-		<a href="/KasuKasu/restricted/modifyUser.jsp"> Modifier mes informations</a> 
+		<a href='<%= Url.MODIFY_USER.value() %>'> Modifier mes informations</a> 
 		<br /> 
-		<a href="/KasuKasu/restricted/upload.jsp"> 	Changer d'image</a>
+		<a href='<%= Url.UPLOAD.value() %>'> 	Changer d'image</a>
 
 
 
