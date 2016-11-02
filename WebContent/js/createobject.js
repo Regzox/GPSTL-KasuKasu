@@ -1,3 +1,6 @@
+	T = new Array();
+	i = 0;
+
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 	defaultHandlerOptions : {
 		'single' : true,
@@ -28,15 +31,29 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
 		div = document.getElementById('formulaire');
 		
+		nombre_h = document.getElementById('nombre');
+
+		
 		var lon = document.createElement("input");
 		lon.type = "text";
 		lon.value = lonlat.lon;
+		lon.id=i;
 		div.appendChild(lon);
+		
+		i=i+1;
 
 		var lat = document.createElement("input");
 		lat.type = "text";
 		lat.value = lonlat.lat;
+		lat.id=i;
 		div.appendChild(lat);
+		
+		nombre_h.value=i;
+
+		
+		i=i+1;
+		
+
 
 		var supp = document.createElement("input");
 		supp.type = "button";
@@ -71,6 +88,9 @@ function init() {
 	var click = new OpenLayers.Control.Click();
 	map.addControl(click);
 	click.activate();
+	
+	userGroups();
+	
 
 }
 
@@ -80,8 +100,9 @@ function createobject()
 	printHTML("#error_description","");
 	printHTML("#error_datedeb","");
 	printHTML("#error_datefin","");
-
-
+	
+	
+	var nombre=document.getElementById('nombre').value;
 	var nom = document.getElementById('nom').value;
 	var description = document.getElementById('description').value;
 	var datedebut = document.getElementById('datedeb').value;
@@ -101,24 +122,47 @@ function createobject()
 			result.push(opt.value || opt.text);
 		}
 	}
+	
+	
+	var result2 = [];
+	for (i=0; i<=nombre; i=i+2)
+		{
+		    if (document.getElementById(i) !== null)
+		    	{
+		    	   result2.push(document.getElementById(i).value+","+document.getElementById(i+1).value)
 
+		    	}
+		}
+	
 
-
-	var ok = verif(nom, description, datedebut, datefin);
+	var ok = verif(nom, description, datedebut, datefin, nombre);
 	if (ok) 
 	{
 		printHTML("#error_nom","");
 		printHTML("#error_description","");
 		printHTML("#error_datedeb","");
 		printHTML("#error_datefin","");
-		send(nom, description, datedebut, datefin, result);
+		printHTML("#error_point","");
+		send(nom, description, datedebut, datefin, result, result2);
 
 	}
 }
 
-function verif(nom, description, datedebut, datefin) 
+function verif(nom, description, datedebut, datefin, nombre) 
 {
 	var bool = true;
+	
+	if(nombre==0)
+	{
+		printHTML("#error_point","Point de pret manquant");
+		$("#error_point").css({
+			"color":"red",
+			"font-size": "80%"
+		});
+
+		//return false;
+		bool = false;
+	}
 
 	if(nom.length==0)
 	{
@@ -258,17 +302,21 @@ function verif(nom, description, datedebut, datefin)
 	return bool;
 }
 
-function send(nom, description, datedebut, datefin, result) 
+function send(nom, description, datedebut, datefin, result, result2) 
 {
 	alert("coucou");
 	 var json = JSON.stringify(result);
+	 
+	 var json2 = JSON.stringify(result2);
+
 
 	$.ajax({
 	type : "POST",
 	url : "createobject",
 
 	data : "nom=" + nom + "&description=" + description
-	+ "&datedebut=" + datedebut + "&datefin=" + datefin + "&groupe=" + json, 
+	+ "&datedebut=" + datedebut + "&datefin=" + datefin + "&groupe=" + json
+	+ "&coordonnees=" + json2, 
 
 	
 //	data : {nom : nom, 
@@ -290,4 +338,41 @@ function send(nom, description, datedebut, datefin, result)
 function printHTML(dom,htm)
 { 
 	$(dom).html(htm);
+}
+
+/*****************************************************************************************/
+
+
+function userGroups(){
+	$.ajax({
+		type : "GET",
+		url : "usergroups",
+		data : "",
+		dataType : "JSON",
+		success : traiteReponse,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+
+
+function traiteReponse(json) 
+{
+
+	var json = JSON.parse(JSON.stringify(json));
+	
+
+
+	 groupeSelect = document.getElementById('groupe');
+
+	
+	for (var i=0; i< json.groups.length; i++)
+		{
+		  // alert (json.groups[i].name);
+		 groupeSelect.options[groupeSelect.options.length] = new Option(json.groups[i].name);
+
+
+		}
 }

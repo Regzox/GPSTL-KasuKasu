@@ -30,6 +30,7 @@ public class CreateObject extends HttpServlet {
 		System.out.println(request.getParameter("datedebut"));
 		System.out.println(request.getParameter("datefin"));
 		System.out.println(request.getParameter("groupe"));
+		System.out.println(request.getParameter("coordonnees"));
 
 
 

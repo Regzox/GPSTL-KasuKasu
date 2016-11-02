@@ -74,7 +74,7 @@ html, body, #mapdiv {
 					<label for="datedeb" class="col-xs-2 col-form-label">Début
 						du prêt</label>
 					<div class="col-xs-10">
-						<input type="date" id="datedeb"  placeholder="Format : jj/mm/aaaa">
+						<input type="date" id="datedeb" placeholder="Format : jj/mm/aaaa">
 					</div>
 				</div>
 
@@ -91,31 +91,36 @@ html, body, #mapdiv {
 
 				<div id='error_datefin'></div>
 
+				<div id="found-groups" class="abootsraper"></div>
+
+
 
 				<div class="form-group row">
 					<label for="datefin" class="col-xs-2 col-form-label">Visibilité</label>
 					<div class="col-xs-10">
 						<select name="groupe" id="groupe" multiple>
 							<option selected="selected">Tout le monde</option>
-							<option>Groupe 1</option>
-							<option>Groupe 2</option>
+
 
 						</select>
 					</div>
 				</div>
-				
 
 
 
 
 
+
+
+				<input type="hidden" name="nombre" id="nombre" value="0">
 
 
 
 			</form>
-			
-			<input type="submit" class="btn btn-primary btn-block" onClick="javascript:createobject()">
-			
+
+			<input type="submit" class="btn btn-primary btn-block"
+				onClick="javascript:createobject()">
+
 
 
 
@@ -135,6 +140,10 @@ html, body, #mapdiv {
 			<div id="mapdiv" style="width: 400px; height: 400px"></div>
 
 		</div>
+
+		<div id='error_point'></div>
+
+
 
 
 	</div>
