@@ -31,8 +31,7 @@ public class JSFilter implements Filter
 	 */
 	
 	private String[] includes = {
-//			"<script type='text/javascript' src='/KasuKasu/js/paths.js'></script>",
-//			"<script type='text/javascript' src='/KasuKasu/js/jquery-3.1.1.js'></script>"
+		"<script type='text/javascript' src='/KasuKasu/js/paths.js'></script>"
 	};
 
 	class CharResponseWrapper extends HttpServletResponseWrapper {
