@@ -114,21 +114,9 @@
     <servlet-name>SearchItemsServlet</servlet-name>
     <servlet-class>servlets.SearchItemsServlet</servlet-class>
   </servlet>
-  <servlet>
-    <description>
-	 	</description>
-    <display-name>AddObject</display-name>
-    <servlet-name>AddObject</servlet-name>
-    <servlet-class>servlets.AddObject</servlet-class>
-  </servlet>
   <servlet-mapping>
     <servlet-name>SearchItemsServlet</servlet-name>
     <url-pattern>/searchitems</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>AddObject</servlet-name>
-    <url-pattern>
-  	/addobject</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -200,8 +188,9 @@
     <servlet-name>GroupMembersServlet</servlet-name>
     <url-pattern>/groupmembers</url-pattern>
   </servlet-mapping>
-    <servlet>
-    <description></description>
+  <!--  Création d'un objet -->
+  <servlet>
+    <description>Save an object in the database</description>
     <display-name>CreateObject</display-name>
     <servlet-name>CreateObject</servlet-name>
     <servlet-class>servlets.CreateObject</servlet-class>
@@ -210,4 +199,5 @@
     <servlet-name>CreateObject</servlet-name>
     <url-pattern>/createobject</url-pattern>
   </servlet-mapping>
+
 </web-app>
