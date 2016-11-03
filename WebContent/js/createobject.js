@@ -304,7 +304,7 @@ function verif(nom, description, datedebut, datefin, nombre)
 
 function send(nom, description, datedebut, datefin, result, result2) 
 {
-	alert("coucou");
+	//alert("coucou");
 	 var json = JSON.stringify(result);
 	 
 	 var json2 = JSON.stringify(result2);
@@ -327,7 +327,7 @@ function send(nom, description, datedebut, datefin, result, result2)
 
 
 	dataType : "json",
-	success : alert('Good !'),
+	//success : alert('Good !'),
 	error : function(XHR, testStatus, errorThrown) {
 	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
 	}

@@ -26,7 +26,7 @@ public class UsersImagesDao {
 	 */
 	
 	public static void addUserImage(User user, String url) throws SQLException {
-		String sql = "INSERT INTO Images (user_id, path) VALUES('" + user.getId() + "', '" + url + "');";
+		String sql = "INSERT INTO IMAGES (user_id, path) VALUES('" + user.getId() + "', '" + url + "');";
 		Connection connection = KasuDB.SQLConnection();
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(sql);
