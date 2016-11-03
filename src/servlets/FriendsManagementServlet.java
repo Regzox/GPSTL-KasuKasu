@@ -44,29 +44,38 @@ public class FriendsManagementServlet extends HttpServlet{
 							Friends.removeRequest(otherId, userId);
 							Friends.removeRequest(userId, otherId);
 							jsResponse.put("success", "Friend added");
+							response.sendRedirect("/KasuKasu/restricted/pendingrequests.jsp");
 						}else{
 							jsResponse.put("success", "You don't have any request from this user");
+							response.sendRedirect("/KasuKasu/restricted/pendingrequests.jsp");
 						}
 					}else{
 						jsResponse.put("success", "Already Friend");
+						response.sendRedirect("/KasuKasu/restricted/pendingrequests.jsp");
 					}
 					break;
 				case 2 : // removeFriend
 					Friends.removeFriend(userId,otherId);
 					jsResponse.put("success", "Friend removed");
+					response.sendRedirect("/KasuKasu/restricted/myfriends.jsp");
 					break;
 				case 3 : // addRequest
 					// From -> To
 					if(!Friends.areFriends(userId, otherId)){
 						Friends.addRequest(userId,otherId);
 						jsResponse.put("success", "Friend request sent");
+						response.sendRedirect("/KasuKasu/restricted/finduser.jsp");
 					}else{
 						jsResponse.put("success", "Already Friend");
+						response.sendRedirect("/KasuKasu/restricted/finduser.jsp");
+						
 					}
 					break;
 				case 4 : // removeRequest
 					//From -> To
 					Friends.removeRequest(otherId, userId);
+					jsResponse.put("success","Request removed");
+					response.sendRedirect("/KasuKasu/restricted/pendingrequests.jsp");
 					break ;
 				default:
 					jsResponse.put("error", "type of request unknown");
