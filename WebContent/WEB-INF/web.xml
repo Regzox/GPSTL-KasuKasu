@@ -195,9 +195,21 @@
     <servlet-name>CreateObject</servlet-name>
     <servlet-class>servlets.CreateObject</servlet-class>
   </servlet>
-  <servlet-mapping>
+    <servlet-mapping>
     <servlet-name>CreateObject</servlet-name>
     <url-pattern>/createobject</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>AddPointEmprunt</display-name>
+  	<servlet-name>AddPointEmprunt</servlet-name>
+  	<servlet-class>servlets.AddPointEmprunt</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AddPointEmprunt</servlet-name>
+  	<url-pattern>
+  	/AddPointEmprunt</url-pattern>
   </servlet-mapping>
 
 </web-app>

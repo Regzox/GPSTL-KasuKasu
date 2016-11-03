@@ -67,12 +67,12 @@
 					<legend>Taper vos modifications</legend>
 
 					<div class="form-group row">
-						<label for="new_email_input" class="col-xs-3 col-form-label">Nouveau
+						<label for="new_email_input" class="col-xs-3 col-form-label">Nouvel
 							email</label>
 						<div class="col-xs-9">
 							<input class="form-control" type="email" value=""
 								id="new_email_input" name="new_email_input"
-								placeholder="Votre nouveau email (optionnel)" maxlength="255">
+								placeholder="Votre nouvel email (optionnel)" maxlength="255">
 						</div>
 					</div>
 
