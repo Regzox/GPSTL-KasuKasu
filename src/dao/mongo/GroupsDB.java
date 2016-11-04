@@ -19,7 +19,7 @@ import exceptions.GroupExistsException;
  * @author Anagbla Jean */									
 public class GroupsDB{
 
-	private static DBCollection collection = KasuDB.getCollection("Groups");
+	private static DBCollection collection = KasuDB.getMongoCollection("Groups");
 
 	public static void openGroup(String gname,int ownerID) throws GroupExistsException{
 		DBCursor dbc = collection.find(new BasicDBObject()

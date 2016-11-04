@@ -1,4 +1,4 @@
-package dao.mongo;
+package kasudb;
 
 import java.net.UnknownHostException;
 

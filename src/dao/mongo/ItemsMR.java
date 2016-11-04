@@ -35,7 +35,7 @@ import kasudb.KasuDB;
  *  unication des racines communes de mots */
 public class ItemsMR {
 
-	public static DBCollection collection = KasuDB.getCollection("Items");
+	public static DBCollection collection = KasuDB.getMongoCollection("Items");
 	private static String mrpattern="[\\s,.'?!]+"; 		
 	private static String tfdfpattern="/[^\\d\\w]+/";   
 
