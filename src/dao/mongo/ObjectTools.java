@@ -14,7 +14,7 @@ import com.mongodb.MongoException;
  * Contient les methodes pour gérer les objets dans la base de données.
  */
 public class ObjectTools {
-	public static final String MDB_OBJECTS_COLLECTION = "objets";
+	public static final String MDB_OBJECTS_COLLECTION = "Items";
 	
 	/**
 	 * Ajoute un objet à la base mongo
