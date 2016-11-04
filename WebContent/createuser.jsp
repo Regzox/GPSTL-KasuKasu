@@ -15,7 +15,7 @@
 
 <title>Inscription</title>
 </head>
-    <body onload="javascript:Captcha()">
+    <body>
     
     	<div class='layer-center'>
     	
