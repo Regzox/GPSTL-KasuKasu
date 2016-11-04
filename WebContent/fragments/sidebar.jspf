@@ -54,6 +54,10 @@
 					$(location).attr('href', '<%= Url.DEMANDESRECUES.value() %>');
 			">Demandes d'emprunts reçues</div>
 			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>')))
+					$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>');
+			">S'abonner à un lieu</div>
+			<div onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.RECHERCHEROBJECT.value() %>')))
 					$(location).attr('href', '<%= Url.RECHERCHEROBJECT.value() %>');
 			">Rechercher un objet</div>

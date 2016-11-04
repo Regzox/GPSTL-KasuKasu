@@ -8,10 +8,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
 import dao.mongo.ObjectTools;
+import dao.mongo.PointEmpruntDB;
 import utils.ParametersChecker;
 
 /**
@@ -45,26 +47,36 @@ public class AddPointEmprunt extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 
 		try {
+			
+			// Récuperation de l'ID de session
+			HttpSession session=request.getSession();
+	        String userId = (String) session.getAttribute("userId");
+	        
+	        if( userId == null ) {
+	        	out.write( new JSONObject().put("error", "User ID is empty.").toString() );
+	        	return;
+	        	
+	        }
 
-			String points  =  request.getParameter("points")    ;
+			String points  =  request.getParameter("points");
+			//System.out.println(points);
 
 
 			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();
 
+
 			//Teste si les paramètres d'une reqûete sont présents et de longueur non nul.
-			if( ParametersChecker.testMultipleNonEmpty(		map, 
-					"points"))
+			if( ParametersChecker.testMultipleNonEmpty(map,"points"))
 				out.write( new JSONObject().put("error", "A request parameter is missing.").toString() );
 
 			// Création objet JSON qui va être sauvegardé dans la BD.
-			JSONObject object = new JSONObject();          
-			
-			object.put( "points"  ,  points  );
+			JSONObject point = new JSONObject(); 
+			point.put("userId",userId);	
+			point.put("points",points);
 
 			// Sauvegarde l'objet dans la BD
-			ObjectTools.addObject(object);
-
+			PointEmpruntDB.addPoint(point);
 			out.write( new JSONObject().put("success", "Object added.").toString() );
 
 		} catch (Exception e) {

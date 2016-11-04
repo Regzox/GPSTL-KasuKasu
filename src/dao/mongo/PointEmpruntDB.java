@@ -1,5 +1,8 @@
 package dao.mongo;
 
+
+
+
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,8 +16,9 @@ import com.mongodb.MongoException;
 /**
  * Contient les methodes pour gérer les objets dans la base de données.
  */
-public class ObjectTools {
-	public static final String MDB_OBJECTS_COLLECTION = "Items";
+public class PointEmpruntDB
+{
+	public static final String MDB_POINTS_COLLECTION = "points";
 	
 	/**
 	 * Ajoute un objet à la base mongo
@@ -23,17 +27,13 @@ public class ObjectTools {
 	 * @throws UnknownHostException
 	 * @throws MongoException
 	 */
-	public static void addObject(JSONObject object) throws UnknownHostException, MongoException{
+	public static void addPoint(JSONObject point) throws UnknownHostException, MongoException{
 		// Instance de la collection
-		DBCollection collection = MongoConnection.getCollection(MDB_OBJECTS_COLLECTION);
+		DBCollection collection = MongoConnection.getCollection(MDB_POINTS_COLLECTION);
 
 		// Parsing de l'objet
-		DBObject dbObj = (DBObject) com.mongodb.util.JSON.parse(object.toString());
+		DBObject dbObj = (DBObject) com.mongodb.util.JSON.parse(point.toString());
 		
-		// Ajout de la date
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Date today = new Date();
-		dbObj .put("date", dateFormat.format(today));
 		
 		// Ajout dans la base de données
 		collection.insert( dbObj ).toString();

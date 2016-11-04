@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import services.Groups;
 
@@ -20,10 +21,17 @@ public class AddMemberServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try{
+			HttpSession session=request.getSession();
+			if(session ==null)
+			{response.getWriter().print(new json.Error("User not conected!"))
+			;return;}
+			if(session.getAttribute("userId") ==null){
+			response.getWriter().print(new json.Error("User not conected!"));
+			return;}
 			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();
 			response.setContentType("text/plain");
-
+			
 			if( ! (map.containsKey("member") && map.containsKey("gid")))
 				throw new Exception("Url is missing parameters.");
 
@@ -32,10 +40,10 @@ public class AddMemberServlet extends HttpServlet {
 				throw new Exception("Url is missing parameters.");
 
 			Groups.addMember(request.getParameter("gid"),
-					Integer.parseInt(request.getParameter("member")));	
+					Integer.parseInt(request.getParameter("member")));
+			response.getWriter().print(new json.Success("LOL"));
 
-		}catch (Exception e) {//TODO ERROR HERE
-			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"
+		}catch (Exception e) {
 			e.printStackTrace(); //local debug
 			response.getWriter().print(new json.Error(e.getMessage())); 
 		}

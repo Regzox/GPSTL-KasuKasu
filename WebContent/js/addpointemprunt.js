@@ -144,7 +144,7 @@ function verif(nombre)
 
 function send(result2) 
 {
-	alert("coucou");
+	//alert("coucou");
 	 
 	 var json2 = JSON.stringify(result2);
 
@@ -154,7 +154,7 @@ function send(result2)
 	url : "AddPointEmprunt",
 	data : "points=" + json2, 
 	dataType : "json",
-	success : alert('Good !'),
+	//success : /*alert('Good !')*/,
 	error : function(XHR, testStatus, errorThrown) {
 	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
 	}

@@ -25,7 +25,7 @@ import exceptions.UploadWrittingException;
 
 public class Data {
 
-	private static String UPLOAD_DIRECTORY = "C:/Users/Daniel/git/GPSTL-KasuKasu/WebContent/data/";
+	private static String UPLOAD_DIRECTORY = "/home/lina/git/GPSTL-KasuKasu/WebContent/data/";
 	private static String DOWNLOAD_PATH = "/KasuKasu/data/";
 
 	private static int MEMORY_THRESHOLD   = 1024 * 1024 * 3; 

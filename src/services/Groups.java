@@ -14,6 +14,7 @@ import com.mongodb.DBObject;
 import dao.UserDao;
 import dao.mongo.GroupsDB;
 import exceptions.DatabaseException;
+import exceptions.GroupExistsException;
 
 /**
  * No heavy error management,
@@ -22,10 +23,12 @@ import exceptions.DatabaseException;
  * @author Anagbla Jean 
  * **@goodToKnow ! FLUENT STYLE CODE*/
 public class Groups {
-	//TODO gerer les groupes homonymes
-	public static void createGroup(String name,int userId) 
+	public static JSONObject createGroup(String name,int userId) 
 			throws DatabaseException,JSONException{		
-		GroupsDB.openGroup(name,userId);}
+		try {
+			GroupsDB.openGroup(name,userId);
+			return new json.Success("Ohayo Mina sama");
+		} catch (GroupExistsException e) {return new json.Error("Le groupe '"+name+"' existe deja!");}}
 
 	public static void addMember(String groupID,int member) throws JSONException, DatabaseException {
 		GroupsDB.addMember(groupID, member);}
@@ -52,7 +55,7 @@ public class Groups {
 			for(Object member : members){
 				jar.put(new JSONObject()
 						.put("id",(Integer)member)
-						.put("type","name")
+						.put("type","member")
 						.put("name",UserDao.getUser((Integer)member).getFirstname()
 								+" "+UserDao.getUser((Integer)member).getName()));}
 		return new JSONObject().put("members",jar);}  

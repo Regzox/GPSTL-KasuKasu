@@ -21,6 +21,13 @@ public class CreateGroupServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try{
+			HttpSession session=request.getSession();
+			if(session ==null)
+			{response.getWriter().print(new json.Error("User not conected!"))
+			;return;}
+			if(session.getAttribute("userId") ==null){
+			response.getWriter().print(new json.Error("User not conected!"));
+			return;}
 			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();
 			response.setContentType("text/plain");
@@ -31,13 +38,10 @@ public class CreateGroupServlet extends HttpServlet {
 			if( request.getParameter("name").equals(""))
 				throw new Exception("Url is missing parameters.");
 
-			//HttpSession session=request.getSession();
-			//int userID=Integer.parseInt((String) session.getAttribute("userId"));
-			int userID=0;
-			Groups.createGroup(request.getParameter("name"),userID);	
-			response.getWriter().print(new json.Success("Ohayo mina-san"));
-		}catch (Exception e) {//TODO ERROR HERE
-			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"
+			response.getWriter().print(Groups.createGroup(request.getParameter("name"),
+					Integer.parseInt((String) session.getAttribute("userId"))));
+			
+		}catch (Exception e) {
 			e.printStackTrace(); //local debug
 			response.getWriter().print(new json.Error(e.getMessage())); 
 		}

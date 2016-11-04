@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import services.Groups;
 
@@ -19,13 +20,19 @@ public class UserGroupsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try{
+			HttpSession session=request.getSession();
+			if(session ==null)
+			{response.getWriter().print(new json.Error("User not conected!"))
+			;return;}
+			if(session.getAttribute("userId") ==null){
+			response.getWriter().print(new json.Error("User not conected!"));
+			return;}
 			response.setContentType("text/plain");
-			response.getWriter().print(Groups.userGroups(0));
-			System.out.println(Groups.userGroups(0).toString());
-
 			
-		}catch (Exception e) {//TODO ERROR HERE
-			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"
+			response.getWriter().print(Groups.userGroups(
+					Integer.parseInt((String) session.getAttribute("userId"))));
+			
+		}catch (Exception e) {
 			e.printStackTrace(); //local debug
 			response.getWriter().print(new json.Error(e.getMessage())); 
 		}

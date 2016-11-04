@@ -21,15 +21,13 @@ public class SearchItemsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			//TODO CHECK SESSION OK uncomment after offline tests 
-			//HttpSession session=request.getSession();
-			//if(session ==null)
-			//{response.getWriter().print(new json.Error("User not conected!"))
-			//;return;}
-			//if(sessiongetAttribute("userId") ==null){
-			//response.getWriter().print(new json.Error("User not conected!"));
-			//return;}
-			
+			HttpSession session=request.getSession();
+			if(session ==null)
+			{response.getWriter().print(new json.Error("User not conected!"))
+			;return;}
+			if(session.getAttribute("userId") ==null){
+			response.getWriter().print(new json.Error("User not conected!"));
+			return;}
 			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();
 			response.setContentType("text/plain");
@@ -42,8 +40,6 @@ public class SearchItemsServlet extends HttpServlet {
 			response.getWriter().print(Items.search(request.getParameter("query")));
 			
 		}catch (Exception e) {
-			//TODO ERROR HERE
-			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"
 			e.printStackTrace(); //local debug
 			response.getWriter().print(new json.Error(e.getMessage()));
 		}

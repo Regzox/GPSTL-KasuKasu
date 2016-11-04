@@ -13,6 +13,7 @@ import com.mongodb.DBObject;
 
 import kasudb.KasuDB;
 import exceptions.DatabaseException;
+import exceptions.GroupExistsException;
 
 /**
  * @author Anagbla Jean */									
@@ -20,7 +21,12 @@ public class GroupsDB{
 
 	private static DBCollection collection = KasuDB.getCollection("Groups");
 
-	public static void openGroup(String gname,int ownerID){
+	public static void openGroup(String gname,int ownerID) throws GroupExistsException{
+		DBCursor dbc = collection.find(new BasicDBObject()
+				.append("name",gname)
+				.append("owner",ownerID));
+		if(dbc.hasNext())
+			throw new GroupExistsException();
 		collection.insert(
 				new BasicDBObject()
 				.append("name",gname)
@@ -50,7 +56,7 @@ public class GroupsDB{
 		return null;
 	}
 	
-	public static void main(String[] args) throws DatabaseException, JSONException{
+	public static void main(String[] args) throws DatabaseException, JSONException, GroupExistsException{
 		collection.drop();//reset : determinism required for the tests
 		openGroup("amis", 1);
 		openGroup("maison", 2);

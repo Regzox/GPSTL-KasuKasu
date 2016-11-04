@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -37,41 +38,48 @@ public class CreateObject extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 
 		try {
-
-			String nom          =  request.getParameter("nom")            ;
-			String description  =   request.getParameter("description")   ;
-			String datedebut    =   request.getParameter("datedebut")     ;
-			String datefin      =  request.getParameter("datefin")        ;
-			String groupe       =   request.getParameter("groupe")        ;
-			String coordonnees  =  request.getParameter("coordonnees")    ;
-
+			
+			// Récuperation de l'ID de session
+			HttpSession session=request.getSession();
+	        String userId = (String) session.getAttribute("userId");
+	        
+	        if( userId == null ) {
+	        	out.write( new JSONObject().put("error", "User ID is empty.").toString() );
+	        	return;
+	        	
+	        }
 
 			@SuppressWarnings("unchecked")
 			Map<String,String[]> map=request.getParameterMap();
 
-			//Teste si les paramètres d'une reqûete sont présents et de longueur non nul.
+			//Teste si les paramètres d'une reqûete sont présents et de longueur non nulle.
 			if( ParametersChecker.testMultipleNonEmpty(		map, 
 					"nom",
 					"description",
 					"datedebut",
 					"datefin",
 					"groupe",  
-					"coordonnees"))
-				out.write( new JSONObject().put("error", "A request parameter is missing.").toString() );
+					"coordonnees")){
+				out.write( new JSONObject().put("error", "A request parameter is missing.").toString() ); return;
+				
+			}
 
 			// Création objet JSON qui va être sauvegardé dans la BD.
 			JSONObject object = new JSONObject();          
-			object.put( "nom"          ,  nom          );
-			object.put( "description"  ,  description  );
-			object.put( "datedebut"    ,  datedebut    );
-			object.put( "datefin"      ,  datefin      );
-			object.put( "groupe"       ,  groupe       );
-			object.put( "coordonnees"  ,  coordonnees  );
+			object.put( "userId"       ,  userId						         );
+			object.put( "title"        ,  request.getParameter("nom")            );
+			object.put( "description"  ,  request.getParameter("description")    );
+			object.put( "datedebut"    ,  request.getParameter("datedebut")      );
+			object.put( "datefin"      ,  request.getParameter("datefin")        );
+			object.put( "groupe"       ,  request.getParameter("groupe")         );
+			object.put( "coordonnees"  ,  request.getParameter("coordonnees")    );
 
 			// Sauvegarde l'objet dans la BD
 			ObjectTools.addObject(object);
 
+			// Génération d'une réponse JSON
 			out.write( new JSONObject().put("success", "Object added.").toString() );
+
 
 		} catch (Exception e) {
 			// Rédiréction vers une page d'erreur

@@ -100,11 +100,12 @@ function createGroup(name){
 }
 
 function refresh(result){
+	if(result.error!=undefined)
+		fillNOTIFIER(result.error);
+	else
 	//window.location.reload();//n'efface pas les inputs! why?
 	window.location.href="/KasuKasu/groups.jsp";
 }
-
-
 
 
 /**Only for first debugs*/ 

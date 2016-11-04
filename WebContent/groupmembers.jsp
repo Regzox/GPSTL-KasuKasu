@@ -9,19 +9,15 @@
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/groupmembers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<title>Membres du groupe</title>
+<title>Groupe <%=request.getParameter("gname")%></title>
 </head>
-<body>
+<body onload="groupMembers('<%=request.getParameter("gid")%>')">
 	
-<script type="text/javascript">
-//function getID(id){ggid=id;console.log("ggid="+ggid);return id;}
-function go(){<%out.println("groupMembers('"+request.getParameter("gid")+"');");%>};
-$(go);	
-</script>
+
 	
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Gerer votre groupe</p>
+			<p class='capital'>Gerez votre groupe <%=request.getParameter("gname")%></p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this)">

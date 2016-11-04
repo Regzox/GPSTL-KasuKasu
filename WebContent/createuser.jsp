@@ -15,7 +15,7 @@
 
 <title>Inscription</title>
 </head>
-    <body onload="javascript:Captcha()">
+    <body>
     
     	<div class='layer-center'>
     	
@@ -106,21 +106,28 @@
 <!-- 					<hr /> -->
 			
 			
-<!-- 			<div class="form-group row"> -->
-<!-- 				<div class="col-xs-10"> -->
-				
-<!-- 					Entrez le code suivant		 -->
+			<div class="form-group row">
+				Veuillez cocher la case correspondant à Albert Einstein
+				<br> 
+				<br>
+				<div class="col-xs-10">
+				<input type="radio" id="einstein" name="image">
+				<img alt="" src="data/AlbertEinstein.jpg" width="100" height="100">
+				<br>
+				<input type="radio" id="elisabeth" name="image">
+				<img alt="" src="data/ReineElisabeth.jpeg" width="100" height="100">
+				<br>
+				<input type="radio" id="bill" name="image">
+				<img alt="" src="data/BillGates.jpeg" width="100" height="100">
+				<br>
+				<input type="radio" id="marie" name="image" >
+				<img alt="" src="data/MarieCurie.png" width="100" height="100">
 						
-				   
-<!-- 					<input class="form-control" type="text" value="" id="captcha" disabled="disabled"> -->
-<!-- 					<input type="button" id="refresh" value ="Nouveau code" onClick="javascript:Captcha()"/> -->
-<!-- 					<input class="form-control" type="text" value="" id="captcha_rep" maxlength="255"> -->
 					
-					
-<!-- 				</div> -->
-<!-- 			</div> -->
+				</div>
+			</div>
 			
-<!-- 			<div id='error_captcha'></div>  -->
+			<div id='error_captcha'></div> 
 			
 
                 

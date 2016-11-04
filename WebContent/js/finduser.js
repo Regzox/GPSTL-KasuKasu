@@ -50,6 +50,7 @@ function ProcessFindUser(rep)
 		var endmessage ="</table>";
 
 		var bodymessage ="";
+		var nb=0;
 		if(rep.users != undefined)
 		$.each(rep.users, function(user, profile) {
 			var x,y,z;
@@ -63,7 +64,10 @@ function ProcessFindUser(rep)
 				if(field=='id')
 					z=value;
 			});
-			
+			//Skip if the user is yourself
+			if(z==rep.id)
+				return;
+			nb++;
 			bodymessage = bodymessage+
 				"<tr>" +
 				"<td>"+x+"</td>" +
@@ -77,6 +81,11 @@ function ProcessFindUser(rep)
 				endmessage="";
 			}
 		});
+		if(nb==0){
+			message="Aucun utilisateur ne correspond.";
+			bodymessage="";
+			endmessage="";
+		}
 	var div=(message+bodymessage+endmessage);
 	func_message(div);
 }

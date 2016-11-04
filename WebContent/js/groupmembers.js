@@ -44,36 +44,38 @@ function findUserJS(searchv, valuev)
 
 function ProcessFindUser(rep) 
 {
-		var message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-		"</tr>";
-		var endmessage ="</table>";
+	var message = "<table class=\"table\">" +
+	"<tr>" +
+	"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+	"</tr>";
+	var endmessage ="</table>";
 
-		var bodymessage ="";
-		if(rep.users != undefined)
+	var bodymessage ="";
+	if(rep.users != undefined)
 		$.each(rep.users, function(user, profile) {
 			var x,y,z;
 			if(user !='warning'){
-			$.each(profile, function(field, value) {
-				//console.log(field); console.log(value);
-				if(field=='name')
-					x=value;
-				if(field=='firstname')
-					y=value;
-				if(field=='id')
-					z=value;
-			});
-			
-			bodymessage = bodymessage+
-				"<tr>" +
-				"<td>"+x+"</td>" +
-				"<td>"+y+"</td>"+
-				"<td><a href=\"/KasuKasu/profil/?id="+z+"\"> Voir Profil </a></td>"+
-				"<td><a id=\"joanlinkasbutton\" onClick=\"addMember("+0+","+z+")\" href=\"\"> Ajouter au groupe </a></td>"+
-				"</tr>";
+				$.each(profile, function(field, value) {
+					//console.log(field); console.log(value);
+					if(field=='name')
+						x=value;
+					if(field=='firstname')
+						y=value;
+					if(field=='id')
+						z=value;
+				});
+
+				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
+				"<td><a href=\"/KasuKasu/profil/?id="+z+"\"> Voir Profil </a></td>";
+				alert("z="+z+" "+MEM[z]);
+				if(!(MEM[z]!= undefined && MEM[z]!= null))
+					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					"id=\"add-"+GID+"-to_group-"+z+"\" " +
+					"onClick=\"addMember('"+GID+"','"+z+"')\">" +
+					"Ajouter au groupe</button>\n</td>";
+				bodymessage+="</tr>";
 			}else{
-				message="Aucun utilisateur ne correspond.";
+				message="Aucun utilisateur ne correspond a ce que vous recherchez.";
 				bodymessage="";
 				endmessage="";
 			}
@@ -92,8 +94,21 @@ function printHTML(dom,htm)
 { 
 	$(dom).html(htm);
 }
-function Member(id,name){
-	alert("new Member("+id+","+name);
+
+
+
+
+
+
+
+
+
+/*****************************************************************************
+ *
+ */
+
+function Member(id,name,type){
+	//alert("new Member("+id+","+name+")");
 	this.id=id;
 	this.name=name;
 	this.type=type;
@@ -133,14 +148,16 @@ Member.traiteReponseJSON=function(json){
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"membersBox\">";	
 
-		if(members .length==0)
+		if(members.length==0)
 			fhtm+="<h3>Il n'y a aucun membre pour le moment.</h3>";
-
+		MEM=[];
 		for(var i in members){
-			//alert(JSON.stringify(Members[i]));
+			//alert(JSON.stringify(members[i]));
+			MEM[members[i].id]=members[i];
 			fhtm+=(members[i]).getHTML();
 			//alert("JSOB.htmling : "+members[i].getHTML());
 		}		
+		alert("MEM="+JSON.stringify(MEM));
 		fhtm+="</div>\n"; 
 		//alert("Members.html = "+fhtm);  
 		printHTML("#found-members",fhtm); 
@@ -151,7 +168,7 @@ Member.traiteReponseJSON=function(json){
 
 
 Member.prototype.getHTML=function(){  
-	alert("Member ->getHtml ");
+	//alert("Member ->getHtml ");
 	var s;
 	s="<div class=\"MemberBox\" id=\"MemberBox"+this.id+"\">";
 	s+="<div class=\"Member-name\" id=\"Member-name"+this.id+"\"><a href=\"/gotoMember\"><b>"+this.name+"</b></a></div>\n";	
@@ -163,6 +180,7 @@ Member.prototype.getHTML=function(){
 };
 
 function groupMembers(gid){
+	GID=gid; //Globalise gid
 	$.ajax({
 		type : "GET",
 		url : "groupmembers",
@@ -180,9 +198,16 @@ function addMember(gid,member){
 		url : "addmember",
 		data :  "gid="+gid+"&member="+member,
 		dataType : "JSON",
-		success : location.reload,
+		success : refresh,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
 	});
+}
+
+function refresh(result){
+	if(result.error!=undefined)
+		fillNOTIFIER(result.error);
+	else
+	window.location.reload();
 }

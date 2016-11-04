@@ -26,7 +26,7 @@ public class UsersImagesDao {
 	 */
 	
 	public static void addUserImage(User user, String url) throws SQLException {
-		String sql = "INSERT INTO Images (user_id, path) VALUES('" + user.getId() + "', '" + url + "');";
+		String sql = "INSERT INTO IMAGES (user_id, path) VALUES('" + user.getId() + "', '" + url + "');";
 		Connection connection = KasuDB.SQLConnection();
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(sql);
@@ -43,7 +43,7 @@ public class UsersImagesDao {
 	 */
 	
 	public static void removeUserImage(User user) throws SQLException {
-		String sql = "DELETE FROM Images WHERE user_id='" + user.getId() + "';";
+		String sql = "DELETE FROM IMAGES WHERE user_id='" + user.getId() + "';";
 		Connection connection = KasuDB.SQLConnection();
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(sql);
@@ -60,7 +60,7 @@ public class UsersImagesDao {
 	 */
 	
 	public static void updateUserImage(User user, String url) throws SQLException {
-		String sql = "UPDATE Images SET path= '" + url + "' WHERE user_id='" + user.getId() + "';";
+		String sql = "UPDATE IMAGES SET path= '" + url + "' WHERE user_id='" + user.getId() + "';";
 		Connection connection = KasuDB.SQLConnection();
 		Statement statement = connection.createStatement();
 		statement.executeUpdate(sql);
@@ -78,7 +78,7 @@ public class UsersImagesDao {
 	 */
 	
 	public static String getUserImage(User user) throws SQLException, Exception {
-		String sql = "SELECT * FROM Images WHERE user_id='" + user.getId() + "';";
+		String sql = "SELECT * FROM IMAGES WHERE user_id='" + user.getId() + "';";
 		Connection connection = KasuDB.SQLConnection();
 		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
