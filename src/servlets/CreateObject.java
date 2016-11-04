@@ -67,7 +67,7 @@ public class CreateObject extends HttpServlet {
 			// Création objet JSON qui va être sauvegardé dans la BD.
 			JSONObject object = new JSONObject();          
 			object.put( "userId"       ,  userId						         );
-			object.put( "nom"          ,  request.getParameter("nom")            );
+			object.put( "title"        ,  request.getParameter("nom")            );
 			object.put( "description"  ,  request.getParameter("description")    );
 			object.put( "datedebut"    ,  request.getParameter("datedebut")      );
 			object.put( "datefin"      ,  request.getParameter("datefin")        );
