@@ -26,7 +26,7 @@ var validation = function (form) {
 	$("#myModal").modal('hide');
 	
 	var json = {
-			oldEmail : form.old_email_input.value,
+			//oldEmail : form.old_email_input.value,
 			oldPassword : form.old_password_input.value,
 			newEmail : form.new_email_input.value,
 			newPassword : form.new_password_input.value,
