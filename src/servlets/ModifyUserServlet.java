@@ -13,6 +13,7 @@ import json.Error;
 import json.Success;
 import json.Warning;
 import services.User;
+import utils.SendEmail;
 
 /**
  * 
@@ -51,19 +52,34 @@ public class ModifyUserServlet extends HttpServlet {
 		firstname = (map.containsKey("newFirstname")) ? req.getParameter("newFirstname") : null;
 		phone = (map.containsKey("newPhone")) ? req.getParameter("newPhone") : null;
 		
-		if (oldEmail != null) {
-			if (!oldEmail.equals("")) {
-				try {
-					oldUser = User.getUser(req.getParameter("oldEmail"));
-				} catch (Exception e) {
-					resp.getWriter().print(new Warning("Current email isn't recognized"));
-					return;
-				}
-			} else {
-				resp.getWriter().print(new Warning("You havn't type your email"));
-				return;
-			}
-		} 
+//		if (oldEmail != null) {
+//			if (!oldEmail.equals("")) {
+//				try {
+//					oldUser = User.getUser(req.getParameter("oldEmail"));
+//				} catch (Exception e) {
+//					resp.getWriter().print(new Warning("Current email isn't recognized"));
+//					return;
+//				}
+//			} else {
+//				resp.getWriter().print(new Warning("You havn't type your email"));
+//				return;
+//			}
+//		} 
+		
+		String userId = (String) req.getSession().getAttribute("userId");
+		try {
+			
+			System.out.println();
+			
+			oldUser = User.getUserById(userId);
+			oldEmail = oldUser.getEmail();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		if (	oldUser != null && 
 				oldPassword != null && 
@@ -106,6 +122,8 @@ public class ModifyUserServlet extends HttpServlet {
 			
 			if (password.equals(""))
 				password = oldUser.getPassword();
+			else
+				SendEmail.sendMail(oldEmail, "Modification de mot de passe", "Bonjour,\n\n Votre mot de passe a récement fait l'objet d'une modification. Contactez au plus vite un administrateur si cette demande de changement de mot de passe n'a pas été initié par vous.\n\n Cordialement,\n Team KasuKasu");
 			
 			if (name.equals(""))
 				name = oldUser.getName();

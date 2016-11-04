@@ -134,7 +134,7 @@
 <!-- 									<p>Please type your current information to apply your -->
 <!-- 										changes</p> -->
 									<p>Veuillez renseigner vos informations pour appliquer vos changements</p> 
-									<div class="form-group row">
+									<!-- <div class="form-group row">
 										<label for="old_email_input" class="col-xs-3 col-form-label">Email
 											*</label>
 										<div class="col-xs-8">
@@ -142,8 +142,7 @@
 												id="old_email_input" name="old_email_input"
 												placeholder="Email actuel (obligatoire)" required>
 										</div>
-									</div>
-
+									</div> -->
 									<div class="form-group row">
 										<label for="old_password_input"
 											class="col-xs-3 col-form-label">Mot de passe *</label>
