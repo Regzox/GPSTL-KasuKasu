@@ -39,8 +39,6 @@ public class CreateUserServlet extends HttpServlet {
 					|| request.getParameter ("prenom").equals("")
 					|| request.getParameter ("numero").equals(""))
 				throw new Exception("Url is missing parameters.");
-
-			System.out.println(request.getParameter("prenom"));
 			
 			response.getWriter().print(
 					User.createUser(
@@ -50,7 +48,7 @@ public class CreateUserServlet extends HttpServlet {
 							request.getParameter ("prenom"),
 							request.getParameter("numero")));}				
 
-		catch (Exception e) {//TODO ERROR HERE
+		catch (Exception e) {//TODO ERROR HERE indic : send empty json or dont send any json
 			//"[object Object] parsererror SyntaxError: JSON.parse: unexpected non-whitespace character after JSON data at line 1 column 14 of the JSON data"
 			e.printStackTrace(); //local debug
 			response.getWriter().print(new json.Error(e.getMessage())); 
