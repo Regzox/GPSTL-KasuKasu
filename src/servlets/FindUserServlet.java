@@ -37,6 +37,7 @@ public class FindUserServlet extends HttpServlet {
 				JSONObject rep=User.getUsersJSONProfileWhere(search,value);
 				js.put("users", rep);
 				js.put("response", 1);
+				js.put("id", request.getSession().getAttribute("userId"));
 				//System.out.println(rep);
 			}
 			response.getWriter().print(js);
