@@ -327,7 +327,17 @@ function send(nom, description, datedebut, datefin, result, result2)
 
 
 	dataType : "json",
-	//success : alert('Good !'),
+	success : function (data)
+	{
+		
+		//var json = JSON.parse(JSON.stringify(json));
+        //alert (data.success);
+        if (data.success=="Object added.")
+        	{
+        	    alert ("Objet bien ajouté");
+        	    window.location.href = kasukasu.private.dashboard;
+        	}
+	},
 	error : function(XHR, testStatus, errorThrown) {
 	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
 	}

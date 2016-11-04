@@ -80,6 +80,7 @@ public class CreateObject extends HttpServlet {
 			// Génération d'une réponse JSON
 			out.write( new JSONObject().put("success", "Object added.").toString() );
 
+
 		} catch (Exception e) {
 			// Rédiréction vers une page d'erreur
 			e.printStackTrace();
