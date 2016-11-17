@@ -14,7 +14,7 @@
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="js/createobject.js"></script>
 
-
+<link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 <style type="text/css">
 html, body, #mapdiv {
@@ -33,21 +33,16 @@ html, body, #mapdiv {
 </head>
 
 <body onload="javascript:init()">
+	
+	<%@ include file="/fragments/sidebar.jspf"%>
 
-	<p class='capital'>Ajouter un objet</p>
-
-
+	<div id="page">
+	
+	<p class='capital' style='text-align: center'>Ajouter un objet</p>
+	
 	<div class='modal-body row'>
-
-
 		<div class='col-md-6'>
-
-
-
 			<form id="formulaire" method="get">
-
-
-
 
 				<div class="form-group row">
 					<label for="nom" class="col-xs-2 col-form-label">Nom</label>
@@ -120,12 +115,6 @@ html, body, #mapdiv {
 
 			<input type="submit" class="btn btn-primary btn-block"
 				onClick="javascript:createobject()">
-
-
-
-
-
-
 		</div>
 
 
@@ -143,7 +132,7 @@ html, body, #mapdiv {
 
 		<div id='error_point'></div>
 
-
+	</div>
 
 
 	</div>
