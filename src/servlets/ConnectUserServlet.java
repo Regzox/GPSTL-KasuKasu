@@ -72,6 +72,7 @@ public class ConnectUserServlet extends HttpServlet {
 				
 //				js.put("response", 1);
 				response.getWriter().print(js);
+				//response.sendRedirect(Url.SEARCHITEMS.value());
 				
 				//response.sendRedirect("/KasuKasu/dashboard.jsp");
 				System.out.println("User connexion successfull");

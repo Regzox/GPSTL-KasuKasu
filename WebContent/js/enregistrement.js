@@ -47,7 +47,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-
+		window.scrollTo(0,0);
 		bool = false;
 	}
 
@@ -60,7 +60,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-
+		window.scrollTo(0,0);
 		bool = false;
 	}
 
@@ -73,7 +73,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-
+		window.scrollTo(0,0);
 		bool = false;
 	}
 
@@ -86,7 +86,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-
+		window.scrollTo(0,0);
 		bool = false;
 	}
 
@@ -99,8 +99,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-
-
+		window.scrollTo(0,0);
 		bool = false;
 	}
 
@@ -113,7 +112,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-
+		window.scrollTo(0,0);
 		bool = false;
 	}
 
@@ -127,7 +126,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-
+		window.scrollTo(0,0);
 		bool = false;
 	} 
 
@@ -140,7 +139,6 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"color":"red",
 			"font-size": "80%"
 		});
-
 		return false;
 
 	}

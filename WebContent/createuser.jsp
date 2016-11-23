@@ -19,7 +19,7 @@
     
     	<div class='layer-center'>
     	
-    	<p class='capital'>Inscription</p>
+    	<p id="a" class='capital'>Inscription</p>
     	
     
 		 <!--  <div id='notifier' class='notifier'></div> -->
@@ -45,6 +45,7 @@
 			
 
            <div class="form-group row">
+           
 			   <label for="nom" class="col-xs-2 col-form-label">Nom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
@@ -110,16 +111,13 @@
 				Veuillez cocher la case correspondant à Albert Einstein
 				<br> 
 				<br>
-				<div class="col-xs-10">
+				<div class="col-xs-12">
 				<input type="radio" id="einstein" name="image">
 				<img alt="" src="data/AlbertEinstein.jpg" width="100" height="100">
-				<br>
 				<input type="radio" id="elisabeth" name="image">
 				<img alt="" src="data/ReineElisabeth.jpeg" width="100" height="100">
-				<br>
 				<input type="radio" id="bill" name="image">
 				<img alt="" src="data/BillGates.jpeg" width="100" height="100">
-				<br>
 				<input type="radio" id="marie" name="image" >
 				<img alt="" src="data/MarieCurie.png" width="100" height="100">
 						

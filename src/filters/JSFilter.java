@@ -101,14 +101,15 @@ public class JSFilter implements Filter
         
         if (wrappedResponse.getContentType() != null) {
 	        if (wrappedResponse.getContentType().contains("text/html")) {
-	        	
+	        	if (wrappedResponse.toString() != null) {
 	            String responseModified = new String(wrappedResponse.toString());
-	            String headEnd = "</head>";
-       
-	            for (String js : includes)
-	            	responseModified = responseModified.replace(headEnd, js + '\n' + headEnd);
-	            
-	            response.getWriter().write(responseModified);
+		            String headEnd = "</head>";
+	       
+		            for (String js : includes)
+		            	responseModified = responseModified.replace(headEnd, js + '\n' + headEnd);
+		            
+		            response.getWriter().write(responseModified);
+	        	}
 	        } else {
 	        	if (wrappedResponse.toString() != null)
 	        		response.getWriter().write(wrappedResponse.toString());

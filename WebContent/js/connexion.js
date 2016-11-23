@@ -67,7 +67,7 @@ function ProcessLoginRequest(rep)
 	}
 	else 
 	{
-		window.location.href = kasukasu.private.dashboard;
+		window.location.href = "/KasuKasu/searchitems.jsp";
 	}
 }
 
