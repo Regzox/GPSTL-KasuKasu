@@ -49,10 +49,10 @@
 				if ( !(~$(location).attr('href').indexOf('<%= Url.CREATEOBJECT.value() %>')))
 					$(location).attr('href', '<%= Url.CREATEOBJECT.value() %>');
 			">Ajouter un prêt</div>
-			<div onclick="
+			<!-- <div onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.DEMANDESRECUES.value() %>')))
 					$(location).attr('href', '<%= Url.DEMANDESRECUES.value() %>');
-			">Demandes d'emprunts reçues</div>
+			">Demandes d'emprunts reçues</div> -->
 			<div onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>')))
 					$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>');
