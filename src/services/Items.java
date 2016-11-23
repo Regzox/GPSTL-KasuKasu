@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
+import dao.mongo.ItemsDB;
 import dao.mongo.ItemsMR;
 import dao.mongo.ObjetRSV;
 import exceptions.DatabaseException;
@@ -18,6 +21,13 @@ import exceptions.DatabaseException;
  *@author ANAGBLA Joan */
 public class Items {
 
+	
+	/**
+	 * Search an Item by query
+	 * @param query
+	 * @return
+	 * @throws JSONException
+	 * @throws DatabaseException */
 	public static JSONObject search(String query) throws JSONException, DatabaseException{		
 		JSONArray jar =new JSONArray();
 		for(ObjetRSV orsv :ItemsMR.search(query))
@@ -31,10 +41,34 @@ public class Items {
 					.put("latitude",orsv.getDbo().get("latitude"))
 					.put("date",orsv.getDbo().get("date"))
 					.put("description", orsv.getDbo().get("description")));
-		return new JSONObject().put("items",jar);
-	}
+		return new JSONObject().put("items",jar);}
+	
+	
+	/**
+	 * return a list of items owned by an user 
+	 * @param userID
+	 * @return
+	 * @throws JSONException
+	 * @throws DatabaseException */
+	public static JSONObject userItems(int userID) throws JSONException, DatabaseException{
+		JSONArray jar =new JSONArray();
+		DBCursor dbc = ItemsDB.userItems(userID);
+		while (dbc.hasNext()){
+			DBObject dbo=dbc.next();
+			jar.put(new JSONObject()
+					.put("id",dbo.get("_id"))
+					.put("type","item")
+					.put("owner",dbo.get("owner"))
+					.put("title",dbo.get("title"))
+					.put("group",dbo.get("group"))
+					.put("longitude",dbo.get("longitude"))
+					.put("latitude",dbo.get("latitude"))
+					.put("date",dbo.get("date"))
+					.put("description",dbo.get("description")));}
+		return new JSONObject().put("items",jar);}
 
-
+	
+	
 	public static void main(String[] args) throws JSONException, IOException, DatabaseException {
 		ItemsMR.collection.drop();
 		//http://www.cdiscount.com/telephonie/telephone-mobile/samsung-galaxy-j5-2016-blanc/f-1440402-sam8806088323503.html#mpos=2|cd

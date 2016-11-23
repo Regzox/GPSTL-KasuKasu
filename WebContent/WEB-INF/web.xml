@@ -188,28 +188,36 @@
     <servlet-name>GroupMembersServlet</servlet-name>
     <url-pattern>/groupmembers</url-pattern>
   </servlet-mapping>
-  <!--  Création d'un objet -->
   <servlet>
     <description>Save an object in the database</description>
     <display-name>CreateObject</display-name>
     <servlet-name>CreateObject</servlet-name>
     <servlet-class>servlets.CreateObject</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>CreateObject</servlet-name>
     <url-pattern>/createobject</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description>
+    <description>
   	</description>
-  	<display-name>AddPointEmprunt</display-name>
-  	<servlet-name>AddPointEmprunt</servlet-name>
-  	<servlet-class>servlets.AddPointEmprunt</servlet-class>
+    <display-name>AddPointEmprunt</display-name>
+    <servlet-name>AddPointEmprunt</servlet-name>
+    <servlet-class>servlets.AddPointEmprunt</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>AddPointEmprunt</servlet-name>
-  	<url-pattern>
+    <servlet-name>AddPointEmprunt</servlet-name>
+    <url-pattern>
   	/AddPointEmprunt</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>UserItemsServlet</display-name>
+    <servlet-name>UserItemsServlet</servlet-name>
+    <servlet-class>servlets.UserItemsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserItemsServlet</servlet-name>
+    <url-pattern>/useritems</url-pattern>
+  </servlet-mapping>
 </web-app>
