@@ -20,7 +20,11 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 	},
 
 	trigger : function(e) {
-		var lonlat = map.getLonLatFromViewPortPx(e.xy)
+		var toProjection = new OpenLayers.Projection("EPSG:4326");
+		var lonlat = map.getLonLatFromViewPortPx(e.xy);
+		
+		var lonlat1 = map.getLonLatFromViewPortPx(e.xy).
+        transform(map.getProjectionObject(), toProjection);
 		//alert("latitude : " + lonlat.lat + ", longitude : " + lonlat.lon);
 
 		var markers = new OpenLayers.Layer.Markers("Markers");
@@ -36,7 +40,7 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		
 		var lon = document.createElement("input");
 		lon.type = "text";
-		lon.value = lonlat.lon;
+		lon.value = lonlat1.lon.toFixed(5);
 		lon.id=i;
 		div.appendChild(lon);
 		
@@ -44,7 +48,7 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
 		var lat = document.createElement("input");
 		lat.type = "text";
-		lat.value = lonlat.lat;
+		lat.value = lonlat1.lat.toFixed(5);
 		lat.id=i;
 		div.appendChild(lat);
 		
