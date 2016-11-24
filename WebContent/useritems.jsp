@@ -9,31 +9,33 @@
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
+
 <title>Mes Objets</title>
 </head>
-<body onload="userItems()">
-	
+<body onload="userItems('')">
+
+	<%@ include file="/fragments/sidebar.jspf"%>
+
 	<div id='page'>
 		<div class='layer-center'>
 			<p class='capital'>Gerez vos objets</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
-				OnSubmit="javascript:useritems(this)">
-
+				OnSubmit="javascript:userItems(this.iquery.value)">
 				<div class="form-group row">
 					<div class="col-xs-10">
-						<input type="text" class="form-control" name="value" value="" id="value">
+						<input type="text" class="form-control" name="iquery" id="iquery">
 					</div>
 				</div>
 				<input type="submit" class="btn btn-primary btn-block"
-					value="Filtrer"> <br>
+					value="Filtrer">
 			</form>
 
-			<div id='notifier'></div>
-			<br><br><hr><br>
+			<br><hr><br>
+			
 			<h2>Liste de vos objets</h2>
 			<div id="found-items" class="abootsraper"></div>
-			
 		</div>
 	</div>
 </body>

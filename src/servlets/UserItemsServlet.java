@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,7 @@ import services.Items;
 
 
 /**
- * * @author Anagbla Jean */
+ * * @author Anagbla Joan */
 public class UserItemsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -22,18 +23,25 @@ public class UserItemsServlet extends HttpServlet {
 		try{
 			HttpSession session=request.getSession();
 			if(session ==null)
-			{response.getWriter().print(new json.Error("User not conected!"));
-			return;}
+			{response.getWriter().print(new json.Error("User not conected!"))
+			;return;}
 			String userID = (String) session.getAttribute("userId");
-			if(userID==null){
+			if(userID ==null){
 			response.getWriter().print(new json.Error("User not conected!"));
 			return;}
-
+			@SuppressWarnings("unchecked")
+			Map<String,String[]> map=request.getParameterMap();
 			response.setContentType("text/plain");
-			response.getWriter().print(Items.userItems(Integer.parseInt(userID)));}
-		catch (Exception e) {
-			e.printStackTrace(); //local debug
-			response.getWriter().print(new json.Error(e.getMessage()));	}}
+
+			if(!map.containsKey("query"))
+				throw new Exception("Url is missing parameters"); 
+			
+			response.getWriter().print(Items.userItems(
+					request.getParameter("query"),userID));
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			response.getWriter().print(new json.Error(e.getMessage()));}}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);}

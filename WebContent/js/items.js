@@ -46,7 +46,7 @@ Item.traiteReponseJSON=function(json){
 		var fhtm="<br><div id=\"itemsBox\">";	
 
 		if(items.length==0)
-			fhtm+="<h3>Il n'y a aucun objet disponible correspondant à  vos critères de recherche.</h3>";
+			fhtm+="<h3>Il n'y a rien à afficher.</h3>";
 		
  		for(var i in items){
 			//alert(JSON.stringify(items[i]));
@@ -96,7 +96,6 @@ function searchMRItems(query){
 	});
 }
 function searchItems(form){
-	resetNOTIFIER();
 	if (checkQuery(form.iquery.value))		
 		searchMRItems(form.iquery.value);
 }
@@ -105,5 +104,22 @@ function checkQuery(query){
 		return false; //do nothing
 	return true;
 }
+
+
+function userItems(query){
+	$.ajax({
+		type : "GET",
+		url : "useritems",
+		data : "query=" +query,
+		dataType : "JSON",
+		success : Item.traiteReponseJSON,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+
+
 /**Only for first debugs*/ 
 function printJSONItems(rep){printHTML("#found-items", JSON.stringify(rep));}
