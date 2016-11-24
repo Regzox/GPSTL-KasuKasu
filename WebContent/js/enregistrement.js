@@ -21,7 +21,6 @@ function enregistrement(formulaire)
 	var ok = verif(prenom, nom, numero, email, mdp, confirmation);
 	if (ok) 
 	{
-		//printHTML("#notifier","");
 		printHTML("#error_prenom","");
 		printHTML("#error_nom","");
 		printHTML("#error_telephone","");
@@ -40,105 +39,110 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	var bool = true;
 	if(prenom.length==0)
 	{
-		//func_erreur_inscription("Prenom manquant");
-		//notify({ warning : "Prenom manquant" });
+
 		printHTML("#error_prenom","Prenom manquant");
 		$("#error_prenom").css({
 			"color":"red",
 			"font-size": "80%"
 		});
-		window.scrollTo(0,0);
+		//window.scrollTo(0,0);
+		document.getElementById('error_prenom').scrollIntoView();
 		bool = false;
 	}
 
 	if(nom.length==0)
 	{
-		//func_erreur_inscription("Nom manquant");
-		//notify({ warning : "Nom manquant" });
+
 		printHTML("#error_nom","Nom manquant");
 		$("#error_nom").css({
 			"color":"red",
 			"font-size": "80%"
 		});
-		window.scrollTo(0,0);
+		//window.scrollTo(0,0);
+		document.getElementById('error_nom').scrollIntoView();
 		bool = false;
 	}
 
 	if(numero.length==0)
 	{
-		//func_erreur_inscription("Telephone manquant");
-		//notify({ warning : "Telephone manquant" });
+
 		printHTML("#error_telephone","Telephone manquant");
 		$("#error_telephone").css({
 			"color":"red",
 			"font-size": "80%"
 		});
-		window.scrollTo(0,0);
+		//window.scrollTo(0,0);
+		document.getElementById('error_telephone').scrollIntoView();
 		bool = false;
 	}
 
 	if(email.length==0)
 	{
-		//func_erreur_inscription("Email manquant");
-		//notify({ warning : "Email manquant" });
+
 		printHTML("#error_email","Email manquant");
 		$("#error_email").css({
 			"color":"red",
 			"font-size": "80%"
 		});
-		window.scrollTo(0,0);
+		//window.scrollTo(0,0);
+		document.getElementById('error_email').scrollIntoView();
+
 		bool = false;
 	}
 
 	if(mdp.length==0)
 	{
-		//func_erreur_inscription("Mot de passe manquant");
-		//notify({ warning : "Mot de passe manquant" });
+
 		printHTML("#error_mdp","Mot de passe manquant");		
 		$("#error_mdp").css({
 			"color":"red",
 			"font-size": "80%"
 		});
-		window.scrollTo(0,0);
+		//window.scrollTo(0,0);
+		document.getElementById('error_mdp').scrollIntoView();
+
 		bool = false;
 	}
 
 	if(mdp.length<8)
 	{
-		//func_erreur_inscription("Mot de passe trop court");
-		//notify({ warning : "Mot de passe trop court" });
+
 		printHTML("#error_mdp","Veuillez inserer un mot de passe de taille > 7");
 		$("#error_mdp").css({
 			"color":"red",
 			"font-size": "80%"
 		});
-		window.scrollTo(0,0);
+		//window.scrollTo(0,0);
+		document.getElementById('error_mdp').scrollIntoView();
+
 		bool = false;
 	}
 
 
 	if(mdp != confirmation)	
 	{
-		//func_erreur_inscription("Mots de passe incompatibles");
-		//notify({ warning : "Mots de passe incompatibles" });
+
 		printHTML("#error_confirmation","Mots de passe incompatibles");
 		$("#error_confirmation").css({
 			"color":"red",
 			"font-size": "80%"
 		});
-		window.scrollTo(0,0);
+		//window.scrollTo(0,0);
+		document.getElementById('error_confirmation').scrollIntoView();
+
 		bool = false;
 	} 
 
 	if (!ValidCaptcha())
 	{
-		//func_erreur_inscription("Captcha incompatible");
-		//notify({ warning : "Captcha incompatible" });
+
 		printHTML("#error_captcha","Ce n'est pas Einstein !");
 		$("#error_captcha").css({
 			"color":"red",
 			"font-size": "80%"
 		});
+		document.getElementById('error_captcha').scrollIntoView();
+
 		return false;
 
 	}
@@ -203,6 +207,8 @@ function func_erreur_inscription(msg)
 		"color":"red",
 		"font-size": "80%"
 	});
+	document.getElementById('error_email').scrollIntoView();
+
 }
 
 
@@ -225,36 +231,4 @@ function ValidCaptcha()
 		return false;
 	}
 }
-
-//function Captcha()
-//{
-//	var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
-//	var i;
-//	for (i=0;i<6;i++)
-//	{
-//		var a = alpha[Math.floor(Math.random() * alpha.length)];
-//		var b = alpha[Math.floor(Math.random() * alpha.length)];
-//		var c = alpha[Math.floor(Math.random() * alpha.length)];
-//		var d = alpha[Math.floor(Math.random() * alpha.length)];
-//		var e = alpha[Math.floor(Math.random() * alpha.length)];
-//		var f = alpha[Math.floor(Math.random() * alpha.length)];
-//		var g = alpha[Math.floor(Math.random() * alpha.length)];
-//	}
-//	var code = a +  b +  + c +  d + e + f +  g;
-//
-//	document.getElementById('captcha').value=code;
-//}
-//function ValidCaptcha()
-//{
-//	var string1 = document.getElementById('captcha').value;
-//	var string2 = document.getElementById('captcha_rep').value;
-//	if (string1 == string2)
-//	{
-//		return true;
-//	}
-//	else
-//	{        
-//		return false;
-//	}
-//}
 

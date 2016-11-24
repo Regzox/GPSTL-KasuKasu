@@ -19,7 +19,7 @@
     
     	<div class='layer-center'>
     	
-    	<p id="a" class='capital'>Inscription</p>
+    	<p id="a" class="capital">Inscription</p>
     	
     
 		 <!--  <div id='notifier' class='notifier'></div> -->
@@ -33,20 +33,22 @@
 
                 
            <div class="form-group row">
-				<label for="prenom" class="col-xs-2 col-form-label">Prénom</label>
+				<label for="prenom" class="col-xs-2">Prénom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
 						id="prenom" maxlength="255">
 				</div>
 			</div>
 
+
 			
 			<div id='error_prenom'></div> 
+			</a>
 			
 
            <div class="form-group row">
            
-			   <label for="nom" class="col-xs-2 col-form-label">Nom</label>
+			   <label for="nom" class="col-xs-2">Nom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
 						id="nom" maxlength="255">
@@ -57,7 +59,7 @@
 			             
               
 			<div class="form-group row">
-				<label for="numero" class="col-xs-2 col-form-label" >Téléphone</label>
+				<label for="numero" class="col-xs-2" >Téléphone</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="tel" value="" 
 						id="numero"  pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
@@ -71,7 +73,7 @@
 			
                 
  			<div class="form-group row">
-				<label for="email" class="col-xs-2 col-form-label">Email</label>
+				<label for="email" class="col-xs-2">Email</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="email"
 						value="" id="email" maxlength="255">
@@ -83,7 +85,7 @@
 
 
 			<div class="form-group row">
-				<label for="mdp" class="col-xs-2 col-form-label" >Mot de passe</label>
+				<label for="mdp" class="col-xs-2" >Mot de passe</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="password" value="" placeholder="Minimum 8 caractères"
 						id="mdp" maxlength="255">
@@ -94,7 +96,7 @@
 			
 
 			<div class="form-group row">
-				<label for="confirmation" class="col-xs-2 col-form-label">Confirmer le mot de passe</label>
+				<label for="confirmation" class="col-xs-2">Confirmer le mot de passe</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="password" value=""
 						id="confirmation" maxlength="255">
@@ -108,7 +110,7 @@
 			
 			
 			<div class="form-group row">
-				Veuillez cocher la case correspondant à Albert Einstein
+				Veuillez cocher la case correspondante à Albert Einstein
 				<br> 
 				<br>
 				<div class="col-xs-12">
