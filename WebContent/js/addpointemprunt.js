@@ -48,25 +48,51 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		lat.id=i;
 		div.appendChild(lat);
 		
-		nombre_h.value=i;
-
-		
 		i=i+1;
-		
 
+		
+		var nom = document.createElement("input");
+		nom.type = "text";
+		nom.setAttribute("placeholder", "Nom du lieu"); 	
+		nom.id=i;
+		div.appendChild(nom);
+		
 
 		var supp = document.createElement("input");
 		supp.type = "button";
 		supp.value = "Supprimer";
-		supp.onclick = function() {
+		supp.onclick = function() 
+		{
 
 			markers.removeMarker(marker);
 			div.removeChild(lon);
 			div.removeChild(lat);
+			div.removeChild(nom);
+			div.removeChild(br1);
+			div.removeChild(br2);
 			div.removeChild(supp);
+
+	
+
+
 		}
 
 		div.appendChild(supp);
+		
+		i=i+1;
+		var br1 = document.createElement("br");
+		br1.id=i;
+		div.appendChild(br1);
+		
+		i=i+1;
+		var br2 = document.createElement("br");
+		br2.id=i;
+		div.appendChild(br2);
+		
+		i=i+1;
+		nombre_h.value=i;
+
+
 
 	}
 
@@ -102,11 +128,11 @@ function createobject()
 	var nombre=document.getElementById('nombre').value;
 	
 	var result2 = [];
-	for (i=0; i<=nombre; i=i+2)
+	for (i=0; i<=nombre; i=i+5)
 		{
 		    if (document.getElementById(i) !== null)
 		    	{
-		    	   result2.push(document.getElementById(i).value+","+document.getElementById(i+1).value)
+		    	   result2.push(document.getElementById(i).value+","+document.getElementById(i+1).value+","+document.getElementById(i+2).value)
 
 		    	}
 		}
@@ -115,7 +141,7 @@ function createobject()
 	var ok = verif(nombre);
 	if (ok) 
 	{
-		
+		//console.log(result2);
 		printHTML("#error_point","");
 		send(result2);
 
@@ -144,7 +170,6 @@ function verif(nombre)
 
 function send(result2) 
 {
-	//alert("coucou");
 	 
 	 var json2 = JSON.stringify(result2);
 
@@ -154,7 +179,9 @@ function send(result2)
 	url : "AddPointEmprunt",
 	data : "points=" + json2, 
 	dataType : "json",
-	//success : /*alert('Good !')*/,
+	/*success :  function()
+	{
+	},*/
 	error : function(XHR, testStatus, errorThrown) {
 	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
 	}

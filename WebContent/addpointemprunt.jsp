@@ -6,12 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<link type="text/css" rel="stylesheet"
-	href="/KasuKasu/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
+
 <title>Abonnement à un lieu</title>
 
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<link type="text/css" rel="stylesheet"	href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="js/addpointemprunt.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
@@ -45,9 +46,9 @@ html, body, #mapdiv {
 				<div class="col-xs-10">Choisissez des points d'emprunt en
 					cliquant sur l'image</div>
 			</div>
-			
+
 			<div id="mapdiv" style="width: 400px; height: 400px"></div>
-			
+
 		</div>
 
 		<div class='modal-body row'>
@@ -64,6 +65,8 @@ html, body, #mapdiv {
 				onClick="javascript:createobject()">
 		</div>
 	</div>
+
+
 
 </body>
 

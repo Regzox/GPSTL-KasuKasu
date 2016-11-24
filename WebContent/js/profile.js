@@ -16,8 +16,8 @@ function fillMyProfile() {
 	.get("/KasuKasu/imagesservlet")
 	.done( function (data) {
 		var json = $.parseJSON(data);
-		
-		$('#image').attr('src', json.success);
+		if (json.success!=undefined) $('#image').attr('src', json.success);
+		else $('#image').attr('src', "/KasuKasu/data/profile-icon.png");
 		
 	} );
 }

@@ -56,22 +56,22 @@ public class CreateObject extends HttpServlet {
 			if( ParametersChecker.testMultipleNonEmpty(		map, 
 					"nom",
 					"description",
-					"datedebut",
-					"datefin",
+//					"datedebut",
+//					"datefin",
 					"groupe",  
 					"coordonnees")){
 				out.write( new JSONObject().put("error", "A request parameter is missing.").toString() ); return;
 				
 			}
-
+			
 			// Création objet JSON qui va être sauvegardé dans la BD.
 			JSONObject object = new JSONObject();          
 			object.put( "owner"        ,  userId						         );
 			object.put( "title"        ,  request.getParameter("nom")            );
 			object.put( "description"  ,  request.getParameter("description")    );
-			object.put( "datedebut"    ,  request.getParameter("datedebut")      );
-			object.put( "datefin"      ,  request.getParameter("datefin")        );
-			object.put( "groupe"       ,  request.getParameter("groupe")         );
+//			object.put( "datedebut"    ,  request.getParameter("datedebut")      );
+//			object.put( "datefin"      ,  request.getParameter("datefin")        );
+			object.put( "group"       ,  request.getParameter("groupe")         );
 			object.put( "coordonnees"  ,  request.getParameter("coordonnees")    );
 
 			// Sauvegarde l'objet dans la BD
@@ -79,6 +79,8 @@ public class CreateObject extends HttpServlet {
 
 			// Génération d'une réponse JSON
 			out.write( new JSONObject().put("success", "Object added.").toString() );
+			
+			System.out.println("Object created.");
 
 
 		} catch (Exception e) {
