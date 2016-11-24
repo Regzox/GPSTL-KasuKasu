@@ -5,14 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-<link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
-
 <title>Abonnement à un lieu</title>
 
-<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet"	href="/KasuKasu/css/bootstrap.min.css">
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/addpointemprunt.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
@@ -66,7 +67,17 @@ html, body, #mapdiv {
 		</div>
 	</div>
 
-
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        Les lieux ont bien été ajoutés
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 

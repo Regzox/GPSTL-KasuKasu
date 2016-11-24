@@ -148,6 +148,7 @@ function createobject()
 		//console.log(result2);
 		printHTML("#error_point","");
 		send(result2);
+		
 
 	}
 }
@@ -183,9 +184,15 @@ function send(result2)
 	url : "AddPointEmprunt",
 	data : "points=" + json2, 
 	dataType : "json",
-	/*success :  function()
+	success :  function()
 	{
-	},*/
+	    
+	    $("#myModal").modal({                    
+	      "backdrop"  : "static",
+	      "keyboard"  : true,
+	      "show"      : true                     
+	    });
+	},
 	error : function(XHR, testStatus, errorThrown) {
 	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
 	}
