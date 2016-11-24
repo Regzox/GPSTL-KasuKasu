@@ -79,6 +79,8 @@ public class CreateObject extends HttpServlet {
 
 			// Génération d'une réponse JSON
 			out.write( new JSONObject().put("success", "Object added.").toString() );
+			
+			System.out.println("Object created.");
 
 
 		} catch (Exception e) {
