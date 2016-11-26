@@ -4,19 +4,79 @@
 	<div class="sidebar-nav">
 		<div class="sidebar-logo">
 			<img src="/KasuKasu/images/KasuKasu.png" class="sidebar-image" draggable="false"
-			alt="KasuKasu portal" title="KasuKasu portal"
-			onclick="
-				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
-				if ( !(~$(location).attr('href').indexOf('<%= Url.PORTAL.value() %>')))
-					$(location).attr('href', '<%= Url.PORTAL.value() %>');
-			"></img>
+			alt="KasuKasu portal" title="KasuKasu portal">
+<%-- 			onclick=" --%>
+<!-- 				// Pour empêcher de reload la page du profil utilisateur si on y est déjà -->
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.PORTAL.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.PORTAL.value() %>'); --%>
+<%-- 			"> --%>
+</img>
 		</div>
 		<div class="navigable">
 			<div onclick="
 				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
 				if ( !(~$(location).attr('href').indexOf('<%= Url.PROFILE.value() %>')))
 					$(location).attr('href', '<%= Url.PROFILE.value() %>');
-			">Profil</div>
+			">Mon profil</div>
+			
+			 <div class="dropdown">Mes amis
+				  <div class="dropdown-content">
+				    <div onclick="
+						if ( !(~$(location).attr('href').indexOf('<%= Url.FIND_USER.value() %>')))
+							$(location).attr('href', '<%= Url.FIND_USER.value() %>');
+					">Rechercher un utilisateur</div>
+					
+					
+				    <div onclick="
+						if ( !(~$(location).attr('href').indexOf('<%= Url.MY_FRIENDS.value() %>')))
+							$(location).attr('href', '<%= Url.MY_FRIENDS.value() %>');
+					">Liste de mes amis</div>
+					
+					
+				   <div onclick="
+					if ( !(~$(location).attr('href').indexOf('<%= Url.PENDING_REQUESTS.value() %>')))
+						$(location).attr('href', '<%= Url.PENDING_REQUESTS.value() %>');
+					">Requetes d'amis</div>
+					
+					
+				    <div onclick="
+					if ( !(~$(location).attr('href').indexOf('<%= Url.GROUPE.value() %>')))
+						$(location).attr('href', '<%= Url.GROUPE.value() %>');
+					">Mes groupes d'amis</div>
+				  </div>
+			</div>
+			<div class="dropdown">Mes objets
+					  <div></div>
+					  <div class="dropdown-content">
+					    <div>Ma liste d'objets prêtés</div>
+					    <div onclick="
+							if ( !(~$(location).attr('href').indexOf('<%= Url.CREATEOBJECT.value() %>')))
+								$(location).attr('href', '<%= Url.CREATEOBJECT.value() %>');
+						">Ajouter un prêt</div>
+					  </div>
+			</div>
+			
+			<div class="dropdown">Mes lieux
+					  <div></div>
+					  <div class="dropdown-content">
+					    <div>S'abonner à un lieu de prêt</div>
+					    <div onclick="
+							if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>')))
+								$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>');
+						">S'abonner à un lieu d'emprunt</div>
+					  </div>
+			</div>
+			
+			<div class="dropdown">Mes emprunts
+					  <div class="dropdown-content">
+						<div onclick="
+							if ( !(~$(location).attr('href').indexOf('<%= Url.RECHERCHEROBJECT.value() %>')))
+								$(location).attr('href', '<%= Url.RECHERCHEROBJECT.value() %>');
+						">Rechercher un objet</div>
+					    <div>Ma liste d'objets empruntés</div>
+					  </div>
+			</div>
+
 <%-- 			<div onclick=" --%>
 <%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.MODIFY_USER.value() %>'))) --%>
 <%-- 					$(location).attr('href', '<%= Url.MODIFY_USER.value() %>'); --%>
@@ -25,42 +85,58 @@
 <%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.UPLOAD.value() %>'))) --%>
 <%-- 					$(location).attr('href', '<%= Url.UPLOAD.value() %>'); --%>
 <%-- 			">Changer d'image</div> --%>
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.FIND_USER.value() %>')))
-					$(location).attr('href', '<%= Url.FIND_USER.value() %>');
-			">Rechercher un utilisateur</div>
+
+
+<%-- 			<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.FIND_USER.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.FIND_USER.value() %>'); --%>
+<%-- 			">Rechercher un utilisateur</div> --%>
+
+
 <%-- 			<div onclick=" --%>
 <%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.DASHBOARD.value() %>'))) --%>
 <%-- 					$(location).attr('href', '<%= Url.DASHBOARD.value() %>'); --%>
 <%-- 			">Dashboard</div> --%>
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.MY_FRIENDS.value() %>')))
-					$(location).attr('href', '<%= Url.MY_FRIENDS.value() %>');
-			">Mes Amis</div>
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.PENDING_REQUESTS.value() %>')))
-					$(location).attr('href', '<%= Url.PENDING_REQUESTS.value() %>');
-			">Requetes d'amis</div>
-				<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.GROUPE.value() %>')))
-					$(location).attr('href', '<%= Url.GROUPE.value() %>');
-			">Mes groupes d'amis</div>
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.CREATEOBJECT.value() %>')))
-					$(location).attr('href', '<%= Url.CREATEOBJECT.value() %>');
-			">Ajouter un prêt</div>
+
+
+<%-- 			<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.MY_FRIENDS.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.MY_FRIENDS.value() %>'); --%>
+<%-- 			">Mes Amis</div> --%>
+
+
+<%-- 			<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.PENDING_REQUESTS.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.PENDING_REQUESTS.value() %>'); --%>
+<%-- 			">Requetes d'amis</div> --%>
+
+
+<%-- 				<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.GROUPE.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.GROUPE.value() %>'); --%>
+<%-- 			">Mes groupes d'amis</div> --%>
+
+
+<%-- 			<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.CREATEOBJECT.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.CREATEOBJECT.value() %>'); --%>
+<%-- 			">Ajouter un prêt</div> --%>
+
+
 			<!-- <div onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.DEMANDESRECUES.value() %>')))
 					$(location).attr('href', '<%= Url.DEMANDESRECUES.value() %>');
 			">Demandes d'emprunts reçues</div> -->
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>')))
-					$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>');
-			">S'abonner à un lieu</div>
-			<div onclick="
-				if ( !(~$(location).attr('href').indexOf('<%= Url.RECHERCHEROBJECT.value() %>')))
-					$(location).attr('href', '<%= Url.RECHERCHEROBJECT.value() %>');
-			">Rechercher un objet</div>
+			
+<%-- 			<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>'); --%>
+<%-- 			">S'abonner à un lieu</div> --%>
+			
+<%-- 			<div onclick=" --%>
+<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.RECHERCHEROBJECT.value() %>'))) --%>
+<%-- 					$(location).attr('href', '<%= Url.RECHERCHEROBJECT.value() %>'); --%>
+<%-- 			">Rechercher un objet</div> --%>
 		</div>
 	</div>
 </div>
