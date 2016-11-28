@@ -22,6 +22,7 @@ public enum Url {
 	CREATEOBJECT("/createobject.jsp"),
 	DEMANDESRECUES("/demande.jsp"),
 	RECHERCHEROBJECT("/searchitems.jsp"),
+	LISTOBJECTS("/useritems.jsp"),
 	ABONNERLIEU("/addpointemprunt.jsp"),
 
 
