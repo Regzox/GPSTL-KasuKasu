@@ -36,7 +36,7 @@ public class Items {
 			if(results.isEmpty()){
 				System.out.println(
 						"userItems [with queryfilter]  : No pertinent results switching to SQLMODO");
-				cursor=ItemsDB.utherItemsSQLMODO(query, userID);}}
+				cursor=ItemsDB.userItemsSQLMODO(query, userID);}}
 		
 		while(cursor.hasNext()){
 			DBObject doc = cursor.next();
