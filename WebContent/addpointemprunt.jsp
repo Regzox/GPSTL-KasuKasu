@@ -41,7 +41,7 @@ html, body, #mapdiv {
 	<div id="page">
 
 		<div class='col-md-6'>
-
+			
 			<div class="form-group row">
 				<div class="col-xs-10">Choisissez des points d'emprunt en
 					cliquant sur l'image</div>
