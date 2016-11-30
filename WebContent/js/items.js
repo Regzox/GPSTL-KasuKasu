@@ -105,6 +105,10 @@ function checkQuery(query){
 	return true;
 }
 
+function filterUserItems(form){
+	if (checkQuery(form.iquery.value))		
+	userItems(form.iquery.value);
+}
 
 function userItems(query){
 	$.ajax({

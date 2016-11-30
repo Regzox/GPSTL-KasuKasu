@@ -44,7 +44,7 @@ public class ItemsMR {
 	 * @throws DatabaseException
 	 * @throws JSONException */
 	public static List<ObjetRSV> pertinence(String query,DBCursor cursor) throws DatabaseException, JSONException{
-		ItemsMR.updateTFDF();//TODO replace by an mrprog
+		ItemsMR.updateTFDF();//TODO replace by an mrprog in future sprints
 		Set<String> querywords =wordSet(query,ItemsMR.mrpattern);	
 		List<ObjetRSV> results = new ArrayList<ObjetRSV>();
 		try{

@@ -22,7 +22,7 @@
 			<p class='capital'>Gerez vos objets</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
-				OnSubmit="javascript:userItems(this.iquery.value)">
+				OnSubmit="javascript:filterUserItems(this)">
 				<div class="form-group row">
 					<div class="col-xs-10">
 						<input type="text" class="form-control" name="iquery" id="iquery">
