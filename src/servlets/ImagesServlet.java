@@ -39,7 +39,12 @@ public class ImagesServlet extends HttpServlet {
 		try {
 			entities.User user = User.getUserById(userId);
 			JSONObject json = User.getUserImage(user);
-			response.getWriter().print(json);	
+			
+			json.put("success", json.getString("success").replaceAll(".*(/KasuKasu/data)", "/KasuKasu/data"));
+			
+			System.out.println(json.getString("success"));
+			
+			response.getWriter().print(json);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.getWriter().print(new Error("Something goes wrong when getting user by id"));	
@@ -48,6 +53,8 @@ public class ImagesServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Data.UPLOAD_DIRECTORY = getServletContext().getRealPath("/data") + "/";
 		
 		try {
 			entities.User user = User.getUserById((String)request.getSession().getAttribute("userId"));
