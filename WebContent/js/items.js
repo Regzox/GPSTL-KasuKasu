@@ -76,7 +76,7 @@ Item.prototype.getHTML=function(){
 	s+="<div class=\"item-more\">";
 	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"iwantit_btn\" " +
-	"id=\"iwantit_btn"+this.id+"\" OnClick=\"javascript:alert('je demande l objet !')\"/>\n";
+	"id=\"iwantit_btn-"+this.id+"\" OnClick=\"javascript:alert('je demande l objet !')\"/>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
 	return s;
