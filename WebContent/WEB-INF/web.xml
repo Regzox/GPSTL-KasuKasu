@@ -220,4 +220,15 @@
     <servlet-name>UserItemsServlet</servlet-name>
     <url-pattern>/useritems</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+    <description></description>
+    <display-name>ObjectManagementServlet</display-name>
+    <servlet-name>ObjectManagementServlet</servlet-name>
+    <servlet-class>servlets.ObjectManagementServlet</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>ObjectManagementServlet</servlet-name>
+    <url-pattern>/objectmanagement</url-pattern>
+  </servlet-mapping>
 </web-app>
