@@ -238,6 +238,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ModifyItemServlet</servlet-name>
-    <url-pattern>/ModifyItemServlet</url-pattern>
+    <url-pattern>/modifyitem</url-pattern>
   </servlet-mapping>
 </web-app>
