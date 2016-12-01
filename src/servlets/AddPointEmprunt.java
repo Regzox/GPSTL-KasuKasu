@@ -82,8 +82,9 @@ public class AddPointEmprunt extends HttpServlet {
 		} catch (Exception e) {
 			// Rédiréction vers une page d'erreur
 			e.printStackTrace();
-			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher("errorpage.jsp").forward(request, response);
+			//request.setAttribute("error", e); //remote debug
+			//request.getRequestDispatcher("errorpage.jsp").forward(request, response);
+			response.getWriter().print(new json.Error("Sorry, an error has occurred.")); 
 
 		}
 

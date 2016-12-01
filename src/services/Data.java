@@ -25,8 +25,8 @@ import exceptions.UploadWrittingException;
 
 public class Data {
 
-	private static String UPLOAD_DIRECTORY = "/home/lina/git/GPSTL-KasuKasu/WebContent/data/";
-	private static String DOWNLOAD_PATH = "/KasuKasu/data/";
+	public static String UPLOAD_DIRECTORY = null;
+	public static String DOWNLOAD_PATH = "/KasuKasu/data/";
 
 	private static int MEMORY_THRESHOLD   = 1024 * 1024 * 3; 
 	private static int MAX_FILE_SIZE      = 1024 * 1024 * 40;
@@ -62,7 +62,16 @@ public class Data {
 			uploadDir.mkdir();
 		}
 
+		File test = new File(".");
+		try {
+			System.out.println(test.getCanonicalPath());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
+		System.out.println(UPLOAD_DIRECTORY);
+		
 		List<FileItem> formItems = upload.parseRequest(request);
 
 		if (formItems != null) {

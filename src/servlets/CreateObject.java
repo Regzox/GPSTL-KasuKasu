@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,8 @@ import utils.ParametersChecker;
  */
 public class CreateObject extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	// Logger
+	private static Logger logger = Logger.getLogger( CreateObject.class.getName() ); 
 
 
 	public CreateObject() {
@@ -44,6 +47,7 @@ public class CreateObject extends HttpServlet {
 	        String userId = (String) session.getAttribute("userId");
 	        
 	        if( userId == null ) {
+	        	logger.severe("User ID is empty, problem with the session."); 
 	        	out.write( new JSONObject().put("error", "User ID is empty.").toString() );
 	        	return;
 	        	
@@ -60,6 +64,7 @@ public class CreateObject extends HttpServlet {
 //					"datefin",
 					"groupe",  
 					"coordonnees")){
+				logger.warning("A request parameter is missing."); 
 				out.write( new JSONObject().put("error", "A request parameter is missing.").toString() ); return;
 				
 			}
@@ -80,14 +85,15 @@ public class CreateObject extends HttpServlet {
 			// Génération d'une réponse JSON
 			out.write( new JSONObject().put("success", "Object added.").toString() );
 			
-			System.out.println("Object created.");
+			logger.fine("Object " + request.getParameter("nom") + "added"); 
 
 
 		} catch (Exception e) {
-			// Rédiréction vers une page d'erreur
-			e.printStackTrace();
-			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher("errorpage.jsp").forward(request, response);
+			//request.setAttribute("error", e); //remote debug
+			//request.getRequestDispatcher("errorpage.jsp").forward(request, response); Not suited for an Ajax response
+			logger.severe("Error with object " + request.getParameter("nom") + e.getMessage()); 
+			response.getWriter().print(new json.Error("Sorry, an error has occurred.")); 
+			
 			
 		}
 

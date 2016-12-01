@@ -78,7 +78,8 @@ public class RetrievePasswordServlet extends HttpServlet {
 
 	}catch(Exception e){
 		e.printStackTrace();
-		request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);
+		//request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);
+		response.getWriter().print(new json.Error("Sorry, an error has occurred.")); 
 	}
 
 }

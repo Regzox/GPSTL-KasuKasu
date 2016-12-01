@@ -14,11 +14,32 @@ import dao.mongo.ItemsDB;
 import dao.mongo.ItemsMR;
 import dao.mongo.ObjetRSV;
 import exceptions.DatabaseException;
+import utils.Tools;
 
 /**
  *@author ANAGBLA Joan */
 public class Items {
 
+	
+	
+	/**
+	 * Update an Item
+	 * @param id
+	 * @param title
+	 * @param description
+	 * @return
+	 * @throws JSONException
+	 * @throws DatabaseException */
+	public static JSONObject updateItem(String userId,String id, String title, String description) 
+			throws JSONException, DatabaseException{
+		if(ItemsDB.checkAthorization(userId,id))
+			ItemsDB.updateItem(id,title,description);
+		else return Tools.serviceRefused(
+				"Vous n'avez pas le droit de modifier cet objet", -1);
+		return Tools.serviceMessage(1);
+	}
+		
+	
 	/**
 	 * return a list of items owned by an user 
 	 * @param userID
@@ -54,9 +75,6 @@ public class Items {
 					.put("date",orsv.getDbo().get("date"))
 					.put("description",orsv.getDbo().get("description")));
 		return new JSONObject().put("items",jar);}
-
-
-
 
 	/**
 	 * Search Items by query using ItemsMR's pertinence
