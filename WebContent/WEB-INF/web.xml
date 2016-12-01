@@ -240,4 +240,14 @@
     <servlet-name>ModifyItemServlet</servlet-name>
     <url-pattern>/modifyitem</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ItemApplicantsListServlet</display-name>
+    <servlet-name>ItemApplicantsListServlet</servlet-name>
+    <servlet-class>servlets.ItemApplicantsListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ItemApplicantsListServlet</servlet-name>
+    <url-pattern>/itemapplicantslist</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -20,8 +20,8 @@ import utils.Tools;
  *@author ANAGBLA Joan */
 public class Items {
 
-	
-	
+
+
 	/**
 	 * Update an Item
 	 * @param id
@@ -38,8 +38,18 @@ public class Items {
 				"Vous n'avez pas le droit de modifier cet objet", -1);
 		return Tools.serviceMessage(1);
 	}
+
+
+	/**
+	 * Return the list of applicants for item identified by id
+	 * @param id
+	 * @return	 */
+	public static JSONObject itemApplicants(String id){
 		
-	
+		return null;
+	}
+
+
 	/**
 	 * return a list of items owned by an user 
 	 * @param userID
@@ -49,20 +59,20 @@ public class Items {
 	public static JSONObject userItems(String query, String userID) throws JSONException, DatabaseException{
 		JSONArray jar =new JSONArray();
 		List<ObjetRSV> results=new ArrayList<ObjetRSV>();
-		
+
 		DBCursor cursor = ItemsDB.userItems(userID);
-		
+
 		if(!query.equals("")){//with QueryFilter
 			results=ItemsMR.pertinence(query,cursor);
 			if(results.isEmpty()){
 				System.out.println(
 						"userItems [with queryfilter]  : No pertinent results switching to SQLMODO");
 				cursor=ItemsDB.userItemsSQLMODO(query, userID);}}
-		
+
 		while(cursor.hasNext()){
 			DBObject doc = cursor.next();
 			results.add(new ObjetRSV(doc,1));}
-		
+
 		for(ObjetRSV orsv : results )
 			jar.put(new JSONObject()
 					.put("id",orsv.getDbo().get("_id"))
@@ -84,9 +94,9 @@ public class Items {
 	 * @throws DatabaseException */
 	public static JSONObject searchItems(String query,String userID) throws JSONException, DatabaseException{		
 		JSONArray jar =new JSONArray();
-		
+
 		List<ObjetRSV> results=ItemsMR.pertinence(query,ItemsDB.utherItems(userID));
-		
+
 		if(results.isEmpty()){
 			System.out.println(
 					"searchItems  : No pertinent results switching to SQLMODO");
@@ -107,5 +117,4 @@ public class Items {
 					.put("date",orsv.getDbo().get("date"))
 					.put("description", orsv.getDbo().get("description")));
 		return new JSONObject().put("items",jar);}
-
 }

@@ -8,6 +8,7 @@ import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
@@ -33,7 +34,7 @@ public class ItemsDB {
 	
 
 	/**
-	 * Update An Item
+	 * Update an item
 	 * @param id
 	 * @param title
 	 * @param description */
@@ -47,6 +48,21 @@ public class ItemsDB {
 						.append("title",title)
 						.append("description",description)));
 	}	
+	
+	
+	/**
+	 * ADMIN FUNCTION (internal use)
+	 * return an item (all fields)
+	 * @param id
+	 * @param title
+	 * @param description 
+	 * @return */
+	public static DBObject getItem(String id) {
+		return collection.findOne(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id)));
+	}	
+	
 	
 
 	/**

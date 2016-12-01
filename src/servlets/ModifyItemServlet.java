@@ -35,6 +35,8 @@ public class ModifyItemServlet extends HttpServlet {
 
 			if(!map.containsKey("id"))
 				throw new Exception("Url is missing parameters"); 
+			if( request.getParameter("id").equals(""))
+				throw new Exception("Url is missing parameters.");
 
 			response.getWriter().print(
 					Items.updateItem(
