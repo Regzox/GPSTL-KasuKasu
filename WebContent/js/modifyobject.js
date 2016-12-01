@@ -1,27 +1,3 @@
-function fillMyProfile() {
-	$
-	.get("/KasuKasu/profile")
-	.done( function (data) {
-		var json = $.parseJSON(data);
-		
-		$('#id').html(json.success.user0.id);
-		$('#firstname').html(json.success.user0.firstname);
-		$('#name').html(json.success.user0.name);
-		$('#email').html(json.success.user0.email);
-		$('#phone').html(json.success.user0.phone);
-		
-	} );
-	
-	$
-	.get("/KasuKasu/imagesservlet")
-	.done( function (data) {
-		var json = $.parseJSON(data);
-		if (json.success!=undefined) $('#image').attr('src', json.success);
-		else $('#image').attr('src', "/KasuKasu/data/profile-icon.png");
-		
-	} );
-}
-
 function showZones(){
 	$('#modal-zones').modal('show');
 }
@@ -49,7 +25,7 @@ function addZone(form){
 	$('#modal-hide').modal('show');
 }
 
-function addGroup(){
+function addGroup(form){
 	var objectId = document.getElementById("objectId").value;
 	var sel = document.getElementById("group-id");
 	var text= sel.options[sel.selectedIndex].text;

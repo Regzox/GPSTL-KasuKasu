@@ -74,7 +74,7 @@
 					<td class="information" id="group"><c:forEach var="g"
 							items="${item.group}" varStatus="status">
 
-							<span id="g${g.id} " class="tag label label-info">
+							<span id="g${g.id}" class="tag label label-info">
 								<span> ${g.name}</span> <a><i onclick="removeGroup(this)"
 									class="remove glyphicon glyphicon-remove-sign glyphicon-red"></i></a>
 							</span>
@@ -151,8 +151,8 @@
 
 								</SELECT>
 								<div class="col-sm-offset-4 col-sm-5">
-									<button type="submit" class="btn btn-primary" name="add-zone"
-										value="add-zone">Ajouter !</button>
+									<button type="submit" class="btn btn-primary" name="add-group"
+										value="add-group">Ajouter !</button>
 								</div>
 							</form>
 						</div>
