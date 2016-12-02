@@ -20,7 +20,7 @@ function addZone(form){
 	if(test==undefined || test==null){
 	addZonePost(objectId,id);
 	$('#zone').prepend("<span id=\"z"+id+"\" class=\"tag label label-info\"> <span>"
-									+text+"</span> <a><i class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
+									+text+"</span> <a><i onclick=\"removeZone(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
 	}
 	$('#modal-hide').modal('show');
 }
@@ -35,7 +35,7 @@ function addGroup(form){
 	if(test==undefined || test==null){
 	addGroupPost(objectId,id);
 	$('#group').prepend("<span id=\"g"+id+"\" class=\"tag label label-info\"> <span>"
-									+text+"</span> <a><i class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
+									+text+"</span> <a><i onclick=\"removeGroup(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
 	}
 	$('#modal-groups').modal('hide');
 }
