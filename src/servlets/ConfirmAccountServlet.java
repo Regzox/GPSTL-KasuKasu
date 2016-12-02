@@ -27,7 +27,7 @@ public class ConfirmAccountServlet extends HttpServlet {
 			Map<String,String[]> map = request.getParameterMap();
 			//TODO
 			//mettre un id c mieux qe mettre lemail en clair sinon n'imorte qui peut confirmer nip 
-			//@ùail l'id c'est mieux une clé serait encore mieux mais new tab to disscus with others
+			//@ï¿½ail l'id c'est mieux une clï¿½ serait encore mieux mais new tab to disscus with others
 			if(!map.containsKey("id"))
 				throw new Exception("Wrong Url! Missing parameters");
 			if(request.getParameter("id").equals(""))
@@ -40,7 +40,9 @@ public class ConfirmAccountServlet extends HttpServlet {
 
 		}catch (Exception e) {
 			e.printStackTrace(); //local debug
-			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);}
+			//request.setAttribute("error", e); //remote debug
+			//request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);
+			response.getWriter().print(new json.Error("Sorry, an error has occurred.")); 
+		}
 	}
 }

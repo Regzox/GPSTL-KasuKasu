@@ -10,7 +10,7 @@ public enum Url {
 	CONNECTION("/connexion.jsp"),
 	ERROR_PAGE("/errorpage.jsp"),
 	RETRIEVE_PASSWORD("/retrievePassword.jsp"),
-	DASHBOARD("/restricted/dashboard.jsp"),
+	DASHBOARD("/searchitems.jsp"),
 	FIND_USER("/restricted/finduser.jsp"),
 	MODIFY_USER("/restricted/modifyUser.jsp"),
 	PROFILE("/restricted/profile.jsp"),
@@ -22,6 +22,7 @@ public enum Url {
 	CREATEOBJECT("/createobject.jsp"),
 	DEMANDESRECUES("/demande.jsp"),
 	RECHERCHEROBJECT("/searchitems.jsp"),
+	LISTOBJECTS("/useritems.jsp"),
 	ABONNERLIEU("/addpointemprunt.jsp"),
 	AJOUTERLIEU("/addpointpret.jsp")
 

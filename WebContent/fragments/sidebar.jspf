@@ -45,17 +45,22 @@
 					">Mes groupes d'amis</div>
 				  </div>
 			</div>
+			<br>
 			<div class="dropdown">Mes objets
 					  <div></div>
 					  <div class="dropdown-content">
-					    <div>Ma liste d'objets prêtés</div>
 					    <div onclick="
 							if ( !(~$(location).attr('href').indexOf('<%= Url.CREATEOBJECT.value() %>')))
 								$(location).attr('href', '<%= Url.CREATEOBJECT.value() %>');
 						">Ajouter un prêt</div>
+						
+						<div onclick="
+							if ( !(~$(location).attr('href').indexOf('<%= Url.LISTOBJECTS.value() %>')))
+								$(location).attr('href', '<%= Url.LISTOBJECTS.value() %>');
+						">Ma liste d'objets</div>
 					  </div>
 			</div>
-			
+			<br>
 			<div class="dropdown">Mes lieux
 					  <div></div>
 					  <div class="dropdown-content">
@@ -69,7 +74,7 @@
 						">S'abonner à un lieu d'emprunt</div>
 					  </div>
 			</div>
-			
+			<br>
 			<div class="dropdown">Mes emprunts
 					  <div class="dropdown-content">
 						<div onclick="

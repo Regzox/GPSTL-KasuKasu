@@ -97,7 +97,7 @@ public class AddPointEmprunt extends HttpServlet {
 			// Rédiréction vers une page d'erreur
 			e.printStackTrace();
 			response.getWriter().print(new json.Error(e.getMessage())); 
-
+	
 		}
 
 
