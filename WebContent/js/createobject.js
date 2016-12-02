@@ -218,10 +218,22 @@ function traiteReponse2(json)
 	var json = JSON.parse(JSON.stringify(json));
 
 	pointSelect = document.getElementById('point');
-
 	
-	for (var i=0; i< json.points.length; i++)
+	if (json.points.length==0)  { 
+		                            $('#ajout').show();
+		                            $("#ajout").click(function(){
+		                 	           window.location.href = "/KasuKasu/addpointpret.jsp";
+		                 	          return false;
+		                            }); 
+	                            }
+
+	else 
+	{
+		for (var i=0; i< json.points.length; i++)
 		{
 		 pointSelect.options[pointSelect.options.length] = new Option(json.points[i].nom);
 		}
+		
+	}
+
 }
