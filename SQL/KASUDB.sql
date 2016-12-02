@@ -68,23 +68,6 @@ CREATE TABLE `POINT_EMPRUNT` (
   `radius` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE `POINT_EMPRUNT`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-  
-  ALTER TABLE `POINT_EMPRUNT`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
-  
-  ALTER TABLE `POINT_EMPRUNT`
-  ADD CONSTRAINT `POINT_EMPRUNT_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `POINT_PRET`
---
-
 CREATE TABLE `POINT_PRET` (
   `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
@@ -94,12 +77,29 @@ CREATE TABLE `POINT_PRET` (
   `radius` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+  
+  ALTER TABLE `POINT_EMPRUNT`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
+  
+  ALTER TABLE `POINT_PRET`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
+
+
+ALTER TABLE `POINT_EMPRUNT`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+  
+  ALTER TABLE `POINT_EMPRUNT`
+  ADD CONSTRAINT `POINT_EMPRUNT_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
+
+
+
 ALTER TABLE `POINT_PRET`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
   
-ALTER TABLE `POINT_PRET`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_user`);
+
   
 ALTER TABLE `POINT_PRET`
   ADD CONSTRAINT `POINT_PRET_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
