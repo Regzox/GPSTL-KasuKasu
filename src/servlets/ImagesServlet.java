@@ -40,7 +40,7 @@ public class ImagesServlet extends HttpServlet {
 			entities.User user = User.getUserById(userId);
 			JSONObject json = User.getUserImage(user);
 			
-			json.put("success", json.getString("success").replaceAll(".*(/KasuKasu/data)", "/KasuKasu/data"));
+			json.put("success", json.getString("success").replaceAll(".*(/data)", "/KasuKasu/data"));
 			
 			System.out.println(json.getString("success"));
 			
@@ -60,9 +60,10 @@ public class ImagesServlet extends HttpServlet {
 			entities.User user = User.getUserById((String)request.getSession().getAttribute("userId"));
 			String url = Data.uploadFile(request);
 			boolean allowed = false;
+			String low_url = url.toLowerCase();
 			
 			for (String extention : allowedExtentions)
-				allowed |= url.endsWith(extention);
+				allowed |= low_url.endsWith(extention);
 			
 			if (!allowed) {
 				ArrayList<String> urlsToDelete = new ArrayList<String>();
