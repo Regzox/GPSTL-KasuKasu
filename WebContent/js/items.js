@@ -67,6 +67,7 @@ Item.prototype.getHTML=function(){
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\"><a href=\"/borrowthis\"><b>"+this.title+"</b></a></div>\n";	
 	s+="<div class=\"item-infos\">";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-id\">"+this.id+"</span>";
 	s+="<span class=\"visible-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
@@ -76,7 +77,7 @@ Item.prototype.getHTML=function(){
 	s+="<div class=\"item-more\">";
 	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"iwantit_btn\" " +
-	"id=\"iwantit_btn"+this.id+"\" OnClick=\"javascript:alert('je demande l objet !')\"/>\n";
+	"id=\"iwantit_btn"+this.id+"\" OnClick=\"location.href='./demande?idbox="+this.id+"&owner="+this.owner+"';\"/>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
 	return s;

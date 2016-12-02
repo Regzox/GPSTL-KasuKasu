@@ -220,4 +220,14 @@
     <servlet-name>UserItemsServlet</servlet-name>
     <url-pattern>/useritems</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>DemandeServlet</display-name>
+    <servlet-name>DemandeServlet</servlet-name>
+    <servlet-class>servlets.DemandeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DemandeServlet</servlet-name>
+    <url-pattern>/demande</url-pattern>
+  </servlet-mapping>
 </web-app>

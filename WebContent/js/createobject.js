@@ -189,7 +189,7 @@ function verif(nom, description, datedebut, datefin, nombre)
 
 	}
 
-	if(datedebut.length==0)
+	/* if(datedebut.length==0)
 	{
 		printHTML("#error_datedeb","Date de debut manquante");
 		$("#error_datedeb").css({
@@ -238,11 +238,11 @@ function verif(nom, description, datedebut, datefin, nombre)
 			}
 
 		}
-	}
+	}*/
 
 
 
-	if(datefin.length==0)
+	/* if(datefin.length==0)
 	{
 		printHTML("#error_datefin","Date de fin manquante");
 		$("#error_datefin").css({
@@ -296,7 +296,7 @@ function verif(nom, description, datedebut, datefin, nombre)
 			}
 
 		}
-	}
+	}*/
 
 
 	return bool;
