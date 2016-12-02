@@ -1,3 +1,6 @@
+/**
+ * ANAGBLA Joan */
+
 function Group(id,name,type,owner,date){
 	//alert("new Group("+id+","+name+","+type+","+owner+","+date+")");
 	this.id=id;
