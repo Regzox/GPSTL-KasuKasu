@@ -10,7 +10,7 @@ public enum Url {
 	CONNECTION("/connexion.jsp"),
 	ERROR_PAGE("/errorpage.jsp"),
 	RETRIEVE_PASSWORD("/retrievePassword.jsp"),
-	DASHBOARD("/restricted/dashboard.jsp"),
+	DASHBOARD("/searchitems.jsp"),
 	FIND_USER("/restricted/finduser.jsp"),
 	MODIFY_USER("/restricted/modifyUser.jsp"),
 	PROFILE("/restricted/profile.jsp"),

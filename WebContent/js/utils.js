@@ -1,3 +1,6 @@
+/**
+ * ANAGBLA Joan */
+
 function isNumber(s){return !isNaN(s-0);}
 
 function printHTML(dom,htm){$(dom).html(htm);}
@@ -13,6 +16,8 @@ function fillNOTIFIER(msg){printHTML("#notifier",msg);}
 function resetNOTIFIER(){printHTML("#notifier","");}
 
 function removeHTML(dom,htm){$(dom).remove(htm);}
+
+function removeElt(dom){$(dom).remove(); }
 
 function cutDate(dateString){
 	//alert("cutDate");

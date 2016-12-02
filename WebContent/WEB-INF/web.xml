@@ -220,6 +220,16 @@
     <servlet-name>UserItemsServlet</servlet-name>
     <url-pattern>/useritems</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>DemandeServlet</display-name>
+    <servlet-name>DemandeServlet</servlet-name>
+    <servlet-class>servlets.DemandeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DemandeServlet</servlet-name>
+    <url-pattern>/demande</url-pattern>
+     </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>ObjectManagementServlet</display-name>
@@ -239,5 +249,15 @@
   <servlet-mapping>
     <servlet-name>ModifyItemServlet</servlet-name>
     <url-pattern>/modifyitem</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ItemApplicantsListServlet</display-name>
+    <servlet-name>ItemApplicantsListServlet</servlet-name>
+    <servlet-class>servlets.ItemApplicantsListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ItemApplicantsListServlet</servlet-name>
+    <url-pattern>/itemapplicantslist</url-pattern>
   </servlet-mapping>
 </web-app>
