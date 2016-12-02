@@ -84,6 +84,10 @@
 						</select>
 					</div>
 				</div>
+				
+				<button type="submit" class="positive" name="ajout" id="ajout" style="display:none;">
+				Ajouter un point de prêt
+				</button>
 
 				<div id="found-groups" class="abootsraper"></div>
 				<div class="form-group row">

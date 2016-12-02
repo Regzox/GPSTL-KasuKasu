@@ -25,6 +25,9 @@ public class DemandeDao {
 	public static void main(String[] args) throws SQLException {
 		AjouterDemande(1,"idObject");
 	}
+	
+	
+	
 	public static ArrayList<Integer> myDemande(String user)throws SQLException
 	{
 		ArrayList<Integer> myDemandes = new ArrayList<Integer>();
