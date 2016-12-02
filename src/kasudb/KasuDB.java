@@ -11,18 +11,11 @@ import com.mongodb.Mongo;
 import com.mongodb.MongoException;
 
 public class KasuDB {
-
-	public static Connection SQLConnection() throws SQLException {
-		try {Class.forName("com.mysql.jdbc.Driver");
-		return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root",""));}
-		catch (ClassNotFoundException e) {e.printStackTrace();return null;}
-	}
-
-	public static Connection SQLConnection(String password) throws SQLException {
-		try {Class.forName("com.mysql.jdbc.Driver");
-		return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root",password));}
-		catch (ClassNotFoundException e) {e.printStackTrace();return null;}
-	}
+	private static Mongo MongoConnection = null;
+	private static DB db = null;
+	
+	// Nom collection mongo qui contient les URL des images
+	public static final String MDB_IMAGES_COLLECTION = "Images";
 
 
 	/*public static DBCollection getCollection(String coll) {
@@ -30,23 +23,7 @@ public class KasuDB {
 		catch (UnknownHostException e) {e.printStackTrace();return null;}
 	}*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	private static Mongo MongoConnection = null;
-	private static DB db = null;
+	
 
 	// Configuration à utiliser que en LOCALE 
 
@@ -134,6 +111,18 @@ public class KasuDB {
 
 	}
 
+
+	public static Connection SQLConnection() throws SQLException {
+		try {Class.forName("com.mysql.jdbc.Driver");
+		return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root",""));}
+		catch (ClassNotFoundException e) {e.printStackTrace();return null;}
+	}
+
+	public static Connection SQLConnection(String password) throws SQLException {
+		try {Class.forName("com.mysql.jdbc.Driver");
+		return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root",password));}
+		catch (ClassNotFoundException e) {e.printStackTrace();return null;}
+	}
 
 
 
