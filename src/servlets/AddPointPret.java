@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,24 +12,21 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 
-import dao.mongo.ObjectTools;
-import dao.mongo.PointEmpruntDB;
-import services.PointEmprunt;
+import services.PointPret;
 import utils.ParametersChecker;
 import utils.Tools;
 
 /**
- * Servlet implementation class AddPointEmprunt
+ * Servlet implementation class AddPointPret
  */
-public class AddPointEmprunt extends HttpServlet {
+public class AddPointPret extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddPointEmprunt() {
+    public AddPointPret() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,7 +43,6 @@ public class AddPointEmprunt extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter(); 
 		response.setContentType("application/json;charset=UTF-8");
 
@@ -80,14 +75,14 @@ public class AddPointEmprunt extends HttpServlet {
 			for(int i = 0; i < jObj.length(); i++)
 			{
 			     JSONObject point = jObj.getJSONObject(i);
-			     JSONObject result =PointEmprunt.createPointEmprunt(Integer.parseInt(userId), point.getString("nom"), point.getDouble("lat"), point.getDouble("lon"), point.getInt("radius"));
+			     JSONObject result=PointPret.createPointPret(Integer.parseInt(userId), point.getString("nom"), point.getDouble("lat"), point.getDouble("lon"), point.getInt("radius"));
 			     if (!result.getString("message").equals("1")) bool = false;
-
 			      
 			}
 			
 			if (bool==true) response.getWriter().print(Tools.serviceMessage(1));
 			else response.getWriter().print(Tools.serviceMessage("error"));
+
 
 
 			

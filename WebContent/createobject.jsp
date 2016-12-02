@@ -5,28 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Ajout d'un prêt</title>
 
-<link type="text/css" rel="stylesheet"
-	href="/KasuKasu/css/bootstrap.min.css">
-<title>Création d'un objet</title>
-
-<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
+<link type="text/css" rel="stylesheet"href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/createobject.js"></script>
-
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
-<style type="text/css">
-html, body, #mapdiv {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-}
 
-.olImageLoadError {
-	display: none;
-}
-</style>
+
 
 
 
@@ -65,33 +55,39 @@ html, body, #mapdiv {
 
 				<div id='error_description'></div>
 
-				<div class="form-group row">
-					<label for="datedeb" class="col-xs-2 col-form-label">Début
-						du prêt</label>
+<!-- 				<div class="form-group row"> -->
+<!-- 					<label for="datedeb" class="col-xs-2 col-form-label">Début -->
+<!-- 						du prêt</label> -->
+<!-- 					<div class="col-xs-10"> -->
+<!-- 						<input type="date" id="datedeb" placeholder="Format : jj/mm/aaaa"> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+<!-- 				<div id='error_datedeb'></div> -->
+
+
+<!-- 				<div class="form-group row"> -->
+<!-- 					<label for="datefin" class="col-xs-2 col-form-label">Fin du -->
+<!-- 						prêt</label> -->
+<!-- 					<div class="col-xs-10"> -->
+<!-- 						<input type="date" id="datefin" placeholder="Format : jj/mm/aaaa"> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+
+<!-- 				<div id='error_datefin'></div> -->
+
+				<div id="found-points" class="abootsraper"></div>
+				<div class="form-point row">
+					<label for="point" class="col-xs-2 col-form-label">Points de prêts</label>
 					<div class="col-xs-10">
-						<input type="date" id="datedeb" placeholder="Format : jj/mm/aaaa">
+						<select name="point" id="point" multiple>
+						</select>
 					</div>
 				</div>
-
-				<div id='error_datedeb'></div>
-
-
-				<div class="form-group row">
-					<label for="datefin" class="col-xs-2 col-form-label">Fin du
-						prêt</label>
-					<div class="col-xs-10">
-						<input type="date" id="datefin" placeholder="Format : jj/mm/aaaa">
-					</div>
-				</div>
-
-				<div id='error_datefin'></div>
 
 				<div id="found-groups" class="abootsraper"></div>
-
-
-
 				<div class="form-group row">
-					<label for="datefin" class="col-xs-2 col-form-label">Visibilité</label>
+					<label for="groupe" class="col-xs-2 col-form-label">Visibilité</label>
 					<div class="col-xs-10">
 						<select name="groupe" id="groupe" multiple>
 							<option selected="selected">Tout le monde</option>
@@ -118,20 +114,6 @@ html, body, #mapdiv {
 		</div>
 
 
-
-		<div class='col-md-6'>
-
-			<div class="form-group row">
-				<div class="col-xs-10">Définissez un point de prêt en cliquant
-					sur l'image</div>
-			</div>
-
-			<div id="mapdiv" style="width: 400px; height: 400px"></div>
-
-		</div>
-
-		<div id='error_point'></div>
-
 	</div>
 
 
@@ -151,7 +133,17 @@ html, body, #mapdiv {
 	<!-- 	</div> -->
 
 
-
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        L'objet a bien été ajouté
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

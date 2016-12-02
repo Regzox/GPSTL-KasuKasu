@@ -58,8 +58,9 @@ public class CreateObject extends HttpServlet {
 					"description",
 //					"datedebut",
 //					"datefin",
-					"groupe",  
-					"coordonnees")){
+					"groupe"  
+					//"coordonnees"
+					)){
 				out.write( new JSONObject().put("error", "A request parameter is missing.").toString() ); return;
 				
 			}
@@ -72,7 +73,7 @@ public class CreateObject extends HttpServlet {
 //			object.put( "datedebut"    ,  request.getParameter("datedebut")      );
 //			object.put( "datefin"      ,  request.getParameter("datefin")        );
 			object.put( "group"       ,  request.getParameter("groupe")         );
-			object.put( "coordonnees"  ,  request.getParameter("coordonnees")    );
+			//object.put( "coordonnees"  ,  request.getParameter("coordonnees")    );
 
 			// Sauvegarde l'objet dans la BD
 			ObjectTools.addObject(object);
