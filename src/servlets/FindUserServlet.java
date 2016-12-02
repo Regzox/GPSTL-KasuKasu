@@ -43,8 +43,9 @@ public class FindUserServlet extends HttpServlet {
 			response.getWriter().print(js);
 		}catch (Exception e) {
 			e.printStackTrace();
-			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);
+			//request.setAttribute("error", e); //remote debug
+			//request.getRequestDispatcher(Url.ERROR_PAGE.value()).forward(request, response);
+			response.getWriter().print(new json.Error("Sorry, an error has occurred.")); 
 		}
 	}
 }
