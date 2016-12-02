@@ -29,6 +29,7 @@ public class ObjectManagementServlet extends HttpServlet{
 		HttpSession session=request.getSession();
 		PrintWriter out = response.getWriter(); 
 		response.setContentType("application/json;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		try {
 			// Récuperation de l'ID de session
 	        String userId = (String) session.getAttribute("userId");
