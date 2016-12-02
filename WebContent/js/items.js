@@ -111,7 +111,27 @@ Item.traiteReponseJSON2=function(json){
 };
 
 
-
+Item.prototype.getHTML2=function(){  
+	 	//alert("Item ->getHtml ");
+	 	var s;
+	 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
+	 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\"><a href=\"/borrowthis\"><b>"+this.title+"</b></a></div>\n";	
+	 	s+="<div class=\"item-infos\">";
+	 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
+	 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
+	 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-latitude-info"+this.id+"\">"+this.latitude+"</span>";
+	 	s+="</div> ";
+	 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
+	 	s+="<div class=\"item-more\">";
+	 	s+=" <input style=\"float:left;margin-right:75%;\" type=\"image\" " +
+	 	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
+	 	" src=\"icons/Feedback_Filled_50.png\" class=\"iwantit_btn\" " +
+	 	"id=\"unwrap_applicants_btn"+this.id+"\" OnClick=\"javascript:item_applicants('"+this.id+"')\"/>\n";
+	 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
+	 	s+="</div>";
+	 	s+="</div><hr><br>\n";
+	 	return s;
+	 };
 
 
 function searchMRItems(query){

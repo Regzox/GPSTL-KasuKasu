@@ -24,6 +24,8 @@ public enum Url {
 	RECHERCHEROBJECT("/searchitems.jsp"),
 	LISTOBJECTS("/useritems.jsp"),
 	ABONNERLIEU("/addpointemprunt.jsp"),
+	AJOUTERLIEU("/addpointpret.jsp")
+
 
 
 

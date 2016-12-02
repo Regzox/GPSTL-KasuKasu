@@ -48,7 +48,7 @@ public class DemandeServlet extends HttpServlet {
 			Demande.addDemande(userId, otherId ,idObject);
 			System.out.println("demande sent");
 			jsResponse.put("success", "demande request sent");
-			//response.sendRedirect("/KasuKasu/portal.jsp");
+			response.sendRedirect("/KasuKasu/useritems.jsp");
 			//response.sendRedirect("/KasuKasu/demande.jsp");
 			String typeOfRequest = (String) request.getParameter("typeOfRequest");
 

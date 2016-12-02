@@ -212,7 +212,7 @@ function send(result2)
 
 	$.ajax({
 	type : "POST",
-	url : "AddPointEmprunt",
+	url : "AddPointPret",
 	data : "points=" + json2, 
 	dataType : "json",
 	success :  function(data)

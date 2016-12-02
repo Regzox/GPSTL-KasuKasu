@@ -1,96 +1,7 @@
-	T = new Array();
-	i = 0;
-
-OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
-	defaultHandlerOptions : {
-		'single' : true,
-		'double' : false,
-		'pixelTolerance' : 0,
-		'stopSingle' : false,
-		'stopDouble' : false
-	},
-
-	initialize : function(options) {
-		this.handlerOptions = OpenLayers.Util.extend({},
-				this.defaultHandlerOptions);
-		OpenLayers.Control.prototype.initialize.apply(this, arguments);
-		this.handler = new OpenLayers.Handler.Click(this, {
-			'click' : this.trigger
-		}, this.handlerOptions);
-	},
-
-	trigger : function(e) {
-		var lonlat = map.getLonLatFromViewPortPx(e.xy)
-		//alert("latitude : " + lonlat.lat + ", longitude : " + lonlat.lon);
-
-		var markers = new OpenLayers.Layer.Markers("Markers");
-		map.addLayer(markers);
-
-		var marker = new OpenLayers.Marker(lonlat);
-		markers.addMarker(marker);
-
-		div = document.getElementById('formulaire');
-		
-		nombre_h = document.getElementById('nombre');
-
-		
-		var lon = document.createElement("input");
-		lon.type = "text";
-		lon.value = lonlat.lon;
-		lon.id=i;
-		div.appendChild(lon);
-		
-		i=i+1;
-
-		var lat = document.createElement("input");
-		lat.type = "text";
-		lat.value = lonlat.lat;
-		lat.id=i;
-		div.appendChild(lat);
-		
-		nombre_h.value=i;
-
-		
-		i=i+1;
-		
-
-
-		var supp = document.createElement("input");
-		supp.type = "button";
-		supp.value = "Supprimer";
-		supp.onclick = function() {
-
-			markers.removeMarker(marker);
-			div.removeChild(lon);
-			div.removeChild(lat);
-			div.removeChild(supp);
-		}
-
-		div.appendChild(supp);
-
-	}
-
-});
-
-var map;
-function init() {
-	map = new OpenLayers.Map("mapdiv");
-	map.addLayer(new OpenLayers.Layer.OSM());
-
-	var lonLat = new OpenLayers.LonLat(2.3488000, 48.8534100).transform(
-			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-			map.getProjectionObject() // to Spherical Mercator Projection
-	);
-
-	var zoom = 16;
-
-	map.setCenter(lonLat, zoom);
-	var click = new OpenLayers.Control.Click();
-	map.addControl(click);
-	click.activate();
-	
+function init() 
+{
 	userGroups();
-	
+	userPoints();
 
 }
 
@@ -98,15 +9,14 @@ function createobject()
 {
 	printHTML("#error_nom","");
 	printHTML("#error_description","");
-	printHTML("#error_datedeb","");
-	printHTML("#error_datefin","");
+	//printHTML("#error_datedeb","");
+	//printHTML("#error_datefin","");	
 	
-	
-	var nombre=document.getElementById('nombre').value;
+	//var nombre=document.getElementById('nombre').value;
 	var nom = document.getElementById('nom').value;
 	var description = document.getElementById('description').value;
-	var datedebut = document.getElementById('datedeb').value;
-	var datefin = document.getElementById('datefin').value;
+	//var datedebut = document.getElementById('datedeb').value;
+	//var datefin = document.getElementById('datefin').value;
 	var groupe = document.getElementById('groupe');
 
 	var result = [];
@@ -122,47 +32,48 @@ function createobject()
 			result.push(opt.value || opt.text);
 		}
 	}
-	
-	
-	var result2 = [];
-	for (i=0; i<=nombre; i=i+2)
-		{
-		    if (document.getElementById(i) !== null)
-		    	{
-		    	   result2.push(document.getElementById(i).value+","+document.getElementById(i+1).value)
 
-		    	}
-		}
+	
+	
+//	var result2 = [];
+//	for (i=0; i<=nombre; i=i+2)
+//		{
+//		    if (document.getElementById(i) !== null)
+//		    	{
+//		    	   result2.push(document.getElementById(i).value+","+document.getElementById(i+1).value)
+//
+//		    	}
+//		}
 	
 
-	var ok = verif(nom, description, datedebut, datefin, nombre);
+	var ok = verif(nom, description);
 	if (ok) 
 	{
 		printHTML("#error_nom","");
 		printHTML("#error_description","");
-		printHTML("#error_datedeb","");
-		printHTML("#error_datefin","");
-		printHTML("#error_point","");
-		send(nom, description, datedebut, datefin, result, result2);
+		//printHTML("#error_datedeb","");
+		//printHTML("#error_datefin","");
+		//printHTML("#error_point","");
+		send(nom, description, result);
 
 	}
 }
 
-function verif(nom, description, datedebut, datefin, nombre) 
+function verif(nom, description) 
 {
 	var bool = true;
 	
-	if(nombre==0)
-	{
-		printHTML("#error_point","Point de pret manquant");
-		$("#error_point").css({
-			"color":"red",
-			"font-size": "80%"
-		});
-
-		//return false;
-		bool = false;
-	}
+//	if(nombre==0)
+//	{
+//		printHTML("#error_point","Point de pret manquant");
+//		$("#error_point").css({
+//			"color":"red",
+//			"font-size": "80%"
+//		});
+//
+//		//return false;
+//		bool = false;
+//	}
 
 	if(nom.length==0)
 	{
@@ -189,134 +100,26 @@ function verif(nom, description, datedebut, datefin, nombre)
 
 	}
 
-	/* if(datedebut.length==0)
-	{
-		printHTML("#error_datedeb","Date de debut manquante");
-		$("#error_datedeb").css({
-			"color":"red",
-			"font-size": "80%"
-		});
 
-		//return false;
-		bool = false;
-
-	}
-
-	else 
-	{
-		var dateReg = /[0-9]{2}[/][0-9]{2}[/][0-9]{4}$/;
-
-		if (!datedebut.match(dateReg)) 
-		{
-
-			printHTML("#error_datedeb","Format incompatible");
-			$("#error_datedeb").css({
-				"color":"red",
-				"font-size": "80%"
-			});
-
-			//return false;
-			bool = false;
-		}
-
-		else 
-		{
-			var parts = datedebut.split("/");
-			var datedeb = new Date(parts[2], parts[1] - 1, parts[0]);
-			var dateact = new Date();
-
-			if (dateact>datedeb)
-			{
-				printHTML("#error_datedeb","Date anterieure a la date d'aujourd'hui");
-				$("#error_datedeb").css({
-					"color":"red",
-					"font-size": "80%"
-				});
-
-				//return false;
-				bool = false;
-			}
-
-		}
-	}*/
-
-
-
-	/* if(datefin.length==0)
-	{
-		printHTML("#error_datefin","Date de fin manquante");
-		$("#error_datefin").css({
-			"color":"red",
-			"font-size": "80%"
-		});
-
-		//return false;
-		bool = false;
-
-	}
-
-
-
-	else 
-	{
-		var dateReg = /[0-9]{2}[/][0-9]{2}[/][0-9]{4}$/;
-
-		if (!datefin.match(dateReg)) 
-		{
-
-			printHTML("#error_datefin","Format incompatible");
-			$("#error_datefin").css({
-				"color":"red",
-				"font-size": "80%"
-			});
-
-			//return false;
-			bool = false;
-		}
-
-		else 
-		{
-			var parts = datedebut.split("/");
-			var datedeb = new Date(parts[2], parts[1] - 1, parts[0]);
-
-			var parts2 = datefin.split("/");
-			var datef = new Date(parts2[2], parts2[1] - 1, parts2[0]);
-
-
-			if (datef<datedeb)
-			{
-				printHTML("#error_datefin","Date de fin < date de debut");
-				$("#error_datedeb").css({
-					"color":"red",
-					"font-size": "80%"
-				});
-
-				//return false;
-				bool = false;
-			}
-
-		}
-	}*/
 
 
 	return bool;
 }
 
-function send(nom, description, datedebut, datefin, result, result2) 
+function send(nom, description, result) 
 {
 	//alert("coucou");
 	 var json = JSON.stringify(result);
+	 //console.log(json);
 	 
-	 var json2 = JSON.stringify(result2);
+	 //var json2 = JSON.stringify(result2);
 
 
 	$.ajax({
 	type : "POST",
 	url : "createobject",
 
-	data : "nom=" + nom + "&description=" + description
-	+ "&datedebut=" + datedebut + "&datefin=" + datefin + "&groupe=" + json
-	+ "&coordonnees=" + json2, 
+	data : "nom=" + nom + "&description=" + description + "&groupe=" + json, 
 
 	
 //	data : {nom : nom, 
@@ -334,8 +137,15 @@ function send(nom, description, datedebut, datefin, result, result2)
         //alert (data.success);
         if (data.success=="Object added.")
         	{
-        	    alert ("Objet bien ajouté");
-        	    window.location.href = kasukasu.private.dashboard;
+    	       $("#myModal").modal({                    
+    		      "backdrop"  : "static",
+    		      "keyboard"  : true,
+    		      "show"      : true                     
+    		    });
+    	       
+    	       $("#myModal").on('hidden.bs.modal', function () {
+    	           window.location.href = "/KasuKasu/useritems.jsp";
+    	       });
         	}
 	},
 	error : function(XHR, testStatus, errorThrown) {
@@ -372,10 +182,7 @@ function traiteReponse(json)
 {
 
 	var json = JSON.parse(JSON.stringify(json));
-	
-
-
-	 groupeSelect = document.getElementById('groupe');
+	groupeSelect = document.getElementById('groupe');
 
 	
 	for (var i=0; i< json.groups.length; i++)
@@ -384,5 +191,37 @@ function traiteReponse(json)
 		 groupeSelect.options[groupeSelect.options.length] = new Option(json.groups[i].name);
 
 
+		}
+}
+
+/*****************************************************************************************/
+
+
+function userPoints(){
+	$.ajax({
+		type : "GET",
+		url : "GetPointsPretUser",
+		data : "",
+		dataType : "JSON",
+		success : traiteReponse2,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+
+
+function traiteReponse2(json) 
+{
+
+	var json = JSON.parse(JSON.stringify(json));
+
+	pointSelect = document.getElementById('point');
+
+	
+	for (var i=0; i< json.points.length; i++)
+		{
+		 pointSelect.options[pointSelect.options.length] = new Option(json.points[i].nom);
 		}
 }
