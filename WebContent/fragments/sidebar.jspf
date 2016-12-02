@@ -64,7 +64,10 @@
 			<div class="dropdown">Mes lieux
 					  <div></div>
 					  <div class="dropdown-content">
-					    <div>S'abonner à un lieu de prêt</div>
+					  <div onclick="
+							if ( !(~$(location).attr('href').indexOf('<%= Url.AJOUTERLIEU.value() %>')))
+								$(location).attr('href', '<%= Url.AJOUTERLIEU.value() %>');
+						">Ajouter un lieu de prêt</div>
 					    <div onclick="
 							if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>')))
 								$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>');

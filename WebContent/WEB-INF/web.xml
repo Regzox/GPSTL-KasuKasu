@@ -260,4 +260,24 @@
     <servlet-name>ItemApplicantsListServlet</servlet-name>
     <url-pattern>/itemapplicantslist</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<description></description>
+  	<display-name>AddPointPret</display-name>
+  	<servlet-name>AddPointPret</servlet-name>
+  	<servlet-class>servlets.AddPointPret</servlet-class>
+  </servlet>
+   <servlet-mapping>
+  	<servlet-name>AddPointPret</servlet-name>
+  	<url-pattern>/AddPointPret</url-pattern>
+  </servlet-mapping>
+   <servlet>
+  	<description></description>
+  	<display-name>GetPointsPretUser</display-name>
+  	<servlet-name>GetPointsPretUser</servlet-name>
+  	<servlet-class>servlets.GetPointsPretUser</servlet-class>
+  	  </servlet>
+  	<servlet-mapping>
+  	<servlet-name>GetPointsPretUser</servlet-name>
+  	<url-pattern>/GetPointsPretUser</url-pattern>
+  </servlet-mapping>
 </web-app>

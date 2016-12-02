@@ -54,3 +54,52 @@ CREATE TABLE IF NOT EXISTS IMAGES
 	(`user_id` INT(100) NOT NULL REFERENCES USERS (id),
 	 `path` VARCHAR(255) NOT NULL);
 ALTER TABLE `IMAGES` ADD PRIMARY KEY (`user_id`);
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `POINT_EMPRUNT`
+--
+CREATE TABLE `POINT_EMPRUNT` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `lat` double NOT NULL,
+  `lon` double NOT NULL,
+  `radius` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `POINT_EMPRUNT`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
+  ALTER TABLE `POINT_EMPRUNT`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
+  
+  ALTER TABLE `POINT_EMPRUNT`
+  ADD CONSTRAINT `POINT_EMPRUNT_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `POINT_PRET`
+--
+
+CREATE TABLE `POINT_PRET` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `nom` varchar(20) NOT NULL,
+  `lat` double NOT NULL,
+  `lon` double NOT NULL,
+  `radius` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `POINT_PRET`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
+ALTER TABLE `POINT_PRET`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
+  
+ALTER TABLE `POINT_PRET`
+  ADD CONSTRAINT `POINT_PRET_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
