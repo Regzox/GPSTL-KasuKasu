@@ -43,7 +43,7 @@ public class ConnectionFilter implements Filter {
 		
 		if (session.getAttribute(USER_ID) == null)
 		{
-			request.getRequestDispatcher(Url.PORTAL.localPath()).forward(request, response);
+			request.getRequestDispatcher("/disconnect").forward(request, response);
 		}
 		
 		chain.doFilter(request, response);

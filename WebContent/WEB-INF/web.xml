@@ -280,4 +280,14 @@
   	<servlet-name>GetPointsPretUser</servlet-name>
   	<url-pattern>/GetPointsPretUser</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<description></description>
+  	<display-name>DisconnectionServlet</display-name>
+  	<servlet-name>DisconnectionServlet</servlet-name>
+  	<servlet-class>servlets.DisconnectionServlet</servlet-class>
+  	  </servlet>
+  	<servlet-mapping>
+  	<servlet-name>DisconnectionServlet</servlet-name>
+  	<url-pattern>/disconnect</url-pattern>
+  </servlet-mapping>
 </web-app>

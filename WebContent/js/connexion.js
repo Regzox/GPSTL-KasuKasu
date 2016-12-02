@@ -67,7 +67,7 @@ function ProcessLoginRequest(rep)
 	}
 	else 
 	{
-		window.location.href = "/KasuKasu/searchitems.jsp";
+		window.location.href = "/KasuKasu/restricted/searchitems.jsp";
 	}
 }
 

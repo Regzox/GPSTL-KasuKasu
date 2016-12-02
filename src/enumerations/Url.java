@@ -21,11 +21,10 @@ public enum Url {
 	GROUPE("/groups.jsp"),
 	CREATEOBJECT("/createobject.jsp"),
 	DEMANDESRECUES("/demande.jsp"),
-	RECHERCHEROBJECT("/searchitems.jsp"),
+	RECHERCHEROBJECT("/restricted/searchitems.jsp"),
 	LISTOBJECTS("/useritems.jsp"),
 	ABONNERLIEU("/addpointemprunt.jsp"),
 	AJOUTERLIEU("/addpointpret.jsp")
-
 
 
 
