@@ -32,6 +32,7 @@ function createobject()
 			result.push(opt.value || opt.text);
 		}
 	}
+
 	
 	
 //	var result2 = [];
@@ -143,7 +144,7 @@ function send(nom, description, result)
     		    });
     	       
     	       $("#myModal").on('hidden.bs.modal', function () {
-    	           window.location.href = kasukasu.private.dashboard;
+    	           window.location.href = "/KasuKasu/useritems.jsp";
     	       });
         	}
 	},
