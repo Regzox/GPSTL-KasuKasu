@@ -195,10 +195,9 @@ public class User {
 		try {
 			String url = UsersImagesDao.getUserImage(user);
 			response = new Success(url);
-		} catch (SQLException e) {
-			response = new Error("SQLException when getting user picture : " + e.toString());
 		} catch (Exception e) {
 			response = new Warning("No picture for this user");
+			
 		}
 		
 		return response;
@@ -215,18 +214,10 @@ public class User {
 	public static JSONObject putUserImage(entities.User user, String url) {
 		JSONObject response = null;
 		
-		try {
-			UsersImagesDao.addUserImage(user, url);
-			response = new Success("Picture successfully added");
-		} catch (SQLException e) {
-			try {
-				UsersImagesDao.updateUserImage(user, url);
-				response = new Success("Picture successfully updated");
-			} catch (SQLException f) {
-				f.printStackTrace();
-				response = new Error("Adding and updating picture failed");
-			}
-		}
+
+		UsersImagesDao.updateUserImage(user, url);
+		response = new Success("Picture successfully updated");
+
 		
 		return response;
 	}
@@ -240,12 +231,8 @@ public class User {
 	public static JSONObject removeUserPIcture (entities.User user) {
 		JSONObject response = null;
 		
-		try {
-			UsersImagesDao.removeUserImage(user);
-			response = new Success("Picture successfully removed");
-		} catch (SQLException e) {
-			response = new Error("Removing picture failed");
-		}
+		UsersImagesDao.removeUserImage(user);
+		response = new Success("Picture successfully removed");
 		
 		return response;
 	}
