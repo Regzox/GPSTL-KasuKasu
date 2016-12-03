@@ -41,7 +41,7 @@ public class User {
 	 */
 	public static JSONObject createUser(String email,String mdp,String nom,String prenom, String numero) 
 			throws SQLException, JSONException, UserNotFoundException, UserNotUniqueException{		
-		if (UserDao.userExists(email))
+		if (UserDao.userExistsByEmail(email))
 			return Tools.serviceMessage("User's email already exists.");
 
 		UserDao.addUser(email,mdp,nom,prenom,numero);
@@ -50,7 +50,7 @@ public class User {
 			SendEmail.sendMail(email,
 					Lingua.get("welcomeMailSubject","fr-FR"),
 					Lingua.get("welcomeMailMessage","fr-FR")
-					+"http://localhost:8080/KasuKasu/confirm?id="+UserDao.getUser(email).getId()
+					+"http://localhost:8080/KasuKasu/confirm?id="+UserDao.getUserByEmail(email).getId()
 					);
 		} catch (StringNotFoundException e) { 
 			System.out.println("Dictionary Error : Mail not send");
@@ -71,7 +71,7 @@ public class User {
 	 */
 
 	public static boolean updateUser(String email, String password, entities.User newUser) throws SQLException, Exception {
-		entities.User oldUser = UserDao.getUser(email);
+		entities.User oldUser = UserDao.getUserByEmail(email);
 		if (!oldUser.getPassword().equals(password))
 			return false;
 		UserDao.updateUser(oldUser, newUser);
@@ -132,8 +132,6 @@ public class User {
 				usersJSON.put("user" +(index++), userJSON);
 			}
 			
-		} catch (SQLException e) {
-			return new Error("Internal SQL error");
 		} catch (JSONException e) {
 			return new Error("JSON exception");
 		}
@@ -144,7 +142,7 @@ public class User {
 		return usersJSON;
 	}
 	
-	public static JSONObject getUsersJSONProfileFromIds(ArrayList<Integer> ids) throws UserNotFoundException, UserNotUniqueException{
+	public static JSONObject getUsersJSONProfileFromIds(ArrayList<String> ids) throws UserNotFoundException, UserNotUniqueException{
 		
 		JSONObject usersJSON = new JSONObject();
 		JSONArray usersArray = new JSONArray();
@@ -154,8 +152,8 @@ public class User {
 		List<entities.User> users = new ArrayList<entities.User>();
 		
 		try {
-			for(Integer i : ids)
-			users.add(UserDao.getUser(i));
+			for(String i : ids)
+			users.add(UserDao.getUserById(i));
 	
 			for (entities.User user : users) {
 				JSONObject userJSON = new JSONObject();
@@ -171,8 +169,6 @@ public class User {
 			}
 			usersJSON.put("users", usersArray);
 			
-		} catch (SQLException e) {
-			return new Error("Internal SQL error");
 		} catch (JSONException e) {
 			return new Error("JSON exception");
 		}
@@ -286,14 +282,14 @@ public class User {
 	 */
 
 	public static entities.User getUser(String email) throws SQLException, Exception {
-		entities.User user = UserDao.getUser(email);
+		entities.User user = UserDao.getUserByEmail(email);
 		if (user != null)
 			return user;
 		return null;
 	}
 	
 	public static entities.User getUserById(String id) throws SQLException, Exception {
-		List<entities.User> users = UserDao.getUsersWhere("id", id);
+		List<entities.User> users = UserDao.getUsersWhere("_id", id);
 		if (users.size() == 1)
 			return users.get(0);
 		if (users.size() > 1)
@@ -301,8 +297,8 @@ public class User {
 		else return null;
 	}
 
-	public static void confirmUser(int id) throws UserNotFoundException, SQLException{ 
-		if(!UserDao.userExists(id))
+	public static void confirmUser(String id) throws UserNotFoundException, SQLException{ 
+		if(!UserDao.userExistsById(id))
 			throw new UserNotFoundException();
 		UserDao.confirmUser(id);
 	}

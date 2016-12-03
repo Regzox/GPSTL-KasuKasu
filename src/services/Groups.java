@@ -23,17 +23,17 @@ import exceptions.GroupExistsException;
  * @author Anagbla Jean 
  * **@goodToKnow ! FLUENT STYLE CODE*/
 public class Groups {
-	public static JSONObject createGroup(String name,int userId) 
+	public static JSONObject createGroup(String name,String userId) 
 			throws DatabaseException,JSONException{		
 		try {
 			GroupsDB.openGroup(name,userId);
 			return new json.Success("Ohayo Mina sama");
 		} catch (GroupExistsException e) {return new json.Error("Le groupe '"+name+"' existe deja!");}}
 
-	public static void addMember(String groupID,int member) throws JSONException, DatabaseException {
+	public static void addMember(String groupID,String member) throws JSONException, DatabaseException {
 		GroupsDB.addMember(groupID, member);}
 
-	public static JSONObject userGroups(int userID) throws DatabaseException, JSONException{
+	public static JSONObject userGroups(String userID) throws DatabaseException, JSONException{
 		JSONArray jar=new JSONArray();
 		DBCursor cursor = GroupsDB.userGroups(userID);
 		cursor.sort(new BasicDBObject("date",-1)); 
@@ -54,10 +54,10 @@ public class Groups {
 		if(members!=null)
 			for(Object member : members){
 				jar.put(new JSONObject()
-						.put("id",(Integer)member)
+						.put("id",(String)member)
 						.put("type","member")
-						.put("name",UserDao.getUser((Integer)member).getFirstname()
-								+" "+UserDao.getUser((Integer)member).getName()));}
+						.put("name",UserDao.getUserById((String)member).getFirstname()
+								+" "+UserDao.getUserById((String)member).getName()));}
 		return new JSONObject().put("members",jar);}  
 
 }

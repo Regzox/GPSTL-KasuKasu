@@ -21,7 +21,7 @@ public class GroupsDB{
 
 	private static DBCollection collection = KasuDB.getMongoCollection("Groups");
 
-	public static void openGroup(String gname,int ownerID) throws GroupExistsException{
+	public static void openGroup(String gname,String ownerID) throws GroupExistsException{
 		DBCursor dbc = collection.find(new BasicDBObject()
 				.append("name",gname)
 				.append("owner",ownerID));
@@ -33,7 +33,7 @@ public class GroupsDB{
 				.append("owner",ownerID)
 				.append("date",new Date()));}
 
-	public static void addMember(String gid, int memberID) throws DatabaseException{
+	public static void addMember(String gid, String memberID) throws DatabaseException{
 		//$addToSet do not add the item to the given field if it already contains it
 		collection.update(
 				new BasicDBObject()
@@ -43,7 +43,7 @@ public class GroupsDB{
 						,new BasicDBObject()
 						.append("members",memberID)));}
 
-	public static DBCursor userGroups(int userID) throws DatabaseException {  
+	public static DBCursor userGroups(String userID) throws DatabaseException {  
 		return collection.find(
 				new BasicDBObject()
 				.append("owner",userID));}
@@ -58,14 +58,14 @@ public class GroupsDB{
 	
 	public static void main(String[] args) throws DatabaseException, JSONException, GroupExistsException{
 		collection.drop();//reset : determinism required for the tests
-		openGroup("amis", 1);
-		openGroup("maison", 2);
-		openGroup("bureau", 3);
+		openGroup("amis", "1");
+		openGroup("maison", "2");
+		openGroup("bureau", "3");
 		String id="580a89f174a4f912f56a7568";
-		System.out.println(userGroups(1));
+		System.out.println(userGroups("1"));
 		System.out.println(groupMembers(id));
-		addMember(id,12);
-		System.out.println(userGroups(2));
+		addMember(id,"12");
+		System.out.println(userGroups("2"));
 		System.out.println(groupMembers(id));
 	}
 

@@ -17,7 +17,7 @@ import kasudb.KasuDB;
  * @author ANAGBLA Joan*/
 public class ItemsDB {
 
-	public static DBCollection collection = KasuDB.getMongoCollection("Items");
+	public static DBCollection collection = KasuDB.getMongoCollection("items");
 	
 	
 	/**

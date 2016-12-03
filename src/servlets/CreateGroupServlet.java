@@ -39,7 +39,7 @@ public class CreateGroupServlet extends HttpServlet {
 				throw new Exception("Url is missing parameters.");
 
 			response.getWriter().print(Groups.createGroup(request.getParameter("name"),
-					Integer.parseInt((String) session.getAttribute("userId"))));
+					(String) session.getAttribute("userId")));
 			
 		}catch (Exception e) {
 			e.printStackTrace(); //local debug

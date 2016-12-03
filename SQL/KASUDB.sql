@@ -85,21 +85,58 @@ CREATE TABLE `POINT_PRET` (
   ALTER TABLE `POINT_PRET`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_user` (`id_user`);
-
-
-ALTER TABLE `POINT_EMPRUNT`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
   
-  ALTER TABLE `POINT_EMPRUNT`
-  ADD CONSTRAINT `POINT_EMPRUNT_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
-
-
-
-ALTER TABLE `POINT_PRET`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
+  
+  
   
 
+
+-- ALTER TABLE `POINT_EMPRUNT`
+  -- MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
   
-ALTER TABLE `POINT_PRET`
-  ADD CONSTRAINT `POINT_PRET_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
+ -- ALTER TABLE `POINT_EMPRUNT`
+  -- ADD CONSTRAINT `POINT_EMPRUNT_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
+
+
+
+-- ALTER TABLE `POINT_PRET`
+  -- MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  
+
+  
+-- ALTER TABLE `POINT_PRET`
+  -- ADD CONSTRAINT `POINT_PRET_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `USERS` (`id`);
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  --- -------------------------
+  -- -----------------------------------------------------
+-- Table `kasudb`.`demande_emprunt`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `kasudb`.`demande_emprunt` (
+  `id_emprunteur` INT(100) NOT NULL,
+  `id_objet` VARCHAR(50) NOT NULL,
+  `debut` TIMESTAMP NULL,
+  `fin` TIMESTAMP NULL,
+  `dated` TIMESTAMP NULL
+  
+)ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
+  
+  

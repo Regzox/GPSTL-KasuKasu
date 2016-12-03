@@ -1,36 +1,49 @@
 package dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.Date;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 
 import kasudb.KasuDB;
 
 public class DemandeDao {
 
-	private static final String table_name = "demande_emprunt";
-	
-	public static void  AjouterDemande(int idSend,String idObject)throws SQLException
-	{
-		String sqlQuery = "INSERT INTO "+table_name +" values ('"+idSend+"','"+idObject+"',null,null,NOW());";
+	public static DBCollection collection = KasuDB.getMongoCollection("lr");//LOANING_REQUESTS
+
+	public static void  AjouterDemande(String idApplicant,String idItem){
+		collection.insert(
+				new BasicDBObject()
+				.append("id_applicant", idApplicant)
+				.append("id_item", idItem)
+				.append("when", new Date())
+				.append("debut", "") //TODO
+				.append("fin", "")//TODO
+				);
+
+		/*String sqlQuery = "INSERT INTO "+table_name +" values ('"+idSend+"','"+idObject+"',null,null,NOW());";
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
 		s.executeUpdate(sqlQuery);
 		s.close();
-		c.close();	
+		c.close();	*/
 	}
-	
-	public static void main(String[] args) throws SQLException {
-		AjouterDemande(1,"idObject");
+
+	public static void main(String[] args) {
+		AjouterDemande("1","idObject");
+		System.out.println(myDemande("1").next());
 	}
-	
-	
-	
-	public static ArrayList<Integer> myDemande(String user)throws SQLException
-	{
-		ArrayList<Integer> myDemandes = new ArrayList<Integer>();
+
+
+
+	public static DBCursor myDemande(String idApplicant){
+		return collection.find(
+				new BasicDBObject()
+				.append("id_applicant", idApplicant));
+
+
+		/*ArrayList<Integer> myDemandes = new ArrayList<Integer>();
 		String sql = "SELECT idSend FROM "+table_name +" WHERE (idRecep='"+user+"');";
 		Connection connection = KasuDB.SQLConnection();
 		Statement statement = connection.createStatement();
@@ -43,6 +56,6 @@ public class DemandeDao {
 		statement.close();
 		connection.close();
 
-		return myDemandes;
+		return myDemandes;*/
 	}
 }

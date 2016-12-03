@@ -67,7 +67,7 @@ function ProcessFindUser(rep)
 
 				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
 				"<td><a href=\"/KasuKasu/profil/?id="+z+"\"> Voir Profil </a></td>";
-				alert("z="+z+" "+MEM[z]);
+				//alert("z="+z+" "+MEM[z]);
 				if(!(MEM[z]!= undefined && MEM[z]!= null))
 					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
 					"id=\"add-"+GID+"-to_group-"+z+"\" " +
@@ -140,10 +140,10 @@ Member.revival=function(key,value){
 
 
 Member.traiteReponseJSON=function(json){	
-	alert("Member.traiteReponseJSON raw json -> "+JSON.stringify(json));	
+	//alert("Member.traiteReponseJSON raw json -> "+JSON.stringify(json));	
 	var jsob =JSON.parse(JSON.stringify(json),Member.revival);
 	members = jsob.members;
-	alert("Member.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
+	//alert("Member.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"membersBox\">";	
@@ -157,7 +157,7 @@ Member.traiteReponseJSON=function(json){
 			fhtm+=(members[i]).getHTML();
 			//alert("JSOB.htmling : "+members[i].getHTML());
 		}		
-		alert("MEM="+JSON.stringify(MEM));
+		//alert("MEM="+JSON.stringify(MEM));
 		fhtm+="</div>\n"; 
 		//alert("Members.html = "+fhtm);  
 		printHTML("#found-members",fhtm); 

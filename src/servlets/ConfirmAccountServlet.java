@@ -33,7 +33,7 @@ public class ConfirmAccountServlet extends HttpServlet {
 			if(request.getParameter("id").equals(""))
 				throw new Exception("Wrong Url! Missing parameters");
 
-			User.confirmUser(Integer.parseInt(request.getParameter ("id")));
+			User.confirmUser(request.getParameter ("id"));
 
 			//TODO create session if not exists before redirect
 			response.sendRedirect(Url.DASHBOARD.value());

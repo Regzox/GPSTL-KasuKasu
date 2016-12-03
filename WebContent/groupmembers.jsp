@@ -13,11 +13,10 @@
 </head>
 <body onload="groupMembers('<%=request.getParameter("gid")%>')">
 	
-
-	
+	<%@ include file="/fragments/sidebar.jspf"%>
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Gerez votre groupes<%=request.getParameter("gname")%></p>
+			<p class='capital'>Gerez votre groupe <%=request.getParameter("gname")%>.</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this)">

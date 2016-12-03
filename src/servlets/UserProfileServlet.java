@@ -35,9 +35,9 @@ public class UserProfileServlet extends HttpServlet {
 		JSONObject object = null;
 		System.out.println(request.getParameter("id"));
 		if (request.getParameter("id") == null || request.getParameter("id").equals("")) {
-			object = User.getUsersJSONProfileWhere("id", (String) session.getAttribute("userId"));
+			object = User.getUsersJSONProfileWhere("_id", (String) session.getAttribute("userId"));
 		} else {
-			object = User.getUsersJSONProfileWhere("id", (String) request.getParameter("id"));
+			object = User.getUsersJSONProfileWhere("_id", (String) request.getParameter("id"));
 		}
 		
 		if (object instanceof Error || object instanceof Warning)

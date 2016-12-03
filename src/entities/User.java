@@ -8,14 +8,14 @@ package entities;
 
 public class User {
 
-	private Integer id;
+	private String id;
 	private String email;
 	private String password;
 	private String firstname;
 	private String name;
 	private String phone;
 	
-	public User(Integer id, String email, String password, String name, String firstname, String phone) {
+	public User(String id, String email, String password, String name, String firstname, String phone) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
@@ -34,11 +34,11 @@ public class User {
 	}	
 
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

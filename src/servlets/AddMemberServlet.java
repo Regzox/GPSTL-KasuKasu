@@ -40,7 +40,7 @@ public class AddMemberServlet extends HttpServlet {
 				throw new Exception("Url is missing parameters.");
 
 			Groups.addMember(request.getParameter("gid"),
-					Integer.parseInt(request.getParameter("member")));
+					request.getParameter("member"));
 			response.getWriter().print(new json.Success("LOL"));
 
 		}catch (Exception e) {

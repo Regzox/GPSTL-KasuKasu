@@ -66,8 +66,8 @@ public class ConnectUserServlet extends HttpServlet {
 
 			if(verified){
 
-				Cookie cookieId = new Cookie("userId", Integer.toString(user.getId()));
-				session.setAttribute("userId", Integer.toString(user.getId()));
+				Cookie cookieId = new Cookie("userId", user.getId());
+				session.setAttribute("userId", user.getId());
 				response.addCookie(cookieId);
 				
 //				js.put("response", 1);

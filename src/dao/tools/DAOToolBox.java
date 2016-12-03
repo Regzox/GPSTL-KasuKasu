@@ -1,4 +1,4 @@
-package dao.sql.tools;
+package dao.tools;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

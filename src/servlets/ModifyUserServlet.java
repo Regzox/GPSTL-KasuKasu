@@ -72,6 +72,7 @@ public class ModifyUserServlet extends HttpServlet {
 			System.out.println();
 			
 			oldUser = User.getUserById(userId);
+			System.out.println("oldUser : "+oldUser);
 			oldEmail = oldUser.getEmail();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block

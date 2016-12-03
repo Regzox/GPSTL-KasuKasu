@@ -51,7 +51,7 @@ public class CreateUserServlet extends HttpServlet {
 
 			entities.User user = User.getUser(request.getParameter ("email"));
 
-			request.getSession().setAttribute("userId", String.valueOf(user.getId()));
+			request.getSession().setAttribute("userId", user.getId());
 
 			response.getWriter().print(json);
 		}				

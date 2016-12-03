@@ -16,7 +16,8 @@ import kasudb.KasuDB;
  * Contient les methodes pour gérer les objets dans la base de données.
  */
 public class ObjectTools {
-	public static final String MDB_OBJECTS_COLLECTION = "Items";
+	// Instance de la collection
+	public static final DBCollection collection = ItemsDB.collection;
 	
 	/**
 	 * Ajoute un objet à la base mongo
@@ -26,8 +27,6 @@ public class ObjectTools {
 	 * @throws MongoException
 	 */
 	public static void addObject(JSONObject object) throws UnknownHostException, MongoException{
-		// Instance de la collection
-		DBCollection collection = KasuDB.getMongoCollection(MDB_OBJECTS_COLLECTION);
 
 		// Parsing de l'objet
 		DBObject dbObj = (DBObject) com.mongodb.util.JSON.parse(object.toString());

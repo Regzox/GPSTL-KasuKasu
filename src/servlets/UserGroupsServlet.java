@@ -30,7 +30,7 @@ public class UserGroupsServlet extends HttpServlet {
 			response.setContentType("text/plain");
 			
 			response.getWriter().print(Groups.userGroups(
-					Integer.parseInt((String) session.getAttribute("userId"))));
+					(String) session.getAttribute("userId")));
 			
 		}catch (Exception e) {
 			e.printStackTrace(); //local debug
