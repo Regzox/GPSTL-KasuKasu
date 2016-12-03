@@ -64,7 +64,7 @@ public class ItemsMR {
 					continue; 
 				double tf =rs.getDouble("tf");
 				s.close();*/
-				
+
 				DBCursor dbc = tfcoll.find(
 						new BasicDBObject()
 						.append("word",word)
@@ -73,9 +73,9 @@ public class ItemsMR {
 				if(!dbc.hasNext()) continue;
 				if(dbc.count()>1) 
 					throw new DatabaseException("TF Base is inconsistent!");
-				
-				int tf =(int)dbc.next().get("tf");
-				
+
+				double tf =(double)dbc.next().get("tf");
+
 
 				//DF
 				/*s = sqldbconect.createStatement();
@@ -83,28 +83,29 @@ public class ItemsMR {
 				rs.next();
 				double df =rs.getDouble("df");
 				s.close();*/
-				
-				 dbc = dfcoll.find(
+
+				dbc = dfcoll.find(
 						new BasicDBObject()
 						.append("word",word)
 						);
 				if(!dbc.hasNext()) 
-					throw new DatabaseException("DF Base is inconsistent!");;
+					throw new DatabaseException("DF Base is inconsistent!");
 				if(dbc.count()>1) 
 					throw new DatabaseException("DF Base is inconsistent!");
-				
-				int df =(int)dbc.next().get("df");
-				
+
+				double df =(double)dbc.next().get("df");
+
 				/** Be aware : 
 				 * DBCursor.count(): Counts the number of objects matching the query.
 				 * This does not take limit/skip into consideration.
 				 * DBCursor.size(): Counts the number of objects matching the query.
 				 * This does take limit/skip into consideration*/
+				System.out.println("Pertinence of "+word+" in doc-"+docID+":"
+						+ " tf="+tf+" df="+df+" score="+score);//Debug formula is respected
 				score = score + tf * Math.log(cursor.count()/df); }
 			/** This suppose cursor contains all the results without limit/skip
 			 * Limit will be in the display function (client side) */
 			results.add(new ObjetRSV(doc,score));}
-
 
 		Collections.sort(results,Collections.reverseOrder());
 		for(ObjetRSV o: results)	System.out.println(o);//Debug
@@ -159,7 +160,7 @@ public class ItemsMR {
 							((BasicDBObject)l.get(i).get("key"))
 							.get("mongodocid") ).toString()
 							)
-					.append("tf", l.get(i).getInt("tf")	)
+					.append("tf", l.get(i).getDouble("tf")	)
 					.append("defdate", new Date())
 					);
 		/*try {
@@ -194,7 +195,7 @@ public class ItemsMR {
 			dfcoll.insert(
 					new BasicDBObject()
 					.append("word", l.get(i).getString("word"))
-					.append("df", l.get(i).getInt("df"))
+					.append("df", l.get(i).getDouble("df"))
 					.append("defdate", new Date())
 					);
 		/*try {
