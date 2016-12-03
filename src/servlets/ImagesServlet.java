@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import json.Error;
+import json.Success;
 import json.Warning;
 import services.Data;
 import services.User;
@@ -40,9 +41,16 @@ public class ImagesServlet extends HttpServlet {
 			entities.User user = User.getUserById(userId);
 			JSONObject json = User.getUserImage(user);
 			
-			json.put("success", json.getString("success").replaceAll(".*(/data)", "/KasuKasu/data"));
-			
-			System.out.println(json.getString("success"));
+			if (json instanceof Success) {
+				json.put("success", json.getString("success").replaceAll(".*(/data)", "/KasuKasu/data"));
+				System.out.println(json.getString("success"));
+			} else if (json instanceof Warning) {
+				System.out.println(json.getString("warning"));
+			} else if (json instanceof Error) {
+				System.out.println(json.getString("error"));
+			} else {
+				System.out.println(json.toString());
+			}
 			
 			response.getWriter().print(json);
 		} catch (Exception e) {

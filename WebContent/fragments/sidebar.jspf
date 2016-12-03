@@ -14,6 +14,12 @@
 		</div>
 		<div class="navigable">
 			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('/KasuKasu/disconnect'))) {
+					$(location).attr('href', '/KasuKasu/disconnect');
+				}
+			">Déconnexion</div>
+		
+			<div onclick="
 				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
 				if ( !(~$(location).attr('href').indexOf('<%= Url.PROFILE.value() %>')))
 					$(location).attr('href', '<%= Url.PROFILE.value() %>');
