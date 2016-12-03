@@ -30,8 +30,9 @@ public class Groups {
 			return new json.Success("Ohayo Mina sama");
 		} catch (GroupExistsException e) {return new json.Error("Le groupe '"+name+"' existe deja!");}}
 
-	public static void addMember(String groupID,String member) throws JSONException, DatabaseException {
-		GroupsDB.addMember(groupID, member);}
+	public static JSONObject addMember(String groupID,String member) throws JSONException, DatabaseException {
+		GroupsDB.addMember(groupID, member);
+		return new json.Success("LOL");}
 
 	public static JSONObject userGroups(String userID) throws DatabaseException, JSONException{
 		JSONArray jar=new JSONArray();

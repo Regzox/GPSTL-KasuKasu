@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
-import dao.items.ObjectTools;
+import dao.items.ItemsDB;
 import utils.ParametersChecker;
 
 /**
@@ -81,7 +81,7 @@ public class CreateObject extends HttpServlet {
 //			object.put( "coordonnees"  ,  request.getParameter("coordonnees")    );
 
 			// Sauvegarde l'objet dans la BD
-			ObjectTools.addObject(object);
+			ItemsDB.addItem(object);
 
 			// Génération d'une réponse JSON
 			out.write( new JSONObject().put("success", "Object added.").toString() );

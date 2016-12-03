@@ -19,9 +19,6 @@ import utils.Tools;
 /**
  *@author ANAGBLA Joan */
 public class Items {
-
-
-
 	/**
 	 * Update an Item
 	 * @param id
@@ -79,9 +76,9 @@ public class Items {
 					.put("type","item")
 					.put("owner",orsv.getDbo().get("owner"))
 					.put("title",orsv.getDbo().get("title"))
-					.put("group",orsv.getDbo().get("group"))
-					.put("longitude",orsv.getDbo().get("longitude"))
-					.put("latitude",orsv.getDbo().get("latitude"))
+					.put("group",orsv.getDbo().get("group"))//TODO MOD groups
+					.put("longitude",orsv.getDbo().get("longitude"))//TODO REM
+					.put("latitude",orsv.getDbo().get("latitude"))//TODO REM
 					.put("date",orsv.getDbo().get("date"))
 					.put("description",orsv.getDbo().get("description")));
 		return new JSONObject().put("items",jar);}

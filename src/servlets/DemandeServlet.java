@@ -1,44 +1,33 @@
 package servlets;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import services.Loaning;
+import servlets.tools.templates.online.OnlineGetServlet;
 
 /**
- * Servlet implementation class DemandeServlet
- */
-public class DemandeServlet extends HttpServlet {
+ * @author ANAGBLA Joan */
+public class DemandeServlet extends OnlineGetServlet {
 	private static final long serialVersionUID = 1L;
 
- 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);	}
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"idbox"}));}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			HttpSession session=request.getSession();
-			if(session ==null)
-			{response.getWriter().print(new json.Error("User not conected!"))
-				;return;}
-			String userID = (String) session.getAttribute("userId");
-			if(userID ==null){
-				response.getWriter().print(new json.Error("User not conected!"));
-				return;}
-			String idObject = (String) request.getParameter("idbox");
-			System.out.println(" id object : "+idObject);
-
-			Loaning.requestItem(userID,idObject);
-			System.out.println("demande sent");
-			response.sendRedirect("/KasuKasu/useritems.jsp");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
+	@Override
+	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
+			throws Exception {		 
+		Loaning.requestItem(
+				(String)request.getSession().getAttribute("userId"),
+				(String) request.getParameter("idbox")
+				);
+		response.sendRedirect("/KasuKasu/useritems.jsp");//TODO async af show_item
 	}
-
 }

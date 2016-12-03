@@ -11,7 +11,7 @@ import kasudb.KasuDB;
  * @author ANAGBLA Joan, Celien Creminon, Wafae Cheglal */
 public class LoaningDao {
 
-	public static DBCollection collection = KasuDB.getMongoCollection("lr");//LOANING_REQUESTS
+	public static DBCollection collection = KasuDB.getMongoCollection("lrqst");//LOANING_REQUESTS
 
 	public static void  requestItem(String idApplicant,String idItem){
 		collection.insert(

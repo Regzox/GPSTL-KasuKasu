@@ -199,18 +199,6 @@
     <url-pattern>/createobject</url-pattern>
   </servlet-mapping>
   <servlet>
-    <description>
-  	</description>
-    <display-name>AddPointEmprunt</display-name>
-    <servlet-name>AddPointEmprunt</servlet-name>
-    <servlet-class>servlets.AddPointEmprunt</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AddPointEmprunt</servlet-name>
-    <url-pattern>
-  	/AddPointEmprunt</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <description></description>
     <display-name>UserItemsServlet</display-name>
     <servlet-name>UserItemsServlet</servlet-name>
@@ -220,7 +208,7 @@
     <servlet-name>UserItemsServlet</servlet-name>
     <url-pattern>/useritems</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>DemandeServlet</display-name>
     <servlet-name>DemandeServlet</servlet-name>
@@ -229,7 +217,7 @@
   <servlet-mapping>
     <servlet-name>DemandeServlet</servlet-name>
     <url-pattern>/demande</url-pattern>
-     </servlet-mapping>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>ObjectManagementServlet</display-name>
@@ -261,33 +249,33 @@
     <url-pattern>/itemapplicantslist</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description></description>
-  	<display-name>AddPointPret</display-name>
-  	<servlet-name>AddPointPret</servlet-name>
-  	<servlet-class>servlets.AddPointPret</servlet-class>
+    <description></description>
+    <display-name>DisconnectionServlet</display-name>
+    <servlet-name>DisconnectionServlet</servlet-name>
+    <servlet-class>servlets.DisconnectionServlet</servlet-class>
   </servlet>
-   <servlet-mapping>
-  	<servlet-name>AddPointPret</servlet-name>
-  	<url-pattern>/AddPointPret</url-pattern>
-  </servlet-mapping>
-   <servlet>
-  	<description></description>
-  	<display-name>GetPointsPretUser</display-name>
-  	<servlet-name>GetPointsPretUser</servlet-name>
-  	<servlet-class>servlets.GetPointsPretUser</servlet-class>
-  	  </servlet>
-  	<servlet-mapping>
-  	<servlet-name>GetPointsPretUser</servlet-name>
-  	<url-pattern>/GetPointsPretUser</url-pattern>
+  <servlet-mapping>
+    <servlet-name>DisconnectionServlet</servlet-name>
+    <url-pattern>/disconnect</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description></description>
-  	<display-name>DisconnectionServlet</display-name>
-  	<servlet-name>DisconnectionServlet</servlet-name>
-  	<servlet-class>servlets.DisconnectionServlet</servlet-class>
-  	  </servlet>
-  	<servlet-mapping>
-  	<servlet-name>DisconnectionServlet</servlet-name>
-  	<url-pattern>/disconnect</url-pattern>
+    <description></description>
+    <display-name>AddExchangePointServlet</display-name>
+    <servlet-name>AddExchangePointServlet</servlet-name>
+    <servlet-class>servlets.AddExchangePointServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddExchangePointServlet</servlet-name>
+    <url-pattern>/addexchangepoint</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserExchangePoints</display-name>
+    <servlet-name>UserExchangePoints</servlet-name>
+    <servlet-class>servlets.UserExchangePoints</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserExchangePoints</servlet-name>
+    <url-pattern>/UserExchangePoints</url-pattern>
   </servlet-mapping>
 </web-app>

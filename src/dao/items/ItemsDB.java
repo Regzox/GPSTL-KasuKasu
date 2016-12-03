@@ -1,24 +1,53 @@
 package dao.items;
 
+import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
+import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import com.mongodb.MongoException;
 
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan*/
+ * @author ANAGBLA Joan, Giuseppe FEDERICO*/
 public class ItemsDB {
+
+	/*
+	 * TODO lister les groups, suppr , mod ajouter des groupes a un objet
+	 */
 
 	public static DBCollection collection = KasuDB.getMongoCollection("items");
 	
+	/**
+	 * Ajoute un objet a la base mongo
+	 * @param authorid
+	 * @param text
+	 * @throws UnknownHostException
+	 * @throws MongoException
+	 */
+	public static void addItem(JSONObject object) {
+		// Parsing de l'objet
+		DBObject dbObj = (DBObject) com.mongodb.util.JSON.parse(object.toString());
+		
+		// Ajout de la date
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date today = new Date();
+		dbObj .put("date", dateFormat.format(today));
+		
+		// Ajout dans la base de donnees
+		collection.insert( dbObj ).toString();		
+	}
+
 	
 	/**
 	 * Check if user's right on the object   

@@ -14,7 +14,7 @@ import kasudb.KasuDB;
 public class FriendsDao {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("friends");
-	public static DBCollection requests= KasuDB.getMongoCollection("fr");//FRIENDS_REQUESTS
+	public static DBCollection requests= KasuDB.getMongoCollection("frqst");//FRIENDS_REQUESTS
 
 	/**
 	 * @rebasetested
