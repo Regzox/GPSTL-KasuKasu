@@ -1,4 +1,4 @@
-package dao.mongo;
+package dao.places;
 
 import java.net.UnknownHostException;
 import org.json.JSONObject;

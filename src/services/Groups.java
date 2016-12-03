@@ -11,8 +11,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-import dao.UserDao;
-import dao.mongo.GroupsDB;
+import dao.GroupsDB;
+import dao.users.UserDao;
 import exceptions.DatabaseException;
 import exceptions.GroupExistsException;
 

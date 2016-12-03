@@ -1,4 +1,4 @@
-package dao.mongo;
+package dao;
 
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -10,6 +10,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
+import dao.items.ItemsDB;
 import kasudb.KasuDB;
 
 /**

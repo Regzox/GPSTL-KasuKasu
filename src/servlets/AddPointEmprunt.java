@@ -15,8 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 
-import dao.mongo.ObjectTools;
-import dao.mongo.PointEmpruntDB;
+import dao.ObjectTools;
+import dao.places.PointEmpruntDB;
 import services.PointEmprunt;
 import utils.ParametersChecker;
 import utils.Tools;

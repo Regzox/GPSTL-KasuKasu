@@ -116,7 +116,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchItemsServlet</servlet-name>
-    <url-pattern>/searchitems</url-pattern>
+    <url-pattern>/restricted/searchitems</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

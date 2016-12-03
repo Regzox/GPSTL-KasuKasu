@@ -1,4 +1,4 @@
-package dao.mongo;
+package dao.items;
 
 import java.util.regex.Pattern;
 

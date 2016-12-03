@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dao.PointEmpruntDao;
+import dao.places.PointEmpruntDao;
 import utils.Tools;
 
 public class PointEmprunt 

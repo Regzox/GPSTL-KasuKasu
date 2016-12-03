@@ -10,9 +10,9 @@ import org.json.JSONObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-import dao.mongo.ItemsDB;
-import dao.mongo.ItemsMR;
-import dao.mongo.ObjetRSV;
+import dao.items.ItemsDB;
+import dao.items.mapreduce.ItemsMR;
+import dao.items.mapreduce.ObjetRSV;
 import exceptions.DatabaseException;
 import utils.Tools;
 

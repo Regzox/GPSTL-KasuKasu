@@ -10,7 +10,7 @@ var kasukasu = {
 		error_page: ROOT + "/errorpage.jsp"
 	},
 	private : {
-		dashboard: ROOT + RESTRICTED + "/dashboard.jsp",
+		dashboard: ROOT + RESTRICTED + "/searchitems.jsp",
 		find_user: ROOT + RESTRICTED + "/finduser.jsp",
 		modify_user: ROOT + RESTRICTED + "/modifyUser.jsp",
 		profile: ROOT + RESTRICTED + "/profile.jsp",

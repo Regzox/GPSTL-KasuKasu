@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import services.Demande;
+import services.Loaning;
 
 /**
  * Servlet implementation class DemandeServlet
@@ -33,7 +33,7 @@ public class DemandeServlet extends HttpServlet {
 			String idObject = (String) request.getParameter("idbox");
 			System.out.println(" id object : "+idObject);
 
-			Demande.addDemande(userID,idObject);
+			Loaning.requestItem(userID,idObject);
 			System.out.println("demande sent");
 			response.sendRedirect("/KasuKasu/useritems.jsp");
 		} catch (Exception e) {

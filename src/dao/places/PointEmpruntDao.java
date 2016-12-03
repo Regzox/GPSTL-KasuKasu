@@ -1,4 +1,4 @@
-package dao;
+package dao.places;
 
 import java.sql.Connection;
 import java.sql.SQLException;

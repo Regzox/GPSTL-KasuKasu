@@ -1,4 +1,4 @@
-package dao;
+package dao.users;
 
 import java.util.logging.Logger;
 

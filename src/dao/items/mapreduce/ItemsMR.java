@@ -1,4 +1,4 @@
-package dao.mongo;
+package dao.items.mapreduce;
 
 import java.net.UnknownHostException;
 import java.sql.Connection;
@@ -24,6 +24,7 @@ import com.mongodb.MapReduceCommand;
 import com.mongodb.MapReduceOutput;
 import com.mongodb.MongoException;
 
+import dao.items.ItemsDB;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
 

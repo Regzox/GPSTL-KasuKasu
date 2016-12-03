@@ -9,8 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dao.UserDao;
-import dao.UsersImagesDao;
+import dao.users.UserDao;
+import dao.users.UsersImagesDao;
 import exceptions.StringNotFoundException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;

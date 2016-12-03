@@ -9,6 +9,8 @@ import com.mongodb.DBCursor;
 
 import kasudb.KasuDB;
 
+/**
+ * @author ANAGBLA Joan, Cedric Ribeiro */
 public class FriendsDao {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("friends");

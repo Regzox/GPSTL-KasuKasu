@@ -1,4 +1,4 @@
-package dao;
+package dao.users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +16,7 @@ import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
 
 /**
- * @author Anagbla Jean, Daniel RADEAU
- */
-
+ * @author Anagbla Jean, Daniel RADEAU */
 public class UserDao {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("users");

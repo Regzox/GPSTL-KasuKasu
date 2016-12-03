@@ -1,4 +1,4 @@
-package dao.mongo;
+package dao;
 
 import java.util.Date;
 

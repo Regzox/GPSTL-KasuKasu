@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import com.mongodb.DBCursor;
 
-import dao.mongo.ItemsDB;
+import dao.items.ItemsDB;
 import entities.Group;
 import entities.Item;
 import entities.Zone;

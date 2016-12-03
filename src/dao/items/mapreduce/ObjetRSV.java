@@ -1,4 +1,4 @@
-package dao.mongo;
+package dao.items.mapreduce;
 
 import com.mongodb.DBObject;
 
