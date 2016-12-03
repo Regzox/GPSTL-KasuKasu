@@ -1,4 +1,4 @@
-package dao;
+package dao.items;
 
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -10,11 +10,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
-import dao.items.ItemsDB;
-import kasudb.KasuDB;
-
 /**
- * Contient les methodes pour gérer les objets dans la base de données.
+ * Contient les methodes pour gerer les objets dans la base de donnees.
  */
 public class ObjectTools {
 	// Instance de la collection

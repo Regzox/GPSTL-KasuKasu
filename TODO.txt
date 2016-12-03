@@ -1,5 +1,8 @@
-createuser.jsp 
-	voir (image) parse error à quoi ca correspond ?
+une semaine timeout pourr conserver un compte
+ficihier texte por parametrer les langues 
+serialiser le dico
+tous les patametre dans un fihchier de parametre ou une pafge htm de parametrisation de lapp
+tout parametrer
 
 connectuser 
 

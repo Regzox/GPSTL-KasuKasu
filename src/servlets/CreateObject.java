@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
-import dao.ObjectTools;
+import dao.items.ObjectTools;
 import utils.ParametersChecker;
 
 /**

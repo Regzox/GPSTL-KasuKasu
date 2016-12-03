@@ -15,7 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.omg.PortableInterceptor.USER_EXCEPTION;
 
-import dao.ObjectTools;
+import dao.items.ObjectTools;
 import dao.places.PointEmpruntDB;
 import services.PointEmprunt;
 import utils.ParametersChecker;
