@@ -1,13 +1,10 @@
 package dao.items.mapreduce;
 
 import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,61 +32,88 @@ import kasudb.KasuDB;
  *  (ne va pas du tout) + d'autres opti de pattern & conversion , filtre , epuration,
  *  unification des racines communes de mots */
 public class ItemsMR {
-	
-	public static DBCollection collection = ItemsDB.collection;
+
+	private static DBCollection collection = ItemsDB.collection;
+	private static DBCollection tfcoll = KasuDB.getMongoCollection("tf");
+	private static DBCollection dfcoll = KasuDB.getMongoCollection("df");
+
 	static String mrpattern="/[^\\d\\w]+/";   
-	
+
 	/**
 	 * @param query
 	 * @return
 	 * @throws DatabaseException
 	 * @throws JSONException */
-	public static List<ObjetRSV> pertinence(String query,DBCursor cursor) throws DatabaseException, JSONException{
+	public static List<ObjetRSV> pertinence(String query,DBCursor cursor) throws JSONException, DatabaseException{
 		ItemsMR.updateTFDF();//TODO replace by an mrprog in future sprints
 		Set<String> querywords =wordSet(query,ItemsMR.mrpattern);	
 		List<ObjetRSV> results = new ArrayList<ObjetRSV>();
-		try{
-			Connection sqldbconect = KasuDB.SQLConnection();
-			while(cursor.hasNext()){
-				DBObject doc = cursor.next();
-				String docID = ((ObjectId)doc.get("_id")).toString();
-				//calculate document's score
-				Double score = 0.0;
-				for(String word : querywords){
-					//TF
-					Statement s = sqldbconect.createStatement();
-					ResultSet rs = s.executeQuery("SELECT tf FROM TF WHERE"
-							+ " word = \""+word+"\" AND docID=\""+ docID +"\"");
-					if(!rs.next())   
-						continue; 
-					double tf =rs.getDouble("tf");
-					s.close();
 
-					//DF
-					s = sqldbconect.createStatement();
-					rs = s.executeQuery("SELECT df FROM DF WHERE word = \"" + word+"\"");
-					rs.next();
-					double df =rs.getDouble("df");
-					s.close();
-					/** Be aware : 
-					 * DBCursor.count(): Counts the number of objects matching the query.
-					 * This does not take limit/skip into consideration.
-					 * DBCursor.size(): Counts the number of objects matching the query.
-					 * This does take limit/skip into consideration*/
-					score = score + tf * Math.log(cursor.count()/df); }
-				/** This suppose cursor contains all the results without limit/skip
-				 * Limit will be in the display function (client side) */
-				results.add(new ObjetRSV(doc,score));}}
-		catch(SQLException e){throw new DatabaseException(e.getMessage());}
+		while(cursor.hasNext()){
+			DBObject doc = cursor.next();
+			String docID = ((ObjectId)doc.get("_id")).toString();
+			//calculate document's score
+			Double score = 0.0;
+			for(String word : querywords){
+				//TF
+				/*Connection sqldbconect = KasuDB.SQLConnection();
+				 Statement s = sqldbconect.createStatement();
+				ResultSet rs = s.executeQuery("SELECT tf FROM TF WHERE"
+						+ " word = \""+word+"\" AND docID=\""+ docID +"\"");
+				if(!rs.next())   
+					continue; 
+				double tf =rs.getDouble("tf");
+				s.close();*/
+				
+				DBCursor dbc = tfcoll.find(
+						new BasicDBObject()
+						.append("word",word)
+						.append("docID",docID)
+						);
+				if(!dbc.hasNext()) continue;
+				if(dbc.count()>1) 
+					throw new DatabaseException("TF Base is inconsistent!");
+				
+				int tf =(int)dbc.next().get("tf");
+				
+
+				//DF
+				/*s = sqldbconect.createStatement();
+				rs = s.executeQuery("SELECT df FROM DF WHERE word = \"" + word+"\"");
+				rs.next();
+				double df =rs.getDouble("df");
+				s.close();*/
+				
+				 dbc = dfcoll.find(
+						new BasicDBObject()
+						.append("word",word)
+						);
+				if(!dbc.hasNext()) 
+					throw new DatabaseException("DF Base is inconsistent!");;
+				if(dbc.count()>1) 
+					throw new DatabaseException("DF Base is inconsistent!");
+				
+				int df =(int)dbc.next().get("df");
+				
+				/** Be aware : 
+				 * DBCursor.count(): Counts the number of objects matching the query.
+				 * This does not take limit/skip into consideration.
+				 * DBCursor.size(): Counts the number of objects matching the query.
+				 * This does take limit/skip into consideration*/
+				score = score + tf * Math.log(cursor.count()/df); }
+			/** This suppose cursor contains all the results without limit/skip
+			 * Limit will be in the display function (client side) */
+			results.add(new ObjetRSV(doc,score));}
+
 
 		Collections.sort(results,Collections.reverseOrder());
-		//for(ObjetRSV o: results)	System.out.println(o);//Debug
+		for(ObjetRSV o: results)	System.out.println(o);//Debug
 		List<ObjetRSV> pertinentResults=new ArrayList<ObjetRSV>();
 		for(ObjetRSV orsv : results)
 			if(orsv.getRsv()>0)  
 				pertinentResults.add(orsv);
 		return pertinentResults;}
-	
+
 	/**
 	 * Return a set of words contained in a string (only one occurence of a word)
 	 * @param string
@@ -103,17 +127,42 @@ public class ItemsMR {
 	 * Filling both TF & DF tables
 	 * @throws JSONException
 	 * @throws DatabaseException */
-	public static void updateTFDF() throws JSONException, DatabaseException{
+	public static void updateTFDF() throws JSONException{
 		updateTF();updateDF();}
+
+	/**
+	 * local test
+	 * @param args
+	 * @throws JSONException
+	 */
+	public static void main(String[] args) throws JSONException {
+		updateTFDF();
+	}
 
 
 	/**
 	 * Filling of the SQL TF table 
 	 * @throws JSONException
 	 * @throws DatabaseException */
-	public static void updateTF() throws  JSONException, DatabaseException {
+	public static void updateTF() throws  JSONException {
 		List<JSONObject> l = TFList(); 
-		try {
+
+		tfcoll.remove(new BasicDBObject());
+		for (int i=0;i<l.size();i++)
+			tfcoll.insert(
+					new BasicDBObject()
+					.append("word",(
+							(BasicDBObject)l.get(i).get("key"))
+							.getString("word")
+							)
+					.append("docID", ( (ObjectId)
+							((BasicDBObject)l.get(i).get("key"))
+							.get("mongodocid") ).toString()
+							)
+					.append("tf", l.get(i).getInt("tf")	)
+					.append("defdate", new Date())
+					);
+		/*try {
 			Connection c = KasuDB.SQLConnection();
 			Statement ds = c.createStatement();
 			ds.executeUpdate("DELETE FROM TF ;");
@@ -129,16 +178,26 @@ public class ItemsMR {
 			}c.close();}
 		catch (SQLException e){
 			throw new DatabaseException("Error while filling Term Frequency table :" 
-					+e.getMessage());}}	
+					+e.getMessage());}*/
+	}	
 
 
 	/**
 	 * Filling of the SQL DF table 
 	 * @throws JSONException
 	 * @throws DatabaseException */
-	public static void updateDF() throws   DatabaseException, JSONException {
+	public static void updateDF() throws JSONException {
 		List<JSONObject> l = DFList(); 
-		try {
+
+		dfcoll.remove(new BasicDBObject());
+		for (int i=0;i<l.size();i++)
+			dfcoll.insert(
+					new BasicDBObject()
+					.append("word", l.get(i).getString("word"))
+					.append("df", l.get(i).getInt("df"))
+					.append("defdate", new Date())
+					);
+		/*try {
 			Connection c = KasuDB.SQLConnection();
 			Statement ds = c.createStatement();
 			ds.executeUpdate("DELETE FROM DF ;");
@@ -152,7 +211,8 @@ public class ItemsMR {
 			}c.close();}
 		catch (SQLException e){
 			throw new DatabaseException("Error while filling Document Frequency table : "
-					+e.getMessage());}}	
+					+e.getMessage());}*/
+	}	
 
 
 	/**
@@ -173,7 +233,7 @@ public class ItemsMR {
 				new MapReduceCommand(collection, map, reduce,null
 						, MapReduceCommand.OutputType.INLINE, null));
 
-		//System.out.println("TFList : "+out.results());
+		System.out.println("TFList : "+out.results());//Debug
 		List<JSONObject> l = new ArrayList<JSONObject>();
 		for (DBObject o : out.results()) 	
 			l.add(new JSONObject().put("tf",o.get("value")).put("key",o.get("_id")));
@@ -202,7 +262,7 @@ public class ItemsMR {
 				new MapReduceCommand( collection, map, reduce,null,
 						MapReduceCommand.OutputType.INLINE, null ));
 
-		//System.out.println("DFList : "+out.results());
+		System.out.println("DFList : "+out.results());//Debug
 		List<JSONObject> l = new ArrayList<JSONObject>();
 		for (DBObject o:out.results())
 			l.add(new JSONObject().put("df",o.get("value")).put("word", o.get("_id")));
