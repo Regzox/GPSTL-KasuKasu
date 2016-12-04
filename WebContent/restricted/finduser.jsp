@@ -25,7 +25,7 @@
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this)">
 
-				<div class="form-group row">
+			<!--<div class="form-group row">
 					<label for="email" class="col-xs-4 col-form-label">Rechercher
 						par </label>
 					<div class="col-xs-4">
@@ -36,10 +36,9 @@
 							<OPTION value="numero">Numéro</OPTION>
 						</SELECT>
 					</div>
-				</div>
+				</div>-->
 
 				<div class="form-group row">
-
 					<div class="col-xs-10">
 						<input class="form-control" name="value" value="" id="value">
 					</div>

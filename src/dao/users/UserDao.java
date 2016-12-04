@@ -1,10 +1,13 @@
 package dao.users;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -332,8 +335,63 @@ public class UserDao {
 	}
 
 	/**
+	 * find an user according to the query
+	 * @param userId
+	 * @param query
+	 * @return */
+	public static DBCursor find(String userId, String query) {
+		BasicDBObject bdbo = 
+				new BasicDBObject()
+				.append("_id",
+						new BasicDBObject()
+						.append("$ne", userId));
+
+		Pattern p1 = Pattern.compile(".+@.+"); //is email
+		Pattern p2 = Pattern.compile("\\d+"); //is phone number
+		List<String> nouns = new ArrayList<>();
+
+		System.out.println( Arrays.asList(query.trim().split(" ")));
+
+		for(String word : Arrays.asList(query.trim().split(" ")))
+			if(p1.matcher(word).matches())
+				bdbo.append("email",word);
+			else if(p2.matcher(word).matches())
+				bdbo.append("numero",word);
+			else
+				nouns.add(word);
+
+		if(nouns.size()>0){
+			BasicDBList identity = new BasicDBList();
+
+			if(nouns.size()>1)
+				for(String noun : nouns)
+					identity.add(new BasicDBObject()
+							.append("nom",noun)
+							.append("prenom",
+									new BasicDBObject()
+									.append("$in", nouns)));
+			else if(nouns.size()==1){
+				identity.add(
+						new BasicDBObject()
+						.append("nom",nouns.get(0)));
+				identity.add(
+						new BasicDBObject()
+						.append("prenom",nouns.get(0)));
+			}
+
+			bdbo.append("$or", identity);
+		}
+		return collection.find(bdbo);
+	}
+
+
+
+	/**
 	 * local test
 	 * @param args */
 	public static void main(String[] args){
-		addUser("j@j.fr", "hardtobreakpassword", "A", "j", "0122345896");	}
+		//addUser("j@j.fr", "hardtobreakpassword", "A", "j", "0122345896");
+		System.out.println(Pattern.compile(".+@.+").matcher("Aa.a@ab.f").matches());
+		System.out.println(Pattern.compile("\\d+").matcher("02287282").matches());
+	}
 }
