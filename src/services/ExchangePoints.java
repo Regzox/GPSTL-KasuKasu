@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-import dao.places.ExchangePointsDB;
+import dao.ExchangePointsDB;
 import utils.Tools;
 
 /**

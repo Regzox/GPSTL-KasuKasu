@@ -1,4 +1,4 @@
-package dao.places;
+package dao;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -10,8 +10,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 
-import dao.FriendsDao;
-import dao.GroupsDB;
 import kasudb.KasuDB;
 
 /**

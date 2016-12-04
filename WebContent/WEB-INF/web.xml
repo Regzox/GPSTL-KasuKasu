@@ -318,4 +318,34 @@
     <servlet-name>RemoveMemberServlet</servlet-name>
     <url-pattern>/RemoveMemberServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AcceptRequestsServlet</display-name>
+    <servlet-name>AcceptRequestsServlet</servlet-name>
+    <servlet-class>servlets.AcceptRequestsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AcceptRequestsServlet</servlet-name>
+    <url-pattern>/AcceptRequestsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RefuseRequestsServlet</display-name>
+    <servlet-name>RefuseRequestsServlet</servlet-name>
+    <servlet-class>servlets.RefuseRequestsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RefuseRequestsServlet</servlet-name>
+    <url-pattern>/RefuseRequestsServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ApplicantRequestsSetvlet</display-name>
+    <servlet-name>ApplicantRequestsSetvlet</servlet-name>
+    <servlet-class>servlets.ApplicantRequestsSetvlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApplicantRequestsSetvlet</servlet-name>
+    <url-pattern>/ApplicantRequestsSetvlet</url-pattern>
+  </servlet-mapping>
 </web-app>

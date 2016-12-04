@@ -54,7 +54,6 @@ public class Loaning {
 	public static JSONObject applicantRequests(String idApplicant)throws JSONException {
 		JSONArray jar = new JSONArray();
 		DBCursor dbc = LoaningDB.applicantRequests(idApplicant);
-		
 		while(dbc.hasNext())
 			jar.put(
 					new JSONObject()
