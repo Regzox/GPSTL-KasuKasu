@@ -5,16 +5,23 @@ import java.util.Date;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+
 import kasudb.KasuDB;
 
 /**
  * @author ANAGBLA Joan, Celien Creminon, Wafae Cheglal */
-public class LoaningDao {
+public class LoaningDB {
 
-	public static DBCollection collection = KasuDB.getMongoCollection("lrqst");//LOANING_REQUESTS
+	public static DBCollection collection = KasuDB.getMongoCollection("loaning");//LOANING_REQUESTS
+	public static DBCollection requests = KasuDB.getMongoCollection("lrqst");
 
-	public static void  requestItem(String idApplicant,String idItem){
-		collection.insert(
+	/**
+	 * Add an applicant's request for an item 
+	 * @param idApplicant
+	 * @param idItem */
+	public static void requestItem(String idApplicant,String idItem){
+		requests.insert(
 				new BasicDBObject()
 				.append("id_applicant", idApplicant)
 				.append("id_item", idItem)
@@ -31,9 +38,45 @@ public class LoaningDao {
 		c.close();	*/
 	}
 
+	/**
+	 * Accept an applicant's request for an item
+	 * @param idRequest */
+	public static void acceptRequests(String idRequest){
+		DBObject dbo = requests.findOne(
+				new BasicDBObject()
+				.append("_id", idRequest));
+		collection.insert(
+				new BasicDBObject()
+				.append("id_applicant", dbo.get("id_applicant"))
+				.append("id_item", dbo.get("id_item"))
+				.append("when", new Date())
+				.append("debut", "") //TODO
+				.append("fin", "")//TODO
+				);
+		requests.remove(
+				new BasicDBObject()
+				.append("_id", idRequest)
+				);
+	}
+	
+	
+	/**
+	 * Refuse an applicant's request for an item
+	 * @param idRequest */
+	public static void refuseRequests(String idRequest){
+		requests.remove(
+				new BasicDBObject()
+				.append("_id", idRequest)
+				);
+	}
 
+	
+	/**
+	 * List all the current applicant's requests
+	 * @param idApplicant
+	 * @return */
 	public static DBCursor applicantRequests(String idApplicant){
-		return collection.find(
+		return requests.find(
 				new BasicDBObject()
 				.append("id_applicant", idApplicant));
 
@@ -53,12 +96,12 @@ public class LoaningDao {
 
 		return myDemandes;*/
 	}
-	
+
 	public static DBCursor itemApplicants(String id_item){
-		return collection.find(
+		return requests.find(
 				new BasicDBObject()
 				.append("id_item", id_item));
-		
+
 		/*String sql = "SELECT * FROM "+table_name +" WHERE id_objet= '"+id_objet+"' ;";
 		try {
 			Connection c = KasuDB.SQLConnection();
@@ -67,10 +110,10 @@ public class LoaningDao {
 		catch (SQLException e) {
 			throw new DatabaseException(DAOToolBox.getStackTrace(e));}*/
 	}
-	
+
 	public static void main(String[] args) {
 		requestItem("1","idObject");
 		System.out.println(applicantRequests("1").next());
 	}
-	
+
 }

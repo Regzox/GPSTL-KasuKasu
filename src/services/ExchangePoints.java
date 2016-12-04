@@ -31,7 +31,6 @@ public class ExchangePoints {
 	}
 
 	
-	
 	/**
 	 * Subscribe to an existing exchange point
 	 * @param id
@@ -46,8 +45,7 @@ public class ExchangePoints {
 	}
 	
 	
-	
-	/**
+	/**TODO FINISH IT
 	 * Return user exchange points according to his userID
 	 * @param userID
 	 * @return
@@ -64,6 +62,18 @@ public class ExchangePoints {
 					.put("lon",dbo.get("lon"))
 					.put("radius",dbo.get("rad")));}
 		return new JSONObject().put("expts",jar);
+	}
+	
+	
+	/**
+	 * Add a list of user's items to an exchange point in db
+	 * @param id
+	 * @param userID
+	 * @param items 
+	 * @throws JSONException */
+	public static JSONObject addBulkUserItemsToExchangePoint(String id,String userID, String[] items) throws JSONException{
+		ExchangePointsDB.addBulkUserItemsToExchangePoint(id, userID, items);
+		return Tools.serviceMessage(1);
 	}
 	
 	/*public static JSONObject createPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius) 

@@ -19,13 +19,15 @@ import exceptions.NotPermitedException;
 /**
  * @author Anagbla Jean */									
 public class GroupsDB{
-	/*
-	 * TODO  suppr des membres a un groupe
-	 */
 
 	private static DBCollection collection = KasuDB.getMongoCollection("groups");
 
-	public static void openGroup(String gname,String ownerID) throws GroupExistsException{
+	/**
+	 * Create a new group in db
+	 * @param gname
+	 * @param ownerID
+	 * @throws GroupExistsException */
+	public static void createGroup(String gname,String ownerID) throws GroupExistsException{
 		DBCursor dbc = collection.find(new BasicDBObject()
 				.append("name",gname)
 				.append("owner",ownerID));
@@ -37,33 +39,48 @@ public class GroupsDB{
 				.append("owner",ownerID)
 				.append("date",new Date()));}
 
-	public static void updateGroupName(String gid,String ownerID, String gname)
-			throws NotPermitedException{
-		DBCursor dbc = collection.find(new BasicDBObject()
-				.append("name",gname)
-				.append("owner",ownerID));
-		if(!dbc.hasNext())
-			throw new NotPermitedException
-			("Vous n'avez pas le droit de modifier ce groupe!");
+	
+	/**
+	 * Check if user's right on the object   
+	 * @param userId
+	 * @param id
+	 * @return */
+	public static boolean checkAthorization(String userId,String gid) {
+		return  collection.find(new BasicDBObject()
+				.append("_id",gid)
+				.append("owner",userId)).hasNext();
+	}
+	
+	
+	/**
+	 * Update the group name
+	 * @param gid
+	 * @param ownerID
+	 * @param gname
+	 * @throws NotPermitedException */
+	public static void updateGroupName(String gid,String ownerID, String gname){	
 		collection.update(
 				new BasicDBObject()
 				.append("_id",new ObjectId(gid))
 				,new BasicDBObject()
 				.append("name",gname));}
 
-	public static void closeGroup(String gname,String ownerID) throws NotPermitedException{
-		DBCursor dbc = collection.find(new BasicDBObject()
-				.append("name",gname)
-				.append("owner",ownerID));
-		if(!dbc.hasNext())
-			throw new NotPermitedException
-			("Vous n'avez pas le droit de supprimer ce groupe!");
+	/**
+	 * Delete the group
+	 * @param gid
+	 * @param ownerID
+	 * @throws NotPermitedException */
+	public static void deleteGroup(String gid,String ownerID) throws NotPermitedException{
 		collection.remove(
 				new BasicDBObject()
-				.append("name",gname)
+				.append("name",gid)
 				.append("owner",ownerID)
 				);}
 
+	/**
+	 * Add a new member to the group
+	 * @param gid
+	 * @param memberID */
 	public static void addMember(String gid, String memberID){
 		//$addToSet do not add the item to the given field if it already contains it
 		collection.update(
@@ -74,6 +91,11 @@ public class GroupsDB{
 						,new BasicDBObject()
 						.append("members",memberID)));}
 	
+	
+	/**
+	 * Remove a member from the group
+	 * @param gid
+	 * @param memberID */
 	public static void removeMember(String gid, String memberID){
 		collection.update(
 				new BasicDBObject()
@@ -83,11 +105,20 @@ public class GroupsDB{
 						,new BasicDBObject()
 						.append("members",memberID)));}
 
+	
+	/**
+	 * Return the list of user's groups
+	 * @param userID
+	 * @return */
 	public static DBCursor userGroups(String userID) {  
 		return collection.find(
 				new BasicDBObject()
 				.append("owner",userID));}
 
+	/**
+	 * Return the list of group's members
+	 * @param gid
+	 * @return */
 	public static BasicDBList groupMembers(String gid) { 
 		DBObject dbo = collection.findOne(
 				new BasicDBObject().append("_id",new ObjectId(gid)));
@@ -109,9 +140,9 @@ public class GroupsDB{
 
 	public static void main(String[] args) throws DatabaseException, JSONException, GroupExistsException{
 		collection.drop();//reset : determinism required for the tests
-		openGroup("amis", "1");
-		openGroup("maison", "2");
-		openGroup("bureau", "3");
+		createGroup("amis", "1");
+		createGroup("maison", "2");
+		createGroup("bureau", "3");
 		String id="580a89f174a4f912f56a7568";
 		System.out.println(userGroups("1"));
 		System.out.println(groupMembers(id));

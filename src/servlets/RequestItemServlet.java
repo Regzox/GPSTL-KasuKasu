@@ -8,31 +8,26 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import services.Groups;
-import servlets.tools.templates.online.OnlinePostServlet;
+import services.Loaning;
+import servlets.tools.templates.online.OnlineGetServlet;
 
 /**
- * * @author Anagbla Jean */
-public class AddMemberServlet extends OnlinePostServlet {
+ * @author ANAGBLA Joan */
+public class RequestItemServlet extends OnlineGetServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"gid","member"}));}
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"idbox"}));}
 
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
-			throws Exception {
-		response.getWriter().print(
-				Groups.addMember(
-						request.getParameter("gid"),
-						(String) request.getSession().getAttribute("userId"),
-						request.getParameter("member"))
+			throws Exception {		 
+		Loaning.requestItem(
+				(String)request.getSession().getAttribute("userId"),
+				(String) request.getParameter("idbox")
 				);
+		response.sendRedirect("/KasuKasu/useritems.jsp");//TODO async af show_item
 	}
-
-
-
-
 }

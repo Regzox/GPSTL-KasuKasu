@@ -53,7 +53,6 @@ public class ExchangePointsDB {
 		c.close();*/
 	}
 
-
 	
 	/**
 	 * Add a list of user's items to an exchange point in db
@@ -77,7 +76,6 @@ public class ExchangePointsDB {
 						)
 				);
 	}	
-	
 	
 	
 	/**
@@ -123,7 +121,6 @@ public class ExchangePointsDB {
 		return new JSONObject().put("points",myPointsPret);*/
 	}
 
-	
 	
 	/**
 	 * Add a list of user's items to an exchange point in db

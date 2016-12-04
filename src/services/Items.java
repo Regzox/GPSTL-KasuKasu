@@ -38,15 +38,19 @@ public class Items {
 
 
 	/**
-	 * Return the list of applicants for item identified by id
+	 * Remove an item
 	 * @param id
-	 * @return	 */
-	public static JSONObject itemApplicants(String id){
-		
-		return null;
-	}
-
-
+	 * @param title
+	 * @param description 
+	 * @throws JSONException */
+	public static JSONObject removeItem(String userId,String id) throws JSONException {
+		if(!ItemsDB.checkAthorization(userId,id))
+		return Tools.serviceRefused(
+				"Vous n'avez pas le droit de supprimer cet objet", -1);
+		ItemsDB.removeItem(id);
+		return Tools.serviceMessage(1);
+	}	
+	
 	/**
 	 * return a list of items owned by an user 
 	 * @param userID

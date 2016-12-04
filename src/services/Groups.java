@@ -15,6 +15,8 @@ import dao.GroupsDB;
 import dao.users.UserDao;
 import exceptions.DatabaseException;
 import exceptions.GroupExistsException;
+import exceptions.NotPermitedException;
+import utils.Tools;
 
 /**
  * No heavy error management,
@@ -23,17 +25,82 @@ import exceptions.GroupExistsException;
  * @author Anagbla Jean 
  * **@goodToKnow ! FLUENT STYLE CODE*/
 public class Groups {
+
+	/**
+	 * Create a new group in db
+	 * @param gname
+	 * @param ownerID
+	 * @throws GroupExistsException */
 	public static JSONObject createGroup(String name,String userId) 
 			throws DatabaseException,JSONException{		
 		try {
-			GroupsDB.openGroup(name,userId);
+			GroupsDB.createGroup(name,userId);
 			return new json.Success("Ohayo Mina sama");
 		} catch (GroupExistsException e) {return new json.Error("Le groupe '"+name+"' existe deja!");}}
 
-	public static JSONObject addMember(String groupID,String member) throws JSONException, DatabaseException {
-		GroupsDB.addMember(groupID, member);
+
+	/**
+	 * Update the group name
+	 * @param gid
+	 * @param ownerID
+	 * @param gname
+	 * @throws NotPermitedException */
+	public static JSONObject updateGroupName(String gid,String ownerID, String gname)
+			throws JSONException{
+		if(!GroupsDB.checkAthorization(ownerID,gid))
+			return Tools.serviceRefused
+					("Vous n'avez pas le droit de modifier ce groupe!", -1);
+		GroupsDB.updateGroupName(gid, ownerID, gname);
+		return Tools.serviceMessage(1);
+	}
+
+
+	/**
+	 * Delete the group
+	 * @param gid
+	 * @param ownerID
+	 * @return 
+	 * @throws NotPermitedException 
+	 * @throws JSONException */
+	public static JSONObject deleteGroup(String gid,String ownerID) throws NotPermitedException, JSONException{
+		if(!GroupsDB.checkAthorization(ownerID,gid))
+			return Tools.serviceRefused
+					("Vous n'avez pas le droit de supprimer ce groupe!", -1);
+		GroupsDB.deleteGroup(gid, ownerID);
+		return Tools.serviceMessage(1);
+	}
+
+
+	/**
+	 * Add a new member to the group
+	 * @param gid
+	 * @param member*/
+	public static JSONObject addMember(String gid,String ownerID,String member) throws JSONException, DatabaseException {
+		if(!GroupsDB.checkAthorization(ownerID,gid))
+			return Tools.serviceRefused
+					("Vous n'avez pas le droit de supprimer ce groupe!", -1);
+		GroupsDB.addMember(gid, member);
 		return new json.Success("LOL");}
 
+
+	/**
+	 * Remove a member from the group
+	 * @param gid
+	 * @param memberID 
+	 * @throws JSONException */
+	public static JSONObject removeMember(String gid,String ownerID, String memberID) throws JSONException{
+		if(!GroupsDB.checkAthorization(ownerID,gid))
+			return Tools.serviceRefused
+					("Vous n'avez pas le droit de supprimer ce groupe!", -1);
+		GroupsDB.removeMember(gid, memberID);
+		return Tools.serviceMessage(1);
+	}
+
+
+	/**
+	 * Return the list of user's groups
+	 * @param userID
+	 * @return */
 	public static JSONObject userGroups(String userID) throws DatabaseException, JSONException{
 		JSONArray jar=new JSONArray();
 		DBCursor cursor = GroupsDB.userGroups(userID);
@@ -49,6 +116,10 @@ public class Groups {
 		return new JSONObject().put("groups",jar);}
 
 
+	/**
+	 * Return the list of group's members
+	 * @param gid
+	 * @return */
 	public static JSONObject groupMembers(String groupID) throws JSONException, DatabaseException, SQLException{
 		BasicDBList members= GroupsDB.groupMembers(groupID);
 		JSONArray jar = new JSONArray();

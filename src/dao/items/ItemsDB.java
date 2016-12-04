@@ -22,10 +22,6 @@ import kasudb.KasuDB;
  * @author ANAGBLA Joan, Giuseppe FEDERICO*/
 public class ItemsDB {
 
-	/*
-	 * TODO lister les groups, suppr , mod ajouter des groupes a un objet
-	 */
-
 	public static DBCollection collection = KasuDB.getMongoCollection("items");
 	
 	/**
@@ -55,10 +51,10 @@ public class ItemsDB {
 	 * @param id
 	 * @return */
 	public static boolean checkAthorization(String userId,String id) {
-		return (collection.find(
+		return collection.find(
 				new BasicDBObject()
 				.append("_id",new ObjectId(id))
-				.append("owner",userId))).hasNext();
+				.append("owner",userId)).hasNext();
 	}
 	
 
@@ -76,6 +72,17 @@ public class ItemsDB {
 						new BasicDBObject()
 						.append("title",title)
 						.append("description",description)));
+	}	
+	
+	/**
+	 * Remove an item
+	 * @param id
+	 * @param title
+	 * @param description */
+	public static void removeItem(String id) {
+		collection.remove(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id)));
 	}	
 	
 	

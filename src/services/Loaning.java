@@ -4,22 +4,56 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import com.mongodb.DBCursor;
-import dao.LoaningDao;
+
+import dao.LoaningDB;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
+import utils.Tools;
 
 /**
  * @author Anagbla Joan */
 public class Loaning {
 
-	public static void  requestItem(String idApplicant,String idItem){
-		LoaningDao.requestItem(idApplicant, idItem);
+	/**
+	 * Add an applicant's request for an item 
+	 * @param idApplicant
+	 * @param idItem */
+	public static JSONObject requestItem(String idApplicant,String idItem) throws JSONException{
+		LoaningDB.requestItem(idApplicant, idItem);
+		return Tools.serviceMessage(1);
 	}
 	
+	
+	/**
+	 * Accept an applicant's request for an item
+	 * @param idRequest 
+	 * @throws JSONException */
+	public static JSONObject acceptRequests(String idRequest) throws JSONException{
+		LoaningDB.acceptRequests(idRequest);
+		return Tools.serviceMessage(1);
+	}
+	
+	
+	/**
+	 * Refuse an applicant's request for an item
+	 * @param idRequest 
+	 * @return 
+	 * @throws JSONException */
+	public static JSONObject refuseRequests(String idRequest) throws JSONException{
+		LoaningDB.refuseRequests(idRequest);
+		return Tools.serviceMessage(1);
+	}
+	
+	
+	/**
+	 * List all the current applicant's requests
+	 * @param idApplicant
+	 * @return */
 	public static JSONObject applicantRequests(String idApplicant)throws JSONException {
 		JSONArray jar = new JSONArray();
-		DBCursor dbc = LoaningDao.applicantRequests(idApplicant);
+		DBCursor dbc = LoaningDB.applicantRequests(idApplicant);
 		
 		while(dbc.hasNext())
 			jar.put(
@@ -34,6 +68,7 @@ public class Loaning {
 		return new JSONObject().put("requests",jar);
 	}
 	
+	
 	/**
 	 * Return a json object containing item's applicants list
 	 * @param id_objet
@@ -41,11 +76,13 @@ public class Loaning {
 	 * @throws UserNotUniqueException 
 	 * @throws UserNotFoundException */
 	public static JSONObject itemApplicants(String id_objet) throws UserNotFoundException, UserNotUniqueException{
-		DBCursor dbc = LoaningDao.itemApplicants(id_objet);
+		DBCursor dbc = LoaningDB.itemApplicants(id_objet);
 		ArrayList<String> applicantIDs = new ArrayList<String>();
 		while(dbc.hasNext())
 			applicantIDs.add((String)dbc.next().get("id_applicant"));
 		return User.getUsersJSONProfileFromIds(applicantIDs);
 	}
+	
+	
 	
 }

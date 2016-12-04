@@ -22,10 +22,10 @@ public class SubscribeToExchangePointServlet extends OnlinePostServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
- 		ExchangePoints.subscribeToExchangePoint(
+		response.getWriter().print(ExchangePoints.subscribeToExchangePoint(
  				params.get("id"),
  				(String)request.getSession().getAttribute("userId"),
- 				params.get("name"));
+ 				params.get("name")));
 	}
        
     

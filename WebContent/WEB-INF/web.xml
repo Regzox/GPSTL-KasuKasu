@@ -210,13 +210,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>DemandeServlet</display-name>
-    <servlet-name>DemandeServlet</servlet-name>
-    <servlet-class>servlets.DemandeServlet</servlet-class>
+    <display-name>RequestItemServlet</display-name>
+    <servlet-name>RequestItemServlet</servlet-name>
+    <servlet-class>servlets.RequestItemServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>DemandeServlet</servlet-name>
-    <url-pattern>/demande</url-pattern>
+    <servlet-name>RequestItemServlet</servlet-name>
+    <url-pattern>/requestitem</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -277,5 +277,45 @@
   <servlet-mapping>
     <servlet-name>SubscribeToExchangePointServlet</servlet-name>
     <url-pattern>/subscribetoexchangepoint</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemoveItemServlet</display-name>
+    <servlet-name>RemoveItemServlet</servlet-name>
+    <servlet-class>servlets.RemoveItemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveItemServlet</servlet-name>
+    <url-pattern>/removeitem</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateGroupNameServlet</display-name>
+    <servlet-name>UpdateGroupNameServlet</servlet-name>
+    <servlet-class>servlets.UpdateGroupNameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateGroupNameServlet</servlet-name>
+    <url-pattern>/UpdateGroupNameServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteGroupServlet</display-name>
+    <servlet-name>DeleteGroupServlet</servlet-name>
+    <servlet-class>servlets.DeleteGroupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteGroupServlet</servlet-name>
+    <url-pattern>/DeleteGroupServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RemoveMemberServlet</display-name>
+    <servlet-name>RemoveMemberServlet</servlet-name>
+    <servlet-class>servlets.RemoveMemberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RemoveMemberServlet</servlet-name>
+    <url-pattern>/RemoveMemberServlet</url-pattern>
   </servlet-mapping>
 </web-app>
