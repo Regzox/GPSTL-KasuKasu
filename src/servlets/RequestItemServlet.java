@@ -19,15 +19,14 @@ public class RequestItemServlet extends OnlinePostServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"idbox"}));}
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"id"}));}
 
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {		 
-		Loaning.requestItem(
+		response.getWriter().print(Loaning.requestItem(
 				(String)request.getSession().getAttribute("userId"),
-				(String) request.getParameter("idbox")
+				(String) request.getParameter("id"))
 				);
-		response.sendRedirect("/KasuKasu/useritems.jsp");//TODO async af show_item
 	}
 }

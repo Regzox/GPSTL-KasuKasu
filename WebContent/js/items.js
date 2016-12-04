@@ -79,7 +79,7 @@ Item.prototype.getHTML=function(){
 	s+="<div class=\"item-more\">";
 	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"iwantit_btn\" " +
-	"id=\"iwantit_btn"+this.id+"\" OnClick=\"location.href='./demande?idbox="+this.id+"&owner="+this.owner+"';\"/>\n";
+	"id=\"iwantit_btn"+this.id+"\" OnClick=\"request_item('"+this.id+"');\"/>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
 	return s;
@@ -231,7 +231,9 @@ function ProcessFindApplicants(rep) {
 				"<td>"+x+"</td>" +
 				"<td>"+y+"</td>"+
 				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
-				"<td><a href=\"/KasuKasu/vaiderpret?id_objet=3&id_emprunteur="+z+"\">Accorder</a></td>"+
+				"<td>" +
+				"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
+				"id=\"accept_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+this.id+"');\"/>\n";
 				"</tr>";
 			} 
 		});

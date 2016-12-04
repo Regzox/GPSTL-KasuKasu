@@ -7,6 +7,7 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/loaning.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />

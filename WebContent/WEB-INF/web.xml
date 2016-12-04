@@ -116,7 +116,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchItemsServlet</servlet-name>
-    <url-pattern>/restricted/searchitems</url-pattern>
+    <url-pattern>/searchitems</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -296,7 +296,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UpdateGroupNameServlet</servlet-name>
-    <url-pattern>/UpdateGroupNameServlet</url-pattern>
+    <url-pattern>/updategroupname</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -306,7 +306,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>DeleteGroupServlet</servlet-name>
-    <url-pattern>/DeleteGroupServlet</url-pattern>
+    <url-pattern>/deletegroup</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -316,7 +316,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>RemoveMemberServlet</servlet-name>
-    <url-pattern>/RemoveMemberServlet</url-pattern>
+    <url-pattern>/removemember</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -326,7 +326,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>AcceptRequestsServlet</servlet-name>
-    <url-pattern>/AcceptRequestsServlet</url-pattern>
+    <url-pattern>/acceptrequests</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -336,7 +336,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>RefuseRequestsServlet</servlet-name>
-    <url-pattern>/RefuseRequestsServlet</url-pattern>
+    <url-pattern>/refuserequests</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -346,6 +346,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ApplicantRequestsSetvlet</servlet-name>
-    <url-pattern>/ApplicantRequestsSetvlet</url-pattern>
+    <url-pattern>/applicantrequests</url-pattern>
   </servlet-mapping>
 </web-app>
