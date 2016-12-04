@@ -76,9 +76,13 @@ public class Groups {
 	 * @param gid
 	 * @param member*/
 	public static JSONObject addMember(String gid,String ownerID,String member) throws JSONException, DatabaseException {
-		if(!GroupsDB.checkAthorization(ownerID,gid))
-			return Tools.serviceRefused
-					("Vous n'avez pas le droit de supprimer ce groupe!", -1);
+		System.out.println("gid : "+gid+" member : "+member+" owner :"+ownerID);//Debug
+		if(!GroupsDB.checkAthorization(ownerID,gid))			
+			return new json.Error
+					("Vous n'avez pas le droit de modifier ce groupe!");
+		if(member.equals(GroupsDB.groupOwner(gid))){			
+			return new json.Error
+					("Vous ne pouvez pas vous ajouter dans votre propre groupe");}
 		GroupsDB.addMember(gid, member);
 		return new json.Success("LOL");}
 
@@ -91,7 +95,7 @@ public class Groups {
 	public static JSONObject removeMember(String gid,String ownerID, String memberID) throws JSONException{
 		if(!GroupsDB.checkAthorization(ownerID,gid))
 			return Tools.serviceRefused
-					("Vous n'avez pas le droit de supprimer ce groupe!", -1);
+					("Vous n'avez pas le droit de modifier ce groupe!", -1);
 		GroupsDB.removeMember(gid, memberID);
 		return Tools.serviceMessage(1);
 	}

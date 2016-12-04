@@ -47,7 +47,7 @@ public class GroupsDB{
 	 * @return */
 	public static boolean checkAthorization(String userId,String gid) {
 		return  collection.find(new BasicDBObject()
-				.append("_id",gid)
+				.append("_id",new ObjectId(gid))
 				.append("owner",userId)).hasNext();
 	}
 	
@@ -124,6 +124,19 @@ public class GroupsDB{
 				new BasicDBObject().append("_id",new ObjectId(gid)));
 		if(dbo!=null)
 			return (BasicDBList) dbo.get("members");
+		return null;
+	}
+	
+	/**
+	 * ADMIN FUNCTION
+	 * Return the group's owner
+	 * @param gid
+	 * @return */
+	public static String groupOwner(String gid) { 
+		DBObject dbo = collection.findOne(
+				new BasicDBObject().append("_id",new ObjectId(gid)));
+		if(dbo!=null)
+			return (String) dbo.get("owner");
 		return null;
 	}
 
