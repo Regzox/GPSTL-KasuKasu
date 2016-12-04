@@ -19,25 +19,42 @@ public class ExchangePoints {
 	 * @param lat
 	 * @param lon
 	 * @param radius
-	 * @param id_user
+	 * @param userID
 	 * @param nom
 	 * @return
 	 * @throws JSONException */
 	public static JSONObject addExchangePoint(
-			double lat,double lon,int radius,String id_user,String name) 
+			double lat,double lon,int radius,String userID,String name) 
 			throws JSONException {			
-		ExchangePointsDB.addExchangePoint(lat,lon,radius,id_user,name);		
+		ExchangePointsDB.addExchangePoint(lat,lon,radius,userID,name);		
 		return Tools.serviceMessage(1);
 	}
 
+	
+	
+	/**
+	 * Subscribe to an existing exchange point
+	 * @param id
+	 * @param userID
+	 * @param name
+	 * @return
+	 * @throws JSONException */
+	public static JSONObject subscribeToExchangePoint(String id,String userID,String name) 
+			throws JSONException {			
+		ExchangePointsDB.subscribeToExchangePoint(id, userID, name);		
+		return Tools.serviceMessage(1);
+	}
+	
+	
+	
 	/**
 	 * Return user exchange points according to his userID
 	 * @param userID
 	 * @return
 	 * @throws JSONException */
-	public static JSONObject userExchangePoints(String userID) throws JSONException {			
+	public static JSONObject accessibleExchangePoints(String userID) throws JSONException {			
 		JSONArray jar=new JSONArray();
-		DBCursor cursor = ExchangePointsDB.userExchangePoints(userID); 
+		DBCursor cursor = ExchangePointsDB.accessibleExchangePoints(userID); 
 		while(cursor.hasNext()){
 			DBObject dbo=cursor.next();
 			jar.put(new JSONObject()

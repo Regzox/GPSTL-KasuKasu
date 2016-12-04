@@ -270,12 +270,12 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>UserExchangePoints</display-name>
-    <servlet-name>UserExchangePoints</servlet-name>
-    <servlet-class>servlets.UserExchangePoints</servlet-class>
+    <display-name>SubscribeToExchangePointServlet</display-name>
+    <servlet-name>SubscribeToExchangePointServlet</servlet-name>
+    <servlet-class>servlets.SubscribeToExchangePointServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>UserExchangePoints</servlet-name>
-    <url-pattern>/UserExchangePoints</url-pattern>
+    <servlet-name>SubscribeToExchangePointServlet</servlet-name>
+    <url-pattern>/subscribetoexchangepoint</url-pattern>
   </servlet-mapping>
 </web-app>

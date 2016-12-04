@@ -14,12 +14,13 @@ import com.mongodb.DBObject;
 import kasudb.KasuDB;
 import exceptions.DatabaseException;
 import exceptions.GroupExistsException;
+import exceptions.NotPermitedException;
 
 /**
  * @author Anagbla Jean */									
 public class GroupsDB{
 	/*
-	 * TODO lister les membres, suppr , mod ajouter des membres a un groupe
+	 * TODO  suppr des membres a un groupe
 	 */
 
 	private static DBCollection collection = KasuDB.getMongoCollection("groups");
@@ -36,7 +37,34 @@ public class GroupsDB{
 				.append("owner",ownerID)
 				.append("date",new Date()));}
 
-	public static void addMember(String gid, String memberID) throws DatabaseException{
+	public static void updateGroupName(String gid,String ownerID, String gname)
+			throws NotPermitedException{
+		DBCursor dbc = collection.find(new BasicDBObject()
+				.append("name",gname)
+				.append("owner",ownerID));
+		if(!dbc.hasNext())
+			throw new NotPermitedException
+			("Vous n'avez pas le droit de modifier ce groupe!");
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(gid))
+				,new BasicDBObject()
+				.append("name",gname));}
+
+	public static void closeGroup(String gname,String ownerID) throws NotPermitedException{
+		DBCursor dbc = collection.find(new BasicDBObject()
+				.append("name",gname)
+				.append("owner",ownerID));
+		if(!dbc.hasNext())
+			throw new NotPermitedException
+			("Vous n'avez pas le droit de supprimer ce groupe!");
+		collection.remove(
+				new BasicDBObject()
+				.append("name",gname)
+				.append("owner",ownerID)
+				);}
+
+	public static void addMember(String gid, String memberID){
 		//$addToSet do not add the item to the given field if it already contains it
 		collection.update(
 				new BasicDBObject()
@@ -45,8 +73,17 @@ public class GroupsDB{
 				.append("$addToSet"
 						,new BasicDBObject()
 						.append("members",memberID)));}
+	
+	public static void removeMember(String gid, String memberID){
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(gid))
+				,new BasicDBObject()
+				.append("$pull"
+						,new BasicDBObject()
+						.append("members",memberID)));}
 
-	public static DBCursor userGroups(String userID) throws DatabaseException {  
+	public static DBCursor userGroups(String userID) {  
 		return collection.find(
 				new BasicDBObject()
 				.append("owner",userID));}
@@ -58,7 +95,18 @@ public class GroupsDB{
 			return (BasicDBList) dbo.get("members");
 		return null;
 	}
-	
+
+	/**
+	 * ADMIN FUNCTION
+	 * @param userID
+	 * @return
+	 * @throws DatabaseException */
+	public static DBCursor userGroupsMembership(String userID) {  			
+		return collection.find(
+				new BasicDBObject()
+				.append("members",userID));}
+
+
 	public static void main(String[] args) throws DatabaseException, JSONException, GroupExistsException{
 		collection.drop();//reset : determinism required for the tests
 		openGroup("amis", "1");
