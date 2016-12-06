@@ -348,4 +348,14 @@
     <servlet-name>ApplicantRequestsSetvlet</servlet-name>
     <url-pattern>/applicantrequests</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateExchangePointServlet</display-name>
+    <servlet-name>UpdateExchangePointServlet</servlet-name>
+    <servlet-class>servlets.UpdateExchangePointServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateExchangePointServlet</servlet-name>
+    <url-pattern>/updateexchangepoint</url-pattern>
+  </servlet-mapping>
 </web-app>

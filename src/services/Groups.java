@@ -118,6 +118,29 @@ public class Groups {
 					.put("owner",dbo.get("owner"))
 					.put("date",dbo.get("date")));}
 		return new JSONObject().put("groups",jar);}
+	
+	
+	public void name() {
+		BasicDBObject javaToMongo = new BasicDBObject();
+		BasicDBObject MongoToJava = new BasicDBObject();
+		
+		MongoToJava
+		.append("_id", "id")
+		.append("name", "name")
+		.append("owner", "owner")
+		.append("owner", "owner")
+		.append("date", "date");
+		
+		javaToMongo
+		.append("id", "_id")
+		.append("name", "name")
+		.append("owner", "owner")
+		.append("owner", "owner")
+		.append("date", "date");
+		
+			
+	}
+	
 
 
 	/**
