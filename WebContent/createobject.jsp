@@ -85,8 +85,11 @@
 					</div>
 				</div>
 				
+				<div id='error_point'></div>
+			
+				
 				<button type="submit" class="positive" name="ajout" id="ajout" style="display:none;">
-				Ajouter un point de prêt
+				Ajouter un point d'échange
 				</button>
 
 				<div id="found-groups" class="abootsraper"></div>
