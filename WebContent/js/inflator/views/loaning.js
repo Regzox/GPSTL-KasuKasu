@@ -13,6 +13,7 @@ function request_item(id){
 
 function loaning_request_response(rep){	
 	alert(rep); //afficher modal
+	refresh(rep);
 }
 
 function accept_item_request(id){	
@@ -27,4 +28,12 @@ function accept_item_request(id){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
 	});
+}
+
+
+function refresh(result){
+	if(result.error!=undefined)
+		fillNOTIFIER(result.error);
+	else
+	window.location.reload();
 }

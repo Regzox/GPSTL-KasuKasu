@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.LoaningDB;
 import dao.items.ItemsDB;
 import dao.items.mapreduce.ItemsMR;
 import dao.items.mapreduce.ObjetRSV;
@@ -107,6 +108,7 @@ public class Items {
 				results.add(new ObjetRSV(doc,1));}}
 
 		for(ObjetRSV orsv : results )
+			if(!LoaningDB.requestExists(userID,orsv.getDbo().get("_id").toString()))
 			jar.put(new JSONObject()
 					.put("id",orsv.getDbo().get("_id"))
 					.put("type","item")
