@@ -3,8 +3,7 @@ function finduser(form)
 	printHTML("#notifier","");
 	if (form.value.value.length==0)
 		return; 
-		findUserJS(form.value.value);
-	
+		findUserJS(form.value.value);	
 }
 
 function findUserJS(valuev) 
@@ -20,8 +19,6 @@ function findUserJS(valuev)
 		}
 	});
 }
-
-
 
 
 function ProcessFindUser(rep) 

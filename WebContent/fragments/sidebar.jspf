@@ -58,7 +58,7 @@
 					    <div onclick="
 							if ( !(~$(location).attr('href').indexOf('<%= Url.CREATEOBJECT.value() %>')))
 								$(location).attr('href', '<%= Url.CREATEOBJECT.value() %>');
-						">Ajouter un prêt</div>
+						">Ajouter un objet</div>
 						
 						<div onclick="
 							if ( !(~$(location).attr('href').indexOf('<%= Url.LISTOBJECTS.value() %>')))

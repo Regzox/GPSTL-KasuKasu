@@ -340,11 +340,12 @@ public class UserDao {
 	 * @param query
 	 * @return */
 	public static DBCursor find(String userId, String query) {
+		System.out.println("userId : "+ userId);
 		BasicDBObject bdbo = 
 				new BasicDBObject()
 				.append("_id",
 						new BasicDBObject()
-						.append("$ne", userId));
+						.append("$ne", new ObjectId(userId)));
 
 		Pattern p1 = Pattern.compile(".+@.+"); //is email
 		Pattern p2 = Pattern.compile("\\d+"); //is phone number

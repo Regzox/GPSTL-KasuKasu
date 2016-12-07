@@ -10,7 +10,7 @@ function Group(id,name,type,owner,date){
 	this.date=date;
 } 
 
-Group.revival=function(key,value){
+/*Group.revival=function(key,value){
 	//alert("revival begin");
 	if(key=="groups"){ 
 		var r;
@@ -31,11 +31,11 @@ Group.revival=function(key,value){
 		//alert("revival -> value = "+value);
 		return (value);
 	}
-};
+};*/
 
 Group.traiteReponseJSON=function(json){	
 	//alert("Group.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob =JSON.parse(JSON.stringify(json),Group.revival);
+	var jsob =JSON.parse(JSON.stringify(json),/*Group.revival*/mirror);
 	groups = jsob.groups;
 	//alert("Group.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 

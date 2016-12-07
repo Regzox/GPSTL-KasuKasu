@@ -14,7 +14,7 @@ function Item(id,owner,group,date,longitude,latitude,title,description){
 } 
 
 
-Item.revival=function(key,value){
+/*Item.revival=function(key,value){
 	//alert("revival begin");
 	if(key=="items"){ 
 		var r;
@@ -36,12 +36,12 @@ Item.revival=function(key,value){
 		//alert("revival -> value = "+value);
 		return (value);
 	}
-};
+};*/
 
 
 Item.traiteReponseJSON=function(json){	
 	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob =JSON.parse(JSON.stringify(json),Item.revival);
+	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
 	items = jsob.items;
 	//alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
@@ -88,7 +88,7 @@ Item.prototype.getHTML=function(){
 
 Item.traiteReponseJSON2=function(json){	
 	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob =JSON.parse(JSON.stringify(json),Item.revival);
+	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
 	items = jsob.items;
 	//alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 

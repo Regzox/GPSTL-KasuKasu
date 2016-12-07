@@ -1,39 +1,17 @@
-/**Only for first debugs*/ 
-function printJSONMembers(rep){printHTML("#found-Members", JSON.stringify(rep));}
-
 function finduser(form) 
 {
-	var search = form.search.value;
-	var val = form.value.value;
-
-	var ok = checkInput(search, val);
-	if (ok) 
-	{
-		printHTML("#notifier","");
-		findUserJS(search, val);
-	}
+	printHTML("#notifier","");
+	if (form.value.value.length==0)
+		return; 
+		findUserJS(form.value.value);	
 }
 
-function checkInput(search, val) 
-{
-	if(val.length==0)
-	{
-		func_message("Champ Vide");
-		return false;
-	}
-	else 
-	{
-		return true;
-	}
-}
-
-
-function findUserJS(searchv, valuev) 
+function findUserJS(valuev) 
 {
 	$.ajax({
-		type : "POST",
+		type : "GET",
 		url : "/KasuKasu/finduser",
-		data : {search : searchv, value : valuev},
+		data : {value : valuev},
 		dataType : "JSON",
 		success : ProcessFindUser,
 		error : function(xhr,status,errorthrown){
@@ -41,6 +19,8 @@ function findUserJS(searchv, valuev)
 		}
 	});
 }
+
+
 
 function ProcessFindUser(rep) 
 {
@@ -114,7 +94,7 @@ function Member(id,name,type){
 	this.type=type;
 } 
 
-Member.revival=function(key,value){
+/*Member.revival=function(key,value){
 	//alert("revival begin");
 	if(key=="members"){ 
 		var r;
@@ -136,12 +116,12 @@ Member.revival=function(key,value){
 		//alert("revival -> value = "+value);
 		return (value);
 	}
-};
+};*/
 
 
 Member.traiteReponseJSON=function(json){	
 	//alert("Member.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob =JSON.parse(JSON.stringify(json),Member.revival);
+	var jsob =JSON.parse(JSON.stringify(json),/*Member.revival*/mirror);
 	members = jsob.members;
 	//alert("Member.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
