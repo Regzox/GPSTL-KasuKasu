@@ -2,11 +2,14 @@ package dao;
 
 import java.util.Date;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
 /**
@@ -38,7 +41,7 @@ public class LoaningDB {
 		c.close();	*/
 	}
 
-	
+
 	/**
 	 * ADMIN FUNCTION
 	 * Check if a request is already sent for an item by the same applicant 
@@ -51,15 +54,22 @@ public class LoaningDB {
 				.append("id_item", idItem)			
 				).hasNext();
 	}
-	
-	
+
+
 	/**
 	 * Accept an applicant's request for an item
-	 * @param idRequest */
-	public static void acceptRequests(String idRequest){
-		DBObject dbo = requests.findOne(
+	 * @param idRequest 
+	 * @throws DatabaseException */
+	public static void acceptRequests(String idApplicant, String idItem) throws DatabaseException{
+		System.out.println("idApplicant : " + idApplicant+" idItem : "+idItem);
+		DBCursor dbc = requests.find(
 				new BasicDBObject()
-				.append("_id", idRequest));
+				.append("id_item", new ObjectId(idItem))
+				.append("id_applicant", new ObjectId(idApplicant))
+				);
+		if(dbc.count()!=1)
+			throw new DatabaseException("LoaningDB : Database is inconsistent between : loaning <-> lrqst");
+		DBObject dbo= dbc.next();
 		collection.insert(
 				new BasicDBObject()
 				.append("id_applicant", dbo.get("id_applicant"))
@@ -70,22 +80,23 @@ public class LoaningDB {
 				);
 		requests.remove(
 				new BasicDBObject()
-				.append("_id", idRequest)
-				);
-	}
-	
-	
-	/**
-	 * Refuse an applicant's request for an item
-	 * @param idRequest */
-	public static void refuseRequests(String idRequest){
-		requests.remove(
-				new BasicDBObject()
-				.append("_id", idRequest)
+				.append("_id", new ObjectId((String)dbo.get("_id")))
 				);
 	}
 
-	
+
+	/**
+	 * Refuse an applicant's request for an item
+	 * @param idRequest */
+	public static void refuseRequests(String idApplicant, String idItem){
+		requests.remove(
+				new BasicDBObject()
+				.append("id_applicant", idApplicant)
+				.append("id_item", idItem)
+				);
+	}
+
+
 	/**
 	 * List all the current applicant's requests
 	 * @param idApplicant

@@ -19,13 +19,14 @@ public class RefuseRequestsServlet extends OnlinePostServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"id"}));}
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"applicant","item"}));}
 
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {		 
 		response.getWriter().print(Loaning.refuseRequests(
-				(String) request.getParameter("id"))
+				(String) request.getParameter("applicant"),
+				(String) request.getParameter("item"))
 				);
 	}
 }

@@ -138,7 +138,7 @@ Item.prototype.getHTML2=function(){
 	s+=" <input style=\"float:left;margin-right:75%;\" type=\"image\" " +
 	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
 	" src=\"icons/Empty_Trash_Filled-50.png\" class=\"iwantit_btn\" " +
-	"id=\"unwrap_applicants_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
+	"id=\"remove_item_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
@@ -283,8 +283,10 @@ function ProcessFindApplicants(rep) {
 					"<td>"+y+"</td>"+
 					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
 					"<td>" +
+					"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
+					"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+this.id+"');\"/>\n"+
 					"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
-					"id=\"accept_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+this.id+"');\"/>\n";
+					"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+this.id+"');\"/>\n";
 				"</tr>";
 			} 
 		});

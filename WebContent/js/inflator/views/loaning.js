@@ -16,12 +16,11 @@ function loaning_request_response(rep){
 	refresh(rep);
 }
 
-function accept_item_request(id){	
-	alert();
+function accept_item_request(id_applicant, id_item){	
 	$.ajax({
 		type : "POST",
 		url : "acceptrequests",
-		data : "id=" +id,
+		data : "applicant="+id_applicant+"&item="+id_item,
 		dataType : "JSON",
 		success : loaning_request_response,
 		error : function(xhr,status,errorthrown){
@@ -30,6 +29,18 @@ function accept_item_request(id){
 	});
 }
 
+function refuse_item_request(id){	
+	$.ajax({
+		type : "POST",
+		url : "refuserequests",
+		data : "id=" +id,
+		dataType : "JSON",
+		success : loaning_request_response,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
 
 function refresh(result){
 	if(result.error!=undefined)
