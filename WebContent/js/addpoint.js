@@ -95,10 +95,6 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 			div.removeChild(br1);
 			div.removeChild(br2);
 			div.removeChild(supp);
-
-	
-
-
 		}
 
 		div.appendChild(supp);
@@ -212,7 +208,7 @@ function send(result2)
 
 	$.ajax({
 	type : "POST",
-	url : "AddPointPret",
+	url : "AddPoint",
 	data : "points=" + json2, 
 	dataType : "json",
 	success :  function(data)
@@ -225,6 +221,7 @@ function send(result2)
 	      "show"      : true                     
 	    });
 	   }
+	    //Ajouter redirection vers la liste des points
 	 },
 	error : function(XHR, testStatus, errorThrown) {
 	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));

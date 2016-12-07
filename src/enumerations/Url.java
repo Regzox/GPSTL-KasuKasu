@@ -23,8 +23,7 @@ public enum Url {
 	DEMANDESRECUES("/demande.jsp"),
 	RECHERCHEROBJECT("/searchitems.jsp"),
 	LISTOBJECTS("/useritems.jsp"),
-	ABONNERLIEU("/addpointemprunt.jsp"),
-	AJOUTERLIEU("/addpointpret.jsp")
+	AJOUTERLIEU("/addpoint.jsp")
 
 
 

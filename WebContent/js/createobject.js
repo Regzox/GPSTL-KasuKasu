@@ -1,3 +1,5 @@
+var result = new Array();
+
 function init() 
 {
 	userGroups();
@@ -5,75 +7,57 @@ function init()
 
 }
 
+function getSelectedGroups()
+{
+    var el = document.getElementById('id_check');
+    var tops = el.getElementsByTagName('input');
+    for (var i=0, len=tops.length; i<len; i++) 
+    {
+        if (tops[i].type == 'checkbox' ) 
+        {
+        	if (tops[i].checked)
+        		{
+        		//result.length=0;
+
+        		   result.push(tops[i].name);
+        		}
+ 
+        }
+    }
+}
+
 function createobject() 
 {
 	printHTML("#error_nom","");
 	printHTML("#error_description","");
-	//printHTML("#error_datedeb","");
-	//printHTML("#error_datefin","");	
+	printHTML("#error_groupe","");
+
 	
-	//var nombre=document.getElementById('nombre').value;
 	var nom = document.getElementById('nom').value;
 	var description = document.getElementById('description').value;
-	//var datedebut = document.getElementById('datedeb').value;
-	//var datefin = document.getElementById('datefin').value;
-	var groupe = document.getElementById('groupe');
+	result.length=0;
+	getSelectedGroups();
+	//console.log(result);
 
-	var result = [];
-	var options = groupe.options;
-	var opt;
 
-	for (var i=0, iLen=options.length; i<iLen; i++) 
-	{
-		opt = options[i];
-
-		if (opt.selected) 
-		{
-			result.push(opt.value || opt.text);
-		}
-	}
-
-	
-	
-//	var result2 = [];
-//	for (i=0; i<=nombre; i=i+2)
-//		{
-//		    if (document.getElementById(i) !== null)
-//		    	{
-//		    	   result2.push(document.getElementById(i).value+","+document.getElementById(i+1).value)
-//
-//		    	}
-//		}
-	
-
-	var ok = verif(nom, description);
+	var ok = verif(nom, description,result);
 	if (ok) 
 	{
 		printHTML("#error_nom","");
 		printHTML("#error_description","");
-		//printHTML("#error_datedeb","");
-		//printHTML("#error_datefin","");
-		//printHTML("#error_point","");
-		send(nom, description, result);
+		printHTML("#error_groupe","");
+		
+		send (nom,description,result);
+
+		
 
 	}
 }
 
-function verif(nom, description) 
+function verif(nom, description, result) 
 {
 	var bool = true;
-	
-//	if(nombre==0)
-//	{
-//		printHTML("#error_point","Point de pret manquant");
-//		$("#error_point").css({
-//			"color":"red",
-//			"font-size": "80%"
-//		});
-//
-//		//return false;
-//		bool = false;
-//	}
+
 
 	if(nom.length==0)
 	{
@@ -83,7 +67,6 @@ function verif(nom, description)
 			"font-size": "80%"
 		});
 
-		//return false;
 		bool = false;
 	}
 
@@ -95,12 +78,21 @@ function verif(nom, description)
 			"font-size": "80%"
 		});
 
-		//return false;
 		bool = false;
 
 	}
+	
+	if(result.length==0)
+	{
+		printHTML("#error_groupe","Vous devez selectionner au moins un groupe");
+		$("#error_groupe").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 
+		bool = false;
 
+	}
 
 
 	return bool;
@@ -108,50 +100,39 @@ function verif(nom, description)
 
 function send(nom, description, result) 
 {
-	//alert("coucou");
 	 var json = JSON.stringify(result);
-	 //console.log(json);
+	 console.log(json);
 	 
-	 //var json2 = JSON.stringify(result2);
-
-
-	$.ajax({
-	type : "POST",
-	url : "createobject",
-
-	data : "nom=" + nom + "&description=" + description + "&groupe=" + json, 
-
-	
-//	data : {nom : nom, 
-//	          description : description, 
-//	          datedebut : datedebut, 
-//	          datefin : datefin, 
-//	          groupe : groupe},
-
-
-	dataType : "json",
-	success : function (data)
-	{
-		
-		//var json = JSON.parse(JSON.stringify(json));
-        //alert (data.success);
-        if (data.success=="Object added.")
-        	{
-    	       $("#myModal").modal({                    
-    		      "backdrop"  : "static",
-    		      "keyboard"  : true,
-    		      "show"      : true                     
-    		    });
-    	       
-    	       $("#myModal").on('hidden.bs.modal', function () {
-    	           window.location.href = "/KasuKasu/useritems.jsp";
-    	       });
-        	}
-	},
-	error : function(XHR, testStatus, errorThrown) {
-	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
-	}
-	});
+//	 //var json2 = JSON.stringify(result2);
+//
+//
+//	$.ajax({
+//	type : "POST",
+//	url : "createobject",
+//
+//	data : "nom=" + nom + "&description=" + description + "&groupe=" + json, 
+//
+//	dataType : "json",
+//	success : function (data)
+//	{
+//
+//        if (data.success=="Object added.")
+//        	{
+//    	       $("#myModal").modal({                    
+//    		      "backdrop"  : "static",
+//    		      "keyboard"  : true,
+//    		      "show"      : true                     
+//    		    });
+//    	       
+//    	       $("#myModal").on('hidden.bs.modal', function () {
+//    	           window.location.href = "/KasuKasu/useritems.jsp";
+//    	       });
+//        	}
+//	},
+//	error : function(XHR, testStatus, errorThrown) {
+//	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
+//	}
+//	});
 
 }
 
@@ -160,7 +141,7 @@ function printHTML(dom,htm)
 	$(dom).html(htm);
 }
 
-/*****************************************************************************************/
+/*************************** Afficher les groupes d'un user ***************************************/
 
 
 function userGroups(){
@@ -187,20 +168,45 @@ function traiteReponse(json)
 	
 	for (var i=0; i< json.groups.length; i++)
 		{
-		  // alert (json.groups[i].name);
-		 groupeSelect.options[groupeSelect.options.length] = new Option(json.groups[i].name);
-
+		   
+		   var checkbox = document.createElement('input');
+           checkbox.type = "checkbox";
+           checkbox.name = json.groups[i].name;
+           checkbox.value = "value";
+           checkbox.id = "id" + i;
+           
+           var label = document.createElement('label')
+           label.htmlFor = "id";
+           label.appendChild(document.createTextNode(json.groups[i].name));
+           
+           document.getElementById('id_check').appendChild(checkbox);
+           document.getElementById('id_check').appendChild(label);
+           document.getElementById('id_check').appendChild(document.createElement("br"));
 
 		}
+	
+	   var checkbox = document.createElement('input');
+       checkbox.type = "checkbox";
+       checkbox.name = "Tout le monde";
+       checkbox.value = "value";
+       checkbox.id = "id" + i;
+       
+       var label = document.createElement('label')
+       label.htmlFor = "id";
+       label.appendChild(document.createTextNode("Tout le monde"));
+       
+       document.getElementById('id_check').appendChild(checkbox);
+       document.getElementById('id_check').appendChild(label);
+       document.getElementById('id_check').appendChild(document.createElement("br"));
 }
 
-/*****************************************************************************************/
+/*************************** Afficher les points d'un user ***************************************/
 
 
 function userPoints(){
 	$.ajax({
 		type : "GET",
-		url : "GetPointsPretUser",
+		url : "PointsUserList",
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse2,
@@ -215,7 +221,7 @@ function userPoints(){
 function traiteReponse2(json) 
 {
 
-	var json = JSON.parse(JSON.stringify(json));
+/*	var json = JSON.parse(JSON.stringify(json));
 
 	pointSelect = document.getElementById('point');
 	
@@ -234,6 +240,43 @@ function traiteReponse2(json)
 		 pointSelect.options[pointSelect.options.length] = new Option(json.points[i].nom);
 		}
 		
-	}
+	}*/
+	
+	var json = JSON.parse(JSON.stringify(json));
+	pointSelect = document.getElementById('point');
+
+	
+	for (var i=0; i< json.expts.length; i++)
+		{
+		   
+		   var checkbox = document.createElement('input');
+           checkbox.type = "checkbox";
+           checkbox.name = json.expts[i].name;
+           checkbox.value = "value";
+           checkbox.id = "id" + i;
+           
+           var label = document.createElement('label')
+           label.htmlFor = "id";
+           label.appendChild(document.createTextNode(json.expts[i].name));
+           
+           document.getElementById('id_check2').appendChild(checkbox);
+           document.getElementById('id_check2').appendChild(label);
+           document.getElementById('id_check2').appendChild(document.createElement("br"));
+
+		}
+	
+	  /* var checkbox = document.createElement('input');
+       checkbox.type = "checkbox";
+       checkbox.name = "Tout le monde";
+       checkbox.value = "value";
+       checkbox.id = "id" + i;
+       
+       var label = document.createElement('label')
+       label.htmlFor = "id";
+       label.appendChild(document.createTextNode("Tout le monde"));
+       
+       document.getElementById('id_check').appendChild(checkbox);
+       document.getElementById('id_check').appendChild(label);
+       document.getElementById('id_check').appendChild(document.createElement("br"));*/
 
 }

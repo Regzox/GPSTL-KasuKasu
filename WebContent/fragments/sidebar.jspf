@@ -73,11 +73,11 @@
 					  <div onclick="
 							if ( !(~$(location).attr('href').indexOf('<%= Url.AJOUTERLIEU.value() %>')))
 								$(location).attr('href', '<%= Url.AJOUTERLIEU.value() %>');
-						">Ajouter un lieu de prêt</div>
-					    <div onclick="
-							if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>')))
-								$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>');
-						">S'abonner à un lieu d'emprunt</div>
+						">Ajouter un lieu d'échange</div>
+<%-- 					    <div onclick=" --%>
+<%-- 							if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>'))) --%>
+<%-- 								$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>'); --%>
+<%-- 						">S'abonner à un lieu d'emprunt</div> --%>
 					  </div>
 			</div>
 			<br>
