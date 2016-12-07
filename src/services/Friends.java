@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import dao.FriendsDao;
+import utils.Tools;
 
 public class Friends {
 	public static void  addFriend(String id1,String id2) 
@@ -42,6 +43,9 @@ public class Friends {
 
 	public static void  addRequest(String idfrom,String idto)  
 	{
+		if(isPending(idfrom,idto))
+			return;/* Tools.serviceRefused
+					("Vous avez deja une demande en cours pour cet objet!", -1);*/
 		FriendsDao.addRequest(idfrom, idto);
 	}
 

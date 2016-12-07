@@ -50,9 +50,14 @@ function ProcessFindUser(rep)
 				//alert("z="+z+" "+MEM[z]);
 				if(!(MEM[z]!= undefined && MEM[z]!= null))
 					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
-					"id=\"add-"+GID+"-to_group-"+z+"\" " +
+					"id=\"add-"+z+"-to_group-"+GID+"\" " +
 					"onClick=\"addMember('"+GID+"','"+z+"')\">" +
 					"Ajouter au groupe</button>\n</td>";
+				else
+					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					"id=\"remove-"+z+"-to_group-"+GID+"\" " +
+					"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
+					"Retirer du groupe</button>\n</td>";
 				bodymessage+="</tr>";
 			}else{
 				message="Aucun utilisateur ne correspond a ce que vous recherchez.";
@@ -176,6 +181,19 @@ function addMember(gid,member){
 	$.ajax({
 		type : "POST",
 		url : "addmember",
+		data :  "gid="+gid+"&member="+member,
+		dataType : "JSON",
+		success : refresh,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+function removeMember(gid,member){
+	$.ajax({
+		type : "POST",
+		url : "removemember",
 		data :  "gid="+gid+"&member="+member,
 		dataType : "JSON",
 		success : refresh,
