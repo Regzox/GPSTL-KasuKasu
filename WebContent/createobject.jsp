@@ -78,10 +78,10 @@
 
 				<div id="found-points" class="abootsraper"></div>
 				<div class="form-point row">
-					<label for="point" class="col-xs-2 col-form-label">Points de prêts</label>
-					<div class="col-xs-10">
-						<select name="point" id="point" multiple>
-						</select>
+					<label for="point" class="col-xs-2 col-form-label">Points d'échange</label>
+					<div class="col-xs-10" id="id_check2">
+<!-- 						<select name="point" id="point" multiple> -->
+<!-- 						</select> -->
 					</div>
 				</div>
 				

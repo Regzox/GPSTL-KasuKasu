@@ -4,10 +4,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.ExchangePointsDB;
+import dao.GroupsDB;
+import exceptions.DatabaseException;
 import utils.Tools;
 
 /**
@@ -93,6 +96,47 @@ public class ExchangePoints {
 		ExchangePointsDB.addBulkUserItemsToExchangePoint(id, userID, items);
 		return Tools.serviceMessage(1);
 	}
+	
+	/**
+	 * Return the list of user's subscribe exchange points
+	 * @param userID
+	 * @return */
+	public static JSONObject userPoints(String userID) throws DatabaseException, JSONException{
+		JSONArray jar=new JSONArray();
+		DBCursor cursor = ExchangePointsDB.userPoints(userID);
+		cursor.sort(new BasicDBObject("date",-1)); 
+		while (cursor.hasNext()){
+			DBObject dbo=cursor.next();
+			jar.put(new JSONObject()
+					.put("id",dbo.get("_id"))
+					.put("lat",dbo.get("lat"))
+					.put("lon",dbo.get("lon"))
+					.put("radius",dbo.get("rad")));}
+		return new JSONObject().put("expts",jar);
+	}
+	
+	public static void main(String[] args) 
+	{
+
+		try {
+			System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
+			//System.out.println(userPoints("Coucou"));
+
+			
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+	}
+	
+
+	
+
 
 	/*public static JSONObject createPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius) 
 			throws SQLException, JSONException

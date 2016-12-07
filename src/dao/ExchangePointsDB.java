@@ -182,11 +182,23 @@ public class ExchangePointsDB {
 						)
 				);
 	}
+	
+	/**
+	 * Return the list of user's subscribe exchange points
+	 * @param userID
+	 * @return */
+	public static DBCursor userPoints(String userID) {  
+		return collection.find(
+				new BasicDBObject()
+				.append("subscribers.id_user",userID));}
 
 
 	public static void main(String[] args) {
 		collection.remove(new BasicDBObject());
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","fac");
+		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","maison");
+		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","upmc");
+		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg6","upmc2");
 		String excpt_id=accessibleExchangePoints("5jhjy62hghfj5874gtg5").next().get("_id").toString();
 		subscribeToExchangePoint(excpt_id, "new_user_id", "la prison");
 		subscribeToExchangePoint(excpt_id, "new_user_id2", "upmc");
@@ -194,6 +206,7 @@ public class ExchangePointsDB {
 		addBulkUserItemsToExchangePoint(excpt_id,"5jhjy62hghfj5874gtg5",
 				new String[]{"itemid1","itemid2","itemid3"});
 		System.out.println(accessibleExchangePoints("5jhjy62hghfj5874gtg5").next());
+	
 	}
 
 	/*public static void addPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius)

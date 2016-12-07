@@ -3,7 +3,7 @@ var result = new Array();
 function init() 
 {
 	userGroups();
-	//userPoints();
+	userPoints();
 
 }
 
@@ -200,13 +200,13 @@ function traiteReponse(json)
        document.getElementById('id_check').appendChild(document.createElement("br"));
 }
 
-/*************************** Afficher les points de prêt d'un user ***************************************/
+/*************************** Afficher les points d'un user ***************************************/
 
 
 function userPoints(){
 	$.ajax({
 		type : "GET",
-		url : "GetPointsPretUser",
+		url : "PointsUserList",
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse2,
@@ -221,7 +221,7 @@ function userPoints(){
 function traiteReponse2(json) 
 {
 
-	var json = JSON.parse(JSON.stringify(json));
+/*	var json = JSON.parse(JSON.stringify(json));
 
 	pointSelect = document.getElementById('point');
 	
@@ -240,6 +240,43 @@ function traiteReponse2(json)
 		 pointSelect.options[pointSelect.options.length] = new Option(json.points[i].nom);
 		}
 		
-	}
+	}*/
+	
+	var json = JSON.parse(JSON.stringify(json));
+	pointSelect = document.getElementById('point');
+
+	
+	for (var i=0; i< json.expts.length; i++)
+		{
+		   
+		   var checkbox = document.createElement('input');
+           checkbox.type = "checkbox";
+           checkbox.name = json.expts[i].name;
+           checkbox.value = "value";
+           checkbox.id = "id" + i;
+           
+           var label = document.createElement('label')
+           label.htmlFor = "id";
+           label.appendChild(document.createTextNode(json.expts[i].name));
+           
+           document.getElementById('id_check2').appendChild(checkbox);
+           document.getElementById('id_check2').appendChild(label);
+           document.getElementById('id_check2').appendChild(document.createElement("br"));
+
+		}
+	
+	  /* var checkbox = document.createElement('input');
+       checkbox.type = "checkbox";
+       checkbox.name = "Tout le monde";
+       checkbox.value = "value";
+       checkbox.id = "id" + i;
+       
+       var label = document.createElement('label')
+       label.htmlFor = "id";
+       label.appendChild(document.createTextNode("Tout le monde"));
+       
+       document.getElementById('id_check').appendChild(checkbox);
+       document.getElementById('id_check').appendChild(label);
+       document.getElementById('id_check').appendChild(document.createElement("br"));*/
 
 }
