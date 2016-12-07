@@ -7,14 +7,15 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/loaning.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/inflator/views/loaning.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 <title>Recherche d'objets</title>
 </head>
-<body>
+
+<body onload="searchMRItems('')">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 

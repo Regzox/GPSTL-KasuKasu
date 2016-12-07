@@ -16,10 +16,16 @@ public class UserItemsServlet extends OnlineGetServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
-		response.getWriter().print(Items.userItems(
-				params.get("query"),
-				(String) request.getSession().getAttribute("userId"))
-				);
+		if(request.getParameter("query")==null )
+			response.getWriter().print(Items.userItems(
+					"",
+					(String) request.getSession().getAttribute("userId"))
+					);
+		else
+			response.getWriter().print(Items.userItems(
+					params.get("query"),
+					(String) request.getSession().getAttribute("userId"))
+					);
 	}
 
 }

@@ -8,25 +8,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import services.Loaning;
-import servlets.tools.templates.online.OnlinePostServlet;
+import services.Items;
+
+import servlets.tools.templates.online.OnlineGetServlet;
 
 /**
- * @author ANAGBLA Joan */
-public class RefuseRequestsServlet extends OnlinePostServlet {
+ * * @author Anagbla Jean */
+public class GetItemServlet extends OnlineGetServlet {
 	private static final long serialVersionUID = 1L;
-
+		
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"applicant","item"}));}
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"id"}));}
 
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
-			throws Exception {		 
-		response.getWriter().print(Loaning.refuseRequests(
-				(String) request.getParameter("applicant"),
-				(String) request.getParameter("item"))
-				);
+			throws Exception {
+		response.getWriter().print(Items.getItem(request.getParameter("id")));		
 	}
+
 }

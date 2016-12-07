@@ -13,31 +13,20 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
-<title>Mes Objets</title>
+<title>Objet <%=request.getParameter("title")%></title>
 </head>
-<body onload="userItems('')">
+<body onload="getItem('<%=request.getParameter("id")%>')">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Gerez vos objets</p>
-
-			<form action="javascript:(function(){return;})()" method="get"
-				OnSubmit="javascript:filterUserItems(this)">
-				<div class="form-group row">
-					<div class="col-xs-10">
-						<input type="text" class="form-control" name="iquery" id="iquery">
-					</div>
-				</div>
-				<input type="submit" class="btn btn-primary btn-block"
-					value="Filtrer">
-			</form>
+			<p class='capital'>Objet <%=request.getParameter("title")%></p>
 
 			<br><hr><br>
 			
-			<h2>Liste de vos objets</h2>
 			<div id="found-items" class="abootsraper"></div>
+			
 		</div>
 	</div>
 </body>
