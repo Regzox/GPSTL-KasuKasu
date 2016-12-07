@@ -87,7 +87,6 @@ public class ItemsDB {
 	
 	
 	/**
-	 * ADMIN FUNCTION (internal use)
 	 * return an item (all fields)
 	 * @param id
 	 * @param title

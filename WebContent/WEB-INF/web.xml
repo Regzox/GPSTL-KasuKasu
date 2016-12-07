@@ -359,23 +359,33 @@
     <url-pattern>/updateexchangepoint</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description></description>
-  	<display-name>AddPointServlet</display-name>
-  	<servlet-name>AddPointServlet</servlet-name>
-  	<servlet-class>servlets.AddPointServlet</servlet-class>
+    <description></description>
+    <display-name>AddPointServlet</display-name>
+    <servlet-name>AddPointServlet</servlet-name>
+    <servlet-class>servlets.AddPointServlet</servlet-class>
   </servlet>
-    <servlet-mapping>
-  	<servlet-name>AddPointServlet</servlet-name>
-  	<url-pattern>/AddPoint</url-pattern>
-  </servlet-mapping>
-    <servlet>
-    	<description></description>
-    	<display-name>PointsUserList</display-name>
-    	<servlet-name>PointsUserList</servlet-name>
-    	<servlet-class>servlets.PointsUserList</servlet-class>
-    </servlet>
   <servlet-mapping>
-  	<servlet-name>PointsUserList</servlet-name>
-  	<url-pattern>/PointsUserList</url-pattern>
+    <servlet-name>AddPointServlet</servlet-name>
+    <url-pattern>/AddPoint</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PointsUserList</display-name>
+    <servlet-name>PointsUserList</servlet-name>
+    <servlet-class>servlets.PointsUserList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PointsUserList</servlet-name>
+    <url-pattern>/PointsUserList</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetItemServlet</display-name>
+    <servlet-name>GetItemServlet</servlet-name>
+    <servlet-class>servlets.GetItemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetItemServlet</servlet-name>
+    <url-pattern>/getitem</url-pattern>
   </servlet-mapping>
 </web-app>
