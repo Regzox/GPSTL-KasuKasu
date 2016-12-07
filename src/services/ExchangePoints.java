@@ -13,7 +13,7 @@ import utils.Tools;
 /**
  * @author ANAGBLA Joan, YAHI Lina */
 public class ExchangePoints {
-	
+
 	/**
 	 * Add a new exchange pint in db 
 	 * @param lat
@@ -25,12 +25,12 @@ public class ExchangePoints {
 	 * @throws JSONException */
 	public static JSONObject addExchangePoint(
 			double lat,double lon,int radius,String userID,String name) 
-			throws JSONException {			
+					throws JSONException {			
 		ExchangePointsDB.addExchangePoint(lat,lon,radius,userID,name);		
 		return Tools.serviceMessage(1);
 	}
 
-	
+
 	/**
 	 * Subscribe to an existing exchange point
 	 * @param id
@@ -43,8 +43,26 @@ public class ExchangePoints {
 		ExchangePointsDB.subscribeToExchangePoint(id, userID, name);		
 		return Tools.serviceMessage(1);
 	}
+
+
+	/**
+	 * Update exchange point's preferences for an specific user 
+	 * @param id
+	 * @param lat
+	 * @param lon
+	 * @param radius
+	 * @param name 
+	 * @throws JSONException */
+	public static JSONObject updateExchangePoint(
+			String id,String userID,int radius,String name) throws JSONException{ 
+		if(!ExchangePointsDB.isMember(id ,userID))
+			return Tools.serviceRefused
+					("Vous n'avez pas le droit de modifier ce point d'echange!", -1);
+		ExchangePointsDB.updateExchangePoint(id, userID, radius, name);
+		return Tools.serviceMessage(1);
+	}
 	
-	
+
 	/**TODO FINISH IT
 	 * Return user exchange points according to his userID
 	 * @param userID
@@ -63,8 +81,8 @@ public class ExchangePoints {
 					.put("radius",dbo.get("rad")));}
 		return new JSONObject().put("expts",jar);
 	}
-	
-	
+
+
 	/**
 	 * Add a list of user's items to an exchange point in db
 	 * @param id
@@ -75,7 +93,7 @@ public class ExchangePoints {
 		ExchangePointsDB.addBulkUserItemsToExchangePoint(id, userID, items);
 		return Tools.serviceMessage(1);
 	}
-	
+
 	/*public static JSONObject createPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius) 
 			throws SQLException, JSONException
 	{			

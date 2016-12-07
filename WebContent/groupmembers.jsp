@@ -7,8 +7,10 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/groupmembers.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/inflator/views/groupmembers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+
 <title>Groupe <%=request.getParameter("gname")%></title>
 </head>
 <body onload="groupMembers('<%=request.getParameter("gid")%>')">
@@ -16,12 +18,12 @@
 	<%@ include file="/fragments/sidebar.jspf"%>
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Gerez votre groupe <%=request.getParameter("gname")%>.</p>
+			<p class='capital'>Gerez le groupe <%=request.getParameter("gname")%>.</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this)">
 
-				<div class="form-group row">
+				<!--<div class="form-group row">
 					<label for="email" class="col-xs-4 col-form-label">Rechercher
 						par </label>
 					<div class="col-xs-4">
@@ -32,7 +34,7 @@
 							<OPTION value="numero">Numéro</OPTION>
 						</SELECT>
 					</div>
-				</div>
+				</div>-->
 
 				<div class="form-group row">
 

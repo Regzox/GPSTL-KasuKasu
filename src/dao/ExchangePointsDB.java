@@ -32,6 +32,7 @@ public class ExchangePointsDB {
 				new BasicDBObject()
 				.append("id_user", userID)
 				.append("name", name)
+				.append("radius",radius)
 				.append("date", new Date())
 				.append("useritems",new BasicDBList())
 				);
@@ -39,7 +40,6 @@ public class ExchangePointsDB {
 				new BasicDBObject()
 				.append("lat",lat)
 				.append("lon",lon)
-				.append("radius",radius)
 				.append("subscribers",bdbl)
 				);
 		/*String sql = "INSERT INTO POINT_PRET(id_user,nom,lat,lon,radius) VALUES ("
@@ -51,7 +51,7 @@ public class ExchangePointsDB {
 		c.close();*/
 	}
 
-	
+
 	/**
 	 * Add a list of user's items to an exchange point in db
 	 * @param id
@@ -74,8 +74,51 @@ public class ExchangePointsDB {
 						)
 				);
 	}	
+
+	
+	/**
+	 * Update exchange point's preferences for an specific user 
+	 * @param id
+	 * @param lat
+	 * @param lon
+	 * @param radius
+	 * @param name */
+	public static void updateExchangePoint(
+			String id,String userID,int radius,String name){ 
+		collection.update(
+				new BasicDBObject()
+				.append("_id",id)
+				.append("subscribers.id_user",userID),
+				new BasicDBObject()
+				.append("$set",
+						new BasicDBObject()
+						.append("subscribers.name",name)
+						.append("subscribers.radius",radius)
+						)
+				);
+		/*String sql = "INSERT INTO POINT_PRET(id_user,nom,lat,lon,radius) VALUES ("
+				+ "'"+id_user+"' , '"+nom+"' , '"+lat+"' , '"+lon+"' , '"+radius+ "' ) ;";
+		Connection c = KasuDB.SQLConnection();
+		Statement s = c.createStatement();
+		s.executeUpdate(sql);
+		s.close();
+		c.close();*/
+	}
 	
 	
+	/**
+	 * Check if an user is a subscriber to an exchange point
+	 * @param id
+	 * @param userID
+	 * @return */
+	public static Boolean isMember(String id , String userID){
+		return collection.find(
+				new BasicDBObject()
+				.append("_id",id)
+				.append("subscribers.id_user",userID)).hasNext();
+	}
+	
+
 	/**
 	 * Return all the accessible exchange points of an user 
 	 * (his subscribed points and visible friends points)
@@ -85,10 +128,10 @@ public class ExchangePointsDB {
 		BasicDBList exprs = new BasicDBList();
 		BasicDBList usergroupsmembership = new BasicDBList();
 		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-		
+
 		while(dbc.hasNext())
 			usergroupsmembership.add(dbc.next().get("_id").toString());
-		
+
 		exprs.add(new BasicDBObject()
 				.append("subscribers.id_user", userID));
 		exprs.add(
@@ -119,7 +162,7 @@ public class ExchangePointsDB {
 		return new JSONObject().put("points",myPointsPret);*/
 	}
 
-	
+
 	/**
 	 * Add a list of user's items to an exchange point in db
 	 * @param id

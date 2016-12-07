@@ -10,7 +10,8 @@
 	href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/groups.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/inflator/views/groups.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 

@@ -9,6 +9,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+
 import dao.users.UserDao;
 import dao.users.UsersImagesDao;
 import exceptions.StringNotFoundException;
@@ -102,103 +105,103 @@ public class User {
 	 * @return
 	 */
 	public static JSONObject getUsersJSONProfileWhere(String field, String value) {
-		
+
 		JSONObject usersJSON = new JSONObject();
-		
+
 		if (value == null) {
 			return new Error(field + " value is null");
 		}
-		
+
 		if (value.equals("")) {
 			return new Warning(field + " value is empty");
 		}
-		
+
 		List<entities.User> users = null;
-		
+
 		try {
 			users = UserDao.getUsersWhere(field, value);
 			int index = 0;
-			
+
 			for (entities.User user : users) {
 				JSONObject userJSON = new JSONObject();
-				
+
 				userJSON.put("id", user.getId());
 				userJSON.put("email", user.getEmail());
 				//userJSON.put("password", user.getPassword());
 				userJSON.put("name", user.getName());
 				userJSON.put("firstname", user.getFirstname());
 				userJSON.put("phone", user.getPhone());
-				
+
 				usersJSON.put("user" +(index++), userJSON);
 			}
-			
+
 		} catch (JSONException e) {
 			return new Error("JSON exception");
 		}
-		
+
 		if (users.isEmpty())
 			return new Warning("Not users found for '" + field + "' = '" + value + "'");
-		
+
 		return usersJSON;
 	}
-	
+
 	public static JSONObject getUsersJSONProfileFromIds(ArrayList<String> ids) throws UserNotFoundException, UserNotUniqueException{
-		
+
 		JSONObject usersJSON = new JSONObject();
 		JSONArray usersArray = new JSONArray();
 		if (ids == null)
 			return new Error("Ids value is null");
-	
+
 		List<entities.User> users = new ArrayList<entities.User>();
-		
+
 		try {
 			for(String i : ids)
-			users.add(UserDao.getUserById(i));
-	
+				users.add(UserDao.getUserById(i));
+
 			for (entities.User user : users) {
 				JSONObject userJSON = new JSONObject();
-				
+
 				userJSON.put("id", user.getId());
 				userJSON.put("email", user.getEmail());
 				//userJSON.put("password", user.getPassword());
 				userJSON.put("name", user.getName());
 				userJSON.put("firstname", user.getFirstname());
 				userJSON.put("phone", user.getPhone());
-				
+
 				usersArray.put(userJSON);
 			}
 			usersJSON.put("users", usersArray);
-			
+
 		} catch (JSONException e) {
 			return new Error("JSON exception");
 		}
-		
+
 		if (users.isEmpty())
 			return new Warning("No users found");
-		
+
 		return usersJSON;
 	}
-	
+
 	/**
 	 * Get user image path
 	 * @param user
 	 * @return
 	 */
-	
+
 	public static JSONObject getUserImage(entities.User user) {
 		JSONObject response = null;
-		
+
 		try {
 			String url = UsersImagesDao.getUserImage(user);
 			response = new Success(url);
 		} catch (Exception e) {
 			response = new Warning("No picture for this user");
-			
+
 		}
-		
+
 		return response;
 	}
-	
+
 	/**
 	 * Put new url for user image
 	 * 
@@ -206,60 +209,60 @@ public class User {
 	 * @param url
 	 * @return
 	 */
-	
+
 	public static JSONObject putUserImage(entities.User user, String url) {
 		JSONObject response = null;
-		
+
 
 		UsersImagesDao.updateUserImage(user, url);
 		response = new Success("Picture successfully updated");
 
-		
+
 		return response;
 	}
-	
+
 	/**
 	 * Remove user image
 	 * @param user
 	 * @return
 	 */
-	
+
 	public static JSONObject removeUserPIcture (entities.User user) {
 		JSONObject response = null;
-		
+
 		UsersImagesDao.removeUserImage(user);
 		response = new Success("Picture successfully removed");
-		
+
 		return response;
 	}
-	
+
 	public static JSONObject filterUserPassword(JSONObject userJSON) {
 		JSONObject userWithoutPassword = new JSONObject();
 		@SuppressWarnings("unchecked")
 		Iterator<String> users = (Iterator<String>)userJSON.keys();
-		
+
 		try {
-		
-		while (users.hasNext()) {
-			String user = users.next();
-			@SuppressWarnings("unchecked")
-			Iterator<String> profile = ((JSONObject) userJSON.get(user)).keys();
-			System.out.println(user);
-			while (profile.hasNext()) {
-				String key = profile.next();
-				System.out.println(key);
-				if (key.equals("password"))
-					continue;
-				userWithoutPassword.put(key, ((JSONObject) userJSON.get(user)).get(key));
+
+			while (users.hasNext()) {
+				String user = users.next();
+				@SuppressWarnings("unchecked")
+				Iterator<String> profile = ((JSONObject) userJSON.get(user)).keys();
+				System.out.println(user);
+				while (profile.hasNext()) {
+					String key = profile.next();
+					System.out.println(key);
+					if (key.equals("password"))
+						continue;
+					userWithoutPassword.put(key, ((JSONObject) userJSON.get(user)).get(key));
+				}
 			}
-		}
-		
+
 		} catch (JSONException e) {
 			return new Error("Filtering JSON password failure !");
 		}
 		return userWithoutPassword;
 	}
-	
+
 	/**
 	 * Recupere l'utilisateur correspondant a l'email passe en parametre
 	 * @param email
@@ -274,7 +277,7 @@ public class User {
 			return user;
 		return null;
 	}
-	
+
 	public static entities.User getUserById(String id) throws SQLException, Exception {
 		List<entities.User> users = UserDao.getUsersWhere("_id", id);
 		if (users.size() == 1)
@@ -288,5 +291,33 @@ public class User {
 		if(!UserDao.userExistsById(id))
 			throw new UserNotFoundException();
 		UserDao.confirmUser(id);
+	}
+
+	/**
+	 * Return a json object containing users found according to query 
+	 * @param userId
+	 * @param query
+	 * @return 
+	 * @throws JSONException */
+	public static JSONObject find(String userId, String query) throws JSONException {
+		JSONObject usersJSON = new JSONObject();		
+		int index = 0;
+		
+		DBCursor dbc =  UserDao.find(userId, query);
+		
+		while (dbc.hasNext()){
+			DBObject user = dbc.next();
+			usersJSON.put("user" +(index++),
+					new JSONObject()
+					.put("id", user.get("_id"))
+					.put("email", user.get("email"))
+					.put("name", user.get("nom"))
+					.put("firstname", user.get("prenom"))
+					.put("phone", user.get("numero")));		
+
+			if (index == 0)
+				return new Warning("No user found.");
+		}
+		return usersJSON;
 	}
 }

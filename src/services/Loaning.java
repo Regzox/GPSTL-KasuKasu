@@ -21,6 +21,9 @@ public class Loaning {
 	 * @param idApplicant
 	 * @param idItem */
 	public static JSONObject requestItem(String idApplicant,String idItem) throws JSONException{
+		if(LoaningDB.requestExists(idApplicant, idItem))
+			return Tools.serviceRefused
+					("Vous avez deja une demande en cours pour cet objet!", -1);
 		LoaningDB.requestItem(idApplicant, idItem);
 		return Tools.serviceMessage(1);
 	}

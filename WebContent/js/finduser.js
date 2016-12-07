@@ -1,38 +1,17 @@
 function finduser(form) 
 {
-	var search = form.search.value;
-	var val = form.value.value;
-
-	var ok = checkInput(search, val);
-	if (ok) 
-	{
-		printHTML("#notifier","");
-		findUserJS(search, val);
-	}
+	printHTML("#notifier","");
+	if (form.value.value.length==0)
+		return; 
+		findUserJS(form.value.value);	
 }
 
-
-
-function checkInput(search, val) 
-{
-	if(val.length==0)
-	{
-		func_message("Champ Vide");
-		return false;
-	}
-	else 
-	{
-		return true;
-	}
-}
-
-
-function findUserJS(searchv, valuev) 
+function findUserJS(valuev) 
 {
 	$.ajax({
-		type : "POST",
+		type : "GET",
 		url : "/KasuKasu/finduser",
-		data : {search : searchv, value : valuev},
+		data : {value : valuev},
 		dataType : "JSON",
 		success : ProcessFindUser,
 		error : function(xhr,status,errorthrown){
@@ -41,34 +20,35 @@ function findUserJS(searchv, valuev)
 	});
 }
 
+
 function ProcessFindUser(rep) 
 {
-		var message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-		"</tr>";
-		var endmessage ="</table>";
+	var message = "<table class=\"table\">" +
+	"<tr>" +
+	"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+	"</tr>";
+	var endmessage ="</table>";
 
-		var bodymessage ="";
-		var nb=0;
-		if(rep.users != undefined)
+	var bodymessage ="";
+	var nb=0;
+	if(rep.users != undefined)
 		$.each(rep.users, function(user, profile) {
 			var x,y,z;
 			if(user !='warning'){
-			$.each(profile, function(field, value) {
-				//console.log(field); console.log(value);
-				if(field=='name')
-					x=value;
-				if(field=='firstname')
-					y=value;
-				if(field=='id')
-					z=value;
-			});
-			//Skip if the user is yourself
-			if(z==rep.id)
-				return;
-			nb++;
-			bodymessage = bodymessage+
+				$.each(profile, function(field, value) {
+					//console.log(field); console.log(value);
+					if(field=='name')
+						x=value;
+					if(field=='firstname')
+						y=value;
+					if(field=='id')
+						z=value;
+				});
+				//Skip if the user is yourself
+				if(z==rep.id)
+					return;
+				nb++;
+				bodymessage = bodymessage+
 				"<tr>" +
 				"<td>"+x+"</td>" +
 				"<td>"+y+"</td>"+
@@ -81,11 +61,11 @@ function ProcessFindUser(rep)
 				endmessage="";
 			}
 		});
-		if(nb==0){
-			message="Aucun utilisateur ne correspond.";
-			bodymessage="";
-			endmessage="";
-		}
+	if(nb==0){
+		message="Aucun utilisateur ne correspond.";
+		bodymessage="";
+		endmessage="";
+	}
 	var div=(message+bodymessage+endmessage);
 	func_message(div);
 }

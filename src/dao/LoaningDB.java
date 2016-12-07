@@ -38,6 +38,21 @@ public class LoaningDB {
 		c.close();	*/
 	}
 
+	
+	/**
+	 * ADMIN FUNCTION
+	 * Check if a request is already sent for an item by the same applicant 
+	 * @param idApplicant
+	 * @param idItem */
+	public static boolean requestExists(String idApplicant,String idItem){
+		return requests.find(
+				new BasicDBObject()
+				.append("id_applicant", idApplicant)
+				.append("id_item", idItem)			
+				).hasNext();
+	}
+	
+	
 	/**
 	 * Accept an applicant's request for an item
 	 * @param idRequest */

@@ -14,7 +14,7 @@ function Item(id,owner,group,date,longitude,latitude,title,description){
 } 
 
 
-Item.revival=function(key,value){
+/*Item.revival=function(key,value){
 	//alert("revival begin");
 	if(key=="items"){ 
 		var r;
@@ -36,12 +36,12 @@ Item.revival=function(key,value){
 		//alert("revival -> value = "+value);
 		return (value);
 	}
-};
+};*/
 
 
 Item.traiteReponseJSON=function(json){	
 	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob =JSON.parse(JSON.stringify(json),Item.revival);
+	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
 	items = jsob.items;
 	//alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
@@ -88,7 +88,7 @@ Item.prototype.getHTML=function(){
 
 Item.traiteReponseJSON2=function(json){	
 	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob =JSON.parse(JSON.stringify(json),Item.revival);
+	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
 	items = jsob.items;
 	//alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
@@ -123,10 +123,14 @@ Item.prototype.getHTML2=function(){
 	 	s+="</div> ";
 	 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
 	 	s+="<div class=\"item-more\">";
-	 	s+=" <input style=\"float:left;margin-right:75%;\" type=\"image\" " +
+	 	s+=" <input style=\"float:left;margin-right:5%;\" type=\"image\" " +
 	 	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
 	 	" src=\"icons/Feedback_Filled_50.png\" class=\"iwantit_btn\" " +
 	 	"id=\"unwrap_applicants_btn"+this.id+"\" OnClick=\"javascript:item_applicants('"+this.id+"')\"/>\n";
+	 	s+=" <input style=\"float:left;margin-right:75%;\" type=\"image\" " +
+	 	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
+	 	" src=\"icons/Empty_Trash_Filled-50.png\" class=\"iwantit_btn\" " +
+	 	"id=\"unwrap_applicants_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
 	 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	 	s+="</div>";
 	 	s+="</div><hr><br>\n";
@@ -187,6 +191,29 @@ function item_applicants(id) {
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
 	});
+}
+
+
+function removeItem(id) {
+	reset_applicants_shared_div(id);
+
+	$.ajax({
+		type : "POST",
+		url : "removeitem",
+		data : "id=" +id,
+		dataType : "JSON",
+		success : refresh,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+function refresh(result){
+	if(result.error!=undefined)
+		fillNOTIFIER(result.error);
+	else
+	window.location.reload();
 }
 
 /**
