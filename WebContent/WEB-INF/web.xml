@@ -358,6 +358,18 @@
     <servlet-name>UpdateExchangePointServlet</servlet-name>
     <url-pattern>/updateexchangepoint</url-pattern>
   </servlet-mapping>
+
+  
+    <servlet>
+    <description></description>
+    <display-name>ApplicantLoaningServlet</display-name>
+    <servlet-name>ApplicantLoaningServlet</servlet-name>
+    <servlet-class>servlets.ApplicantLoaningServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApplicantLoaningServlet</servlet-name>
+    <url-pattern>/applicantloaning</url-pattern>
+</servlet-mapping>
   <servlet>
     <description></description>
     <display-name>AddPointServlet</display-name>

@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -107,9 +108,13 @@ public class ExchangePoints {
 		cursor.sort(new BasicDBObject("date",-1)); 
 		while (cursor.hasNext()){
 			DBObject dbo=cursor.next();
-			jar.put(new JSONObject()
+			BasicDBList bl = new BasicDBList();
+			bl = (BasicDBList) dbo.get("subscribers");
+			String name = (String) ((DBObject)bl.get(0)).get("name"); 
+			JSONArray put = jar.put(new JSONObject()
 					.put("id",dbo.get("_id"))
 					.put("lat",dbo.get("lat"))
+					.put("name", name)
 					.put("lon",dbo.get("lon"))
 					.put("radius",dbo.get("rad")));}
 		return new JSONObject().put("expts",jar);
