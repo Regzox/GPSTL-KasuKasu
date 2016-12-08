@@ -76,7 +76,7 @@ public class Groups {
 	 * @param gid
 	 * @param member*/
 	public static JSONObject addMember(String gid,String ownerID,String member) throws JSONException, DatabaseException {
-		System.out.println("gid : "+gid+" member : "+member+" owner :"+ownerID);//Debug
+		//System.out.println("Groups/addMember -> gid : "+gid+" member : "+member+" owner :"+ownerID);//Debug
 		if(!GroupsDB.checkAthorization(ownerID,gid))			
 			return new json.Error
 					("Vous n'avez pas le droit de modifier ce groupe!");

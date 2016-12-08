@@ -2,7 +2,9 @@ package dao.items;
 
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
@@ -15,12 +17,12 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
-import dao.GroupsDB;
+import dao.ExchangePointsDB;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan, Giuseppe FEDERICO, Cedric Ribeiro*/
+ * @author ANAGBLA Joan, Giuseppe FEDERICO*/
 public class ItemsDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("items");
@@ -101,8 +103,8 @@ public class ItemsDB {
 						new BasicDBObject()						
 						.append("status",status)));
 	}
-
-
+	
+	
 	/**
 	 * return an item (all fields)
 	 * @param id
@@ -115,8 +117,8 @@ public class ItemsDB {
 				.append("_id",new ObjectId(id)));
 	}	
 
-
-
+	
+	
 	/**
 	 * return item's status 
 	 * @param id
@@ -128,7 +130,7 @@ public class ItemsDB {
 				new BasicDBObject()
 				.append("_id",new ObjectId(id))).get("status");
 	}	
-
+	
 
 	/**
 	 * Find all items owned by the user
@@ -168,8 +170,12 @@ public class ItemsDB {
 	 * @return
 	 * @throws DatabaseException */
 	public static DBCursor utherItems(String userID) {  
-		return collection.find(utherItemCore(userID));
-	}	
+		return collection.find(
+				new BasicDBObject()
+				.append("status","available")
+				.append("owner",
+						new BasicDBObject()
+						.append("$ne",userID)));}	
 	/**
 	 * Find all items not owned by user
 	 * @param userID
@@ -186,78 +192,56 @@ public class ItemsDB {
 
 		//System.out.println("bdbl="+bdbl);//debug
 		return collection.find(
-				utherItemCore(userID)
+				new BasicDBObject()
 				.append("status","available")
 				.append("$or",bdbl)
 				.append("owner",
 						new BasicDBObject()
 						.append("$ne",userID)));}
 
-	
-	/**
-	 * ADMIN FUNCTION : sub common function of (utherItems methods)
-	 * @param userID
-	 * @return */
-	private static BasicDBObject utherItemCore(String userID){
-		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-		BasicDBList bdbl = new BasicDBList();
-		while(dbc.hasNext())
-			bdbl.add(dbc.next().get("_id").toString());
-		//System.out.println("ItemDB/utherItems::userGroupsMembership="+bdbl);//debug
-		
-		BasicDBList exprs = new BasicDBList();
-		exprs.add(
-				new BasicDBObject()
-				.append("groups", 
-						new BasicDBObject()
-						.append("$in",bdbl)));
-		exprs.add(
-				new BasicDBObject()
-				.append("groups",
-						new BasicDBObject()
-						.append("$size",0)));
-		
-		return new BasicDBObject()
-		.append("status","available")
-		//.append("$or", exprs)
-		.append("owner",
-				new BasicDBObject()
-				.append("$ne",userID));
-	}
-
-
-
-	/**
-	 * 
-	 * 				ITEMS GROUPS (& VISIBILITY ) MANAGEMENT
-	 * 
-	 * */
-
-
 	public static void addGroupToItem(String itemID, String groupID){
 		BasicDBObject updateQuery = new BasicDBObject();
-		updateQuery.put("_id", new ObjectId(itemID));
-		BasicDBObject updateCommand = new BasicDBObject();
-		updateCommand.put("$addToSet", new BasicDBObject("groups",groupID));
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$addToSet", new BasicDBObject("groups",groupID));
 		collection.update(updateQuery,updateCommand);
 	}
 
+	public static void addExPointToItem(String itemID,String exPointID){
+		BasicDBObject updateQuery = new BasicDBObject();
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$addToSet", new BasicDBObject("exchangepoints",exPointID));
+		collection.update(updateQuery,updateCommand);
+	}
 
 	public static void removeGroupFromItem(String itemID, String groupID){
 		BasicDBObject updateQuery = new BasicDBObject();
-		updateQuery.put("_id", new ObjectId(itemID));
-		BasicDBObject updateCommand = new BasicDBObject();
-		updateCommand.put("$pull", new BasicDBObject("groups",groupID));
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$pull", new BasicDBObject("groups",groupID));
 		collection.update(updateQuery,updateCommand);
 	}
 
+	public static void removeExPointFromItem(String itemID,String exPointID){
+		BasicDBObject updateQuery = new BasicDBObject();
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$pull", new BasicDBObject("exchangepoints",exPointID));
+		collection.update(updateQuery,updateCommand);
+	}
 
-	public static BasicDBList getGroupsFromItem(String itemID){
+	public static DBObject getGroupsFromItem(String itemID){
 		DBObject item = getItem(itemID);
 		BasicDBList groups = (BasicDBList) item.get("groups");
 		return groups;
 	}
 
+	public static DBObject getExchangePointsFromItem(String itemID){
+		DBObject item = getItem(itemID);
+		BasicDBList groups = (BasicDBList) item.get("exchangepoints");
+		return groups;
+	}
 
 	public static void main(String[] args) {
 		System.out.println("Results...\n%");

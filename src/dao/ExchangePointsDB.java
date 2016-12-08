@@ -9,11 +9,12 @@ import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan, YAHI Lina, Giuseppe FEDERICO */
+ * @author ANAGBLA Joan, YAHI Lina, Giuseppe FEDERICO, , Cedric Ribeiro */
 public class ExchangePointsDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("expts");
@@ -202,7 +203,36 @@ public class ExchangePointsDB {
 				new BasicDBObject()
 				.append("subscribers.id_user",userID));}
 
+	public static void addItemToExPoint(String itemID,String exPointID,String userID){
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id))
+				.append("subscribers.id_user", userID),
+				new BasicDBObject()
+				.append("$addToSet", 
+						new BasicDBObject()
+						.append("subscribers.useritems",bdbl) //TODO find how it work
+						)
+				);
+	}
 
+
+	public static void removeItemExPointFrom(String itemID,String exPointID){
+		BasicDBObject updateQuery = new BasicDBObject();
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$pull", new BasicDBObject("exchangepoints",exPointID));
+		collection.update(updateQuery,updateCommand);
+	}
+	
+	public static DBObject getItemExchangePoints(String itemID){
+		
+		BasicDBList groups = (BasicDBList) item.get("exchangepoints");
+		return groups;
+	}
+
+
+	
 	public static void main(String[] args) {
 		collection.remove(new BasicDBObject());
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","fac");

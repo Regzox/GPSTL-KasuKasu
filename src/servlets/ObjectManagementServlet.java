@@ -2,8 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +51,7 @@ public class ObjectManagementServlet extends HttpServlet{
 				JSONArray igrps=groups.getJSONArray("groups");
 				
 				/*Array avec seulement les ids */
-				JSONArray itemExPoints = Items.getExchangePointsFromItem(objectId,userId);
+				JSONArray itemExPoints = ExchangePoints.getItemExchangePoints(objectId,userId);
 				JSONArray itemgroups = Items.getGroupsFromItem(objectId,userId);
 				
 				/*Array Résultats*/
@@ -133,10 +131,10 @@ public class ObjectManagementServlet extends HttpServlet{
 				}
 				switch(action){
 				case "update" :
-					Items.addExPointToItem(objectId, targetId,userId);
+					ExchangePoints.addItemToExPoint(objectId, targetId,userId);
 					break;
 				case "delete" :
-					Items.removeExPointFromItem(objectId, targetId,userId);
+					ExchangePoints.removeItemFromExPoint(objectId, targetId,userId);
 					break;
 				default:
 				}

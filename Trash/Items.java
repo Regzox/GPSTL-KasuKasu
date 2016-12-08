@@ -19,7 +19,7 @@ import exceptions.DatabaseException;
 import utils.Tools;
 
 /**
- *@author ANAGBLA Joan, Cedric Ribeiro */
+ *@author ANAGBLA Joan */
 public class Items {
 	/**
 	 * Update an Item
@@ -158,19 +158,29 @@ public class Items {
 		ItemsDB.addGroupToItem(itemID, groupID);
 	}
 
-	
+	public static void addExPointToItem(String itemID,String exPointID,String userID){
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return ;
+		ItemsDB.addExPointToItem(itemID, exPointID);
+	}
+
 	public static void removeGroupFromItem(String itemID, String groupID,String userID){
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return ;
 		ItemsDB.removeGroupFromItem(itemID, groupID);
 	}
 
+	public static void removeExPointFromItem(String itemID,String exPointID,String userID){
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return ;
+		ItemsDB.removeExPointFromItem(itemID, exPointID);
+	}
 
 	public static JSONArray getGroupsFromItem(String itemID,String userID) throws JSONException{
 		/* => BasicDBList */
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return null;
-		BasicDBList o= ItemsDB.getGroupsFromItem(itemID);
+		BasicDBList o= (BasicDBList)ItemsDB.getGroupsFromItem(itemID);
 		JSONArray js;
 		if(o==null)
 			js=new JSONArray();
@@ -179,5 +189,16 @@ public class Items {
 		return js;
 	}
 
-
+	public static JSONArray getExchangePointsFromItem(String itemID,String userID) throws JSONException{
+		/* o => BasicDBList */
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return null;
+		BasicDBList o= (BasicDBList)ItemsDB.getExchangePointsFromItem(itemID);
+		JSONArray js;
+		if(o==null)
+			js=new JSONArray();
+		else
+			js=new JSONArray(o.toString());
+		return js;
+	}
 }

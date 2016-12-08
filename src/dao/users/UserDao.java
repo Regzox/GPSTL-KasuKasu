@@ -344,7 +344,7 @@ public class UserDao {
 	 * @param query
 	 * @return */
 	public static DBCursor find(String userId, String query) {
-		System.out.println("userId : "+ userId);
+		//System.out.println("UserDao/find -> userId : "+ userId);
 		BasicDBObject bdbo = 
 				new BasicDBObject()
 				.append("_id",
@@ -355,7 +355,7 @@ public class UserDao {
 		Pattern p2 = Pattern.compile("\\d+"); //is phone number
 		List<String> nouns = new ArrayList<>();
 
-		System.out.println( Arrays.asList(query.trim().split(" ")));
+		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(" ")));//debug
 
 		for(String word : Arrays.asList(query.trim().split(" ")))
 			if(p1.matcher(word).matches())
