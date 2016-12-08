@@ -12,7 +12,7 @@ function request_item(id){
 }
 
 function loaning_request_response(rep){	
-	alert(rep); //afficher modal
+	alert("afficher modal"); //afficher modal TODO
 	refresh(rep);
 }
 

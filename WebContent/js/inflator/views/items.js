@@ -224,11 +224,13 @@ function refresh(result){
 }
 
 /**
- * Solution temporaire a corriger
+ * Solution temporaire a corriger TODO
  */
 function reset_applicants_shared_div(id){
 	removeElt("#item-applicants");
-	printHTMLSup ("#itemBox"+id,"<div id=\"item-applicants\"><br></div>");
+	printHTMLSup ("#itemBox"+id,"<div id=\"item-applicants\">" +
+			"<div id=\"current_item\" style=\"display:none;\">"+id+"<div>" +
+			"<br></div>");
 }
 
 
@@ -284,9 +286,9 @@ function ProcessFindApplicants(rep) {
 					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
 					"<td>" +
 					"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
-					"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+this.id+"');\"/>\n"+
+					"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
 					"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
-					"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+this.id+"');\"/>\n";
+					"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
 				"</tr>";
 			} 
 		});

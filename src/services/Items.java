@@ -136,7 +136,9 @@ public class Items {
 			results.add(new ObjetRSV(doc,1));}
 
 		for(ObjetRSV orsv : results )
-			if(!LoaningDB.requestExists(userID,orsv.getDbo().get("_id").toString()))
+			if(LoaningDB.requestExists(userID,orsv.getDbo().get("_id").toString()))
+				continue;
+			else
 				jar.put(new JSONObject()
 						.put("id",orsv.getDbo().get("_id"))
 						.put("type","item")
