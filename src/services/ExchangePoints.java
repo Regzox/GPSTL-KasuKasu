@@ -121,7 +121,6 @@ public class ExchangePoints {
 		return new JSONObject().put("expts",jar);
 	}
 	
-	
 	public static void addItemToExPoint(String itemID,String exPointID,String userID){
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return ;
@@ -153,7 +152,52 @@ public class ExchangePoints {
 	
 	
 	
-	public static void main(String[] args) throws DatabaseException, JSONException 
+	
+	/**
+	 * Return the list of user friend's exchange points
+	 * @param userID
+	 * @return */
+	public static JSONObject friendsExchangePoints(String userID) throws DatabaseException, JSONException{
+		JSONArray jar=new JSONArray();
+		DBCursor cursor = ExchangePointsDB.friendsExchangePoints(userID);
+		cursor.sort(new BasicDBObject("date",-1)); 
+		while (cursor.hasNext()){
+			DBObject dbo=cursor.next();
+			BasicDBList bl = new BasicDBList();
+			bl = (BasicDBList) dbo.get("subscribers");
+			String name = (String) ((DBObject)bl.get(0)).get("name"); 
+			JSONArray put = jar.put(new JSONObject()
+					.put("id",dbo.get("_id"))
+					.put("lat",dbo.get("lat"))
+					.put("name", name)
+					.put("lon",dbo.get("lon"))
+					.put("radius",dbo.get("rad")));}
+		return new JSONObject().put("expts",jar);
+	}
+	
+	/**
+	 * Return the list of user friend's exchange points
+	 * @param userID
+	 * @return */
+	public static JSONObject pointUsersName(String lat, String lon) throws DatabaseException, JSONException{
+		JSONArray jar=new JSONArray();
+		DBCursor cursor = ExchangePointsDB.pointUsersName(lat,lon);
+		cursor.sort(new BasicDBObject("date",-1)); 
+		while (cursor.hasNext()){
+			DBObject dbo=cursor.next();
+			BasicDBList bl = new BasicDBList();
+			bl = (BasicDBList) dbo.get("subscribers");
+			String name = (String) ((DBObject)bl.get(0)).get("id_user"); 
+			JSONArray put = jar.put(new JSONObject()
+					.put("id",dbo.get("_id"))
+					.put("lat",dbo.get("lat"))
+					.put("id_user", name)
+					.put("lon",dbo.get("lon"))
+					.put("radius",dbo.get("rad")));}
+		return new JSONObject().put("expts",jar);
+	}
+	
+	public static void main(String[] args) 
 	{
 			System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
 			//System.out.println(userPoints("Coucou"));

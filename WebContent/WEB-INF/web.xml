@@ -396,8 +396,28 @@
     <servlet-name>GetItemServlet</servlet-name>
     <servlet-class>servlets.GetItemServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
+    <servlet-mapping>
     <servlet-name>GetItemServlet</servlet-name>
     <url-pattern>/getitem</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<description></description>
+  	<display-name>PointsUserFriendList</display-name>
+  	<servlet-name>PointsUserFriendList</servlet-name>
+  	<servlet-class>servlets.PointsUserFriendList</servlet-class>
+  </servlet>
+    <servlet-mapping>
+  	<servlet-name>PointsUserFriendList</servlet-name>
+  	<url-pattern>/PointsUserFriendList</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<description></description>
+  	<display-name>PointUsersName</display-name>
+  	<servlet-name>PointUsersName</servlet-name>
+  	<servlet-class>servlets.PointUsersName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>PointUsersName</servlet-name>
+  	<url-pattern>/PointUsersName</url-pattern>
   </servlet-mapping>
 </web-app>

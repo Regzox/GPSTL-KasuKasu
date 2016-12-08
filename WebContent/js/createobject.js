@@ -21,7 +21,7 @@ function getSelectedGroups()
         {
         	if (tops[i].checked)
         		{
-        		   result.push(tops[i].name);
+        		   result.push(tops[i].value);
         		}
  
         }
@@ -40,7 +40,7 @@ function getSelectedPoints()
         {
         	if (tops[i].checked)
         		{
-        		   result2.push(tops[i].name);
+        		   result2.push(tops[i].value);
         		}
  
         }
@@ -215,7 +215,7 @@ function traiteReponse(json)
 		   var checkbox = document.createElement('input');
            checkbox.type = "checkbox";
            checkbox.name = json.groups[i].name;
-           checkbox.value = "value";
+           checkbox.value = json.groups[i].id;
            checkbox.id = "id" + i;
            
            var label = document.createElement('label')
@@ -231,7 +231,7 @@ function traiteReponse(json)
 	   var checkbox = document.createElement('input');
        checkbox.type = "checkbox";
        checkbox.name = "Tout le monde";
-       checkbox.value = "value";
+       checkbox.value = "Tout le monde";
        checkbox.id = "id" + i;
        
        var label = document.createElement('label')
@@ -264,26 +264,6 @@ function userPoints(){
 function traiteReponse2(json) 
 {
 
-/*	var json = JSON.parse(JSON.stringify(json));
-
-	pointSelect = document.getElementById('point');
-	
-	if (json.points.length==0)  { 
-		                            $('#ajout').show();
-		                            $("#ajout").click(function(){
-		                 	           window.location.href = "/KasuKasu/addpointpret.jsp";
-		                 	          return false;
-		                            }); 
-	                            }
-
-	else 
-	{
-		for (var i=0; i< json.points.length; i++)
-		{
-		 pointSelect.options[pointSelect.options.length] = new Option(json.points[i].nom);
-		}
-		
-	}*/
 	
 	var json = JSON.parse(JSON.stringify(json));
 	pointSelect = document.getElementById('point');
@@ -307,7 +287,7 @@ function traiteReponse2(json)
 		   var checkbox = document.createElement('input');
            checkbox.type = "checkbox";
            checkbox.name = json.expts[i].name;
-           checkbox.value = "value";
+           checkbox.value = json.expts[i].id;
            checkbox.id = "id" + i;
            
            var label = document.createElement('label')
