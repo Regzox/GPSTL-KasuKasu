@@ -124,7 +124,7 @@ public class ExchangePoints {
 	public static void addItemToExPoint(String itemID,String exPointID,String userID){
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return ;
-		ExchangePointsDB.addItemToExPoint(itemID, exPointID);
+		//ExchangePointsDB.addItemToExPoint(itemID, exPointID);
 	}
 	
 	
@@ -139,12 +139,12 @@ public class ExchangePoints {
 		/* o => BasicDBList */
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return null;
-		BasicDBList o= (BasicDBList)ExchangePointsDB.getItemExchangePoints(itemID);
+		//BasicDBList o= (BasicDBList)ExchangePointsDB.getItemExchangePoints(itemID);
 		JSONArray js;
-		if(o==null)
+		//if(o==null)
 			js=new JSONArray();
-		else
-			js=new JSONArray(o.toString());
+		//else
+			//js=new JSONArray(o.toString());
 		return js;
 	}
 	
@@ -197,7 +197,7 @@ public class ExchangePoints {
 		return new JSONObject().put("expts",jar);
 	}
 	
-	public static void main(String[] args) 
+	public static void main(String[] args) throws DatabaseException, JSONException 
 	{
 			System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
 			//System.out.println(userPoints("Coucou"));

@@ -9,12 +9,11 @@ import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan, YAHI Lina, Giuseppe FEDERICO, , Cedric Ribeiro */
+ * @author ANAGBLA Joan, YAHI Lina, Giuseppe FEDERICO, Cedric Ribeiro */
 public class ExchangePointsDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("expts");
@@ -237,7 +236,7 @@ public class ExchangePointsDB {
 				.append("lon", lon));	
 	}
 
-	public static void addItemToExPoint(String itemID,String exPointID,String userID){
+	/*public static void addItemToExPoint(String itemID,String exPointID,String userID){
 		collection.update(
 				new BasicDBObject()
 				.append("_id",new ObjectId(id))
@@ -248,7 +247,7 @@ public class ExchangePointsDB {
 						.append("subscribers.useritems",bdbl) //TODO find how it work
 						)
 				);
-	}
+	}*/
 
 
 	public static void removeItemExPointFrom(String itemID,String exPointID){
@@ -259,11 +258,10 @@ public class ExchangePointsDB {
 		collection.update(updateQuery,updateCommand);
 	}
 	
-	public static DBObject getItemExchangePoints(String itemID){
-		
+	/*public static DBObject getItemExchangePoints(String itemID){
 		BasicDBList groups = (BasicDBList) item.get("exchangepoints");
 		return groups;
-	}
+	}*/
 
 
 	
