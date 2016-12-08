@@ -287,8 +287,20 @@ function traiteReponse2(json)
 	
 	var json = JSON.parse(JSON.stringify(json));
 	pointSelect = document.getElementById('point');
-
 	
+	if (json.expts.length==0)  
+	{ 
+        $('#ajout').show();
+        $("#ajout").click(function(){
+	           window.location.href = "/KasuKasu/addpoint.jsp";
+	          return false;
+        }); 
+    }
+
+
+	else 
+		{
+		
 	for (var i=0; i< json.expts.length; i++)
 		{
 		   
@@ -307,19 +319,8 @@ function traiteReponse2(json)
            document.getElementById('id_check2').appendChild(document.createElement("br"));
 
 		}
+		}
+
 	
-	  /* var checkbox = document.createElement('input');
-       checkbox.type = "checkbox";
-       checkbox.name = "Tout le monde";
-       checkbox.value = "value";
-       checkbox.id = "id" + i;
-       
-       var label = document.createElement('label')
-       label.htmlFor = "id";
-       label.appendChild(document.createTextNode("Tout le monde"));
-       
-       document.getElementById('id_check').appendChild(checkbox);
-       document.getElementById('id_check').appendChild(label);
-       document.getElementById('id_check').appendChild(document.createElement("br"));*/
 
 }
