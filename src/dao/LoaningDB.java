@@ -32,7 +32,7 @@ public class LoaningDB {
 				.append("debut", "") //TODO
 				.append("fin", "")//TODO
 				);
-
+		
 		/*String sqlQuery = "INSERT INTO "+table_name +" values ('"+idSend+"','"+idObject+"',null,null,NOW());";
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
