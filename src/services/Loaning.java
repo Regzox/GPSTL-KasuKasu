@@ -11,6 +11,7 @@ import dao.LoaningDB;
 import exceptions.DatabaseException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
+import utils.SendEmail;
 import utils.Tools;
 
 /**
@@ -21,11 +22,14 @@ public class Loaning {
 	 * Add an applicant's request for an item 
 	 * @param idApplicant
 	 * @param idItem */
+	
+	
 	public static JSONObject requestItem(String idApplicant,String idItem) throws JSONException{
+		
 		if(LoaningDB.requestExists(idApplicant, idItem))
 			return Tools.serviceRefused
 					("Vous avez deja une demande en cours pour cet objet!", -1);
-		LoaningDB.requestItem(idApplicant, idItem);
+		LoaningDB.requestItem(idApplicant, idItem);	
 		return Tools.serviceMessage(1);
 	}
 	

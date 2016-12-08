@@ -50,6 +50,7 @@ public class UserDao {
 	}
 
 
+
 	/**TODO TO TEST
 	 * Check if user exists in database by his id
 	 * @param id
