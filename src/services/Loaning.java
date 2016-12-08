@@ -13,7 +13,7 @@ import exceptions.UserNotUniqueException;
 import utils.Tools;
 
 /**
- * @author Anagbla Joan */
+ * @author Anagbla Joan, Ouiza Bouyahiaoui*/
 public class Loaning {
 
 	/**
@@ -84,7 +84,26 @@ public class Loaning {
 			applicantIDs.add((String)dbc.next().get("id_applicant"));
 		return User.getUsersJSONProfileFromIds(applicantIDs);
 	}
-	
-	
+	/**
+	 * Return a json object containing an applicant's loan which has been validated
+	 * @param idApplicant
+	 * @return
+	 * @throws JSONException
+	 */
+	public static JSONObject applicantLoanings(String idApplicant)throws JSONException {
+		JSONArray jar = new JSONArray();
+		DBCursor dbc = LoaningDB.applicantLoanings(idApplicant);
+		while(dbc.hasNext())
+			jar.put(
+					new JSONObject()
+					.put("loan_id", dbc.next().get("_id"))
+					.put("applicant", dbc.next().get("id_applicant"))
+					.put("item",  dbc.next().get("id_item"))
+					.put("when",dbc.next().get("when"))
+					.put("debut", dbc.next().get("debut")) //TODO
+					.put("fin", dbc.next().get("fin"))//TODO
+					);
+		return new JSONObject().put("loans",jar);
+	}
 	
 }

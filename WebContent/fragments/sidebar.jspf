@@ -4,12 +4,12 @@
 	<div class="sidebar-nav">
 		<div class="sidebar-logo">
 			<img src="/KasuKasu/images/KasuKasu.png" class="sidebar-image" draggable="false"
-			alt="KasuKasu portal" title="KasuKasu portal">
-<%-- 			onclick=" --%>
+			alt="KasuKasu portal" title="KasuKasu portal"
+			onclick="
 <!-- 				// Pour empêcher de reload la page du profil utilisateur si on y est déjà -->
-<%-- 				if ( !(~$(location).attr('href').indexOf('<%= Url.PORTAL.value() %>'))) --%>
-<%-- 					$(location).attr('href', '<%= Url.PORTAL.value() %>'); --%>
-<%-- 			"> --%>
+				if ( !(~$(location).attr('href').indexOf('<%= Url.SEARCHITEMS.value() %>')))
+					$(location).attr('href', '<%= Url.SEARCHITEMS.value() %>');
+			">
 </img>
 		</div>
 		<div class="navigable">
@@ -87,7 +87,10 @@
 							if ( !(~$(location).attr('href').indexOf('<%= Url.RECHERCHEROBJECT.value() %>')))
 								$(location).attr('href', '<%= Url.RECHERCHEROBJECT.value() %>');
 						">Rechercher un objet</div>
-					    <div>Ma liste d'objets empruntés</div>
+					    <div  onclick="
+							if ( !(~$(location).attr('href').indexOf('<%= Url.LISTLOANS.value() %>')))
+								$(location).attr('href', '<%= Url.LISTLOANS.value() %>');
+						">Ma liste d'objets empruntés</div>
 					  </div>
 			</div>
 
