@@ -9,6 +9,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.items.ItemsDB;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
@@ -32,7 +33,7 @@ public class LoaningDB {
 				.append("debut", "") //TODO
 				.append("fin", "")//TODO
 				);
-
+		
 		/*String sqlQuery = "INSERT INTO "+table_name +" values ('"+idSend+"','"+idObject+"',null,null,NOW());";
 		Connection c = KasuDB.SQLConnection();
 		Statement s = c.createStatement();
@@ -61,14 +62,15 @@ public class LoaningDB {
 	 * @param idRequest 
 	 * @throws DatabaseException */
 	public static void acceptRequests(String idApplicant, String idItem) throws DatabaseException{
-		System.out.println("idApplicant : " + idApplicant+" idItem : "+idItem);
+		//System.out.println("idApplicant : " + idApplicant+" idItem : "+idItem);//debug
 		DBCursor dbc = requests.find(
 				new BasicDBObject()
-				.append("id_item", new ObjectId(idItem))
-				.append("id_applicant", new ObjectId(idApplicant))
+				.append("id_item", idItem)
+				.append("id_applicant", idApplicant)
 				);
 		if(dbc.count()!=1)
-			throw new DatabaseException("LoaningDB : Database is inconsistent between : loaning <-> lrqst");
+			throw new DatabaseException
+			("LoaningDB : Database is inconsistent between : loaning <-> lrqst");
 		DBObject dbo= dbc.next();
 		collection.insert(
 				new BasicDBObject()
@@ -80,8 +82,9 @@ public class LoaningDB {
 				);
 		requests.remove(
 				new BasicDBObject()
-				.append("_id", new ObjectId((String)dbo.get("_id")))
+				.append("_id", new ObjectId(dbo.get("_id").toString()))
 				);
+		ItemsDB.setItemStatus(idItem,"borrowed");
 	}
 
 

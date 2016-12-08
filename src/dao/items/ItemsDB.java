@@ -90,6 +90,22 @@ public class ItemsDB {
 
 
 	/**
+	 * Set an item'status 
+	 * @param id
+	 * @param title
+	 * @param description */
+	public static void setItemStatus(String id,String status) {
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id))
+				,new BasicDBObject()
+				.append("$set",
+						new BasicDBObject()						
+						.append("status",status)));
+	}
+	
+	
+	/**
 	 * return an item (all fields)
 	 * @param id
 	 * @param title
@@ -101,7 +117,20 @@ public class ItemsDB {
 				.append("_id",new ObjectId(id)));
 	}	
 
-
+	
+	
+	/**
+	 * return item's status 
+	 * @param id
+	 * @param title
+	 * @param description 
+	 * @return */
+	public static String itemStatus(String id) {
+		return (String)collection.findOne(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id))).get("status");
+	}	
+	
 
 	/**
 	 * Find all items owned by the user
@@ -143,6 +172,7 @@ public class ItemsDB {
 	public static DBCursor utherItems(String userID) {  
 		return collection.find(
 				new BasicDBObject()
+				.append("status","available")
 				.append("owner",
 						new BasicDBObject()
 						.append("$ne",userID)));}	
@@ -163,6 +193,7 @@ public class ItemsDB {
 		//System.out.println("bdbl="+bdbl);//debug
 		return collection.find(
 				new BasicDBObject()
+				.append("status","available")
 				.append("$or",bdbl)
 				.append("owner",
 						new BasicDBObject()

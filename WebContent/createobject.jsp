@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Ajout d'un prêt</title>
+<title>Ajout d'un Objet</title>
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet"href="/KasuKasu/css/bootstrap.min.css">

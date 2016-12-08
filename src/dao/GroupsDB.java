@@ -141,7 +141,7 @@ public class GroupsDB{
 	}
 
 	/**
-	 * ADMIN FUNCTION
+	 * ADMIN FUNCTION : Return the list of groups whose user is member
 	 * @param userID
 	 * @return
 	 * @throws DatabaseException */

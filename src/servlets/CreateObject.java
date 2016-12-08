@@ -38,8 +38,7 @@ public class CreateObject extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter out = response.getWriter(); 
-		response.setContentType("application/json;charset=UTF-8");
-
+		response.setContentType("application/json;charset=UTF-8");		
 		try {
 			
 			// Récuperation de l'ID de session
@@ -60,21 +59,20 @@ public class CreateObject extends HttpServlet {
 			if( ParametersChecker.testMultipleNonEmpty(		map, 
 					"nom",
 					"description",
-					"groupe",
-       				"coordonnees"
+					"groupe"
 					)){
 				logger.warning("A request parameter is missing."); 
 				out.write( new JSONObject().put("error", "A request parameter is missing.").toString() ); return;
 				
 			}
-			
+			System.out.println(request.getParameter("groupe"));
 			// Création objet JSON qui va être sauvegardé dans la BD.
 			JSONObject object = new JSONObject();          
 			object.put( "owner"        ,  userId						         );
+			object.put( "status"        ,  "available");
 			object.put( "title"        ,  request.getParameter("nom")            );
 			object.put( "description"  ,  request.getParameter("description")    );
-			object.put( "groupe"       ,  request.getParameter("groupe")         );
-			object.put( "coordonnees"  ,  request.getParameter("coordonnees")    );
+			object.put( "groups"       ,  request.getParameter("groupe")         );
 
 			// Sauvegarde l'objet dans la BD
 			ItemsDB.addItem(object);
