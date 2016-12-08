@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -150,4 +151,54 @@ public class Items {
 						.put("date",orsv.getDbo().get("date"))
 						.put("description", orsv.getDbo().get("description")));
 		return new JSONObject().put("items",jar);}
+
+	public static void addGroupToItem(String itemID, String groupID,String userID){
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return ;
+		ItemsDB.addGroupToItem(itemID, groupID);
+	}
+
+	public static void addExPointToItem(String itemID,String exPointID,String userID){
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return ;
+		ItemsDB.addExPointToItem(itemID, exPointID);
+	}
+
+	public static void removeGroupFromItem(String itemID, String groupID,String userID){
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return ;
+		ItemsDB.removeGroupFromItem(itemID, groupID);
+	}
+
+	public static void removeExPointFromItem(String itemID,String exPointID,String userID){
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return ;
+		ItemsDB.removeExPointFromItem(itemID, exPointID);
+	}
+
+	public static JSONArray getGroupsFromItem(String itemID,String userID) throws JSONException{
+		/* => BasicDBList */
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return null;
+		BasicDBList o= (BasicDBList)ItemsDB.getGroupsFromItem(itemID);
+		JSONArray js;
+		if(o==null)
+			js=new JSONArray();
+		else
+			js=new JSONArray(o.toString());
+		return js;
+	}
+
+	public static JSONArray getExchangePointsFromItem(String itemID,String userID) throws JSONException{
+		/* o => BasicDBList */
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return null;
+		BasicDBList o= (BasicDBList)ItemsDB.getExchangePointsFromItem(itemID);
+		JSONArray js;
+		if(o==null)
+			js=new JSONArray();
+		else
+			js=new JSONArray(o.toString());
+		return js;
+	}
 }
