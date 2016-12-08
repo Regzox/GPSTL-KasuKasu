@@ -14,7 +14,7 @@ function init()
 	map.setCenter(lonLat, zoom);	
 	
 	userPoints();
-	usersName(48.85314,2.34838);
+	//usersName(48.85314,2.34838);
 
 }
 

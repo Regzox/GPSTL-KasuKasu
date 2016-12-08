@@ -133,7 +133,11 @@ public class ExchangePoints {
 			DBObject dbo=cursor.next();
 			BasicDBList bl = new BasicDBList();
 			bl = (BasicDBList) dbo.get("subscribers");
-			String name = (String) ((DBObject)bl.get(0)).get("name"); 
+			String name = (String) ((DBObject)bl.get(0)).get("id_user"); 
+			for (int i=0;i< bl.size(); i++)
+			{
+				//String name = name+((DBObject) bl.get(0))).get("id_user");
+			}
 			JSONArray put = jar.put(new JSONObject()
 					.put("id",dbo.get("_id"))
 					.put("lat",dbo.get("lat"))
