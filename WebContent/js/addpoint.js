@@ -35,8 +35,8 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		div = document.getElementById('formulaire');
 		
 		nombre_h = document.getElementById('nombre');
-
 		
+
 		var lon = document.createElement("input");
 		lon.type = "text";
 		lon.value = lonlat1.lon.toFixed(5);
@@ -76,7 +76,7 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		var radius = document.createElement("input");
 		radius.type = "text";
 		radius.setAttribute("size", 40);
-		radius.setAttribute("placeholder", "Périmètre en mètres. Exemple : 250"); 	
+		radius.setAttribute("placeholder", "Portée en mètres. Exemple : 250"); 	
 		radius.id=i;
 		div.appendChild(radius);
 		
@@ -135,7 +135,7 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 var map;
 function init() {
 	printHTML("#error_point","");
-	document.getElementById('nombre').innerHTML="0";
+	//document.getElementById('nombre').innerHTML="0";
 
 	map = new OpenLayers.Map("mapdiv");
 	map.addLayer(new OpenLayers.Layer.OSM());
@@ -162,20 +162,17 @@ function createobject()
 printHTML("#error_point","");
 var nombre=document.getElementById('nombre').value;
 
-//console.log("coucou"+nombre);
-
-	
 	var result2 = {};
 	var points = [];
 	result2.points=points;
 	var inc=0;
 
-for (i=0; i<=nombre; i=i+11)
+	//console.log("nombre="+nombre);
+	
+
+for (i=0; i<nombre; i=i+11)
 {
 	var bool = true;
-	var inc=0;
-
-
 
 	if (document.getElementById(i+4)!=null)	
 	{
@@ -186,26 +183,49 @@ for (i=0; i<=nombre; i=i+11)
 	{
 	  document.getElementById(i+7).innerHTML="";
 	}
+	
 
-if (document.getElementById(i+3)==null||document.getElementById(i+3).value.length==0)
+if (document.getElementById(i+3)!=null&&document.getElementById(i+3).value.length==0)
 	{
 		if (document.getElementById(i+4)!=null)	
 		{
 		  document.getElementById(i+4).innerHTML="<span style='color:red;font-size:80%'>Nom obligatoire</span>";
 		  document.getElementById(i+4).scrollIntoView();
 		}
+		
 		bool = false;
-
 	}
 
-if (document.getElementById(i+6)==null||document.getElementById(i+6).value.length==0)
+if (document.getElementById(i+6)!=null&&document.getElementById(i+6).value.length==0)
 {
 	if (document.getElementById(i+7)!=null)	
 	{
 	  document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>Portée obligatoire</span>";
 	  document.getElementById(i+7).scrollIntoView();
 	}
-	bool = false;
+
+	bool = false;		
+
+	
+
+}
+
+if (document.getElementById(i+6)!=null&&document.getElementById(i+6).value.length!=0)
+{
+	var reg= /^[0-9]*$/;	
+    var string = document.getElementById(i+6).value;
+	if (!reg.test(string))	
+	{ 
+		if (document.getElementById(i+7)!=null)	
+		{
+		  document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>Portée doit être un nombre positif</span>";
+		  document.getElementById(i+7).scrollIntoView();
+		}
+	  bool = false;
+
+	}
+
+
 
 }
 
@@ -222,20 +242,20 @@ if (bool==true)
 		}
 	
 		 result2.points.push(point);
-		console.log("result2:"+result2);
+		 //console.log("result2:"+result2);
 	
 	}
 else inc=inc+1;
 
+
 		      
 
-           
-}
+}           
+
 	
     if (inc==0)
     {
-    	console.log("coucou");
-    	
+  	
     	if (result2.points.length!=0) 
     	{
 
@@ -273,8 +293,8 @@ function send(result2)
 {
 	 
 	 var json2 = JSON.stringify(result2);
-	 console.log(json2);
-
+	 //console.log(json2);	
+	//console.log("Ok");
 
 	$.ajax({
 	type : "POST",
