@@ -1,8 +1,10 @@
 package servlets;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,40 +13,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ExchangePoints;
+import servlets.tools.templates.online.OnlinePostServlet;
 import utils.Tools;
 
-/**
- * Servlet implementation class AddPoint
- */
-public class AddPointServlet extends HttpServlet {
+
+public class AddPointServlet extends OnlinePostServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddPointServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request, response);
-		}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		super.epn= new HashSet<String>(Arrays.asList(
+				new String[]{"points"}));}
+
+	@Override
+	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
+			throws Exception {
 		JSONObject points;
 		try {
 			points = new JSONObject(request.getParameter("points"));
 			JSONArray jObj = points.getJSONArray("points");
-			//boolean bool = true;
 			for(int i = 0; i < jObj.length(); i++)
 			{
 			     JSONObject point = jObj.getJSONObject(i);
