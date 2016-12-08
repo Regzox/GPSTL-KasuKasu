@@ -18,6 +18,49 @@
 <body onload="javascript:init()">
 
 	<div id="mapdiv" style="width: 400px; height: 400px"></div>
+	
+						<!-- Modal -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="myModalLabel">Importer le lieu</h4>
+								</div>
+								<div class="modal-body">
+<!-- 									<p>Please type your current information to apply your -->
+<!-- 										changes</p> -->
+									<p>Veuillez renseigner vos nouvelles informations</p> 
+									 <div class="form-group row">
+										<label for="old_email_input" class="col-xs-3 col-form-label">Nom
+											*</label>
+										<div class="col-xs-8">
+											<input class="form-control"  value=""
+												id="nom_input" name="nom_input"
+												placeholder="Nom (obligatoire)" required>
+										</div>
+									</div> 
+									<div class="form-group row">
+										<label for="old_password_input"
+											class="col-xs-3 col-form-label">Portée *</label>
+										<div class="col-xs-8">
+											<input class="form-control"  value=""
+												id="radius_input" name="radius_input"
+												placeholder="Portée (obligatoire)" required>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<input class="fit-width button" type="submit" id="save"
+										value="Ajouter" />
+								</div>
+							</div>
+						</div>
+					</div>
 
 
 </body>

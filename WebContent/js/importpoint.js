@@ -15,14 +15,46 @@ function init()
 	
 	userPoints();
 	//usersName(48.85314,2.34838);
+	
+
 
 }
 
 
 function abonnement()
 {
-	alert ("coucou");
+    $("#myModal").modal({                    
+	      "backdrop"  : "static",
+	      "keyboard"  : true,
+	      "show"      : true                     
+	    });
+    
+	$('#save').on(
+			'click',
+			function(evt)
+			{
+			    nom = $("#myModal").find("#nom_input").val();
+			    radius = $("#myModal").find("#nom_input").val();
+			    addPoint(nom,radius);  
+			}
+			);
 }
+
+function addPoint(nom,radius)
+{
+	$.ajax({
+		type : "POST",
+		url : "addexchangepoint",
+		data : "nom=" + nom + "&radius=" + radius + "&lat=" + lat + "&lon=" + lon, 
+		dataType : "JSON",
+		success : traiteReponse2,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+
 
 function userPoints(){
 	$.ajax({
@@ -37,18 +69,6 @@ function userPoints(){
 	});
 }
 
-function usersName(lat,lon){
-	$.ajax({
-		type : "POST",
-		url : "PointsUserFriendList",
-		data : "lat=" + lat + "&lon=" + lon,
-		dataType : "JSON",
-		success : traiteReponse,
-		error : function(xhr,status,errorthrown){
-			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
-		}
-	});
-}
 
 function traiteReponse(json) 
 {
