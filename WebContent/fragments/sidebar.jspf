@@ -74,10 +74,10 @@
 							if ( !(~$(location).attr('href').indexOf('<%= Url.AJOUTERLIEU.value() %>')))
 								$(location).attr('href', '<%= Url.AJOUTERLIEU.value() %>');
 						">Ajouter un lieu d'échange</div>
-<%-- 					    <div onclick=" --%>
-<%-- 							if ( !(~$(location).attr('href').indexOf('<%= Url.ABONNERLIEU.value() %>'))) --%>
-<%-- 								$(location).attr('href', '<%= Url.ABONNERLIEU.value() %>'); --%>
-<%-- 						">S'abonner à un lieu d'emprunt</div> --%>
+					    <div onclick="
+							if ( !(~$(location).attr('href').indexOf('<%= Url.IMPORTLIEU.value() %>')))
+								$(location).attr('href', '<%= Url.IMPORTLIEU.value() %>');
+						">Importer un lieu</div>
 					  </div>
 			</div>
 			<br>
@@ -87,10 +87,10 @@
 							if ( !(~$(location).attr('href').indexOf('<%= Url.RECHERCHEROBJECT.value() %>')))
 								$(location).attr('href', '<%= Url.RECHERCHEROBJECT.value() %>');
 						">Rechercher un objet</div>
-					    <div  onclick="
-							if ( !(~$(location).attr('href').indexOf('<%= Url.LISTLOANS.value() %>')))
-								$(location).attr('href', '<%= Url.LISTLOANS.value() %>');
-						">Ma liste d'objets empruntés</div>
+<%-- 					    <div  onclick=" --%>
+<%-- 							if ( !(~$(location).attr('href').indexOf('<%= Url.LISTLOANS.value() %>'))) --%>
+<%-- 								$(location).attr('href', '<%= Url.LISTLOANS.value() %>'); --%>
+<%-- 						">Ma liste d'objets empruntés</div> --%>
 					  </div>
 			</div>
 

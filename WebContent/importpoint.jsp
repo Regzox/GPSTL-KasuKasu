@@ -11,7 +11,7 @@
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/test.js" charset="utf-8"></script>
+<script type="text/javascript" src="/KasuKasu/js/importpoint.js" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 </head>

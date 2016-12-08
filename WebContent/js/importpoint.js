@@ -4,7 +4,7 @@ function init()
 	map = new OpenLayers.Map("mapdiv");
 	map.addLayer(new OpenLayers.Layer.OSM());
 
-	var lonLat = new OpenLayers.LonLat(-0.1279688 ,51.5077286).transform(
+	var lonLat = new OpenLayers.LonLat(2.3488000, 48.8534100).transform(
 			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
 			map.getProjectionObject() // to Spherical Mercator Projection
 	);
@@ -13,42 +13,54 @@ function init()
 
 	map.setCenter(lonLat, zoom);	
 	
-	addMarkers();
+	userPoints();
 
 }
 
 
+function abonnement()
+{
+	alert ("coucou");
+}
 
-function addMarkers() 
+function userPoints(){
+	$.ajax({
+		type : "GET",
+		url : "PointsUserList",
+		data : "",
+		dataType : "JSON",
+		success : traiteReponse2,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+function traiteReponse2(json) 
 {
     var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
-    var markers = 
-    [
-       [ -0.1279688, 51.5077286 ],
-       [ -0.1244324, 51.5006728 ],
-       [ -0.119623, 51.503308 ]
-    ];
-    
-    //Loop through the markers array
-    for (var i=0; i<markers.length; i++) 
-    {
-      
-       var lon = markers[i][0];
-       var lat = markers[i][1];
-       
-        var feature = new OpenLayers.Feature.Vector
-        (
-                new OpenLayers.Geometry.Point( lon, lat ).transform
-                (
-            			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            			map.getProjectionObject() // to Spherical Mercator Projection  
-                ),
-                {description: "marker number " + i} ,
-                {externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
-         );             
-        vectorLayer.addFeatures(feature);
-     }                        
-    
+
+
+	for (var i=0; i< json.expts.length; i++)
+		{
+
+	      var lon = json.expts[i].lon;
+	       var lat = json.expts[i].lat;
+	       
+	        var feature = new OpenLayers.Feature.Vector
+	        (
+	                new OpenLayers.Geometry.Point( lon, lat ).transform
+	                (
+	            			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+	            			map.getProjectionObject() // to Spherical Mercator Projection  
+	                ),
+	                {description: "marker number " + i} ,
+	                {externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+	         );             
+	        vectorLayer.addFeatures(feature);
+
+		}
+	
     map.addLayer(vectorLayer);
     
     var controls = {
@@ -76,9 +88,6 @@ function addMarkers()
     	    map.addControl(controls['selector']);
     	    controls['selector'].activate();
 
-}
+	
 
-function abonnement()
-{
-	alert ("coucou");
 }
