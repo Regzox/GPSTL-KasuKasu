@@ -1,4 +1,5 @@
 package services;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -6,8 +7,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 import dao.LoaningDB;
+import dao.items.ItemsDB;
 import exceptions.DatabaseException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
@@ -21,14 +24,27 @@ public class Loaning {
 	/**
 	 * Add an applicant's request for an item 
 	 * @param idApplicant
-	 * @param idItem */
+	 * @param idItem 
+	 * @throws Exception 
+	 * @throws SQLException */
 	
 	
-	public static JSONObject requestItem(String idApplicant,String idItem) throws JSONException{
+	public static JSONObject requestItem(String idApplicant,String idItem) throws SQLException, Exception{
 		if(LoaningDB.requestExists(idApplicant, idItem))
 			return Tools.serviceRefused
 					("Vous avez deja une demande en cours pour cet objet!", -1);
 		LoaningDB.requestItem(idApplicant, idItem);	
+		DBObject item = ItemsDB.getItem(idItem);
+		String to = User.getUserById(
+				item.get("owner").toString())
+				.getEmail();
+		String subject ="Demande d'emprunt pour l'objet "+item.get("title");
+		String contenu ="Vous avez une demande d'emprunt pour "
+				+ "l'objet "+item.get("title")+" "
+				+"venant de "+User.getUserById(idApplicant).getEmail()+"."
+				+ "\nMerci de consulter votre compte.";
+		SendEmail.sendMail(to, subject, contenu);
+
 		return Tools.serviceMessage(1);
 	}
 	
