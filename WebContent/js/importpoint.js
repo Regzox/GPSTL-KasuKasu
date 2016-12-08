@@ -73,7 +73,7 @@ function traiteReponse2(json)
 	            			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
 	            			map.getProjectionObject() // to Spherical Mercator Projection  
 	                ),
-	                {description: "Vos amis sur ce lieu :"+json.expts[i].name} ,
+	                {description: "Vos amis sur ce lieu: "+json.expts[i].name} ,
 	                {externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 	         );             
 	        vectorLayer.addFeatures(feature);

@@ -12,6 +12,7 @@ import com.mongodb.DBObject;
 import dao.ExchangePointsDB;
 import dao.GroupsDB;
 import dao.items.ItemsDB;
+import dao.users.UserDao;
 import exceptions.DatabaseException;
 import utils.Tools;
 
@@ -165,10 +166,16 @@ public class ExchangePoints {
 			DBObject dbo=cursor.next();
 			BasicDBList bl = new BasicDBList();
 			bl = (BasicDBList) dbo.get("subscribers");
-			String name = (String) ((DBObject)bl.get(0)).get("id_user"); 
+			//String name = (String) ((DBObject)bl.get(0)).get("id_user"); 
+			String name="";
 			for (int i=0;i< bl.size(); i++)
+				
 			{
-				//String name = name+((DBObject) bl.get(0))).get("id_user");
+				String user_firstname = UserDao.getUserById((String)((DBObject)bl.get(0)).get("id_user")).getFirstname();
+				String user_name = UserDao.getUserById((String)((DBObject)bl.get(0)).get("id_user")).getName();
+
+				if (i==bl.size()-1) name = name+ user_firstname+" "+ user_name+ "."; 
+				else name = name+ user_firstname+" "+ user_name+", ";
 			}
 			JSONArray put = jar.put(new JSONObject()
 					.put("id",dbo.get("_id"))
