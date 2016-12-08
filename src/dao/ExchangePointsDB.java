@@ -50,6 +50,16 @@ public class ExchangePointsDB {
 		s.close();
 		c.close();*/
 	}
+	
+	public static boolean exchangePointExistsForUser(
+			double lat,double lon,String userID){ 
+		return collection.find(
+				new BasicDBObject()
+				.append("lat",lat)
+				.append("lon",lon)
+				.append("subscribers.id_user",userID)
+				).hasNext();
+	}
 
 
 	/**
