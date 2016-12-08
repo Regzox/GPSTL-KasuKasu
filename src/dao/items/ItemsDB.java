@@ -2,7 +2,9 @@ package dao.items;
 
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
@@ -15,6 +17,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
+import dao.ExchangePointsDB;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
@@ -23,7 +26,7 @@ import kasudb.KasuDB;
 public class ItemsDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("items");
-	
+
 	/**
 	 * Ajoute un objet a la base mongo
 	 * @param authorid
@@ -34,17 +37,17 @@ public class ItemsDB {
 	public static void addItem(JSONObject object) {
 		// Parsing de l'objet
 		DBObject dbObj = (DBObject) com.mongodb.util.JSON.parse(object.toString());
-		
+
 		// Ajout de la date
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date today = new Date();
 		dbObj .put("date", dateFormat.format(today));
-		
+
 		// Ajout dans la base de donnees
 		collection.insert( dbObj ).toString();		
 	}
 
-	
+
 	/**
 	 * Check if user's right on the object   
 	 * @param userId
@@ -56,7 +59,7 @@ public class ItemsDB {
 				.append("_id",new ObjectId(id))
 				.append("owner",userId)).hasNext();
 	}
-	
+
 
 	/**
 	 * Update an item
@@ -73,7 +76,7 @@ public class ItemsDB {
 						.append("title",title)
 						.append("description",description)));
 	}	
-	
+
 	/**
 	 * Remove an item
 	 * @param id
@@ -84,8 +87,8 @@ public class ItemsDB {
 				new BasicDBObject()
 				.append("_id",new ObjectId(id)));
 	}	
-	
-	
+
+
 	/**
 	 * return an item (all fields)
 	 * @param id
@@ -97,8 +100,8 @@ public class ItemsDB {
 				new BasicDBObject()
 				.append("_id",new ObjectId(id)));
 	}	
-	
-	
+
+
 
 	/**
 	 * Find all items owned by the user
@@ -117,13 +120,13 @@ public class ItemsDB {
 	 * @return */
 	public static DBCursor userItemsSQLMODO(String query,String userID) {  
 		Pattern pquery = Pattern.compile(query.trim(), Pattern.CASE_INSENSITIVE );
-		
+
 		BasicDBList bdbl =new BasicDBList();
 		bdbl.add(new BasicDBObject()
 				.append("title",pquery));
 		bdbl.add(new BasicDBObject()
 				.append("description",pquery));
-		
+
 		//System.out.println("bdbl="+bdbl);//debug
 		return collection.find(new BasicDBObject()
 				.append("owner",userID)
@@ -149,22 +152,65 @@ public class ItemsDB {
 	 * @return
 	 * @throws DatabaseException */
 	public static DBCursor utherItemsSQLMODO(String query, String userID) {  
-Pattern pquery = Pattern.compile(query.trim(), Pattern.CASE_INSENSITIVE );
-		
+		Pattern pquery = Pattern.compile(query.trim(), Pattern.CASE_INSENSITIVE );
+
 		BasicDBList bdbl =new BasicDBList();
 		bdbl.add(new BasicDBObject()
 				.append("title",pquery));
 		bdbl.add(new BasicDBObject()
 				.append("description",pquery));
-		
+
 		//System.out.println("bdbl="+bdbl);//debug
 		return collection.find(
 				new BasicDBObject()
 				.append("$or",bdbl)
 				.append("owner",
 						new BasicDBObject()
-						.append("$ne",userID)));}	
+						.append("$ne",userID)));}
 
+	public static void addGroupToItem(String itemID, String groupID){
+		BasicDBObject updateQuery = new BasicDBObject();
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$addToSet", new BasicDBObject("groups",groupID));
+		collection.update(updateQuery,updateCommand);
+	}
+
+	public static void addExPointToItem(String itemID,String exPointID){
+		BasicDBObject updateQuery = new BasicDBObject();
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$addToSet", new BasicDBObject("exchangepoints",exPointID));
+		collection.update(updateQuery,updateCommand);
+	}
+
+	public static void removeGroupFromItem(String itemID, String groupID){
+		BasicDBObject updateQuery = new BasicDBObject();
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$pull", new BasicDBObject("groups",groupID));
+		collection.update(updateQuery,updateCommand);
+	}
+
+	public static void removeExPointFromItem(String itemID,String exPointID){
+		BasicDBObject updateQuery = new BasicDBObject();
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$pull", new BasicDBObject("exchangepoints",exPointID));
+		collection.update(updateQuery,updateCommand);
+	}
+
+	public static DBObject getGroupsFromItem(String itemID){
+		DBObject item = getItem(itemID);
+		BasicDBList groups = (BasicDBList) item.get("groups");
+		return groups;
+	}
+
+	public static DBObject getExchangePointsFromItem(String itemID){
+		DBObject item = getItem(itemID);
+		BasicDBList groups = (BasicDBList) item.get("exchangepoints");
+		return groups;
+	}
 
 	public static void main(String[] args) {
 		System.out.println("Results...\n%");
@@ -182,8 +228,8 @@ Pattern pquery = Pattern.compile(query.trim(), Pattern.CASE_INSENSITIVE );
 		System.out.print("Permission : ");
 		if(checkAthorization("6","581c70b04c1471dd003afb61")){
 			System.out.println("Granted");
-		updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
-				"galaxy S5 noir neuf, tres peu servi");
+			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
+					"galaxy S5 noir neuf, tres peu servi");
 		}else System.out.println("Denied");
 	}
 
