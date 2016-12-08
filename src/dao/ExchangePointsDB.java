@@ -191,10 +191,38 @@ public class ExchangePointsDB {
 		return collection.find(
 				new BasicDBObject()
 				.append("subscribers.id_user",userID));}
+	
+	/**
+	 * Return the list of user friend's  exchange points
+	 * @param userID
+	 * @return */
+	public static DBCursor friendsExchangePoints(String userID){
+		BasicDBList exprs = new BasicDBList();
+		exprs.add(
+				new BasicDBObject()
+				.append("subscribers.id_user",
+						new BasicDBObject()
+						.append("$in",FriendsDao.myFriends(userID)))
+				);
+		return collection.find(new BasicDBObject().append("$or", exprs));	
+	}
+	
+	/**
+	 * Return the list of users subscribed in an exchange point
+	 * @param lat
+	 * @param lon
+	 * @return
+	 */
+	public static DBCursor pointUsersName(String lat, String lon){
+		return collection.find(
+				new BasicDBObject()
+				.append("lat",lat)
+				.append("lon", lon));	
+	}
 
 
 	public static void main(String[] args) {
-		collection.remove(new BasicDBObject());
+		/*collection.remove(new BasicDBObject());
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","fac");
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","maison");
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","upmc");
@@ -205,8 +233,10 @@ public class ExchangePointsDB {
 		subscribeToExchangePoint(excpt_id, "new_user_id2", "upmc");
 		subscribeToExchangePoint(excpt_id, "new_user_id3", "l'enfer");
 		addBulkUserItemsToExchangePoint(excpt_id,"5jhjy62hghfj5874gtg5",
-				new String[]{"itemid1","itemid2","itemid3"});
-		System.out.println(accessibleExchangePoints("5jhjy62hghfj5874gtg5").next());
+				new String[]{"itemid1","itemid2","itemid3"});*/
+		System.out.println(userPoints("58496e8c273633e062a41acd").next());
+		System.out.println(userPoints("58496e19273633e062a41acc").next());
+		System.out.println(friendsExchangePoints("58496e19273633e062a41acc").next());
 	
 	}
 

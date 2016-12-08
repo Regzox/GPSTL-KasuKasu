@@ -14,6 +14,7 @@ function init()
 	map.setCenter(lonLat, zoom);	
 	
 	userPoints();
+	usersName(48.85314,2.34838);
 
 }
 
@@ -26,7 +27,7 @@ function abonnement()
 function userPoints(){
 	$.ajax({
 		type : "GET",
-		url : "PointsUserList",
+		url : "PointsUserFriendList",
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse2,
@@ -34,6 +35,24 @@ function userPoints(){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
 	});
+}
+
+function usersName(lat,lon){
+	$.ajax({
+		type : "POST",
+		url : "PointsUserFriendList",
+		data : "lat=" + lat + "&lon=" + lon,
+		dataType : "JSON",
+		success : traiteReponse,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+function traiteReponse(json) 
+{
+	console.log(json.stringfy(json));
 }
 
 function traiteReponse2(json) 
@@ -54,7 +73,7 @@ function traiteReponse2(json)
 	            			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
 	            			map.getProjectionObject() // to Spherical Mercator Projection  
 	                ),
-	                {description: "marker number " + i} ,
+	                {description: "Vos amis sur ce lieu :"+json.expts[i].name} ,
 	                {externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 	         );             
 	        vectorLayer.addFeatures(feature);
