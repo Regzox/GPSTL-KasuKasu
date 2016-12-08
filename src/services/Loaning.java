@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import com.mongodb.DBCursor;
 
 import dao.LoaningDB;
+import exceptions.DatabaseException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import utils.Tools;
@@ -32,9 +33,11 @@ public class Loaning {
 	/**
 	 * Accept an applicant's request for an item
 	 * @param idRequest 
-	 * @throws JSONException */
-	public static JSONObject acceptRequests(String idRequest) throws JSONException{
-		LoaningDB.acceptRequests(idRequest);
+	 * @throws JSONException 
+	 * @throws DatabaseException */
+	public static JSONObject acceptRequests(String idApplicant, String idItem) 
+			throws JSONException, DatabaseException{
+		LoaningDB.acceptRequests(idApplicant,idItem);
 		return Tools.serviceMessage(1);
 	}
 	
@@ -44,8 +47,9 @@ public class Loaning {
 	 * @param idRequest 
 	 * @return 
 	 * @throws JSONException */
-	public static JSONObject refuseRequests(String idRequest) throws JSONException{
-		LoaningDB.refuseRequests(idRequest);
+	public static JSONObject refuseRequests(String idApplicant, String idItem) 
+			throws JSONException{
+		LoaningDB.refuseRequests(idApplicant,idItem);
 		return Tools.serviceMessage(1);
 	}
 	
@@ -73,12 +77,12 @@ public class Loaning {
 	
 	/**
 	 * Return a json object containing item's applicants list
-	 * @param id_objet
+	 * @param idItem
 	 * @return
 	 * @throws UserNotUniqueException 
 	 * @throws UserNotFoundException */
-	public static JSONObject itemApplicants(String id_objet) throws UserNotFoundException, UserNotUniqueException{
-		DBCursor dbc = LoaningDB.itemApplicants(id_objet);
+	public static JSONObject itemApplicants(String idItem) throws UserNotFoundException, UserNotUniqueException{
+		DBCursor dbc = LoaningDB.itemApplicants(idItem);
 		ArrayList<String> applicantIDs = new ArrayList<String>();
 		while(dbc.hasNext())
 			applicantIDs.add((String)dbc.next().get("id_applicant"));

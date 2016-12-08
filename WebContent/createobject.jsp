@@ -78,28 +78,29 @@
 
 				<div id="found-points" class="abootsraper"></div>
 				<div class="form-point row">
-					<label for="point" class="col-xs-2 col-form-label">Points de prêts</label>
-					<div class="col-xs-10">
-						<select name="point" id="point" multiple>
-						</select>
+					<label for="point" class="col-xs-2 col-form-label">Points d'échange</label>
+					<div class="col-xs-10" id="id_check2">
+<!-- 						<select name="point" id="point" multiple> -->
+<!-- 						</select> -->
 					</div>
 				</div>
 				
+				<div id='error_point'></div>
+			
+				
 				<button type="submit" class="positive" name="ajout" id="ajout" style="display:none;">
-				Ajouter un point de prêt
+				Ajouter un point d'échange
 				</button>
 
 				<div id="found-groups" class="abootsraper"></div>
 				<div class="form-group row">
 					<label for="groupe" class="col-xs-2 col-form-label">Visibilité</label>
-					<div class="col-xs-10">
-						<select name="groupe" id="groupe" multiple>
-							<option selected="selected">Tout le monde</option>
-
-
-						</select>
+					<div class="col-xs-10" id ="id_check">
 					</div>
 				</div>
+				
+								<div id='error_groupe'></div>
+				
 
 
 

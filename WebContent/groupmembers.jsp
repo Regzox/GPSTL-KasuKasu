@@ -10,6 +10,7 @@
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/groupmembers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 <title>Groupe <%=request.getParameter("gname")%></title>
 </head>

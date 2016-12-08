@@ -60,10 +60,8 @@ public class CreateObject extends HttpServlet {
 			if( ParametersChecker.testMultipleNonEmpty(		map, 
 					"nom",
 					"description",
-//					"datedebut",
-//					"datefin",
-					"groupe"
-//					"coordonnees"
+					"groupe",
+       				"coordonnees"
 					)){
 				logger.warning("A request parameter is missing."); 
 				out.write( new JSONObject().put("error", "A request parameter is missing.").toString() ); return;
@@ -75,10 +73,8 @@ public class CreateObject extends HttpServlet {
 			object.put( "owner"        ,  userId						         );
 			object.put( "title"        ,  request.getParameter("nom")            );
 			object.put( "description"  ,  request.getParameter("description")    );
-//			object.put( "datedebut"    ,  request.getParameter("datedebut")      );
-//			object.put( "datefin"      ,  request.getParameter("datefin")        );
-			object.put( "group"       ,  request.getParameter("groupe")         );
-//			object.put( "coordonnees"  ,  request.getParameter("coordonnees")    );
+			object.put( "groupe"       ,  request.getParameter("groupe")         );
+			object.put( "coordonnees"  ,  request.getParameter("coordonnees")    );
 
 			// Sauvegarde l'objet dans la BD
 			ItemsDB.addItem(object);
@@ -90,8 +86,6 @@ public class CreateObject extends HttpServlet {
 
 
 		} catch (Exception e) {
-			//request.setAttribute("error", e); //remote debug
-			//request.getRequestDispatcher("errorpage.jsp").forward(request, response); Not suited for an Ajax response
 			logger.severe("Error with object " + request.getParameter("nom") + e.getMessage()); 
 			response.getWriter().print(new json.Error("Sorry, an error has occurred.")); 
 			

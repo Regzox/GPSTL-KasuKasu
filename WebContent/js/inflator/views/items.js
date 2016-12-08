@@ -68,7 +68,11 @@ Item.prototype.getHTML=function(){
 	//alert("Item ->getHtml ");
 	var s;
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
-	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\"><a href=\"/borrowthis\"><b>"+this.title+"</b></a></div>\n";	
+	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
+	s+="<a href=/KasuKasu/item.jsp?id="+this.id+"&title="+this.title+">";
+	s+="<b>"+this.title+"</b>";
+	s+="</a>";
+	s+="</div>\n";	
 	s+="<div class=\"item-infos\">";
 	s+="<span class=\"visible-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
@@ -96,7 +100,7 @@ Item.traiteReponseJSON2=function(json){
 		var fhtm="<br><div id=\"itemsBox\">";	
 
 		if(items.length==0)
-			fhtm+="<h3>Vous n'avez aucun objet empruntable en ce moment.</h3>";
+			fhtm+="<h3>Il n'y a aucun objet empruntable en ce moment.</h3>";
 
 		for(var i in items){
 			//alert(JSON.stringify(items[i]));
@@ -112,30 +116,35 @@ Item.traiteReponseJSON2=function(json){
 
 
 Item.prototype.getHTML2=function(){  
-	 	//alert("Item ->getHtml ");
-	 	var s;
-	 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
-	 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\"><a href=\"/borrowthis\"><b>"+this.title+"</b></a></div>\n";	
-	 	s+="<div class=\"item-infos\">";
-	 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
-	 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
-	 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-latitude-info"+this.id+"\">"+this.latitude+"</span>";
-	 	s+="</div> ";
-	 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
-	 	s+="<div class=\"item-more\">";
-	 	s+=" <input style=\"float:left;margin-right:5%;\" type=\"image\" " +
-	 	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
-	 	" src=\"icons/Feedback_Filled_50.png\" class=\"iwantit_btn\" " +
-	 	"id=\"unwrap_applicants_btn"+this.id+"\" OnClick=\"javascript:item_applicants('"+this.id+"')\"/>\n";
-	 	s+=" <input style=\"float:left;margin-right:75%;\" type=\"image\" " +
-	 	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
-	 	" src=\"icons/Empty_Trash_Filled-50.png\" class=\"iwantit_btn\" " +
-	 	"id=\"unwrap_applicants_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
-	 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
-	 	s+="</div>";
-	 	s+="</div><hr><br>\n";
-	 	return s;
-	 };
+	//alert("Item ->getHtml ");
+	var s;
+	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
+	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
+	s+="<a href=/KasuKasu/item.jsp?id="+this.id+"&title="+this.title+">";
+	s+="<b>"+this.title+"</b>";
+	s+="</a>";
+	s+="</div>\n";		
+	s+="<div class=\"item-infos\">";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-latitude-info"+this.id+"\">"+this.latitude+"</span>";
+	s+="</div> ";
+	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
+	s+="<div class=\"item-more\">";
+	s+=" <input style=\"float:left;margin-right:5%;\" type=\"image\" " +
+	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
+	" src=\"icons/Feedback_Filled_50.png\" class=\"iwantit_btn\" " +
+	"id=\"unwrap_applicants_btn"+this.id+"\" OnClick=\"javascript:item_applicants('"+this.id+"')\"/>\n";
+	s+=" <input style=\"float:left;margin-right:75%;\" type=\"image\" " +
+	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
+	" src=\"icons/Empty_Trash_Filled-50.png\" class=\"iwantit_btn\" " +
+	"id=\"remove_item_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
+	s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='/KasuKasu/objectmanagement?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modifier</button>";
+	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
+	s+="</div>";
+	s+="</div><hr><br>\n";
+	return s;
+};
 
 
 function searchMRItems(query){
@@ -193,7 +202,6 @@ function item_applicants(id) {
 	});
 }
 
-
 function removeItem(id) {
 	reset_applicants_shared_div(id);
 
@@ -213,7 +221,7 @@ function refresh(result){
 	if(result.error!=undefined)
 		fillNOTIFIER(result.error);
 	else
-	window.location.reload();
+		window.location.reload();
 }
 
 /**
@@ -223,6 +231,23 @@ function reset_applicants_shared_div(id){
 	removeElt("#item-applicants");
 	printHTMLSup ("#itemBox"+id,"<div id=\"item-applicants\"><br></div>");
 }
+
+
+
+function getItem(id){
+	$.ajax({
+		type : "GET",
+		url : "getitem",
+		data : "id=" +id,
+		dataType : "JSON",
+		success : Item.traiteReponseJSON2,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+
 
 /**
  * GESTION TRES SALE DES APPLICANTS POUR CE PROTOTYPE (oN NE GERE PAS LE NOMBRE DAPPEL SERVER , PAS RE CACHE DES USER RETROUVES , A CORRIGER ...)
@@ -250,17 +275,19 @@ function ProcessFindApplicants(rep) {
 					if(field=='id')
 						z=value;
 				});
-				
+
 				if(z==rep.id)return;//Skip if the user is yourself
 				nb++;
 				bodymessage +=
-				"<tr>" +
-				"<td>"+x+"</td>" +
-				"<td>"+y+"</td>"+
-				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
-				"<td>" +
-				"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
-				"id=\"accept_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+this.id+"');\"/>\n";
+					"<tr>" +
+					"<td>"+x+"</td>" +
+					"<td>"+y+"</td>"+
+					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
+					"<td>" +
+					"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
+					"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+this.id+"');\"/>\n"+
+					"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
+					"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+this.id+"');\"/>\n";
 				"</tr>";
 			} 
 		});
@@ -270,7 +297,7 @@ function ProcessFindApplicants(rep) {
 		endmessage="";
 	}
 	endmessage+="<br>";
-	
+
 	var iahtm=(message+bodymessage+endmessage);
 	printHTML("#item-applicants",iahtm);
 }

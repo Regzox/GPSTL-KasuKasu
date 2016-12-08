@@ -46,7 +46,7 @@ function ProcessFindUser(rep)
 				});
 
 				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
-				"<td><a href=\"/KasuKasu/profil/?id="+z+"\"> Voir Profil </a></td>";
+				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>";
 				//alert("z="+z+" "+MEM[z]);
 				if(!(MEM[z]!= undefined && MEM[z]!= null))
 					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
@@ -156,7 +156,8 @@ Member.prototype.getHTML=function(){
 	//alert("Member ->getHtml ");
 	var s;
 	s="<div class=\"MemberBox\" id=\"MemberBox"+this.id+"\">";
-	s+="<div class=\"Member-name\" id=\"Member-name"+this.id+"\"><a href=\"/gotoMember\"><b>"+this.name+"</b></a></div>\n";	
+	s+="<div class=\"Member-name\" id=\"Member-name"+this.id+"\">"
+	s+="<a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+this.id+"\"><b>"+this.name+"</b></a></div>\n";	
 	s+="<div class=\"Member-infos\">";
 	s+="<span style=\"display:none;\" class=\"hiden-Member-info\" id=\"Member-Member-info"+this.id+"\">"+this.Member+"</span>";
 	s+="</div> ";

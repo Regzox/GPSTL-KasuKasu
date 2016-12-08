@@ -25,7 +25,6 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		
 		var lonlat1 = map.getLonLatFromViewPortPx(e.xy).
         transform(map.getProjectionObject(), toProjection);
-		//alert("latitude : " + lonlat.lat + ", longitude : " + lonlat.lon);
 
 		var markers = new OpenLayers.Layer.Markers("Markers");
 		map.addLayer(markers);
@@ -51,12 +50,22 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		lat.id=i;
 		div.appendChild(lat);
 		
+		i=i+1;
+		var br0 = document.createElement("br");
+		br0.id=i;
+		div.appendChild(br0);
+		
 		i=i+1;		
 		var nom = document.createElement("input");
 		nom.type = "text";
 		nom.setAttribute("placeholder", "Nom du lieu"); 	
 		nom.id=i;
 		div.appendChild(nom);
+		
+		i=i+1;		
+		var nom_error = document.createElement("div");
+		nom_error.id=i;
+		div.appendChild(nom_error);
 		
 		i=i+1;
 		var br = document.createElement("br");
@@ -71,13 +80,15 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		radius.id=i;
 		div.appendChild(radius);
 		
+		i=i+1;		
+		var radius_error = document.createElement("div");
+		radius_error.id=i;
+		div.appendChild(radius_error);
+		
 		i=i+1;
 		var br3 = document.createElement("br");
 		br3.id=i;
 		div.appendChild(br3);
-		
-
-		
 
 		var supp = document.createElement("input");
 		supp.type = "button";
@@ -88,17 +99,16 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 			markers.removeMarker(marker);
 			div.removeChild(lon);
 			div.removeChild(lat);
+			div.removeChild(br0);
 			div.removeChild(nom);
+			div.removeChild(nom_error);
 			div.removeChild(br);
 			div.removeChild(radius);
+			div.removeChild(radius_error);
 			div.removeChild(br3);
 			div.removeChild(br1);
 			div.removeChild(br2);
 			div.removeChild(supp);
-
-	
-
-
 		}
 
 		div.appendChild(supp);
@@ -124,6 +134,9 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
 var map;
 function init() {
+	printHTML("#error_point","");
+	document.getElementById('nombre').innerHTML="0";
+
 	map = new OpenLayers.Map("mapdiv");
 	map.addLayer(new OpenLayers.Layer.OSM());
 
@@ -146,62 +159,115 @@ function init() {
 function createobject() 
 {
 
-	printHTML("#error_point","");
-	
-	
-	var nombre=document.getElementById('nombre').value;
+printHTML("#error_point","");
+var nombre=document.getElementById('nombre').value;
+
+//console.log("coucou"+nombre);
+
 	
 	var result2 = {};
 	var points = [];
 	result2.points=points;
-	for (i=0; i<=nombre; i=i+8)
-		{
-		    if (document.getElementById(i) !== null)
-		    	{
-		    	
-		    	var point = 
-		    	{
-		    		    "lat": document.getElementById(i).value,
-		    		    "lon": document.getElementById(i+1).value,
-		    		    "nom": document.getElementById(i+2).value,
-		    		    "radius": document.getElementById(i+4).value
+	var inc=0;
 
-		    	}
-                     result2.points.push(point);
-		    	}
-		}
-	
-
-	var ok = verif(nombre);
-	if (ok) 
-	{
-		//console.log(result2);
-		printHTML("#error_point","");
-		send(result2);
-		
-
-	}
-}
-
-function verif(nombre) 
+for (i=0; i<=nombre; i=i+11)
 {
 	var bool = true;
-	
-	if(nombre==0)
-	{
-		printHTML("#error_point","Aucun point d'emprunt");
-		$("#error_point").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+	var inc=0;
 
-		//return false;
-		bool = false;
+
+
+	if (document.getElementById(i+4)!=null)	
+	{
+	  document.getElementById(i+4).innerHTML="";
+	}	
+	
+	if (document.getElementById(i+7)!=null)	
+	{
+	  document.getElementById(i+7).innerHTML="";
 	}
 
+if (document.getElementById(i+3)==null||document.getElementById(i+3).value.length==0)
+	{
+		if (document.getElementById(i+4)!=null)	
+		{
+		  document.getElementById(i+4).innerHTML="<span style='color:red;font-size:80%'>Nom obligatoire</span>";
+		  document.getElementById(i+4).scrollIntoView();
+		}
+		bool = false;
 
-	return bool;
+	}
+
+if (document.getElementById(i+6)==null||document.getElementById(i+6).value.length==0)
+{
+	if (document.getElementById(i+7)!=null)	
+	{
+	  document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>Portée obligatoire</span>";
+	  document.getElementById(i+7).scrollIntoView();
+	}
+	bool = false;
+
 }
+
+
+if (bool==true)
+	{
+		var point = 
+		{
+			    "lon": document.getElementById(i).value,
+			    "lat": document.getElementById(i+1).value,
+			    "nom": document.getElementById(i+3).value,
+			    "radius": document.getElementById(i+6).value
+	
+		}
+	
+		 result2.points.push(point);
+		console.log("result2:"+result2);
+	
+	}
+else inc=inc+1;
+
+		      
+
+           
+}
+	
+    if (inc==0)
+    {
+    	console.log("coucou");
+    	
+    	if (result2.points.length!=0) 
+    	{
+
+    		send(result2); 		
+
+    	}
+    }
+
+}
+
+//function verif(nombre) 
+//{
+//	var bool = true;
+//	printHTML("#error_point","");
+//
+//	
+//	if(nombre==0)
+//	{
+//		console.log("lenght="+result2.points.length);
+//		printHTML("#error_point","Aucun point d'emprunt");
+//		$("#error_point").css({
+//			"color":"red",
+//			"font-size": "80%"
+//		});
+//
+//		//return false;
+//		bool = false;
+//	}
+//
+//
+//	return bool;
+//}
 
 function send(result2) 
 {
@@ -212,7 +278,7 @@ function send(result2)
 
 	$.ajax({
 	type : "POST",
-	url : "AddPointPret",
+	url : "AddPoint",
 	data : "points=" + json2, 
 	dataType : "json",
 	success :  function(data)
@@ -225,6 +291,7 @@ function send(result2)
 	      "show"      : true                     
 	    });
 	   }
+	    //Ajouter redirection vers la liste des points
 	 },
 	error : function(XHR, testStatus, errorThrown) {
 	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
