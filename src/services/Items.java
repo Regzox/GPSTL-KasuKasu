@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -123,6 +124,7 @@ public class Items {
 		List<ObjetRSV> results=new ArrayList<ObjetRSV>();
 
 		DBCursor cursor = ItemsDB.utherItems(userID);
+		cursor.sort(new BasicDBObject().append("date", -1));
 
 		if(!query.equals("")){//with QueryFilter
 			System.out.println("QUERY : "+query);
