@@ -13,7 +13,7 @@ import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan, Celien Creminon, Wafae Cheglal */
+ * @author ANAGBLA Joan, Celien Creminon, Wafae Cheglal, Ouiza Bouyahiaoui */
 public class LoaningDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("loaning");//LOANING_REQUESTS
@@ -135,6 +135,16 @@ public class LoaningDB {
 			return new CSRShuttleBus(c, s, s.executeQuery(sql));}
 		catch (SQLException e) {
 			throw new DatabaseException(DAOToolBox.getStackTrace(e));}*/
+	}
+	
+	/**
+	 * List all the objects borrowed by a user
+	 * @param idApplicant
+	 * @return */
+	public static DBCursor applicantLoanings(String idApplicant){
+		return collection.find(
+				new BasicDBObject()
+				.append("id_applicant", idApplicant));
 	}
 
 	public static void main(String[] args) {
