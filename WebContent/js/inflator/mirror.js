@@ -18,9 +18,14 @@ mirror =(function(key,value){
 		return (g);
 	}
 	
-	else if(isNumber(key) && value.type=="member"){ //tab index
+	else if(isNumber(key) && value.type=="member"){
 		var m = new Member(value.id,value.name,value.type);
 		return (m);
+	}
+	
+	else if(isNumber(key) && value.type=="loan"){ 
+		var l = new Loan(value.loan_id,value.item,value.title,value.debut,value.fin);
+		return (l);
 	}
 	
 	

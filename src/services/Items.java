@@ -88,6 +88,7 @@ public class Items {
 		List<ObjetRSV> results=new ArrayList<ObjetRSV>();
 
 		DBCursor cursor = ItemsDB.userItems(userID);
+		cursor.sort(new BasicDBObject().append("date", -1));
 
 		if(!query.equals("")){//with QueryFilter
 			results=ItemsMR.pertinence(query,cursor);

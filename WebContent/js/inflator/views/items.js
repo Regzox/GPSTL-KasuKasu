@@ -76,8 +76,6 @@ Item.prototype.getHTML=function(){
 	s+="<div class=\"item-infos\">";
 	s+="<span class=\"visible-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
-	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
-	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-latitude-info"+this.id+"\">"+this.latitude+"</span>";
 	s+="</div> ";
 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
 	s+="<div class=\"item-more\">";
@@ -126,8 +124,6 @@ Item.prototype.getHTML2=function(){
 	s+="</div>\n";		
 	s+="<div class=\"item-infos\">";
 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
-	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
-	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-latitude-info"+this.id+"\">"+this.latitude+"</span>";
 	s+="</div> ";
 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
 	s+="<div class=\"item-more\">";

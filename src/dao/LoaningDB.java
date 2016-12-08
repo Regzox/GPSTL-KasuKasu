@@ -154,7 +154,8 @@ public class LoaningDB {
 
 	public static void main(String[] args) {
 		requestItem("1","idObject");
-		System.out.println(applicantRequests("1").next());
+		System.out.println(applicantRequests("5849a585641a80878d717279").next());
+		System.out.println(applicantLoanings("5849a585641a80878d717279").next());
 	}
 
 }

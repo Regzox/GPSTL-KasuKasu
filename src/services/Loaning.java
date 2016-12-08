@@ -35,13 +35,14 @@ public class Loaning {
 					("Vous avez deja une demande en cours pour cet objet!", -1);
 		LoaningDB.requestItem(idApplicant, idItem);	
 		DBObject item = ItemsDB.getItem(idItem);
+		entities.User applicant =User.getUserById(idApplicant);
 		String to = User.getUserById(
 				item.get("owner").toString())
 				.getEmail();
 		String subject ="Demande d'emprunt pour l'objet "+item.get("title");
 		String contenu ="Vous avez une demande d'emprunt pour "
 				+ "l'objet "+item.get("title")+" "
-				+"venant de "+User.getUserById(idApplicant).getEmail()+"."
+				+"venant de "+applicant.getFirstname()+" "+applicant.getName()+"."
 				+ "\nMerci de consulter votre compte.";
 		SendEmail.sendMail(to, subject, contenu);
 
@@ -103,19 +104,26 @@ public class Loaning {
 	public static JSONObject applicantLoanings(String idApplicant)throws JSONException {
 		JSONArray jar = new JSONArray();
 		DBCursor dbc = LoaningDB.applicantLoanings(idApplicant);
-		while(dbc.hasNext())
+		while(dbc.hasNext()){
+			DBObject dbo = dbc.next();
 			jar.put(
 					new JSONObject()
-					.put("loan_id", dbc.next().get("_id"))
-					.put("applicant", dbc.next().get("id_applicant"))
-					.put("item",  dbc.next().get("id_item"))
-					.put("when",dbc.next().get("when"))
-					.put("debut", dbc.next().get("debut")) 
-					.put("fin", dbc.next().get("fin"))
+					.put("loan_id", dbo.get("_id"))
+					.put("item",  dbo.get("id_item"))
+					.put("type", "loan")
+					.put("title", ItemsDB.getItem(dbo.get("id_item").toString())
+							.get("title"))
+					//.put("debut", dbo.get("debut")) //TODO 
+					//.put("fin", dbo.get("fin")) //TODO
 					);
+			}
 		return new JSONObject().put("loans",jar);
 	}
 	
+
+	public static void main(String[] args) throws JSONException {
+		System.out.println(applicantLoanings("5849a585641a80878d717279"));
+	}
 	
 	/**
 	 * Return a json object containing item's applicants list
