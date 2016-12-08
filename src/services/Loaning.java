@@ -25,7 +25,6 @@ public class Loaning {
 	
 	
 	public static JSONObject requestItem(String idApplicant,String idItem) throws JSONException{
-		
 		if(LoaningDB.requestExists(idApplicant, idItem))
 			return Tools.serviceRefused
 					("Vous avez deja une demande en cours pour cet objet!", -1);
@@ -80,19 +79,6 @@ public class Loaning {
 	
 	
 	/**
-	 * Return a json object containing item's applicants list
-	 * @param idItem
-	 * @return
-	 * @throws UserNotUniqueException 
-	 * @throws UserNotFoundException */
-	public static JSONObject itemApplicants(String idItem) throws UserNotFoundException, UserNotUniqueException{
-		DBCursor dbc = LoaningDB.itemApplicants(idItem);
-		ArrayList<String> applicantIDs = new ArrayList<String>();
-		while(dbc.hasNext())
-			applicantIDs.add((String)dbc.next().get("id_applicant"));
-		return User.getUsersJSONProfileFromIds(applicantIDs);
-	}
-	/**
 	 * Return a json object containing an applicant's loan which has been validated
 	 * @param idApplicant
 	 * @return
@@ -108,10 +94,25 @@ public class Loaning {
 					.put("applicant", dbc.next().get("id_applicant"))
 					.put("item",  dbc.next().get("id_item"))
 					.put("when",dbc.next().get("when"))
-					.put("debut", dbc.next().get("debut")) //TODO
-					.put("fin", dbc.next().get("fin"))//TODO
+					.put("debut", dbc.next().get("debut")) 
+					.put("fin", dbc.next().get("fin"))
 					);
 		return new JSONObject().put("loans",jar);
+	}
+	
+	
+	/**
+	 * Return a json object containing item's applicants list
+	 * @param idItem
+	 * @return
+	 * @throws UserNotUniqueException 
+	 * @throws UserNotFoundException */
+	public static JSONObject itemApplicants(String idItem) throws UserNotFoundException, UserNotUniqueException{
+		DBCursor dbc = LoaningDB.itemApplicants(idItem);
+		ArrayList<String> applicantIDs = new ArrayList<String>();
+		while(dbc.hasNext())
+			applicantIDs.add((String)dbc.next().get("id_applicant"));
+		return User.getUsersJSONProfileFromIds(applicantIDs);
 	}
 	
 }

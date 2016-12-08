@@ -126,6 +126,18 @@ public class LoaningDB {
 		return myDemandes;*/
 	}
 
+	
+	/**
+	 * List all the objects borrowed by a user
+	 * @param idApplicant
+	 * @return */
+	public static DBCursor applicantLoanings(String idApplicant){
+		return collection.find(
+				new BasicDBObject()
+				.append("id_applicant", idApplicant));
+	}
+	
+	
 	public static DBCursor itemApplicants(String id_item){
 		return requests.find(
 				new BasicDBObject()
@@ -138,16 +150,6 @@ public class LoaningDB {
 			return new CSRShuttleBus(c, s, s.executeQuery(sql));}
 		catch (SQLException e) {
 			throw new DatabaseException(DAOToolBox.getStackTrace(e));}*/
-	}
-	
-	/**
-	 * List all the objects borrowed by a user
-	 * @param idApplicant
-	 * @return */
-	public static DBCursor applicantLoanings(String idApplicant){
-		return collection.find(
-				new BasicDBObject()
-				.append("id_applicant", idApplicant));
 	}
 
 	public static void main(String[] args) {
