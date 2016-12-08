@@ -13,7 +13,7 @@ import com.mongodb.DBCursor;
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan, YAHI Lina, Giuseppe FEDERICO */
+ * @author ANAGBLA Joan, YAHI Lina, Giuseppe FEDERICO, Cedric Ribeiro */
 public class ExchangePointsDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("expts");
@@ -51,6 +51,12 @@ public class ExchangePointsDB {
 		c.close();*/
 	}
 	
+	/**
+	 * ADMIN FUNCTION  : check if user have already created such an exchange point
+	 * @param lat
+	 * @param lon
+	 * @param userID
+	 * @return */
 	public static boolean exchangePointExistsForUser(
 			double lat,double lon,String userID){ 
 		return collection.find(
@@ -194,7 +200,7 @@ public class ExchangePointsDB {
 	}
 	
 	/**
-	 * Return the list of user's subscribe exchange points
+	 * Return the list of user's subscribed exchange points
 	 * @param userID
 	 * @return */
 	public static DBCursor userPoints(String userID) {  
@@ -203,7 +209,7 @@ public class ExchangePointsDB {
 				.append("subscribers.id_user",userID));}
 	
 	/**
-	 * Return the list of user friend's  exchange points
+	 * Return the list of user friend's exchange points
 	 * @param userID
 	 * @return */
 	public static DBCursor friendsExchangePoints(String userID){
@@ -230,7 +236,35 @@ public class ExchangePointsDB {
 				.append("lon", lon));	
 	}
 
+	/*public static void addItemToExPoint(String itemID,String exPointID,String userID){
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id))
+				.append("subscribers.id_user", userID),
+				new BasicDBObject()
+				.append("$addToSet", 
+						new BasicDBObject()
+						.append("subscribers.useritems",bdbl) //TODO find how it work
+						)
+				);
+	}*/
 
+
+	public static void removeItemExPointFrom(String itemID,String exPointID){
+		BasicDBObject updateQuery = new BasicDBObject();
+	    updateQuery.put("_id", new ObjectId(itemID));
+	    BasicDBObject updateCommand = new BasicDBObject();
+	    updateCommand.put("$pull", new BasicDBObject("exchangepoints",exPointID));
+		collection.update(updateQuery,updateCommand);
+	}
+	
+	/*public static DBObject getItemExchangePoints(String itemID){
+		BasicDBList groups = (BasicDBList) item.get("exchangepoints");
+		return groups;
+	}*/
+
+
+	
 	public static void main(String[] args) {
 		/*collection.remove(new BasicDBObject());
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","fac");

@@ -36,20 +36,18 @@ public class AddPointServlet extends OnlinePostServlet {
 			JSONArray jObj = points.getJSONArray("points");
 			for(int i = 0; i < jObj.length(); i++)
 			{
-			     JSONObject point = jObj.getJSONObject(i);
-			    
-			     ExchangePoints.addExchangePoint(
-							point.getDouble("lat"),
-							point.getDouble("lon"),
-							point.getInt("radius"),
-							(String) request.getSession().getAttribute("userId"),
-							point.getString("nom")
-							);
-			      
-	         }
+				JSONObject point = jObj.getJSONObject(i);
+				System.out.println((String) request.getSession().getAttribute("userId"));
+				ExchangePoints.addExchangePoint(
+						point.getDouble("lat"),
+						point.getDouble("lon"),
+						point.getInt("radius"),
+						(String) request.getSession().getAttribute("userId"),
+						point.getString("nom")
+						);
+			}
 			response.getWriter().print(Tools.serviceMessage(1));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

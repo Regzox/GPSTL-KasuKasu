@@ -11,6 +11,7 @@ import com.mongodb.DBObject;
 
 import dao.ExchangePointsDB;
 import dao.GroupsDB;
+import dao.items.ItemsDB;
 import exceptions.DatabaseException;
 import utils.Tools;
 
@@ -109,10 +110,9 @@ public class ExchangePoints {
 		cursor.sort(new BasicDBObject("date",-1)); 
 		while (cursor.hasNext()){
 			DBObject dbo=cursor.next();
-			BasicDBList bl = new BasicDBList();
-			bl = (BasicDBList) dbo.get("subscribers");
+			BasicDBList bl = (BasicDBList) dbo.get("subscribers");
 			String name = (String) ((DBObject)bl.get(0)).get("name"); 
-			JSONArray put = jar.put(new JSONObject()
+			jar.put(new JSONObject()
 					.put("id",dbo.get("_id"))
 					.put("lat",dbo.get("lat"))
 					.put("name", name)
@@ -120,6 +120,38 @@ public class ExchangePoints {
 					.put("radius",dbo.get("rad")));}
 		return new JSONObject().put("expts",jar);
 	}
+	
+	public static void addItemToExPoint(String itemID,String exPointID,String userID){
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return ;
+		//ExchangePointsDB.addItemToExPoint(itemID, exPointID);
+	}
+	
+	
+	public static void removeItemFromExPoint(String itemID,String exPointID,String userID){
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return ;
+		ExchangePointsDB.removeItemExPointFrom(itemID, exPointID);
+	}
+	
+	
+	public static JSONArray getItemExchangePoints(String itemID,String userID) throws JSONException{
+		/* o => BasicDBList */
+		if(!ItemsDB.checkAthorization(userID,itemID))
+			return null;
+		//BasicDBList o= (BasicDBList)ExchangePointsDB.getItemExchangePoints(itemID);
+		JSONArray js;
+		//if(o==null)
+			js=new JSONArray();
+		//else
+			//js=new JSONArray(o.toString());
+		return js;
+	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * Return the list of user friend's exchange points
@@ -169,28 +201,12 @@ public class ExchangePoints {
 		return new JSONObject().put("expts",jar);
 	}
 	
-	public static void main(String[] args) 
+	public static void main(String[] args) throws DatabaseException, JSONException 
 	{
-
-		try {
 			System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
 			//System.out.println(userPoints("Coucou"));
-
-			
-		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		
 	}
 	
-
-	
-
 
 	/*public static JSONObject createPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius) 
 			throws SQLException, JSONException
