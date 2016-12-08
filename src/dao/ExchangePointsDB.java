@@ -199,6 +199,7 @@ public class ExchangePointsDB {
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","maison");
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","upmc");
 		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg6","upmc2");
+		addExchangePoint(2.0, 3.0, 200, "58429ac00feb9052f1da4be3", "UPMC");
 		String excpt_id=accessibleExchangePoints("5jhjy62hghfj5874gtg5").next().get("_id").toString();
 		subscribeToExchangePoint(excpt_id, "new_user_id", "la prison");
 		subscribeToExchangePoint(excpt_id, "new_user_id2", "upmc");
