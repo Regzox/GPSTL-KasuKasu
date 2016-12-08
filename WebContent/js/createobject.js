@@ -21,11 +21,37 @@ function getSelectedGroups()
         {
         	if (tops[i].checked)
         		{
-        		   result.push(tops[i].value);
+     		       if (tops[i].name!="Tout le monde")
+     		       {
+            		   result.push(tops[i].value);
+
+     		       }
         		}
  
         }
     }
+}
+
+function isSelected()
+{
+	var bool = false;
+    var el = document.getElementById('id_check');
+    var tops = el.getElementsByTagName('input');
+    for (var i=0, len=tops.length; i<len; i++) 
+    {
+        if (tops[i].type == 'checkbox' ) 
+        {
+        	if (tops[i].checked)
+        		{
+        		   if (tops[i].value!="Tout le monde");
+        		   bool = true;
+        		}
+ 
+        }
+    }
+    
+    return bool;
+	
 }
 
 /***************************** Récupérer les points sélectionnés *********************************/
@@ -112,27 +138,32 @@ function verif(nom, description, result, result2)
 	
 	if(result2.length==0)
 	{
-		printHTML("#error_point","Vous devez selectionner au moins un point");
-		$("#error_point").css({
-			"color":"red",
-			"font-size": "80%"
-		});
 
-		document.getElementById('error_point').scrollIntoView();
-		bool = false;
+				printHTML("#error_point","Vous devez selectionner au moins un point");
+				$("#error_point").css({
+					"color":"red",
+					"font-size": "80%"
+				});
+	
+				document.getElementById('error_point').scrollIntoView();
+				bool = false;
+
 
 	}
 	
 	if(result.length==0)
 	{
-		printHTML("#error_groupe","Vous devez selectionner au moins un groupe");
-		$("#error_groupe").css({
-			"color":"red",
-			"font-size": "80%"
-		});
-
-		document.getElementById('error_groupe').scrollIntoView();
-		bool = false;
+		if (!isSelected())
+			{
+				printHTML("#error_groupe","Vous devez selectionner au moins un groupe");
+				$("#error_groupe").css({
+					"color":"red",
+					"font-size": "80%"
+				});
+		
+				document.getElementById('error_groupe').scrollIntoView();
+				bool = false;
+		     }
 
 	}
 	
@@ -217,6 +248,31 @@ function traiteReponse(json)
            checkbox.name = json.groups[i].name;
            checkbox.value = json.groups[i].id;
            checkbox.id = "id" + i;
+           checkbox.onclick = function()
+           {
+        	    var el = document.getElementById('id_check');
+
+        	    var tops = el.getElementsByTagName('input');
+
+        	    for (var j=0, len=tops.length; j<len; j++) 
+        	    {
+
+        	        if (tops[j].type == 'checkbox' ) 
+        	        {
+
+        	        	if (tops[j].value=="Tout le monde") 
+        	        		{
+        	        		   if (tops[j].checked)
+        	        			   {
+        	        			      tops[i].checked=false;
+        	        			   }
+        	        		}
+      
+        	 
+        	        }
+        	    }   
+        	    
+           };
            
            var label = document.createElement('label')
            label.htmlFor = "id";
@@ -233,6 +289,24 @@ function traiteReponse(json)
        checkbox.name = "Tout le monde";
        checkbox.value = "Tout le monde";
        checkbox.id = "id" + i;
+       checkbox.onclick = function()
+       {
+    	    var el = document.getElementById('id_check');
+    	    var tops = el.getElementsByTagName('input');
+
+    	    for (var j=0, len=tops.length; j<len; j++) 
+    	    {
+
+    	        if (tops[j].type == 'checkbox' ) 
+    	        {
+
+    	        	if (j!=i) (tops[j].checked=false);
+  
+    	 
+    	        }
+    	    }   
+    	    
+       };
        
        var label = document.createElement('label')
        label.htmlFor = "id";
