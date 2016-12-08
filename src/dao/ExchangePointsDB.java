@@ -57,13 +57,12 @@ public class ExchangePointsDB {
 	 * @param lon
 	 * @param userID
 	 * @return */
-	public static boolean exchangePointExistsForUser(
+	public static boolean exchangePointExists(
 			double lat,double lon,String userID){ 
 		return collection.find(
 				new BasicDBObject()
 				.append("lat",lat)
 				.append("lon",lon)
-				.append("subscribers.id_user",userID)
 				).hasNext();
 	}
 

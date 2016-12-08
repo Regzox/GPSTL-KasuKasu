@@ -32,7 +32,7 @@ public class ExchangePoints {
 	public static JSONObject addExchangePoint(
 			double lat,double lon,int radius,String userID,String name) 
 					throws JSONException {		
-		if(!ExchangePointsDB.exchangePointExistsForUser(lat, lon, userID))
+		if(!ExchangePointsDB.exchangePointExists(lat, lon, userID))
 		ExchangePointsDB.addExchangePoint(lat,lon,radius,userID,name);		
 		return Tools.serviceMessage(1);
 	}
