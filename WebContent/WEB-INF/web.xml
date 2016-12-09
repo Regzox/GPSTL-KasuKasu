@@ -420,4 +420,14 @@
   	<servlet-name>PointUsersName</servlet-name>
   	<url-pattern>/PointUsersName</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<description></description>
+  	<display-name>ReturnItemServlet</display-name>
+  	<servlet-name>ReturnItemServlet</servlet-name>
+  	<servlet-class>servlets.ReturnItemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ReturnItemServlet</servlet-name>
+  	<url-pattern>/ReturnItemServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

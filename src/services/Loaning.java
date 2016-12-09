@@ -14,6 +14,7 @@ import dao.items.ItemsDB;
 import exceptions.DatabaseException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
+import json.Success;
 import utils.SendEmail;
 import utils.Tools;
 
@@ -137,6 +138,19 @@ public class Loaning {
 		while(dbc.hasNext())
 			applicantIDs.add((String)dbc.next().get("id_applicant"));
 		return User.getUsersJSONProfileFromIds(applicantIDs);
+	}
+	
+	public static JSONObject returnItem(String loanId) {
+		
+		/**
+		 * - Supprimer de loanings 
+		 * - set l'item à avaiable
+		 * - Déplacer vers loaningLogs
+		 */
+		
+		LoaningDB.removeLoan(loanId);
+		
+		return new Success("Item returned to this owner");
 	}
 	
 }
