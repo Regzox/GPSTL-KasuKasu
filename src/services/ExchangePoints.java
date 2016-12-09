@@ -154,9 +154,6 @@ public class ExchangePoints {
 
 
 
-
-
-
 	/**
 	 * Return the list of user friend's exchange points
 	 * @param userID
@@ -206,12 +203,4 @@ public class ExchangePoints {
 		System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
 		//System.out.println(userPoints("Coucou"));
 	}
-
-
-	/*public static JSONObject createPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius) 
-			throws SQLException, JSONException
-	{			
-		PointEmpruntDao.addPointEmprunt(id_user,nom,lat,lon,radius);
-		return Tools.serviceMessage(1);
-	}*/
 }

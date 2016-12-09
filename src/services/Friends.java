@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import dao.FriendsDao;
-import utils.Tools;
+
 
 public class Friends {
 	public static void  addFriend(String id1,String id2) 
