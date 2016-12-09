@@ -25,7 +25,10 @@ public class GetItemServlet extends OnlineGetServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
-		response.getWriter().print(Items.getItem(request.getParameter("id")));		
+		response.getWriter().print(
+				Items.getItem(request.getParameter("id"),
+				(String)request.getSession().getAttribute("userId")) 
+				);		
 	}
 
 }

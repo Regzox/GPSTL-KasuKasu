@@ -9,7 +9,7 @@ mirror =(function(key,value){
 	
 	else if(isNumber(key) && value.type=="item"){
 		var i = new Item(value.id,value.owner,value.group,value.date,
-				value.longitude,value.latitude,value.title,value.description);
+				value.longitude,value.latitude,value.title,value.description,value.permission);
 		return (i);
 	}
 	

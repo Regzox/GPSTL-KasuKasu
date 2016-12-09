@@ -47,19 +47,23 @@ public class Items {
 	 * @param description 
 	 * @return 
 	 * @throws JSONException */
-	public static JSONObject getItem(String id) throws JSONException {
+	public static JSONObject getItem(String id,String userID) throws JSONException {
 		DBObject dbo = ItemsDB.getItem(id);
+		JSONObject item= new JSONObject()
+				.put("id",dbo.get("_id"))
+				.put("type","item")
+				.put("owner",dbo.get("owner"))
+				.put("title",dbo.get("title"))
+				.put("date",dbo.get("date"))
+				.put("description",dbo.get("description"));
+
+		if(dbo.get("owner").equals(userID))
+			item.put("permission",1);
+		else
+			item.put("permission",0);
+
 		return new JSONObject().put(
-				"items",
-				new JSONArray().put(
-						new JSONObject()
-						.put("id",dbo.get("_id"))
-						.put("type","item")
-						.put("owner",dbo.get("owner"))
-						.put("title",dbo.get("title"))
-						.put("group",dbo.get("group"))//TODO MOD groups
-						.put("date",dbo.get("date"))
-						.put("description",dbo.get("description"))));
+				"items",new JSONArray().put(item));
 	}
 
 
@@ -106,10 +110,8 @@ public class Items {
 					.put("id",orsv.getDbo().get("_id"))
 					.put("type","item")
 					.put("owner",orsv.getDbo().get("owner"))
+					.put("permission",1)
 					.put("title",orsv.getDbo().get("title"))
-					.put("group",orsv.getDbo().get("group"))//TODO MOD groups
-					.put("longitude",orsv.getDbo().get("longitude"))//TODO REM
-					.put("latitude",orsv.getDbo().get("latitude"))//TODO REM
 					.put("date",orsv.getDbo().get("date"))
 					.put("description",orsv.getDbo().get("description")));
 		return new JSONObject().put("items",jar);}
@@ -147,10 +149,8 @@ public class Items {
 						.put("id",orsv.getDbo().get("_id"))
 						.put("type","item")
 						.put("owner",orsv.getDbo().get("owner"))
+						.put("permission",0)
 						.put("title",orsv.getDbo().get("title"))
-						.put("group",orsv.getDbo().get("group"))
-						.put("longitude",orsv.getDbo().get("longitude"))
-						.put("latitude",orsv.getDbo().get("latitude"))
 						.put("date",orsv.getDbo().get("date"))
 						.put("description", orsv.getDbo().get("description")));
 		return new JSONObject().put("items",jar);}
@@ -161,7 +161,7 @@ public class Items {
 		ItemsDB.addGroupToItem(itemID, groupID);
 	}
 
-	
+
 	public static void removeGroupFromItem(String itemID, String groupID,String userID){
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return ;
