@@ -27,8 +27,6 @@ public class Loaning {
 	 * @param idItem 
 	 * @throws Exception 
 	 * @throws SQLException */
-	
-	
 	public static JSONObject requestItem(String idApplicant,String idItem) throws SQLException, Exception{
 		if(LoaningDB.requestExists(idApplicant, idItem))
 			return Tools.serviceRefused

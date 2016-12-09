@@ -31,19 +31,5 @@ public class FindUserServlet extends OnlineGetServlet {
 				.put("response", 1)
 				.put("id", request.getSession().getAttribute("userId"))
 				);
-
-		/*String search=request.getParameter("search");
-		String value=request.getParameter("value");
-		JSONObject js=new JSONObject();
-		if(value==null || search==null)
-			js.put("error", "Un des champs est vide.");
-		else{
-			JSONObject rep=User.getUsersJSONProfileWhere(search,value);
-			js.put("users", rep);
-			js.put("response", 1);
-			js.put("id", request.getSession().getAttribute("userId"));
-			//System.out.println(rep);
-		}
-		response.getWriter().print(js);*/
 	}
 }
