@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import dao.items.ItemsDB;
@@ -72,7 +73,7 @@ public class CreateObject extends HttpServlet {
 			object.put( "status"        ,  "available");
 			object.put( "title"        ,  request.getParameter("nom")            );
 			object.put( "description"  ,  request.getParameter("description")    );
-			object.put( "groups"       ,  request.getParameter("groupe")         );
+			object.put( "groups"       ,  new JSONArray(request.getParameter("groupe")));
 
 			// Sauvegarde l'objet dans la BD
 			ItemsDB.addItem(object);
