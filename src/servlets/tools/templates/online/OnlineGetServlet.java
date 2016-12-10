@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import servlets.tools.ServletToolBox;
 import servlets.tools.templates.Servlet;
-import utils.Tools;
+
 
 /**
  * * @author Anagbla Jean */
@@ -33,7 +33,7 @@ public abstract class OnlineGetServlet extends HttpServlet implements Servlet{
 
 		} catch (Exception e){
 			e.printStackTrace();
-			response.getWriter().print(new json.Error(Tools.getStackTrace(e)));}}
+			response.getWriter().print(new json.Error("Une erreur s'est produite."));}}
 			
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);}
