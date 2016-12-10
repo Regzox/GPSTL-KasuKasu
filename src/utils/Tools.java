@@ -23,18 +23,10 @@ public class Tools{
 	 * @return	 */
 	public static JSONObject serviceRefused(Object msg, int errorCode)throws JSONException{
 		JSONObject json=new JSONObject();
-		json.put("erreur",msg);
+		json.put("error",msg);
 		json.put("erreurcode",errorCode);
 		return json;}
 	
-	/**
-	 * Return the current timestamp
-	 * @return */
-	public static java.sql.Timestamp getCurrentTimeStamp() {
-		java.util.Date now = new java.util.Date();
-		return new java.sql.Timestamp(now.getTime());
-	}
-
 	/**
 	 * Return the complete StackTrace of the throwable as String 
 	 * @param thr
