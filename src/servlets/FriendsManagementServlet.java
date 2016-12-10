@@ -1,9 +1,10 @@
 package servlets;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,22 +12,23 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import services.Friends;
+import servlets.tools.templates.online.OnlinePostServlet;
 
-public class FriendsManagementServlet extends HttpServlet{
+public class FriendsManagementServlet extends OnlinePostServlet{
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		doPost(request, response);
-	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		try{
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"id","typeOfRequest"}));}
+	
+		@Override
+		public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
+				throws Exception {	
 			JSONObject jsResponse = new JSONObject();
 			HttpSession session=request.getSession();
-			response.setContentType("text/html");
-			String userId = (String) session.getAttribute("userId");
+ 			String userId = (String) session.getAttribute("userId");
 			String otherId = (String) request.getParameter("id");
 			String typeOfRequest = (String) request.getParameter("typeOfRequest");
 			if(otherId == null){
@@ -82,13 +84,6 @@ public class FriendsManagementServlet extends HttpServlet{
 				}
 			}
 			response.getWriter().print(jsResponse);
-		}catch (Exception e) 
-		{
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-			//request.setAttribute("error", e); //remote debug
-			//request.getRequestDispatcher("errorpage.jsp").forward(request, response);
-			response.getWriter().print(new json.Error("Sorry, an error has occurred.")); 
+		 
 		}
-	}
 }

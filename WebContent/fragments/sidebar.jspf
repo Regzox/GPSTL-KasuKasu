@@ -87,10 +87,10 @@
 							if ( !(~$(location).attr('href').indexOf('<%= Url.RECHERCHEROBJECT.value() %>')))
 								$(location).attr('href', '<%= Url.RECHERCHEROBJECT.value() %>');
 						">Rechercher un objet</div>
-<%-- 					    <div  onclick=" --%>
-<%-- 							if ( !(~$(location).attr('href').indexOf('<%= Url.LISTLOANS.value() %>'))) --%>
-<%-- 								$(location).attr('href', '<%= Url.LISTLOANS.value() %>'); --%>
-<%-- 						">Ma liste d'objets empruntés</div> --%>
+ 					    <div  onclick=" 
+ 							if ( !(~$(location).attr('href').indexOf('<%= Url.LISTLOANS.value() %>'))) 
+ 								$(location).attr('href', '<%= Url.LISTLOANS.value() %>'); 
+ 						">Ma liste d'objets empruntés</div> 
 					  </div>
 			</div>
 

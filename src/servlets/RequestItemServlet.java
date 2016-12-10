@@ -9,17 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import services.Loaning;
-import services.User;
 import servlets.tools.templates.online.OnlinePostServlet;
-import utils.SendEmail;
 
 /**
  * @author ANAGBLA Joan, Wafae CHEGLAL*/
 public class RequestItemServlet extends OnlinePostServlet {
 	private static final long serialVersionUID = 1L;
-	private static String to;
-	private static String subject;
-	private static String contenu;
 	
 	@Override
 	public void init() throws ServletException {
@@ -32,12 +27,6 @@ public class RequestItemServlet extends OnlinePostServlet {
 		response.getWriter().print(Loaning.requestItem(
 				(String)request.getSession().getAttribute("userId"),
 				(String) request.getParameter("id"))
-				);
-		to = User.getUserById((String)request.getSession().getAttribute("userId")).getEmail();
-		subject ="Demande d'emprunt";
-		contenu ="Vous avez une demande d'emprunt, Merci de checker ton compte";
-		SendEmail.sendMail(to, subject, contenu);
-
-		
+				);		
 	}
 }

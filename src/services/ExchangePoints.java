@@ -10,7 +10,6 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.ExchangePointsDB;
-import dao.GroupsDB;
 import dao.items.ItemsDB;
 import dao.users.UserDao;
 import exceptions.DatabaseException;
@@ -32,8 +31,13 @@ public class ExchangePoints {
 	public static JSONObject addExchangePoint(
 			double lat,double lon,int radius,String userID,String name) 
 					throws JSONException {		
-		if(!ExchangePointsDB.exchangePointExists(lat, lon, userID))
-		ExchangePointsDB.addExchangePoint(lat,lon,radius,userID,name);		
+		if(ExchangePointsDB.exists(lat, lon, userID)){
+			if(!ExchangePointsDB.existsForUser(lat, lon, userID))
+				ExchangePointsDB.subscribeToExchangePoint(
+						ExchangePointsDB.getExchangePointByLatLon(lat,lon)
+						.get("_id").toString()
+						, userID, name);
+		}else ExchangePointsDB.addExchangePoint(lat,lon,radius,userID,name);
 		return Tools.serviceMessage(1);
 	}
 
@@ -68,7 +72,7 @@ public class ExchangePoints {
 		ExchangePointsDB.updateExchangePoint(id, userID, radius, name);
 		return Tools.serviceMessage(1);
 	}
-	
+
 
 	/**TODO FINISH IT
 	 * Return user exchange points according to his userID
@@ -100,7 +104,7 @@ public class ExchangePoints {
 		ExchangePointsDB.addBulkUserItemsToExchangePoint(id, userID, items);
 		return Tools.serviceMessage(1);
 	}
-	
+
 	/**
 	 * Return the list of user's subscribe exchange points
 	 * @param userID
@@ -121,21 +125,21 @@ public class ExchangePoints {
 					.put("radius",dbo.get("rad")));}
 		return new JSONObject().put("expts",jar);
 	}
-	
+
 	public static void addItemToExPoint(String itemID,String exPointID,String userID){
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return ;
 		//ExchangePointsDB.addItemToExPoint(itemID, exPointID);
 	}
-	
-	
+
+
 	public static void removeItemFromExPoint(String itemID,String exPointID,String userID){
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return ;
-		ExchangePointsDB.removeItemExPointFrom(itemID, exPointID);
+		ExchangePointsDB.removeItemFromExPoint(itemID, exPointID);
 	}
-	
-	
+
+
 	public static JSONArray getItemExchangePoints(String itemID,String userID) throws JSONException{
 		/* o => BasicDBList */
 		if(!ItemsDB.checkAthorization(userID,itemID))
@@ -143,17 +147,14 @@ public class ExchangePoints {
 		//BasicDBList o= (BasicDBList)ExchangePointsDB.getItemExchangePoints(itemID);
 		JSONArray js;
 		//if(o==null)
-			js=new JSONArray();
+		js=new JSONArray();
 		//else
-			//js=new JSONArray(o.toString());
+		//js=new JSONArray(o.toString());
 		return js;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
 	/**
 	 * Return the list of user friend's exchange points
 	 * @param userID
@@ -185,7 +186,7 @@ public class ExchangePoints {
 					.put("radius",dbo.get("rad")));}
 		return new JSONObject().put("expts",jar);
 	}
-	
+
 	/**
 	 * Return the list of user friend's exchange points
 	 * @param userID
@@ -207,18 +208,10 @@ public class ExchangePoints {
 					.put("radius",dbo.get("rad")));}
 		return new JSONObject().put("expts",jar);
 	}
-	
+
 	public static void main(String[] args) throws DatabaseException, JSONException 
 	{
-			System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
-			//System.out.println(userPoints("Coucou"));
+		System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
+		//System.out.println(userPoints("Coucou"));
 	}
-	
-
-	/*public static JSONObject createPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius) 
-			throws SQLException, JSONException
-	{			
-		PointEmpruntDao.addPointEmprunt(id_user,nom,lat,lon,radius);
-		return Tools.serviceMessage(1);
-	}*/
 }

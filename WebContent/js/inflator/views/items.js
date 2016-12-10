@@ -1,8 +1,8 @@
 /**
  * ANAGBLA Joan */
 
-function Item(id,owner,group,date,longitude,latitude,title,description){
-	//alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","+description+")");
+function Item(id,owner,group,date,longitude,latitude,title,description,permission){
+	//alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","+description+","+permission+")");
 	this.id=id;
 	this.owner=owner;
 	this.group=group;
@@ -11,6 +11,7 @@ function Item(id,owner,group,date,longitude,latitude,title,description){
 	this.latitude=latitude;
 	this.title=title;
 	this.description=description;
+	this.permission=permission;
 } 
 
 
@@ -43,7 +44,7 @@ Item.traiteReponseJSON=function(json){
 	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
 	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
 	items = jsob.items;
-	//alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
+//	alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"itemsBox\">";	
@@ -53,11 +54,17 @@ Item.traiteReponseJSON=function(json){
 
 		for(var i in items){
 			//alert(JSON.stringify(items[i]));
-			fhtm+=(items[i]).getHTML();
-			//alert("JSOB.htmling : "+items[i].getHTML());
+			if(items[i].permission==1){
+				fhtm+=(items[i]).getHTML2();
+				//alert("JSOB.htmling : "+items[i].getHTML2());
+			}
+			else if(items[i].permission === 0){
+				fhtm+=(items[i]).getHTML();
+				//alert("JSOB.htmling : "+items[i].getHTML());
+			}
 		}		
 		fhtm+="</div>\n"; 
-//		alert("items.html = "+fhtm);  
+		//alert("items.html = "+fhtm);  
 		printHTML("#found-items",fhtm); 
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
@@ -76,8 +83,6 @@ Item.prototype.getHTML=function(){
 	s+="<div class=\"item-infos\">";
 	s+="<span class=\"visible-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
-	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
-	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-latitude-info"+this.id+"\">"+this.latitude+"</span>";
 	s+="</div> ";
 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
 	s+="<div class=\"item-more\">";
@@ -90,9 +95,9 @@ Item.prototype.getHTML=function(){
 };
 
 
-Item.traiteReponseJSON2=function(json){	
+/*Item.traiteReponseJSON2=function(json){	
 	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
+	var jsob =JSON.parse(JSON.stringify(json),mirror);
 	items = jsob.items;
 	//alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
@@ -112,7 +117,7 @@ Item.traiteReponseJSON2=function(json){
 		printHTML("#found-items",fhtm); 
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
-};
+};*/
 
 
 Item.prototype.getHTML2=function(){  
@@ -126,8 +131,6 @@ Item.prototype.getHTML2=function(){
 	s+="</div>\n";		
 	s+="<div class=\"item-infos\">";
 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
-	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-longitude-info"+this.id+"\">"+this.longitude+"</span>";
-	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-latitude-info"+this.id+"\">"+this.latitude+"</span>";
 	s+="</div> ";
 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
 	s+="<div class=\"item-more\">";
@@ -180,7 +183,7 @@ function userItems(query){
 		url : "useritems",
 		data : "query=" +query,
 		dataType : "JSON",
-		success : Item.traiteReponseJSON2,
+		success : Item.traiteReponseJSON,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
@@ -231,7 +234,7 @@ function reset_applicants_shared_div(id){
 	removeElt("#item-applicants");
 	printHTMLSup ("#itemBox"+id,"<div id=\"item-applicants\">" +
 			"<div id=\"current_item\" style=\"display:none;\">"+id+"<div>" +
-			"<br></div>");
+	"<br></div>");
 }
 
 
@@ -242,7 +245,7 @@ function getItem(id){
 		url : "getitem",
 		data : "id=" +id,
 		dataType : "JSON",
-		success : Item.traiteReponseJSON2,
+		success : Item.traiteReponseJSON,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
