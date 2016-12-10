@@ -142,7 +142,7 @@ public class LoaningDB {
 			item.append("status", "available");
 			collection.remove(loan);
 			items.update(new BasicDBObject().append("_id", new ObjectId(item.getString("_id"))), item);	
-			KasuDB.getMongoCollection("loan_arch").save(loan);
+			KasuDB.getMongoCollection("lhistory").save(loan);
 		}
 	}
 
