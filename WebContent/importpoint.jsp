@@ -61,7 +61,8 @@
 							</div>
 						</div>
 					</div>
-
+<input type="hidden" name="lat" id="lat" value="0">
+<input type="hidden" name="lon" id="lon" value="0">
 
 </body>
 </html>

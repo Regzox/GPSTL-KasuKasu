@@ -35,7 +35,7 @@ function abonnement()
 			{
 			    nom = $("#myModal").find("#nom_input").val();
 			    radius = $("#myModal").find("#nom_input").val();
-			    addPoint(nom,radius);  
+			    //addPoint(nom,radius);  
 			}
 			);
 }
@@ -88,11 +88,12 @@ function traiteReponse2(json)
 	       
 	        var feature = new OpenLayers.Feature.Vector
 	        (
-	                new OpenLayers.Geometry.Point( lon, lat ).transform
-	                (
-	            			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-	            			map.getProjectionObject() // to Spherical Mercator Projection  
-	                ),
+//	                new OpenLayers.Geometry.Point( lon, lat ).transform
+//	                (
+//	            			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+//	            			map.getProjectionObject() // to Spherical Mercator Projection  
+//	                ),
+	                new OpenLayers.Geometry.Point( lon, lat ),
 	                {description: "Vos amis sur ce lieu: "+json.expts[i].name} ,
 	                {externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 	         );             
@@ -107,9 +108,18 @@ function traiteReponse2(json)
     	    };
 
     	    function createPopup(feature) {
-    	      feature.popup = new OpenLayers.Popup.FramedCloud("pop",
+
+    	    	var lonLat = feature.geometry.getBounds().getCenterLonLat();
+    			document.getElementById('lat').value=lonLat.lat;
+    			document.getElementById('lon').value=lonLat.lon;
+
+
+    	         feature.popup = new OpenLayers.Popup.FramedCloud("pop",
     	          feature.geometry.getBounds().getCenterLonLat(),
     	          null,
+    	          //'<div class="markerContent">'+feature.attributes.description+'</div>'+'<br></br>'+'<button onclick="abonnement()">S\'abonner</button>',
+    	          //feature.geometry.getBounds().getCenterLonLat().lat 
+    	          //feature.geometry.getBounds().getCenterLonLat().lon   	          
     	          '<div class="markerContent">'+feature.attributes.description+'</div>'+'<br></br>'+'<button onclick="abonnement()">S\'abonner</button>',
     	          null,
     	          true,
