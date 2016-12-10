@@ -123,10 +123,7 @@ function makeReturnItemButton(loan) {
 	
 	$(button).html("Rendre");
 	$(button).click( function () {
-		
-		alert(loan.loan_id);
-		$
-		.post("ReturnItemServlet", {
+		$.post("ReturnItemServlet", {
 			loan_id : loan.loan_id
 		})
 		.done( function () {

@@ -8,7 +8,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.WriteResult;
 
 import dao.items.ItemsDB;
 import exceptions.DatabaseException;
@@ -20,7 +19,7 @@ public class LoaningDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("loaning");//LOANING_REQUESTS
 	public static DBCollection requests = KasuDB.getMongoCollection("lrqst");
-	public static DBCollection items = KasuDB.getMongoCollection("items");
+	public static DBCollection items = ItemsDB.collection;
 
 	/**
 	 * Add an applicant's request for an item 
@@ -132,17 +131,18 @@ public class LoaningDB {
 	 */
 	
 	public static void removeLoan(String id_loan) {
-		System.out.println(id_loan);
 		DBCursor dbc = collection.find(new BasicDBObject("_id", new ObjectId(id_loan)));
 		DBObject loan = dbc.next();
+		
 		if (dbc.count() == 1) {
+			BasicDBObject item = new BasicDBObject().append("_id", new ObjectId((String)loan.get("id_item")));	
+			
+			dbc = items.find(item);
+			item = (BasicDBObject) dbc.next();
+			item.append("status", "available");
 			collection.remove(loan);
-			BasicDBObject requestedItem = new BasicDBObject().append("_id", new ObjectId((String)loan.get("id_item")));
-			System.out.println("LAON ID : " + loan.get("id_item"));
-			dbc = items.find(requestedItem);
-			requestedItem = (BasicDBObject) dbc.next(); //TODO FIX NoSuchElementException
-			requestedItem.append("status", "available");
-			items.update(new BasicDBObject().append("_id", new ObjectId(requestedItem.getString("_id"))), requestedItem);
+			items.update(new BasicDBObject().append("_id", new ObjectId(item.getString("_id"))), item);	
+			KasuDB.getMongoCollection("loan_arch").save(loan);
 		}
 	}
 
