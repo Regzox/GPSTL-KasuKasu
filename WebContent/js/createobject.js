@@ -2,6 +2,7 @@ var result = new Array();
 var result2 = new Array();
 
 
+
 function init() 
 {
 	userGroups();
@@ -23,7 +24,16 @@ function getSelectedGroups()
         		{
      		       if (tops[i].name!="Tout le monde")
      		       {
-            		   result.push(tops[i].value);
+            		   
+            			var groupe = 
+            			{
+            				    "id": tops[i].value,
+            				    "nom": tops[i].name,
+           		
+            			}
+            			
+             		   result.push(groupe);
+
 
      		       }
         		}
@@ -100,6 +110,7 @@ function createobject()
 
 		
 		send (nom,description,result,result2);
+
 
 		
 

@@ -10,15 +10,33 @@ function init()
 	);
 
 	var zoom = 14;
-
 	map.setCenter(lonLat, zoom);	
-	
 	userPoints();
-	//usersName(48.85314,2.34838);
-	
-
 
 }
+
+//$('#myForm').on('submit', function(e) 
+//		{
+//	alert ("coucou");
+//    nom = $("#myModal").find("#nom_input").val();
+//    radius = $("#myModal").find("#nom_input").val();
+//    lat = $("#lat").val();
+//    lon = $("#lon").val();
+//
+//    
+//    if (nom.length!=0 && radius.length!=0)
+//    	{
+//	       //addPoint(nom,radius,lat,lon); 
+//    	   console.log(nom);
+//    	   console.log(radius);
+//    	   console.log(lat);
+//    	   console.log(lon);
+//
+//
+//
+//    	}
+//	
+//		  });
 
 
 function abonnement()
@@ -34,24 +52,55 @@ function abonnement()
 			function(evt)
 			{
 			    nom = $("#myModal").find("#nom_input").val();
-			    radius = $("#myModal").find("#nom_input").val();
-			    //addPoint(nom,radius);  
+			    radius = $("#myModal").find("#radius_input").val();
+			    lat = $("#lat").val();
+			    lon = $("#lon").val();
+
+			    
+			    if (nom.length!=0 && radius.length!=0)
+			    	{
+				       addPoint(nom,radius,lat,lon); 
+			    	}
+
 			}
 			);
-}
 
-function addPoint(nom,radius)
+ }
+
+function addPoint(nom,radius,lat,lon)
 {
 	$.ajax({
 		type : "POST",
 		url : "addexchangepoint",
-		data : "nom=" + nom + "&radius=" + radius + "&lat=" + lat + "&lon=" + lon, 
+		xhrFields: 
+		{
+			withCredentials: true
+		},
+		data : "name=" + nom + "&radius=" + radius + "&lat=" + lat + "&lon=" + lon, 
 		dataType : "JSON",
-		success : traiteReponse2,
-		error : function(xhr,status,errorthrown){
+		success : function (data)
+		{
+
+	        if (data.message=="1")
+	        	{
+	    	       $("#myModal").hide(); 
+	    	       
+	    	       $("#myModal2").modal({                    
+	     		      "backdrop"  : "static",
+	     		      "keyboard"  : true,
+	     		      "show"      : true                     
+	     		    });
+	     	       
+	     	       $("#myModal2").on('hidden.bs.modal', function () {
+	     	           window.location.href = "/KasuKasu/importpoint.jsp";
+	     	       });
+   	    
+	        	}
+		},		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
 	});
+	
 }
 
 
@@ -70,10 +119,6 @@ function userPoints(){
 }
 
 
-function traiteReponse(json) 
-{
-	console.log(json.stringfy(json));
-}
 
 function traiteReponse2(json) 
 {
@@ -88,11 +133,7 @@ function traiteReponse2(json)
 	       
 	        var feature = new OpenLayers.Feature.Vector
 	        (
-//	                new OpenLayers.Geometry.Point( lon, lat ).transform
-//	                (
-//	            			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-//	            			map.getProjectionObject() // to Spherical Mercator Projection  
-//	                ),
+
 	                new OpenLayers.Geometry.Point( lon, lat ),
 	                {description: "Vos amis sur ce lieu: "+json.expts[i].name} ,
 	                {externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
@@ -116,10 +157,7 @@ function traiteReponse2(json)
 
     	         feature.popup = new OpenLayers.Popup.FramedCloud("pop",
     	          feature.geometry.getBounds().getCenterLonLat(),
-    	          null,
-    	          //'<div class="markerContent">'+feature.attributes.description+'</div>'+'<br></br>'+'<button onclick="abonnement()">S\'abonner</button>',
-    	          //feature.geometry.getBounds().getCenterLonLat().lat 
-    	          //feature.geometry.getBounds().getCenterLonLat().lon   	          
+    	          null, 	          
     	          '<div class="markerContent">'+feature.attributes.description+'</div>'+'<br></br>'+'<button onclick="abonnement()">S\'abonner</button>',
     	          null,
     	          true,

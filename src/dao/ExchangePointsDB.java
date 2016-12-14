@@ -231,7 +231,9 @@ public class ExchangePointsDB {
 				new BasicDBObject()
 				.append("subscribers.id_user",
 						new BasicDBObject()
-						.append("$in",FriendsDao.myFriends(userID)))
+						.append("$in",FriendsDao.myFriends(userID))
+						.append("$ne", userID)
+						)
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));	
 	}
@@ -291,8 +293,8 @@ public class ExchangePointsDB {
 		subscribeToExchangePoint(excpt_id, "new_user_id3", "l'enfer");
 		addBulkUserItemsToExchangePoint(excpt_id,"5jhjy62hghfj5874gtg5",
 				new String[]{"itemid1","itemid2","itemid3"});*/
-		System.out.println(userPoints("58496e8c273633e062a41acd").next());
-		System.out.println(userPoints("58496e19273633e062a41acc").next());
+		//System.out.println(userPoints("58496e8c273633e062a41acd").next());
+		//System.out.println(userPoints("58496e19273633e062a41acc").next());
 		System.out.println(friendsExchangePoints("58496e19273633e062a41acc").next());
 
 	}

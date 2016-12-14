@@ -426,8 +426,8 @@
   	<servlet-name>ReturnItemServlet</servlet-name>
   	<servlet-class>servlets.ReturnItemServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
+    <servlet-mapping>
   	<servlet-name>ReturnItemServlet</servlet-name>
   	<url-pattern>/ReturnItemServlet</url-pattern>
   </servlet-mapping>
-</web-app>
+  </web-app>

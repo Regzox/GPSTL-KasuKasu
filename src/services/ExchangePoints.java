@@ -163,27 +163,33 @@ public class ExchangePoints {
 		JSONArray jar=new JSONArray();
 		DBCursor cursor = ExchangePointsDB.friendsExchangePoints(userID);
 		cursor.sort(new BasicDBObject("date",-1)); 
-		while (cursor.hasNext()){
+		while (cursor.hasNext())
+		{
 			DBObject dbo=cursor.next();
+//			if (!ExchangePointsDB.isMember(dbo.get("_id").toString() ,userID))
+//			{
+
 			BasicDBList bl = new BasicDBList();
 			bl = (BasicDBList) dbo.get("subscribers");
-			//String name = (String) ((DBObject)bl.get(0)).get("id_user"); 
 			String name="";
-			for (int i=0;i< bl.size(); i++)
-				
+			for (int i=0;i< bl.size(); i++)				
 			{
-				String user_firstname = UserDao.getUserById((String)((DBObject)bl.get(0)).get("id_user")).getFirstname();
-				String user_name = UserDao.getUserById((String)((DBObject)bl.get(0)).get("id_user")).getName();
+				String user_firstname = UserDao.getUserById((String)((DBObject)bl.get(i)).get("id_user")).getFirstname();
+				String user_name = UserDao.getUserById((String)((DBObject)bl.get(i)).get("id_user")).getName();
 
 				if (i==bl.size()-1) name = name+ user_firstname+" "+ user_name+ "."; 
 				else name = name+ user_firstname+" "+ user_name+", ";
 			}
-			JSONArray put = jar.put(new JSONObject()
-					.put("id",dbo.get("_id"))
-					.put("lat",dbo.get("lat"))
-					.put("name", name)
-					.put("lon",dbo.get("lon"))
-					.put("radius",dbo.get("rad")));}
+			
+				JSONArray put = jar.put(new JSONObject()
+						.put("id",dbo.get("_id"))
+						.put("lat",dbo.get("lat"))
+						.put("name", name)
+						.put("lon",dbo.get("lon"))
+						.put("radius",dbo.get("rad")));
+			//}
+
+	     }
 		return new JSONObject().put("expts",jar);
 	}
 
@@ -211,7 +217,9 @@ public class ExchangePoints {
 
 	public static void main(String[] args) throws DatabaseException, JSONException 
 	{
-		System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
-		//System.out.println(userPoints("Coucou"));
+		//System.out.println(friendsExchangePoints("58496e19273633e062a41acc"));
+		System.out.println(ExchangePointsDB.isMember("584c70342736ced6f8f4fa61","58496e8c273633e062a41acd"));
+		//System.out.println(ExchangePointsDB.isMember("584c5a2c2736f0f356b0cfe9","58496e19273633e062a41acc"));
+
 	}
 }
