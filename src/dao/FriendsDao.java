@@ -2,6 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -94,6 +96,34 @@ public class FriendsDao {
 		return ids;
 	}
 
+	
+	
+	/**
+	 * @rebasetested
+	 * @param user
+	 * @return */
+	public static ArrayList<ObjectId> myFriendsOID(String user){
+		ArrayList<ObjectId> ids=new ArrayList<ObjectId>();
+
+		DBCursor dbc = collection.find(
+				new BasicDBObject()
+				.append("id1",user)
+				);
+		while(dbc.hasNext())
+			ids.add(new ObjectId((String)dbc.next().get("id2")));
+
+		dbc = collection.find(
+				new BasicDBObject()
+				.append("id2",user)
+				);
+		while(dbc.hasNext())
+			ids.add(new ObjectId((String) dbc.next().get("id1")));
+
+		return ids;
+	}
+
+	
+	
 	/**
 	 * @rebasetested
 	 * @param idfrom

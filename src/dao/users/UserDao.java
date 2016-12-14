@@ -230,12 +230,13 @@ public class UserDao {
 	 * @param query
 	 * @return */
 	public static DBCursor findAmongFriends(String userId, String query) {
-		//System.out.println("UserDao/find -> userId : "+ userId);
+		System.out.println("UserDao/findAmongFriends -> userId : "+ userId+" query:"+query);//debug
+		//System.out.println(findUserCore(userId,query));//debug
 		return collection.find(
 				findUserCore(userId,query)
 				.append("_id",
 						new BasicDBObject()
-						.append("$in",FriendsDao.myFriends(userId) )
+						.append("$in",FriendsDao.myFriendsOID(userId) )
 						)
 				);
 	}
