@@ -434,8 +434,14 @@
     <servlet-name>FindAmongFriendsServlet</servlet-name>
     <servlet-class>servlets.FindAmongFriendsServlet</servlet-class>
   </servlet>
+<<<<<<< HEAD
   <servlet-mapping>
     <servlet-name>FindAmongFriendsServlet</servlet-name>
     <url-pattern>/findamongfriends</url-pattern>
+=======
+    <servlet-mapping>
+  	<servlet-name>ReturnItemServlet</servlet-name>
+  	<url-pattern>/ReturnItemServlet</url-pattern>
+>>>>>>> 5ab70d27059429666a16533920301dfc3495b444
   </servlet-mapping>
-</web-app>
+  </web-app>

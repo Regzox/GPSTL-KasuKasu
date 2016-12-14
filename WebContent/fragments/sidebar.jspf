@@ -78,6 +78,10 @@
 							if ( !(~$(location).attr('href').indexOf('<%= Url.IMPORTLIEU.value() %>')))
 								$(location).attr('href', '<%= Url.IMPORTLIEU.value() %>');
 						">Importer un lieu</div>
+						<div onclick="
+							if ( !(~$(location).attr('href').indexOf('<%= Url.LISTLIEU.value() %>')))
+								$(location).attr('href', '<%= Url.LISTLIEU.value() %>');
+						">Mes lieux</div>
 					  </div>
 			</div>
 			<br>

@@ -23,8 +23,9 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		var toProjection = new OpenLayers.Projection("EPSG:4326");
 		var lonlat = map.getLonLatFromViewPortPx(e.xy);
 		
-		var lonlat1 = map.getLonLatFromViewPortPx(e.xy).
-        transform(map.getProjectionObject(), toProjection);
+		/*var lonlat1 = map.getLonLatFromViewPortPx(e.xy).
+        transform(map.getProjectionObject(), toProjection);*/
+		lonlat1=lonlat;
 
 		var markers = new OpenLayers.Layer.Markers("Markers");
 		map.addLayer(markers);
