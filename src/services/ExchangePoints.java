@@ -41,6 +41,15 @@ public class ExchangePoints {
 		return Tools.serviceMessage(1);
 	}
 
+	public static void main(String[] args) throws DatabaseException, JSONException {
+		System.out.println(addExchangePoint(2,3,200,"5jhjy62hghfj5874gtg5","fac"));
+		System.out.println(addExchangePoint(2,3,500,"7jhjy62hghfj5874gtg5","maison"));
+		
+		//System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
+		//System.out.println(userPoints("Coucou"));
+	}		
+	
+	
 
 	/**
 	 * Subscribe to an existing exchange point
@@ -161,7 +170,7 @@ public class ExchangePoints {
 	 * @return */
 	public static JSONObject friendsExchangePoints(String userID) throws DatabaseException, JSONException{
 		JSONArray jar=new JSONArray();
-		DBCursor cursor = ExchangePointsDB.friendsExchangePoints(userID);
+		DBCursor cursor = ExchangePointsDB.friendsLargeExchangePoints(userID);
 		cursor.sort(new BasicDBObject("date",-1)); 
 		while (cursor.hasNext())
 		{
@@ -215,11 +224,4 @@ public class ExchangePoints {
 		return new JSONObject().put("expts",jar);
 	}
 
-	public static void main(String[] args) throws DatabaseException, JSONException 
-	{
-		//System.out.println(friendsExchangePoints("58496e19273633e062a41acc"));
-		System.out.println(ExchangePointsDB.isMember("584c70342736ced6f8f4fa61","58496e8c273633e062a41acd"));
-		//System.out.println(ExchangePointsDB.isMember("584c5a2c2736f0f356b0cfe9","58496e19273633e062a41acc"));
-
-	}
 }

@@ -222,10 +222,10 @@ public class ExchangePointsDB {
 				.append("subscribers.id_user",userID));}
 
 	/**
-	 * Return the list of user friend's exchange points
+	 * Return the list of user friend's exchange points (including subscribed user's points)
 	 * @param userID
 	 * @return */
-	public static DBCursor friendsExchangePoints(String userID){
+	public static DBCursor friendsLargeExchangePoints(String userID){
 		BasicDBList exprs = new BasicDBList();
 		exprs.add(
 				new BasicDBObject()
@@ -237,6 +237,27 @@ public class ExchangePointsDB {
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));	
 	}
+	
+	
+	/**
+	 * Return the list of user friend's exchange points 
+	 * @param userID
+	 * @return */
+	public static DBCursor friendsStrictExchangePoints(String userID){
+		BasicDBList exprs = new BasicDBList();
+		exprs.add(
+				new BasicDBObject()
+				.append("subscribers.id_user",
+						new BasicDBObject()
+						.append("$in",FriendsDao.myFriends(userID))
+				.append("subscribers.id_user",
+						new BasicDBObject()
+						.append("$nin", Arrays.asList(new String[]{userID}))))
+				);
+		return collection.find(new BasicDBObject().append("$or", exprs));	
+	}
+	
+	
 
 	/**
 	 * Return the list of users subscribed in an exchange point
@@ -295,7 +316,10 @@ public class ExchangePointsDB {
 				new String[]{"itemid1","itemid2","itemid3"});*/
 		//System.out.println(userPoints("58496e8c273633e062a41acd").next());
 		//System.out.println(userPoints("58496e19273633e062a41acc").next());
-		System.out.println(friendsExchangePoints("58496e19273633e062a41acc").next());
+		System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
+		System.out.println(userPoints("58496e8c273633e062a41acd").next());
+		System.out.println(userPoints("58496e19273633e062a41acc").next());
+		System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
 
 	}
 }
