@@ -1,4 +1,4 @@
-function finduser(form) 
+function finduseramongfriends(form) 
 {
 	printHTML("#notifier","");
 	if (form.value.value.length==0)
@@ -34,7 +34,7 @@ function ProcessFindUser(rep)
 	if(rep.users != undefined)
 		$.each(rep.users, function(user, profile) {
 			var x,y,z;
-			if(user !='warning'){
+//			if(user !='warning'){
 				$.each(profile, function(field, value) {
 					//console.log(field); console.log(value);
 					if(field=='name')
@@ -59,27 +59,15 @@ function ProcessFindUser(rep)
 					"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
 					"Retirer du groupe</button>\n</td>";
 				bodymessage+="</tr>";
-			}else{
-				message="Aucun utilisateur ne correspond a ce que vous recherchez.";
-				bodymessage="";
-				endmessage="";
-			}
+//			}else{
+//				message="Aucun utilisateur ne correspond a ce que vous recherchez.";
+//				bodymessage="";
+//				endmessage="";
+//			}
 		});
 	var div=(message+bodymessage+endmessage);
 	func_message(div);
 }
-
-function func_message(msg)
-{
-	printHTML("#notifier",msg);
-}
-
-
-function printHTML(dom,htm)
-{ 
-	$(dom).html(htm);
-}
-
 
 
 
@@ -89,7 +77,7 @@ function printHTML(dom,htm)
 
 
 /*****************************************************************************
- *
+ *									MEMBERS
  */
 
 function Member(id,name,type){
@@ -98,31 +86,6 @@ function Member(id,name,type){
 	this.name=name;
 	this.type=type;
 } 
-
-/*Member.revival=function(key,value){
-	//alert("revival begin");
-	if(key=="members"){ 
-		var r;
-		if((value.error==undefined) || (value.error==0)){
-			r=value;  //whole tab
-			//alert("revival  -> Members = "+JSON.stringify(r));
-		}else{
-			r =new Object();
-			r.error=value.error;
-			//alert("revive -> error = "+r.error);
-		}
-		return (r);
-
-	}else if(isNumber(key) && value.type=="member"){ //tab index
-		var i = new Member(value.id,value.name,value.type);
-		return (i);
-	}		
-	else{
-		//alert("revival -> value = "+value);
-		return (value);
-	}
-};*/
-
 
 Member.traiteReponseJSON=function(json){	
 	//alert("Member.traiteReponseJSON raw json -> "+JSON.stringify(json));	

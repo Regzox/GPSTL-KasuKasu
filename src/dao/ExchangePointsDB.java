@@ -46,7 +46,7 @@ public class ExchangePointsDB {
 	}
 
 	/**
-	 * ADMIN FUNCTION  : check if user have already created such an exchange point
+	 * ADMIN FUNCTION  : check if an exchange point at this position already exists
 	 * @param lat
 	 * @param lon
 	 * @param userID
@@ -63,7 +63,7 @@ public class ExchangePointsDB {
 
 	
 	/**
-	 * ADMIN FUNCTION  : check if user have already created or subscribed such an exchange point
+	 * ADMIN FUNCTION  : check if user have subscribed such an exchange point
 	 * @param lat
 	 * @param lon
 	 * @param userID
