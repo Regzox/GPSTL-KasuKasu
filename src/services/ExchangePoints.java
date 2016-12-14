@@ -40,6 +40,15 @@ public class ExchangePoints {
 		return Tools.serviceMessage(1);
 	}
 
+	public static void main(String[] args) throws DatabaseException, JSONException {
+		System.out.println(addExchangePoint(2,3,200,"5jhjy62hghfj5874gtg5","fac"));
+		System.out.println(addExchangePoint(2,3,500,"7jhjy62hghfj5874gtg5","maison"));
+		
+		//System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
+		//System.out.println(userPoints("Coucou"));
+	}		
+	
+	
 
 	/**
 	 * Subscribe to an existing exchange point
@@ -160,7 +169,7 @@ public class ExchangePoints {
 	 * @return */
 	public static JSONObject friendsExchangePoints(String userID) throws DatabaseException, JSONException{
 		JSONArray jar=new JSONArray();
-		DBCursor cursor = ExchangePointsDB.friendsExchangePoints(userID);
+		DBCursor cursor = ExchangePointsDB.friendsLargeExchangePoints(userID);
 		cursor.sort(new BasicDBObject("date",-1)); 
 		while (cursor.hasNext()){
 			DBObject dbo=cursor.next();
@@ -196,11 +205,5 @@ public class ExchangePoints {
 					.put("lon",dbo.get("lon"))
 					.put("radius",dbo.get("rad")));}
 		return new JSONObject().put("expts",jar);
-	}
-
-	public static void main(String[] args) throws DatabaseException, JSONException 
-	{
-		System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
-		//System.out.println(userPoints("Coucou"));
 	}
 }
