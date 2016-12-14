@@ -73,8 +73,7 @@ public class FriendsDao {
 	/**
 	 * @rebasetested
 	 * @param user
-	 * @return
-	 */
+	 * @return */
 	public static ArrayList<String> myFriends(String user){
 		ArrayList<String> ids=new ArrayList<String>();
 

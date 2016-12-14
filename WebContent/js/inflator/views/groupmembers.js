@@ -10,8 +10,8 @@ function findUserJS(valuev)
 {
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/finduser",
-		data : {value : valuev},
+		url : "/KasuKasu/findamongfriends",
+		data : {query : valuev},
 		dataType : "JSON",
 		success : ProcessFindUser,
 		error : function(xhr,status,errorthrown){

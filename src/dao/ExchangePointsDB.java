@@ -192,25 +192,6 @@ public class ExchangePointsDB {
 	}
 
 
-	/**
-	 * Add a list of user's items to an exchange point in db
-	 * @param id
-	 * @param userID
-	 * @param items */
-	public static void addBulkUserItemsToExchangePoint(String id,String userID, String[] items){ 
-		BasicDBList bdbl = new BasicDBList();
-		bdbl.addAll(Arrays.asList(items));
-		collection.update(
-				new BasicDBObject()
-				.append("_id",new ObjectId(id))
-				.append("subscribers.id_user", userID),
-				new BasicDBObject()
-				.append("$addToSet", 
-						new BasicDBObject()
-						.append("subscribers.useritems",bdbl) //TODO find how it work
-						)
-				);
-	}
 
 	/**
 	 * Return the list of user's subscribed exchange points
@@ -221,7 +202,7 @@ public class ExchangePointsDB {
 				new BasicDBObject()
 				.append("subscribers.id_user",userID));}
 
-	/**
+	/** TODO mod add groups visibility constraints
 	 * Return the list of user friend's exchange points (including subscribed user's points)
 	 * @param userID
 	 * @return */
@@ -237,7 +218,7 @@ public class ExchangePointsDB {
 	}
 	
 	
-	/**
+	/** TODO mod add groups visibility constraints
 	 * Return the list of user friend's exchange points 
 	 * @param userID
 	 * @return */
@@ -284,6 +265,30 @@ public class ExchangePointsDB {
 	}*/
 
 
+	
+
+	/**
+	 * Add a list of user's items to an exchange point in db
+	 * @param id
+	 * @param userID
+	 * @param items */
+	public static void addBulkUserItemsToExchangePoint(String id,String userID, String[] items){ 
+		BasicDBList bdbl = new BasicDBList();
+		bdbl.addAll(Arrays.asList(items));
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id))
+				.append("subscribers.id_user", userID),
+				new BasicDBObject()
+				.append("$addToSet", 
+						new BasicDBObject()
+						.append("subscribers.useritems",bdbl) //TODO find how it work
+						)
+				);
+	}
+	
+	
+	
 	public static void removeItemFromExPoint(String itemID,String exPointID){
 		BasicDBObject updateQuery = new BasicDBObject();
 		updateQuery.put("_id", new ObjectId(itemID));

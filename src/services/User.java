@@ -320,4 +320,34 @@ public class User {
 		}
 		return usersJSON;
 	}
+	
+	
+	/**
+	 * Return a json object containing users found according to query among user's friends
+	 * @param userId
+	 * @param query
+	 * @return 
+	 * @throws JSONException */
+	public static JSONObject findAmongFriends(String userId, String query) throws JSONException {
+		JSONObject usersJSON = new JSONObject();		
+		int index = 0;
+		
+		DBCursor dbc =  UserDao.findAmongFriends(userId, query);
+		
+		while (dbc.hasNext()){
+			DBObject user = dbc.next();
+			usersJSON.put("user" +(index++),
+					new JSONObject()
+					.put("id", user.get("_id"))
+					.put("email", user.get("email"))
+					.put("name", user.get("nom"))
+					.put("firstname", user.get("prenom"))
+					.put("phone", user.get("numero")));		
+
+			if (index == 0)
+				return new Warning("No user found.");
+		}
+		return usersJSON;
+	}
+	
 }
