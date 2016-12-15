@@ -11,6 +11,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import exceptions.NotPermitedException;
 import kasudb.KasuDB;
 
 /**
@@ -111,7 +112,7 @@ public class ExchangePointsDB {
 	 * @param id
 	 * @param userID
 	 * @param items */
-	public static void subscribeToExchangePoint(String id,String userID,String name){ 
+	public static void subscribeToExchangePoint(String id,String userID,String name, int radius){ 
 		collection.update(
 				new BasicDBObject()
 				.append("_id",new ObjectId(id)),
@@ -122,6 +123,7 @@ public class ExchangePointsDB {
 								new BasicDBObject()
 								.append("id_user", userID)
 								.append("name", name)
+								.append("radius", radius)
 								.append("date", new Date())
 								.append("useritems",new BasicDBList())
 								)
@@ -141,13 +143,13 @@ public class ExchangePointsDB {
 			String id,String userID,int radius,String name){ 
 		collection.update(
 				new BasicDBObject()
-				.append("_id",id)
+				.append("_id", new ObjectId(id))
 				.append("subscribers.id_user",userID),
 				new BasicDBObject()
 				.append("$set",
 						new BasicDBObject()
-						.append("subscribers.name",name)
-						.append("subscribers.radius",radius)
+						.append("subscribers.$.name",name)
+						.append("subscribers.$.radius",radius)
 						)
 				);
 	}
@@ -298,6 +300,17 @@ public class ExchangePointsDB {
 		BasicDBList groups = (BasicDBList) item.get("exchangepoints");
 		return groups;
 	}*/
+	
+	/**
+	 * Delete an exchange point subscribed by the user
+	 * @param id
+	 * @param ownerID
+	 */
+	public static void deleteExchangePoint(String id,String ownerID){
+		BasicDBObject match = new BasicDBObject("_id", new ObjectId(id)); 
+		BasicDBObject update = new BasicDBObject("subscribers", new BasicDBObject("id_user", ownerID));
+		collection.update(match, new BasicDBObject("$pull", update));		
+		}
 
 
 
@@ -315,11 +328,13 @@ public class ExchangePointsDB {
 		addBulkUserItemsToExchangePoint(excpt_id,"5jhjy62hghfj5874gtg5",
 				new String[]{"itemid1","itemid2","itemid3"});*/
 		//System.out.println(userPoints("58496e8c273633e062a41acd").next());
-		//System.out.println(userPoints("58496e19273633e062a41acc").next());
-		System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
-		System.out.println(userPoints("58496e8c273633e062a41acd").next());
+//		//System.out.println(userPoints("58496e19273633e062a41acc").next());
+//		System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
+//		System.out.println(userPoints("58496e8c273633e062a41acd").next());
 		System.out.println(userPoints("58496e19273633e062a41acc").next());
-		System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
+		deleteExchangePoint("584c410d27360cb6adb9514b","58496e19273633e062a41acc");
+		System.out.println(userPoints("58496e19273633e062a41acc").next());
+
 
 	}
 }

@@ -412,22 +412,22 @@
   </servlet-mapping>
   <servlet>
   	<description></description>
-  	<display-name>PointUsersName</display-name>
-  	<servlet-name>PointUsersName</servlet-name>
-  	<servlet-class>servlets.PointUsersName</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>PointUsersName</servlet-name>
-  	<url-pattern>/PointUsersName</url-pattern>
-  </servlet-mapping>
-  <servlet>
-  	<description></description>
   	<display-name>ReturnItemServlet</display-name>
   	<servlet-name>ReturnItemServlet</servlet-name>
   	<servlet-class>servlets.ReturnItemServlet</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
   	<servlet-name>ReturnItemServlet</servlet-name>
   	<url-pattern>/ReturnItemServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<description></description>
+  	<display-name>DeleteExchangePointServlet</display-name>
+  	<servlet-name>DeleteExchangePointServlet</servlet-name>
+  	<servlet-class>servlets.DeleteExchangePointServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    	<servlet-name>DeleteExchangePointServlet</servlet-name>
+    	<url-pattern>/DeleteExchangePointServlet</url-pattern>
+    </servlet-mapping>
   </web-app>

@@ -311,8 +311,11 @@ function send(result2)
 	      "keyboard"  : true,
 	      "show"      : true                     
 	    });
-	   }
-	    //Ajouter redirection vers la liste des points
+	   }	    
+	       
+	       $("#myModal").on('hidden.bs.modal', function () {
+	           window.location.href = "/KasuKasu/restricted/listpoint.jsp";
+	       });	 
 	 },
 	error : function(XHR, testStatus, errorThrown) {
 	console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
