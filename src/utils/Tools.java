@@ -38,4 +38,18 @@ public class Tools{
 		return sw.toString();
 	}
 	
+
+	/**
+	 * Balance two words to the same length
+	 * @param word1
+	 * @param word2 */
+	public static void balanceWordsLengths(String[]word1, String[]word2){
+		if(word1.length>0 && word2.length>0)
+			while(((Integer)word1[0].length()).compareTo(word2[0].length())!=0)
+				if(word1[0].length()<word2[0].length())
+					word1[0]+="*";
+				else if(word2[0].length()<word1[0].length())
+					word2[0]+="*"; 
+	}
+	
 }

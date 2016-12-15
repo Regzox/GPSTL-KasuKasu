@@ -358,9 +358,7 @@
     <servlet-name>UpdateExchangePointServlet</servlet-name>
     <url-pattern>/updateexchangepoint</url-pattern>
   </servlet-mapping>
-
-  
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>ApplicantLoaningServlet</display-name>
     <servlet-name>ApplicantLoaningServlet</servlet-name>
@@ -369,7 +367,7 @@
   <servlet-mapping>
     <servlet-name>ApplicantLoaningServlet</servlet-name>
     <url-pattern>/applicantloaning</url-pattern>
-</servlet-mapping>
+  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>AddPointServlet</display-name>
@@ -396,19 +394,19 @@
     <servlet-name>GetItemServlet</servlet-name>
     <servlet-class>servlets.GetItemServlet</servlet-class>
   </servlet>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>GetItemServlet</servlet-name>
     <url-pattern>/getitem</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description></description>
-  	<display-name>PointsUserFriendList</display-name>
-  	<servlet-name>PointsUserFriendList</servlet-name>
-  	<servlet-class>servlets.PointsUserFriendList</servlet-class>
+    <description></description>
+    <display-name>PointsUserFriendList</display-name>
+    <servlet-name>PointsUserFriendList</servlet-name>
+    <servlet-class>servlets.PointsUserFriendList</servlet-class>
   </servlet>
-    <servlet-mapping>
-  	<servlet-name>PointsUserFriendList</servlet-name>
-  	<url-pattern>/PointsUserFriendList</url-pattern>
+  <servlet-mapping>
+    <servlet-name>PointsUserFriendList</servlet-name>
+    <url-pattern>/PointsUserFriendList</url-pattern>
   </servlet-mapping>
   <servlet>
   	<description></description>
@@ -419,6 +417,26 @@
   <servlet-mapping>
   	<servlet-name>ReturnItemServlet</servlet-name>
   	<url-pattern>/ReturnItemServlet</url-pattern>
+  </servlet-mapping>  	
+  <servlet>
+    <description></description>
+    <display-name>PointUsersName</display-name>
+    <servlet-name>PointUsersName</servlet-name>
+    <servlet-class>servlets.PointUsersName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PointUsersName</servlet-name>
+    <url-pattern>/PointUsersName</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FindAmongFriendsServlet</display-name>
+    <servlet-name>FindAmongFriendsServlet</servlet-name>
+    <servlet-class>servlets.FindAmongFriendsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindAmongFriendsServlet</servlet-name>
+    <url-pattern>/findamongfriends</url-pattern>
   </servlet-mapping>
   <servlet>
   	<description></description>

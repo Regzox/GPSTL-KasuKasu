@@ -16,6 +16,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.FriendsDao;
+import dao.tools.PatternsHolder;
 import entities.User;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
@@ -220,49 +222,95 @@ public class UserDao {
 	 * @return */
 	public static DBCursor find(String userId, String query) {
 		//System.out.println("UserDao/find -> userId : "+ userId);
+		return collection.find(findUserCore(userId,query));
+	}
+
+	/**
+	 * find an user according to the query among user's friends
+	 * @param userId
+	 * @param query
+	 * @return */
+	public static DBCursor findAmongFriends(String userId, String query) {
+		System.out.println("UserDao/findAmongFriends -> userId : "+ userId+" query:"+query);//debug
+		//System.out.println(findUserCore(userId,query));//debug
+		return collection.find(
+				findUserCore(userId,query)
+				.append("_id",
+						new BasicDBObject()
+						.append("$in",FriendsDao.myFriendsOID(userId) )
+						)
+				);
+	}
+
+
+	/**
+	 * Centralization of the db object to find (shared by functions find and findAmongFriends  )
+	 * @param userId
+	 * @param query
+	 * @return */
+	public static BasicDBObject findUserCore(String userId, String query){
 		BasicDBObject bdbo = 
 				new BasicDBObject()
 				.append("_id",
 						new BasicDBObject()
 						.append("$ne", new ObjectId(userId)));
 
-		Pattern p1 = Pattern.compile(".+@.+"); //is email
-		Pattern p2 = Pattern.compile("\\d+"); //is phone number
-		List<String> nouns = new ArrayList<>();
+		Pattern p1 = Pattern.compile(PatternsHolder.email); //is email
+		Pattern p2 = Pattern.compile(PatternsHolder.phoneNumber); //is phone number
+		List<Pattern> nouns = new ArrayList<>();
 
-		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(" ")));//debug
+		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(PatternsHolder.blank)));//debug
 
-		for(String word : Arrays.asList(query.trim().split(" ")))
+		for(String word : Arrays.asList(query.trim().split(PatternsHolder.blank)))
 			if(p1.matcher(word).matches())
 				bdbo.append("email",word);
 			else if(p2.matcher(word).matches())
 				bdbo.append("numero",word);
 			else
-				nouns.add(word);
+				nouns.add(
+						Pattern.compile(
+								"^"+word,
+								Pattern.CASE_INSENSITIVE
+								)
+						);
 
 		if(nouns.size()>0){
 			BasicDBList identity = new BasicDBList();
 
 			if(nouns.size()>1)
-				for(String noun : nouns)
-					identity.add(new BasicDBObject()
-							.append("nom",noun)
-							.append("prenom",
-									new BasicDBObject()
-									.append("$in", nouns)));
+				identity.add(new BasicDBObject()
+						.append("nom",
+								new BasicDBObject()
+								.append("$in", nouns)
+								)
+						.append("prenom",
+								new BasicDBObject()
+								.append("$in", nouns)
+								)
+						);				
+
 			else if(nouns.size()==1){
 				identity.add(
 						new BasicDBObject()
-						.append("nom",nouns.get(0)));
+						.append("nom",
+								new BasicDBObject()
+								.append("$in", nouns)
+								)
+						);
 				identity.add(
 						new BasicDBObject()
-						.append("prenom",nouns.get(0)));
+						.append("prenom",
+								new BasicDBObject()
+								.append("$in", nouns)
+								)
+						);
 			}
-
 			bdbo.append("$or", identity);
 		}
-		return collection.find(bdbo);
+		return bdbo;
 	}
+
+
 
 	public static String md5(String input) {
 
@@ -287,6 +335,8 @@ public class UserDao {
 		}
 		return md5;
 	}
+
+
 
 	/**
 	 * local test
