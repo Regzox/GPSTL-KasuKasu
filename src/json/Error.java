@@ -1,5 +1,6 @@
 package json;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +16,15 @@ public class Error extends JSONObject {
 	
 	public Error(JSONObject object) {
 		try {
-			this.put("success", object);
+			this.put("error", object);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Error(JSONArray object) {
+		try {
+			this.put("error", object);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
