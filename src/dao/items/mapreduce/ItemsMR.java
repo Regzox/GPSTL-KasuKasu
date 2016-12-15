@@ -2,10 +2,8 @@ package dao.items.mapreduce;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +20,7 @@ import com.mongodb.MapReduceOutput;
 import com.mongodb.MongoException;
 
 import dao.items.ItemsDB;
+import dao.tools.PatternsHolder;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
@@ -37,7 +36,7 @@ public class ItemsMR {
 	private static DBCollection tfcoll = KasuDB.getMongoCollection("tf");
 	private static DBCollection dfcoll = KasuDB.getMongoCollection("df");
 
-	static String mrpattern="/[^\\d\\w]+/";   
+	private static String mrpattern=PatternsHolder.mrpattern;   
 
 	/**
 	 * @param query
@@ -46,7 +45,7 @@ public class ItemsMR {
 	 * @throws JSONException */
 	public static List<ObjetRSV> pertinence(String query,DBCursor cursor) throws JSONException, DatabaseException{
 		ItemsMR.updateTFDF();//TODO replace by an mrprog in future sprints
-		Set<String> querywords =wordSet(query,ItemsMR.mrpattern);	
+		Set<String> querywords =PatternsHolder.wordSet(query,ItemsMR.mrpattern);	
 		List<ObjetRSV> results = new ArrayList<ObjetRSV>();
 
 		while(cursor.hasNext()){
@@ -56,15 +55,6 @@ public class ItemsMR {
 			Double score = 0.0;
 			for(String word : querywords){
 				//TF
-				/*Connection sqldbconect = KasuDB.SQLConnection();
-				 Statement s = sqldbconect.createStatement();
-				ResultSet rs = s.executeQuery("SELECT tf FROM TF WHERE"
-						+ " word = \""+word+"\" AND docID=\""+ docID +"\"");
-				if(!rs.next())   
-					continue; 
-				double tf =rs.getDouble("tf");
-				s.close();*/
-
 				DBCursor dbc = tfcoll.find(
 						new BasicDBObject()
 						.append("word",word)
@@ -76,14 +66,7 @@ public class ItemsMR {
 
 				double tf =(double)dbc.next().get("tf");
 
-
 				//DF
-				/*s = sqldbconect.createStatement();
-				rs = s.executeQuery("SELECT df FROM DF WHERE word = \"" + word+"\"");
-				rs.next();
-				double df =rs.getDouble("df");
-				s.close();*/
-
 				dbc = dfcoll.find(
 						new BasicDBObject()
 						.append("word",word)
@@ -115,14 +98,7 @@ public class ItemsMR {
 				pertinentResults.add(orsv);
 		return pertinentResults;}
 
-	/**
-	 * Return a set of words contained in a string (only one occurence of a word)
-	 * @param string
-	 * @param pattern
-	 * @return */
-	private static Set<String> wordSet(String string,String pattern) {
-		return new HashSet<String>(
-				Arrays.asList(string.toLowerCase().split(pattern)));}
+	
 
 	/**
 	 * Filling both TF & DF tables
@@ -134,8 +110,7 @@ public class ItemsMR {
 	/**
 	 * local test
 	 * @param args
-	 * @throws JSONException
-	 */
+	 * @throws JSONException */
 	public static void main(String[] args) throws JSONException {
 		updateTFDF();
 	}
@@ -162,24 +137,7 @@ public class ItemsMR {
 							)
 					.append("tf", l.get(i).getDouble("tf")	)
 					.append("defdate", new Date())
-					);
-		/*try {
-			Connection c = KasuDB.SQLConnection();
-			Statement ds = c.createStatement();
-			ds.executeUpdate("DELETE FROM TF ;");
-			ds.close();
-			for (int i=0;i<l.size();i++) {
-				BasicDBObject key = (BasicDBObject)l.get(i).get("key");
-				String query = "INSERT INTO TF VALUES ('"+key.getString("word")+"','"
-						+((ObjectId)key.get("mongodocid")).toString()+"',"
-						+l.get(i).getInt("tf")+",NOW());";
-				Statement is = c.createStatement();
-				is.executeUpdate(query);
-				is.close();	
-			}c.close();}
-		catch (SQLException e){
-			throw new DatabaseException("Error while filling Term Frequency table :" 
-					+e.getMessage());}*/
+					); 
 	}	
 
 
@@ -198,21 +156,6 @@ public class ItemsMR {
 					.append("df", l.get(i).getDouble("df"))
 					.append("defdate", new Date())
 					);
-		/*try {
-			Connection c = KasuDB.SQLConnection();
-			Statement ds = c.createStatement();
-			ds.executeUpdate("DELETE FROM DF ;");
-			ds.close();
-			for (int i=0;i<l.size();i++){
-				String query = "INSERT INTO DF VALUES ('"+l.get( i ).getString("word")+"',"
-						+l.get( i ).getInt("df")+",NOW());";
-				Statement is = c.createStatement();
-				is.executeUpdate(query);
-				is.close();	
-			}c.close();}
-		catch (SQLException e){
-			throw new DatabaseException("Error while filling Document Frequency table : "
-					+e.getMessage());}*/
 	}	
 
 
