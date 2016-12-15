@@ -17,6 +17,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.FriendsDao;
+import dao.tools.PatternsHolder;
 import entities.User;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
@@ -254,13 +255,13 @@ public class UserDao {
 						new BasicDBObject()
 						.append("$ne", new ObjectId(userId)));
 
-		Pattern p1 = Pattern.compile(".+@.+"); //is email
-		Pattern p2 = Pattern.compile("\\d+"); //is phone number
+		Pattern p1 = Pattern.compile(PatternsHolder.email); //is email
+		Pattern p2 = Pattern.compile(PatternsHolder.phoneNumber); //is phone number
 		List<Pattern> nouns = new ArrayList<>();
 
-		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(" ")));//debug
+		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(PatternsHolder.blank)));//debug
 
-		for(String word : Arrays.asList(query.trim().split(" "))) //TODO  uniformiser le split avec un pattern centralisé
+		for(String word : Arrays.asList(query.trim().split(PatternsHolder.blank)))
 			if(p1.matcher(word).matches())
 				bdbo.append("email",word);
 			else if(p2.matcher(word).matches())
