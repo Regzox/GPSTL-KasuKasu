@@ -1,17 +1,11 @@
-function finduseramongfriends(form) 
-{
-	printHTML("#notifier","");
-	if (form.value.value.length==0)
-		return; 
-		findUserJS(form.value.value);	
-}
+function finduseramongfriends(form) {
 
-function findUserJS(valuev) 
-{
+	if (form.query.value.length==0)
+		return;
 	$.ajax({
 		type : "GET",
 		url : "/KasuKasu/findamongfriends",
-		data : {query : valuev},
+		data : {query : form.query.value},
 		dataType : "JSON",
 		success : ProcessFindUser,
 		error : function(xhr,status,errorthrown){
@@ -22,56 +16,52 @@ function findUserJS(valuev)
 
 
 
-function ProcessFindUser(rep) 
-{
+function ProcessFindUser(rep) {
 	var message = "<table class=\"table\">" +
 	"<tr>" +
 	"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
 	"</tr>";
 	var endmessage ="</table>";
-
 	var bodymessage ="";
+	var nb=0;
 	if(rep.users != undefined)
 		$.each(rep.users, function(user, profile) {
 			var x,y,z;
-//			if(user !='warning'){
-				$.each(profile, function(field, value) {
-					//console.log(field); console.log(value);
-					if(field=='name')
-						x=value;
-					if(field=='firstname')
-						y=value;
-					if(field=='id')
-						z=value;
-				});
+			nb++;
+			$.each(profile, function(field, value) {
+				//console.log(field); console.log(value);
+				if(field=='name')
+					x=value;
+				if(field=='firstname')
+					y=value;
+				if(field=='id')
+					z=value;
+			});
 
-				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
-				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>";
-				//alert("z="+z+" "+MEM[z]);
-				if(!(MEM[z]!= undefined && MEM[z]!= null))
-					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
-					"id=\"add-"+z+"-to_group-"+GID+"\" " +
-					"onClick=\"addMember('"+GID+"','"+z+"')\">" +
-					"Ajouter au groupe</button>\n</td>";
-				else
-					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
-					"id=\"remove-"+z+"-to_group-"+GID+"\" " +
-					"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
-					"Retirer du groupe</button>\n</td>";
-				bodymessage+="</tr>";
-//			}else{
-//				message="Aucun utilisateur ne correspond a ce que vous recherchez.";
-//				bodymessage="";
-//				endmessage="";
-//			}
+			bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
+			"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>";
+			//alert("z="+z+" "+MEM[z]);
+			if(!(MEM[z]!= undefined && MEM[z]!= null))
+				bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+				"id=\"add-"+z+"-to_group-"+GID+"\" " +
+				"onClick=\"addMember('"+GID+"','"+z+"')\">" +
+				"Ajouter au groupe</button>\n</td>";
+			else
+				bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+				"id=\"remove-"+z+"-to_group-"+GID+"\" " +
+				"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
+				"Retirer du groupe</button>\n</td>";
+			bodymessage+="</tr>";
 		});
-	var div=(message+bodymessage+endmessage);
-	func_message(div);
+
+	if(nb==0){
+		message="Aucun utilisateur ne correspond.";
+		bodymessage="";
+		endmessage="";
+	}
+
+	printHTML("#found-friends",message+bodymessage+endmessage);
 }
-
-
-
-
 
 
 
@@ -171,5 +161,5 @@ function refresh(result){
 	if(result.error!=undefined)
 		fillNOTIFIER(result.error);
 	else
-	window.location.reload();
+		window.location.reload();
 }

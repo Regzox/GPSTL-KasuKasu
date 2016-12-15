@@ -21,26 +21,15 @@
 		<div class='layer-center'>
 			<p class='capital'>Gerez le groupe <%=request.getParameter("gname")%>.</p>
 
-			<form action="javascript:(function(){return;})()" method="get"
-				OnSubmit="javascript:finduser(this)">
+<!-- 			<div id='notifier'>TODO REPLACE BY MODAL</div> -->
 
-				<!--<div class="form-group row">
-					<label for="email" class="col-xs-4 col-form-label">Rechercher
-						par </label>
-					<div class="col-xs-4">
-						<SELECT name="search" size="1" class="form-control">
-							<OPTION value="nom">Nom</OPTION>
-							<OPTION value="prenom">Prénom</OPTION>
-							<OPTION value="email">Email</OPTION>
-							<OPTION value="numero">Numéro</OPTION>
-						</SELECT>
-					</div>
-				</div>-->
+			<form action="javascript:(function(){return;})()" method="get"
+				OnSubmit="javascript:finduseramongfriends(this)">
 
 				<div class="form-group row">
 
 					<div class="col-xs-10">
-						<input class="form-control" name="value" value="" id="value">
+						<input class="form-control" name="query" value="" id="value">
 					</div>
 				</div>
 
@@ -48,7 +37,7 @@
 					value="Chercher"> <br>
 			</form>
 
-			<div id='notifier'></div>
+			<div id="found-friends" class="abootsraper"></div>
 			<br><br><hr><br>
 			<h2>Liste des membres du groupe</h2>
 			<div id="found-members" class="abootsraper"></div>
