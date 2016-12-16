@@ -19,7 +19,7 @@ public class UpdateExchangePointServlet extends OnlinePostServlet {
 	public void init() throws ServletException {
 		super.init();
 		super.epn= new HashSet<String>(Arrays.asList(
-				new String[]{"id","userID","radius","name"}));}
+				new String[]{"id","radius","name"}));}
 
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
@@ -27,7 +27,7 @@ public class UpdateExchangePointServlet extends OnlinePostServlet {
 		response.getWriter().print(
 				ExchangePoints.updateExchangePoint(
 						params.get("id"),
-						(String) request.getSession().getAttribute("userId"),						
+						(String) request.getSession().getAttribute("userId"),
 						Integer.parseInt(params.get("radius")),
 						params.get("name")
 						)

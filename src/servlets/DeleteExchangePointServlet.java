@@ -10,21 +10,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import services.ExchangePoints;
 import servlets.tools.templates.online.OnlinePostServlet;
+import utils.Tools;
 
-
-public class PointUsersName extends OnlinePostServlet {
+public class DeleteExchangePointServlet extends OnlinePostServlet {
 	private static final long serialVersionUID = 1L;
+
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"lat","lon"}));}
-	
+		super.epn= new HashSet<String>(Arrays.asList(
+				new String[]{"id"}));}
+
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
-		response.getWriter().print(ExchangePoints.pointUsersName(request.getParameter("lat"),
-				request.getParameter("lon")));		
-	}
+		response.getWriter().print(
+				ExchangePoints.deleteExchangePoint(
+						params.get("id"),
+						(String) request.getSession().getAttribute("userId")
+						)
+				);
 
+	}
 }

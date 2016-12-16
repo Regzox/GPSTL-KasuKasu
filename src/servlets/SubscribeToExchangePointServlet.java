@@ -17,7 +17,7 @@ public class SubscribeToExchangePointServlet extends OnlinePostServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"id","name"}));}
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"id","name", "radius"}));}
 
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
@@ -25,7 +25,8 @@ public class SubscribeToExchangePointServlet extends OnlinePostServlet {
 		response.getWriter().print(ExchangePoints.subscribeToExchangePoint(
  				params.get("id"),
  				(String)request.getSession().getAttribute("userId"),
- 				params.get("name")));
+ 				params.get("name"), 
+ 				Integer.parseInt(params.get("radius"))));
 	}
        
     
