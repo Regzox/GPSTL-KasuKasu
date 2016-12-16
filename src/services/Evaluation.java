@@ -317,7 +317,7 @@ public class Evaluation {
 				if (image != null)
 					notification.append("senderImage", image.get("url"));
 				else
-					notification.append("senderImage", "default-image ?"); // TODO Avoir une référence sur l'image par défaut
+					notification.append("senderImage", "/KasuKasu/data/profile-icon.png");
 				notification.append("receiverId", receiverId);
 				notification.append("loanId", loan.get("_id"));
 				notification.append("itemId", item.get("_id"));

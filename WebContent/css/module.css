@@ -58,6 +58,10 @@ choice {
     vertical-align: middle;
 }
 
+profile > img {
+	width: 100px;
+	height: 100px;
+}
 
 choice > button {
     border: none;
