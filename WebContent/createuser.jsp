@@ -9,13 +9,14 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 
 <script type="text/javascript" src="/KasuKasu/js/enregistrement.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 
 
 
-<title>Inscription</title>
+<title id='titre'>Inscription</title>
 </head>
-    <body>
+    <body onload="trans()">
     
     	<div class='layer-center'>
     	
@@ -33,7 +34,7 @@
 
                 
            <div class="form-group row">
-				<label for="prenom" class="col-xs-2">Prénom</label>
+				<label id='prenoml' for="prenom" class="col-xs-2">Prénom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
 						id="prenom" maxlength="255">
@@ -48,7 +49,7 @@
 
            <div class="form-group row">
            
-			   <label for="nom" class="col-xs-2">Nom</label>
+			   <label id='noml' for="nom" class="col-xs-2">Nom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
 						id="nom" maxlength="255">
@@ -59,7 +60,7 @@
 			             
               
 			<div class="form-group row">
-				<label for="numero" class="col-xs-2" >Téléphone</label>
+				<label id='numl' for="numero" class="col-xs-2" >Téléphone</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="tel" value="" 
 						id="numero"  pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
@@ -73,7 +74,7 @@
 			
                 
  			<div class="form-group row">
-				<label for="email" class="col-xs-2">Email</label>
+				<label id='emaill' for="email" class="col-xs-2">Email</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="email"
 						value="" id="email" maxlength="255">
@@ -85,7 +86,7 @@
 
 
 			<div class="form-group row">
-				<label for="mdp" class="col-xs-2" >Mot de passe</label>
+				<label id='mdpl' for="mdp" class="col-xs-2" >Mot de passe</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="password" value="" placeholder="Minimum 8 caractères"
 						id="mdp" maxlength="255">
@@ -96,7 +97,7 @@
 			
 
 			<div class="form-group row">
-				<label for="confirmation" class="col-xs-2">Confirmer le mot de passe</label>
+				<label id='confl' for="confirmation" class="col-xs-2">Confirmer le mot de passe</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="password" value=""
 						id="confirmation" maxlength="255">
@@ -109,8 +110,8 @@
 <!-- 					<hr /> -->
 			
 			
-			<div class="form-group row">
-				Veuillez cocher la case correspondante à Albert Einstein
+			<div  class="form-group row">
+				<p id='captchal'>Veuillez cocher la case correspondante à Albert Einstein</p>
 				<br> 
 				<br>
 				<div class="col-xs-12">
@@ -131,7 +132,7 @@
 			
 
                 
-                <input type="submit" class="btn btn-primary btn-block"></button>
+                <input id='submit' type="submit" class="btn btn-primary btn-block" >
                 
 
 

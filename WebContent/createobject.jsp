@@ -13,6 +13,8 @@
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/createobject.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 
@@ -22,13 +24,13 @@
 
 </head>
 
-<body onload="javascript:init()">
+<body onload="javascript:init(); trans();">
 	
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id="page">
 	
-	<p class='capital' style='text-align: center'>Ajouter un objet</p>
+	<p id='ajout' class='capital' style='text-align: center'>Ajoute d'un objet</p>
 	
 	<div class='modal-body row'>
 		<div class='col-md-6'>

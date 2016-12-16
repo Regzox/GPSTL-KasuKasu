@@ -40,7 +40,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	if(prenom.length==0)
 	{
 
-		printHTML("#error_prenom","Prenom manquant");
+		printHTML("#error_prenom","Prénom manquant");
 		$("#error_prenom").css({
 			"color":"red",
 			"font-size": "80%"
@@ -66,7 +66,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	if(numero.length==0)
 	{
 
-		printHTML("#error_telephone","Telephone manquant");
+		printHTML("#error_telephone","Téléphone manquant");
 		$("#error_telephone").css({
 			"color":"red",
 			"font-size": "80%"
@@ -107,7 +107,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	if(mdp.length<8)
 	{
 
-		printHTML("#error_mdp","Veuillez inserer un mot de passe de taille > 7");
+		printHTML("#error_mdp","Veuillez saisir un mot de passe de taille > 7");
 		$("#error_mdp").css({
 			"color":"red",
 			"font-size": "80%"

@@ -1,0 +1,41 @@
+[
+	{
+		id : "id_page_bienvenue",
+		type : "traduction",
+		traductions : 
+		[
+			{
+				langue : "fr-FR",
+				expression : "Bienvenue sur KasuKasu !"
+			},
+			{
+				langue : "en-GB",
+				expression : "Welcome to KasuKasu !"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Le site où vous pouvez prêter vos objets à vos amis"
+			},
+			{
+				langue : "en-GB",
+				expression : "The web site where you can lend your objects to your friends"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Créer un compte"
+			},
+			{
+				langue : "en-GB",
+				expression : "Create an account"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Se connecter"
+			},
+			{
+				langue : "en-GB",
+				expression : "Login"
+			}
+		]
+	}
+]

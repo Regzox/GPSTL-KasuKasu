@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Mon profil</title>
+<title id='titre'>Mon profil</title>
 
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
@@ -14,6 +14,7 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/check-connection.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/profile.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
 <script type="text/javascript">
 		
@@ -97,7 +98,7 @@
 </script>
 
 </head>
-<body>
+<body onload="trans()">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
@@ -108,9 +109,9 @@
 
 		<%@ include file="/fragments/profile.jspf"%>
 		<br /> 
-		<a href='<%= Url.MODIFY_USER.value() %>'> Modifier mes informations</a> 
+		<a id='modif' href='<%= Url.MODIFY_USER.value() %>'> Modifier mes informations</a> 
 		<br /> 
-		<a href='<%= Url.UPLOAD.value() %>'> 	Changer d'image</a>
+		<a id='photo' href='<%= Url.UPLOAD.value() %>'> 	Changer de photo</a>
 
 
 

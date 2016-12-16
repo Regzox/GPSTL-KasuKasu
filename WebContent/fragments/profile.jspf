@@ -10,16 +10,16 @@
 			<td class ="title">Id</td> <td class="information" id="id"></td>
 		</tr>
 		<tr class="row" >
-			<td class ="title">Prénom</td> <td class="information" id="firstname"> </td>
+			<td id='prenom' class ="title">Prénom</td> <td class="information" id="firstname"> </td>
 		</tr>
 		<tr class="row" >
-			<td class ="title">Nom</td> <td class="information" id="name"> </td>
+			<td id='nom' class ="title">Nom</td> <td class="information" id="name"> </td>
 		</tr>
 		<tr class="row" >
-			<td class ="title">Email</td> <td class="information" id="email"> </td>
+			<td id='email' class ="title">Email</td> <td class="information" id="email"> </td>
 		</tr>
 		<tr class="row" >
-			<td class ="title">Téléphone</td> <td class="information" id="phone"> </td>					
+			<td id='tel' class ="title">Téléphone</td> <td class="information" id="phone"> </td>					
 		</tr>
 	</table>
 </div>
