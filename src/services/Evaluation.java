@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -18,6 +19,7 @@ import entities.EvaluationRequest;
 import entities.EvaluationResponse;
 import json.Error;
 import json.Success;
+import kasudb.KasuDB;
 
 /**
  * Service de gestion des évaluations.
@@ -106,6 +108,10 @@ public class Evaluation {
 				}
 			}
 			requests.put(json);
+			if (cursor.hasNext())
+				object = cursor.next();
+			else
+				break;
 		} while (object != null);
 		return new Success(requests);
 	}
@@ -137,7 +143,7 @@ public class Evaluation {
 		}
 		
 		DBCursor cursor = EvaluationDB.find(ev.toDBObject());
-		DBObject object = cursor.next();
+		DBObject object = cursor.next();;
 		
 		do {
 			@SuppressWarnings("unchecked")
@@ -154,6 +160,10 @@ public class Evaluation {
 				}
 			}
 			evaluations.put(json);
+			if (cursor.hasNext())
+				object = cursor.next();
+			else
+				break;
 		} while (object != null);
 		
 		return new Success(evaluations);
@@ -172,7 +182,7 @@ public class Evaluation {
 		DBObject object = cursor.next();
 		JSONArray responses = new JSONArray();
 		
-		do {
+		do {			
 			@SuppressWarnings("unchecked")
 			Map<String, String> map = (Map<String, String>) object.toMap();
 			JSONObject json = new JSONObject();
@@ -187,6 +197,10 @@ public class Evaluation {
 				}
 			}
 			responses.put(json);
+			if (cursor.hasNext())
+				object = cursor.next();
+			else
+				break;
 		} while (object != null);
 		return new Success(responses);
 	}
@@ -255,5 +269,68 @@ public class Evaluation {
 	
 	public static JSONObject findReply(String evaluationResponseId) {
 		return new Success(EvaluationResponseDB.find(new BasicDBObject().append("_id", new ObjectId(evaluationResponseId))).toString());
+	}
+	
+	public static JSONObject listRequestNotifications(String userId) {
+		JSONObject jsonSuccess = listRequests(userId);
+		JSONArray notifications = new JSONArray();
+		
+		try {
+			JSONArray requestsArray = (JSONArray) jsonSuccess.get("success");
+			
+			for (int i = 0; i < requestsArray.length(); i++) {
+				
+				JSONObject request = (JSONObject) requestsArray.get(i);
+								
+				String senderId = ((JSONArray) request.get("senderId")).getString(0);
+				String receiverId = ((JSONArray) request.get("receiverId")).getString(0);
+				String loanId = ((JSONArray) request.get("loanId")).getString(0);
+				
+				DBCollection users = KasuDB.getMongoCollection("users");
+				DBCursor cus = users.find(new BasicDBObject().append("_id", new ObjectId(senderId)));
+				DBObject sender = cus.next();
+				cus.close();
+				
+				DBCollection images = KasuDB.getMongoCollection("Images");
+				System.out.println(sender.get("_id"));
+				DBCursor cim = images.find(new BasicDBObject().append("user", sender.get("_id")));
+				DBObject image = null;
+				if (cim.hasNext())
+					image = cim.next();
+				cim.close();
+				
+				DBCollection loans = KasuDB.getMongoCollection("lhistory");
+				DBCursor clo = loans.find(new BasicDBObject().append("_id", new ObjectId(loanId)));
+				DBObject loan = clo.next();
+				clo.close();
+				
+				DBCollection items = KasuDB.getMongoCollection("items");
+				DBCursor cit = items.find(new BasicDBObject().append("_id", new ObjectId((String) loan.get("id_item"))));
+				DBObject item = cit.next();
+				cit.close();
+				
+				JSONObject notification = new JSONObject();
+				
+				notification.append("senderId", senderId);
+				notification.append("senderFirstname", sender.get("prenom"));
+				notification.append("senderLastname", sender.get("nom"));
+				if (image != null)
+					notification.append("senderImage", image.get("url"));
+				else
+					notification.append("senderImage", "default-image ?"); // TODO Avoir une référence sur l'image par défaut
+				notification.append("receiverId", receiverId);
+				notification.append("loanId", loan.get("_id"));
+				notification.append("itemId", item.get("_id"));
+				notification.append("itemTitle", item.get("title"));
+				notification.append("itemDescription", item.get("description"));
+				
+				notifications.put(notification);
+			}
+			
+		} catch (JSONException e) {
+			return new Error("Erreur dans la déballage de la liste des requêtes d'évaluation json");
+		}
+		
+		return new Success(notifications);
 	}
 }

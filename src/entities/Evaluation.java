@@ -1,8 +1,5 @@
 package entities;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-
 public class Evaluation implements Entity {
 	
 	EvaluationRequest er = null;
@@ -13,17 +10,6 @@ public class Evaluation implements Entity {
 		this.er = er;
 		this.comment = comment;
 		this.mark = mark;
-	}
-	
-	@Override
-	public DBObject toDBObject() {
-		BasicDBObject object =  new BasicDBObject();
-				
-		(object)
-		.append("comment", comment)
-		.append("mark", mark);
-		object.putAll(er.toDBObject().toMap());
-		return object;
 	}
 
 	public EvaluationRequest getEr() {

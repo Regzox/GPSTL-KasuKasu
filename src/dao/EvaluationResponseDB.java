@@ -9,7 +9,7 @@ import kasudb.KasuDB;
 
 public class EvaluationResponseDB {
 
-	protected static DBCollection evaluationResponses = KasuDB.getMongoCollection("evaluation-responses");
+	protected static DBCollection evaluationResponses = KasuDB.getMongoCollection("evaluation_responses");
 	
 	public static WriteResult insert(DBObject evaluationResponse) {
 		return evaluationResponses.insert(evaluationResponse);

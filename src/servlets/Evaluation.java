@@ -29,13 +29,15 @@ public class Evaluation extends HttpServlet {
 		String evaluationId = request.getParameter("evaluation-id");
 		String evaluationRequestId = request.getParameter("evaluation-request-id");
 		String evaluationResponseId = request.getParameter("evaluation-response-id");
-		Mode mode = (request.getParameter("mode").equals("given")) ? Mode.GIVEN : Mode.RECEIVED;
+		Mode mode = Mode.RECEIVED;
+		if (request.getParameter("mode") != null)
+			mode = (request.getParameter("mode").equals("given")) ? Mode.GIVEN : Mode.RECEIVED;
 
 		switch (resource) {
 		case "request" :
 			switch (action) {
 			case "list":
-				response.getWriter().println(services.Evaluation.listRequests(userId));
+				response.getWriter().println(services.Evaluation.listRequestNotifications(userId));
 				break;
 			case "find" :
 				response.getWriter().println(services.Evaluation.findRequest(evaluationRequestId));

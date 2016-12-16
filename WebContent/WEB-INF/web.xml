@@ -438,4 +438,14 @@
     <servlet-name>FindAmongFriendsServlet</servlet-name>
     <url-pattern>/findamongfriends</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Evaluation</display-name>
+    <servlet-name>Evaluation</servlet-name>
+    <servlet-class>servlets.Evaluation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Evaluation</servlet-name>
+    <url-pattern>/evaluation</url-pattern>
+  </servlet-mapping>
   </web-app>

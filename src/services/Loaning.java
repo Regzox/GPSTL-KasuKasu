@@ -2,10 +2,13 @@ package services;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.bson.types.ObjectId;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -15,6 +18,7 @@ import exceptions.DatabaseException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import json.Success;
+import kasudb.KasuDB;
 import utils.SendEmail;
 import utils.Tools;
 
@@ -139,12 +143,23 @@ public class Loaning {
 	}
 	
 	public static JSONObject returnItem(String loanId) {
+				
 		
-		/**
-		 * - Supprimer de loanings 
-		 * - set l'item à avaiable
-		 * - Déplacer vers loaningLogs
-		 */
+		
+		DBCollection loanings = KasuDB.getMongoCollection("loaning");
+		DBCursor cl = loanings.find(new BasicDBObject().append("_id", new ObjectId(loanId)));
+		DBObject loan = cl.next();
+		String itemId = (String) loan.get("id_item");
+		String applicantId = (String) loan.get("id_applicant");
+		cl.close();
+		
+		DBCollection items = KasuDB.getMongoCollection("items");
+		DBCursor ci = items.find(new BasicDBObject().append("_id", new ObjectId(itemId)));
+		DBObject item = ci.next();
+		String ownerId = (String) item.get("owner");
+		ci.close();
+	
+		Evaluation.insertRequest(applicantId, ownerId, loanId);
 		
 		LoaningDB.removeLoan(loanId);
 		
