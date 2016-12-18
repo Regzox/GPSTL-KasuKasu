@@ -69,6 +69,7 @@ function abonnement()
 
 function addPoint(nom,radius,lat,lon)
 {
+
 	$.ajax({
 		type : "POST",
 		url : "addexchangepoint",

@@ -1,3 +1,4 @@
+<%@page import="fr.upmc.file.Resource"%>
 <%@ page import="enumerations.Url" %>
 
 <div class="sidebar-wrapper">
@@ -24,6 +25,11 @@
 				if ( !(~$(location).attr('href').indexOf('<%= Url.PROFILE.value() %>')))
 					$(location).attr('href', '<%= Url.PROFILE.value() %>');
 			">Mon profil</div>
+			
+			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.EVALUATION.value() %>')))
+					$(location).attr('href', '<%= Url.EVALUATION.value() %>');
+			"> Evaluations </div>
 			
 			 <div class="dropdown">Mes amis
 				  <div class="dropdown-content">

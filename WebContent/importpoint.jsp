@@ -16,10 +16,21 @@
 	charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
+<style type="text/css">
+html, body, #mapdiv {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+
+.olImageLoadError {
+	display: none;
+}
+</style>
 </head>
 <body onload="javascript:init()">
-
-	<div id="mapdiv" style="width: 400px; height: 400px"></div>
+	<%@ include file="/fragments/sidebar.jspf"%>
+	<div id="mapdiv"></div>
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1"
