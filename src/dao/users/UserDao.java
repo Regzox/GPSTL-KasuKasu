@@ -5,11 +5,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
 
+import com.mongodb.AggregationOutput;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -17,6 +20,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.FriendsDao;
+import dao.tools.DataEncryption;
 import dao.tools.PatternsHolder;
 import entities.User;
 import exceptions.UserNotFoundException;
@@ -192,7 +196,7 @@ public class UserDao {
 		collection.insert(
 				new BasicDBObject()
 				.append("email",email)
-				.append("mdp",md5(mdp))
+				.append("mdp",DataEncryption.md5(mdp))
 				.append("nom",nom)
 				.append("prenom",prenom)
 				.append("numero",numero)
@@ -220,9 +224,11 @@ public class UserDao {
 	 * @param userId
 	 * @param query
 	 * @return */
-	public static DBCursor find(String userId, String query) {
+	public static Iterable<DBObject> find(String userId, String query) {
 		//System.out.println("UserDao/find -> userId : "+ userId);
-		return collection.find(findUserCore(userId,query));
+		Map<String,BasicDBObject>constraints=new HashMap<>();
+		constraints.put("_id",new BasicDBObject("$ne",new ObjectId(userId)));
+		return findUserCore(userId,query,0,constraints,1);
 	}
 
 	/**
@@ -230,112 +236,83 @@ public class UserDao {
 	 * @param userId
 	 * @param query
 	 * @return */
-	public static DBCursor findAmongFriends(String userId, String query) {
+	public static Iterable<DBObject> findAmongFriends(String userId, String query) {
 		System.out.println("UserDao/findAmongFriends -> userId : "+ userId+" query:"+query);//debug
 		//System.out.println(findUserCore(userId,query));//debug
-		return collection.find(
-				findUserCore(userId,query)
-				.append("_id",
-						new BasicDBObject()
-						.append("$in",FriendsDao.myFriendsOID(userId) )
-						)
-				);
+		Map<String,BasicDBObject>constraints=new HashMap<>();
+		constraints.put("_id",new BasicDBObject("$ne",new ObjectId(userId)));
+		constraints.put("_id",new BasicDBObject("$in",FriendsDao.myFriendsOID(userId)));
+		return findUserCore(userId,query,0,constraints,1);
 	}
-
 
 	/**
 	 * Centralization of the db object to find (shared by functions find and findAmongFriends  )
 	 * @param userId
 	 * @param query
 	 * @return */
-	public static BasicDBObject findUserCore(String userId, String query){
-		BasicDBObject bdbo = 
-				new BasicDBObject()
-				.append("_id",
-						new BasicDBObject()
-						.append("$ne", new ObjectId(userId)));
-
-		Pattern p1 = Pattern.compile(PatternsHolder.email); //is email
-		Pattern p2 = Pattern.compile(PatternsHolder.phoneNumber); //is phone number
-		List<Pattern> nouns = new ArrayList<>();
-
+	public static Iterable<DBObject> findUserCore(String userId, String query, 
+			int max_indulgence, Map<String,BasicDBObject>constraints,int limit){		
 		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(PatternsHolder.blank)));//debug
 
+		BasicDBObject criterion = new BasicDBObject();
+		for(Map.Entry<String,BasicDBObject> constraint : constraints.entrySet())
+			criterion.append(constraint.getKey(),constraint.getValue());		
+
+		//TODO voir si mieux d utiliser un set ou pas
+		Pattern p1 = Pattern.compile(PatternsHolder.email); //is email
+		Pattern p2 = Pattern.compile(PatternsHolder.phoneNumber); //is phone number
+
+		//misspellings possibilities with i mistakes by word		
+		Map<Integer,List<Pattern>> levels_of_indulgence = new HashMap<>();
 		for(String word : Arrays.asList(query.trim().split(PatternsHolder.blank)))
 			if(p1.matcher(word).matches())
-				bdbo.append("email",word);
+				criterion.append("email",word);
 			else if(p2.matcher(word).matches())
-				bdbo.append("numero",word);
-			else
-				nouns.add(
+				criterion.append("numero",word);
+			else for(int i=0;i<=max_indulgence;i++)
+				levels_of_indulgence.put(i, Arrays.asList(
 						Pattern.compile(
-								"^"+word,
-								Pattern.CASE_INSENSITIVE
-								)
-						);
+						"^"+word,Pattern.CASE_INSENSITIVE))); //TODO ph call
 
-		if(nouns.size()>0){
-			BasicDBList identity = new BasicDBList();
+		BasicDBList criteria = new BasicDBList();
+		BasicDBList conds = new BasicDBList();
+		List<String> names = Arrays.asList(new String[]{"nom","prenom"});
+		for(int i : levels_of_indulgence.keySet())
+			for(String name : names){
+				BasicDBObject criterioni=((BasicDBObject)criterion.clone())
+						.append(name,
+								new BasicDBObject("$in",
+										levels_of_indulgence.get(i)));
+				criteria.add(criterioni);				
 
-			if(nouns.size()>1)
-				identity.add(new BasicDBObject()
-						.append("nom",
-								new BasicDBObject()
-								.append("$in", nouns)
-								)
-						.append("prenom",
-								new BasicDBObject()
-								.append("$in", nouns)
-								)
-						);				
-
-			else if(nouns.size()==1){
-				identity.add(
-						new BasicDBObject()
-						.append("nom",
-								new BasicDBObject()
-								.append("$in", nouns)
-								)
+				BasicDBObject cond = new BasicDBObject("$cond", 
+						new BasicDBObject("if",criterioni)
+						.append("then",i)
+						.append("else",0)//TODO do ka nan?
 						);
-				identity.add(
-						new BasicDBObject()
-						.append("prenom",
-								new BasicDBObject()
-								.append("$in", nouns)
-								)
-						);
+				conds.add(cond);
 			}
-			bdbo.append("$or", identity);
-		}
-		return bdbo;
+
+		System.out.println("criteria="+criteria);
+		System.out.println("conds="+conds);
+
+		Iterable<DBObject> output = collection.aggregate(Arrays.asList(
+				(DBObject) new BasicDBObject("$match",
+						new BasicDBObject("$or",criteria)), //match entire criteria
+				(DBObject) new BasicDBObject("$limit",limit)/*,//early limit number of processing documents 
+				/*(DBObject) new BasicDBObject("$project", 
+						new BasicDBObject("pertinence",
+								new BasicDBObject("$add",conds)))*/
+				)
+				).results();
+		return output;
+
+
+		//TODO match all exact  
+		//TODO match 1 exact
+		//TODO y exacts x approx
+		//TODO y exacts x approx
 	}
-
-
-
-	public static String md5(String input) {
-
-		String md5 = null;
-
-		if(null == input) return null;
-
-		try {
-
-			//Create MessageDigest object for MD5
-			MessageDigest digest = MessageDigest.getInstance("MD5");
-
-			//Update input string in message digest
-			digest.update(input.getBytes(), 0, input.length());
-
-			//Converts message digest value in base 16 (hex) 
-			md5 = new BigInteger(1, digest.digest()).toString(16);
-
-		} catch (NoSuchAlgorithmException e) {
-
-			e.printStackTrace();
-		}
-		return md5;
-	}
-
 
 
 	/**
@@ -343,10 +320,15 @@ public class UserDao {
 	 * @param args */
 	public static void main(String[] args){
 		//addUser("j@j.fr", "hardtobreakpassword", "A", "j", "0122345896");
-		System.out.println(Pattern.compile(".+@.+").matcher("Aa.a@ab.f").matches());
-		System.out.println(Pattern.compile("\\d+").matcher("02287282").matches());
-		String password = "MyPasswo3";
+		//System.out.println(Pattern.compile(".+@.+").matcher("Aa.a@ab.f").matches());
+		//System.out.println(Pattern.compile("\\d+").matcher("02287282").matches());
+		//String password = "MyPasswo3";
+		//System.out.println("MD5 in hex: " + md5(password));
+		for(DBObject dbObject : findUserCore(
+				"5851476fd4fa474871be3d76","t",0,new HashMap<String,BasicDBObject>(),1))
+			System.out.println(dbObject);
 
-		System.out.println("MD5 in hex: " + md5(password));
+				
 	}
+
 }

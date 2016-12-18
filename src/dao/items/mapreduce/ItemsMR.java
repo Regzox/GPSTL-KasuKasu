@@ -27,7 +27,7 @@ import kasudb.KasuDB;
 /**
  * @author ANAGBLA Joan
  * Unoptimized MapReduce management  		
- * //TODO opti : Gerer les mots accentue et et ameliorer le filtre de separation
+ * //TODO opti : Gerer les mots accentue et ameliorer le filtre de separation
  *  (ne va pas du tout) + d'autres opti de pattern & conversion , filtre , epuration,
  *  unification des racines communes de mots */
 public class ItemsMR {

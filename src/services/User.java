@@ -301,22 +301,17 @@ public class User {
 	 * @throws JSONException */
 	public static JSONObject find(String userId, String query) throws JSONException {
 		JSONArray jar = new JSONArray();		
-		int index = 0;
-		DBCursor dbc =  UserDao.find(userId, query);
+		Iterable<DBObject> dbos =  UserDao.findAmongFriends(userId, query);
 
-		while (dbc.hasNext()){
-			index++;
-			DBObject user = dbc.next();
+		for(DBObject user : dbos)
+			//System.out.println("user = "+user);
 			jar.put(new JSONObject()
 					.put("id", user.get("_id"))
 					.put("email", user.get("email"))
 					.put("name", user.get("nom"))
 					.put("firstname", user.get("prenom"))
-					.put("phone", user.get("numero"))
-					);		
-		if (index == 0)
-			return new Warning("No user found.");
-		}
+					.put("phone", user.get("numero")));		
+
 		return new JSONObject().put("users",jar);
 	}
 
@@ -329,18 +324,17 @@ public class User {
 	 * @throws JSONException */
 	public static JSONObject findAmongFriends(String userId, String query) throws JSONException {
 		JSONArray jar = new JSONArray();		
-		DBCursor dbc =  UserDao.findAmongFriends(userId, query);
+		Iterable<DBObject> dbos =  UserDao.findAmongFriends(userId, query);
 
-		while (dbc.hasNext()){
-			DBObject user = dbc.next();
-			System.out.println("user = "+user);
+		for(DBObject user : dbos)
+			//System.out.println("user = "+user);
 			jar.put(new JSONObject()
 					.put("id", user.get("_id"))
 					.put("email", user.get("email"))
 					.put("name", user.get("nom"))
 					.put("firstname", user.get("prenom"))
 					.put("phone", user.get("numero")));		
-		}
+
 		return new JSONObject().put("users",jar);
 	}
 
