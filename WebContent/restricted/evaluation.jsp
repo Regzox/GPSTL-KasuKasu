@@ -1,101 +1,227 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Evaluations</title>
 
-	<link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
-	<link type="text/css" rel="stylesheet" href="/KasuKasu/css/module.css" />
-	<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
-	<script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/module.css" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/profile.css" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/evaluation.css" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/evaluation-request-notification.css" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/evaluation-response-notification.css" />
 
-	<script type="text/ecmascript" src="/KasuKasu/js/classes/Html.js"></script>		
-	<script type="text/ecmascript" src="/KasuKasu/js/classes/Star.js"></script>	
-    <script type="text/ecmascript" src="/KasuKasu/js/classes/Profile.js"></script>
-    <script type="text/ecmascript" src="/KasuKasu/js/classes/StarBar.js"></script>
-    <script type="text/ecmascript" src="/KasuKasu/js/classes/Comment.js"></script>
-    <script type="text/ecmascript" src="/KasuKasu/js/classes/Button.js"></script>
-    <script type="text/ecmascript" src="/KasuKasu/js/classes/Choice.js"></script>
-    <script type="text/ecmascript" src="/KasuKasu/js/classes/LoanMark.js"></script>
-    <script type="text/ecmascript" src="/KasuKasu/js/classes/Notifier.js"></script>
-	
+<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
+
+<script type="text/ecmascript" src="/KasuKasu/js/classes/Element.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/Html.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/Star.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/Profile.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/StarBar.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/Comment.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/Button.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/Choice.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/ItemWrapper.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationWrapper.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationRequest.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationResponse.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationRequestNotification.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationResponseNotification.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/classes/Notifier.js"></script>
+
 </head>
 <body>
 	<%@ include file="/fragments/sidebar.jspf"%>
-	
+
 	<div id="page">
-		
+
 		<script type="text/javascript">
 		
+		var notifier = undefined;
+		
+		function loadEvaluationRequestNotifications () {
+			(jQuery)	.get("/KasuKasu/evaluation", {
+							resource : "request",
+							action : "list"
+						})
+						
+						.done(function (data) {
+							
+							if (jQuery.parseJSON(data).success === undefined) {
+								console.log(jQuery.parseJSON(data).warning);
+								return;
+							}
+							
+							console.log(jQuery.parseJSON(data).success);
+							
+							let array = jQuery.parseJSON(data).success;
+							var page = document.getElementById("page");
+							var notifier = new Notifier("notifier");
+							
+							jQuery(page).append(notifier._dom);
+							
+							for (var i = 0; i < array.length; i++) 
+							{
+								let erqn = new EvaluationRequestNotification("erqn-" + i);
+								erqn.data = array[i];
+								
+								$(erqn.cancel.dom).click (function() {
+			                        $(erqn.dom).remove();
+			                        $.post("/KasuKasu/evaluation", {
+			                        	resource : "request",
+			                        	action : "remove",
+			                        	evaluation_request_id : erqn.data.requestId
+			                        });
+			                    });
+								
+								$(erqn.evaluation.choice.cancel.dom).click( function() {
+									erqn.comment.clear();
+									erqn.starBar.reset();
+			                    });
+								
+								$(erqn.evaluation.choice.validate.dom).click( function() {
+									var evaluation = {
+				                    	resource : "evaluation",
+				                        action : "insert",
+										sender_id : erqn.data.senderId,
+										receiver_id : erqn.data.receiverId,
+										loan_id : erqn.data.loanId,
+										comment : erqn.evaluation.evaluationWrapper.comment(),
+										mark : erqn.evaluation.evaluationWrapper.mark
+				                  	};
+									
+									$	.post("/KasuKasu/evaluation", evaluation) // Insertion de l'évaluation
+										.done(function (data) {
+											var response = {
+						                    	resource : "response",
+						                        action : "insert",
+						                     	// Inversion du jeu de envoyeur/receveur
+						                        sender_id : erqn.data.receiverId,
+						                        receiver_id : erqn.data.senderId,
+												loan_id : erqn.data.loanId,
+						                  	};
+											
+											$	.post("/KasuKasu/evaluation", response) // Insertion de la réponse
+												.done(function (data) {
+													var request = {
+								                    	resource : "request",
+								                        action : "remove",
+														evaluation_request_id : erqn.data.requestId
+								                  	};
+													
+													console.log(request);
+													$	.post("/KasuKasu/evaluation", request) // Suppression de la requête
+														.done(function (data) {
+															(function () {$(erqn.dom).remove();});
+														});
+												});
+										});
+								});
+					
+								/**
+									Paramétrage du rendu la requête notification
+								**/
+													
+								erqn.profile.image(array[i].senderImage);
+								erqn.profile.imageDimensions(150, 150);
+						        erqn.profile.idLabel("Id");
+						        erqn.profile.id(array[i].senderId);
+								erqn.profile.firstnameLabel("Prénom");
+								erqn.profile.firstname(array[i].senderFirstname);
+								erqn.profile.lastnameLabel("Nom");
+								erqn.profile.lastname(array[i].senderLastname);
+								
+						        erqn.evaluation.itemWrapper.idLabel("Id");
+						        erqn.evaluation.itemWrapper.id(array[i].itemId);
+						        erqn.evaluation.itemWrapper.titleLabel("Titre");
+						        erqn.evaluation.itemWrapper.title(array[i].itemTitle);
+						        erqn.evaluation.itemWrapper.descriptionLabel("Description");
+						        erqn.evaluation.itemWrapper.description(array[i].itemDescription);
+						        
+						        erqn.evaluation.evaluationWrapper.commentLabel("Commentaire");
+						        erqn.evaluation.evaluationWrapper.markLabel("Note");
+								
+								$(notifier._dom).append(erqn.dom);
+							}
+								
+							//document.body.appendChild(page);
+						});
+		}
+		
+		function loadEvaluationResponseNotifications () {
+			(jQuery)	.get ( "/KasuKasu/evaluation", {
+							resource : "response",
+							action : "list"
+						} )
+						
+						.done ( function (data) {
+							var result = $.parseJSON(data);
+							let i = 0;
+							
+							if (result.success === undefined) {
+								console.log(result.warning);
+								return;
+							}
+							
+							console.log(result.success);
+							
+							for (var ersn_data of result.success) {
+								
+								let ersn = new EvaluationResponseNotification("ersn-" + i++);
+								ersn.data = ersn_data;
+								
+								$(ersn.cancel.dom).click( function () {
+									$(ersn.dom).remove();
+									$.post("/KasuKasu/evaluation", {
+										resource : "response",
+										action : "remove",
+										evaluation_response_id : ersn_data.responseId
+									} );
+								} );
+								
+								ersn.profile.image(ersn_data.senderImage);
+								ersn.profile.imageDimensions(150, 150);
+								ersn.profile.idLabel("Id");
+								ersn.profile.id(ersn_data.senderId);
+								ersn.profile.firstnameLabel("Prénom");
+								ersn.profile.firstname(ersn_data.senderFirstname);
+								ersn.profile.lastnameLabel("Nom");
+								ersn.profile.lastname(ersn_data.senderLastname);
+								
+								ersn.evaluation.itemWrapper.idLabel("Id");
+								ersn.evaluation.itemWrapper.id(ersn_data.itemId);
+								ersn.evaluation.itemWrapper.titleLabel("Titre");
+								ersn.evaluation.itemWrapper.title(ersn_data.itemTitle);
+								ersn.evaluation.itemWrapper.descriptionLabel("Description");
+								ersn.evaluation.itemWrapper.description(ersn_data.itemDescription);
+				                
+								ersn.evaluation.evaluationWrapper.commentLabel("Commentaire");
+								ersn.evaluation.evaluationWrapper.comment(ersn_data.comment);
+								ersn.evaluation.evaluationWrapper.markLabel("Note");
+								ersn.evaluation.evaluationWrapper.mark = ersn_data.mark;
+								
+								$(notifier._dom).append(ersn.dom);
+							}
+						} );
+		}
+		
 		window.onload = function () {
-			(jQuery)
-			.get("/KasuKasu/evaluation", {
-				resource : "request",
-				action : "list"
-			})
-			.done(function (data) {
-				console.log(data);
-				console.log(jQuery.parseJSON(data).success);
-				
-				var array = jQuery.parseJSON(data).success;
-				var page = document.getElementById("page");
-				var notifier = new Notifier("notifier");
-				
-				jQuery(page).append(notifier._dom);
-				
-				for (var i = 0; i < array.length; i++) {
-					//var div = document.createElement("div");
-					
-					let loanMark = new LoanMark("loan-mark-" + i);
-					
-					$(loanMark.cancel.dom).click (function() {
-                        $(loanMark.dom).remove();
-                    });
-					
-					$(loanMark.choice.cancel.dom).click( function() {
-                        loanMark.comment.clear();
-                        loanMark.starBar.reset();
-                    });
-					
-					$(loanMark.choice.validate.dom).click( function() {
-                        loanMark.comment.clear();
-                        loanMark.starBar.reset();
-                    });
-					
-					loanMark.profile.image(array[i].senderImage[0]);
-					loanMark.profile.firstname(array[i].senderFirstname[0]);
-					loanMark.profile.lastname(array[i].senderLastname[0]);
-					
-					jQuery(page).append(loanMark.dom);
-					
-					/* div.innerHTML = 
-					"<div>" + array[i].senderId[0] + "</div>" +
-					"<div>" + array[i].senderFirstname[0] + "</div>" +
-					"<div>" + array[i].senderLastname[0] + "</div>" +
-					"<div>" + array[i].senderImage[0] + "</div>" +
-					"<div>" + array[i].receiverId[0] + "</div>" +
-					"<div>" + array[i].loanId[0] + "</div>" +
-					"<div>" + array[i].itemId[0] + "</div>" +
-					"<div>" + array[i].itemTitle[0] + "</div>" +
-					"<div>" + array[i].itemDescription[0] + "</div>"; */
-					/* page.appendChild(div);
-					console.log(element); */
-				}
-				
-				jQuery(array).each( function(index, element) {
-					
-				});
-				
-				document.body.appendChild(page);
-			});
+			
+			notifier = new Notifier("notifier");
+			$("#page").append(notifier._dom);
+			
+			loadEvaluationRequestNotifications();
+			loadEvaluationResponseNotifications();
+			
 		};
 		
 		</script>
-		
+
 	</div>
-	
+
 	<%@ include file="/fragments/footer.jspf"%>
 </body>
 </html>

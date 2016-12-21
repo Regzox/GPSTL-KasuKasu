@@ -6,7 +6,7 @@ public class Evaluation implements Entity {
 	String comment = null;
 	String mark = null;
 
-	public Evaluation(EvaluationRequest er,  String comment, String mark) {
+	public Evaluation(EvaluationRequest er, String comment, String mark) {
 		this.er = er;
 		this.comment = comment;
 		this.mark = mark;

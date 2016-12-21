@@ -59,13 +59,12 @@ public class Evaluation extends HttpServlet {
 			}
 			break;
 		case "response" :
-			response.getWriter().println(services.Evaluation.listReplies(userId));
 			switch (action) {
 			case "list":
-				response.getWriter().println(services.Evaluation.listReplies(userId));
+				response.getWriter().println(services.Evaluation.listResponseNotifications(userId));
 				break;
 			case "find" :
-				response.getWriter().println(services.Evaluation.findReply(evaluationResponseId));
+				response.getWriter().println(services.Evaluation.findResponse(evaluationResponseId));
 				break;
 			default:
 				response.getWriter().print(new Error("Le paramètre action n'est pas reconnu"));
@@ -80,12 +79,12 @@ public class Evaluation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String resource = request.getParameter("resource");
 		String action = request.getParameter("action");
-		String evaluationId = request.getParameter("evaluation-id");
-		String evaluationRequestId = request.getParameter("evaluation-request-id");
-		String evaluationResponseId = request.getParameter("evaluation-response-id");
-		String senderId = request.getParameter("sender-id");
-		String receiverId = request.getParameter("receiver-id");
-		String loanId = request.getParameter("loan-id");
+		String evaluationId = request.getParameter("evaluation_id");
+		String evaluationRequestId = request.getParameter("evaluation_request_id");
+		String evaluationResponseId = request.getParameter("evaluation_response_id");
+		String senderId = request.getParameter("sender_id");
+		String receiverId = request.getParameter("receiver_id");
+		String loanId = request.getParameter("loan_id");
 		String comment = request.getParameter("comment");
 		String mark = request.getParameter("mark");
 
@@ -117,10 +116,10 @@ public class Evaluation extends HttpServlet {
 		case "response" :
 			switch (action) {
 			case "insert" :
-				services.Evaluation.insertReply(senderId, receiverId, loanId);
+				services.Evaluation.insertResponse(senderId, receiverId, loanId);
 				break;
 			case "remove" :
-				services.Evaluation.removeReply(evaluationResponseId);
+				services.Evaluation.removeResponse(evaluationResponseId);
 				break;
 			default:
 				response.getWriter().print(new Error("Le paramètre action n'est pas reconnu"));
