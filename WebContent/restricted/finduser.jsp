@@ -25,19 +25,6 @@
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this)">
 
-			<!--<div class="form-group row">
-					<label for="email" class="col-xs-4 col-form-label">Rechercher
-						par </label>
-					<div class="col-xs-4">
-						<SELECT name="search" size="1" class="form-control">
-							<OPTION value="nom">Nom</OPTION>
-							<OPTION value="prenom">Prénom</OPTION>
-							<OPTION value="email">Email</OPTION>
-							<OPTION value="numero">Numéro</OPTION>
-						</SELECT>
-					</div>
-				</div>-->
-
 				<div class="form-group row">
 					<div class="col-xs-10">
 						<input class="form-control" name="value" value="" id="value">

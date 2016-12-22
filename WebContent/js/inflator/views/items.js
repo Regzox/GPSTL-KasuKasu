@@ -15,31 +15,6 @@ function Item(id,owner,group,date,longitude,latitude,title,description,permissio
 } 
 
 
-/*Item.revival=function(key,value){
-	//alert("revival begin");
-	if(key=="items"){ 
-		var r;
-		if((value.error==undefined) || (value.error==0)){
-			r=value;  //whole tab
-			//alert("revival  -> items = "+JSON.stringify(r));
-		}else{
-			r =new Object();
-			r.error=value.error;
-			//alert("revive -> error = "+r.error);
-		}
-		return (r);
-
-	}else if(isNumber(key) && value.type=="item"){ //tab index
-		var i = new Item(value.id,value.owner,value.group,value.date,
-				value.longitude,value.latitude,value.title,value.description);
-		return (i);
-	}else{
-		//alert("revival -> value = "+value);
-		return (value);
-	}
-};*/
-
-
 Item.traiteReponseJSON=function(json){	
 	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
 	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
@@ -76,12 +51,12 @@ Item.prototype.getHTML=function(){
 	var s;
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
-	s+="<a href=/KasuKasu/item.jsp?id="+this.id+"&title="+this.title+">";
+	s+="<a href=/KasuKasu/item.jsp?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
 	s+="<b>"+this.title+"</b>";
 	s+="</a>";
 	s+="</div>\n";	
 	s+="<div class=\"item-infos\">";
-	s+="<span class=\"visible-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
 	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
 	s+="</div> ";
 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
@@ -93,31 +68,6 @@ Item.prototype.getHTML=function(){
 	s+="</div><hr><br>\n";
 	return s;
 };
-
-
-/*Item.traiteReponseJSON2=function(json){	
-	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
-	var jsob =JSON.parse(JSON.stringify(json),mirror);
-	items = jsob.items;
-	//alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
-
-	if(jsob.error==undefined){
-		var fhtm="<br><div id=\"itemsBox\">";	
-
-		if(items.length==0)
-			fhtm+="<h3>Il n'y a aucun objet empruntable en ce moment.</h3>";
-
-		for(var i in items){
-			//alert(JSON.stringify(items[i]));
-			fhtm+=(items[i]).getHTML2();
-			//alert("JSOB.htmling : "+items[i].getHTML());
-		}		
-		fhtm+="</div>\n"; 
-//		alert("items.html = "+fhtm);  
-		printHTML("#found-items",fhtm); 
-	}else
-		console.log("server error ! : " +jsob.error+"\n");
-};*/
 
 
 Item.prototype.getHTML2=function(){  
@@ -297,7 +247,7 @@ function ProcessFindApplicants(rep) {
 			} 
 		});
 	if(nb==0){
-		message="<br>Aucune demande sur cet Objet pour le moment.";
+		message="<br>Aucune demande sur cet objet pour le moment.";
 		bodymessage="";
 		endmessage="";
 	}

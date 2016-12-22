@@ -10,28 +10,7 @@ function Group(id,name,type,owner,date){
 	this.date=date;
 } 
 
-/*Group.revival=function(key,value){
-	//alert("revival begin");
-	if(key=="groups"){ 
-		var r;
-		if((value.error==undefined) || (value.error==0)){
-			r=value;  //whole tab
-			//alert("revival  -> Groups = "+JSON.stringify(r));
-		}else{
-			r =new Object();
-			r.error=value.error;
-			//alert("revive -> error = "+r.error);
-		}
-		return (r);
-	}else if(isNumber(key) && value.type=="group"){ //tab index
-		var i = new Group(value.id,value.name,value.owner,value.type,value.date);
-		return (i);
-	}
-	else{
-		//alert("revival -> value = "+value);
-		return (value);
-	}
-};*/
+
 
 Group.traiteReponseJSON=function(json){	
 	//alert("Group.traiteReponseJSON raw json -> "+JSON.stringify(json));	
@@ -106,8 +85,8 @@ function refresh(result){
 	if(result.error!=undefined)
 		fillNOTIFIER(result.error);
 	else
-	//window.location.reload();//n'efface pas les inputs! why?
-	window.location.href="/KasuKasu/groups.jsp";
+		//window.location.reload();//n'efface pas les inputs! why?
+		window.location.href="/KasuKasu/groups.jsp";
 }
 
 

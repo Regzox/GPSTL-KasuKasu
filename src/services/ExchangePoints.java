@@ -10,11 +10,9 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.ExchangePointsDB;
-import dao.FriendsDao;
 import dao.items.ItemsDB;
 import dao.users.UserDao;
 import exceptions.DatabaseException;
-import exceptions.NotPermitedException;
 import utils.Tools;
 
 /**
@@ -187,7 +185,7 @@ public class ExchangePoints {
 
 
 
-	/**
+	/**TODO optimize
 	 * Return the list of user friend's exchange points
 	 * @param userID
 	 * @return */

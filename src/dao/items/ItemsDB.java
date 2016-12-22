@@ -2,7 +2,12 @@ package dao.items;
 
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
@@ -16,6 +21,7 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
 import dao.GroupsDB;
+import dao.search.PatternsHolder;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
@@ -114,8 +120,7 @@ public class ItemsDB {
 				new BasicDBObject()
 				.append("_id",new ObjectId(id)));
 	}	
-
-
+	
 
 	/**
 	 * return item's status 
@@ -138,28 +143,41 @@ public class ItemsDB {
 	public static DBCursor userItems(String userID)  {  
 		return collection.find(
 				new BasicDBObject()
-				.append("owner",userID));}
-
+				.append("owner",userID));
+		}
+	
+	
+	/**zone-telechargement search engine's style
+	 * ADMIN FUNCTION : sub common function of (SQLMODO methods)
+	 * @param userID
+	 * @return */
+	private static BasicDBList itemsSQLMODOCore(String query){
+		Set<String> wordsSet= new HashSet<>(Arrays.asList(
+				query.trim().split(PatternsHolder.blank)));
+		List<Pattern> patterns = new ArrayList<>();
+		for(String word : wordsSet)	
+			patterns.add(Pattern.compile(
+					PatternsHolder.stain(word)
+					//PatternsHolder.fuzzyfy(word,2)//if you want to fuzzy search instead of pattern-matching
+			, Pattern.CASE_INSENSITIVE));
+		BasicDBList orlist = new BasicDBList(); 
+		for(String field : Arrays.asList("title","description"))
+			orlist.add(new BasicDBObject(field, new BasicDBObject("$in", patterns)));
+		System.out.println("ItemsDB/itemsSQLMODOCore::orlist="+orlist);//debug
+		return orlist;
+	}
+	
+	
 	/**
 	 * Find all items owned by the user using mongo's SQl way
 	 * @param query
 	 * @param userID
 	 * @return */
 	public static DBCursor userItemsSQLMODO(String query,String userID) {  
-		Pattern pquery = Pattern.compile(query.trim(), Pattern.CASE_INSENSITIVE );
-
-		BasicDBList bdbl =new BasicDBList();
-		bdbl.add(new BasicDBObject()
-				.append("title",pquery));
-		bdbl.add(new BasicDBObject()
-				.append("description",pquery));
-
-		//System.out.println("bdbl="+bdbl);//debug
-		return collection.find(new BasicDBObject()
+ 		return collection.find(new BasicDBObject()
 				.append("owner",userID)
-				.append("$or",bdbl));
-	}
-
+				.append("$or",itemsSQLMODOCore(query)));
+ 		}
 
 
 	/**
@@ -168,27 +186,17 @@ public class ItemsDB {
 	 * @return
 	 * @throws DatabaseException */
 	public static DBCursor utherItems(String userID) {  
-		return collection.find(utherItemCore(userID));
-	}	
+		return collection.find(utherItemCore(userID));}	
 	/**
 	 * Find all items not owned by user
 	 * @param userID
 	 * @return
 	 * @throws DatabaseException */
 	public static DBCursor utherItemsSQLMODO(String query, String userID) {  
-		Pattern pquery = Pattern.compile(query.trim(), Pattern.CASE_INSENSITIVE );
-
-		BasicDBList bdbl =new BasicDBList();
-		bdbl.add(new BasicDBObject()
-				.append("title",pquery));
-		bdbl.add(new BasicDBObject()
-				.append("description",pquery));
-
-		//System.out.println("bdbl="+bdbl);//debug
 		return collection.find(
 				utherItemCore(userID)
 				.append("status","available")
-				.append("$or",bdbl)
+				.append("$or",itemsSQLMODOCore(query))
 				.append("owner",
 						new BasicDBObject()
 						.append("$ne",userID)));}
@@ -223,7 +231,7 @@ public class ItemsDB {
 		.append("owner",
 				new BasicDBObject()
 				.append("$ne",userID));
-	}
+		}
 
 
 
@@ -261,23 +269,22 @@ public class ItemsDB {
 
 	public static void main(String[] args) {
 		System.out.println("Results...\n%");
-		//TODO https://docs.mongodb.com/v3.2/reference/operator/query/or/
 		//DBCursor dbc =userItems("6");//Ok
 		//DBCursor dbc =utherItems("6");//Ok
 		//DBCursor dbc =utherItems("1");//OK
 		//DBCursor dbc =userItemsSQLMODO("    S5 noir  ","6"); //OK
 		//DBCursor dbc =userItemsSQLMODO("    S5  noir  ","6"); //NOK : not mr (pattern is strict : too much space between 2 words fails to match pattern)
 		//DBCursor dbc =utherItemsSQLMODO("S5","6");//OK
-		DBCursor dbc =utherItemsSQLMODO("S5","1");//OK
+		DBCursor dbc =utherItemsSQLMODO("vélo","1");//OK
 		while(dbc.hasNext())
 			System.out.println(dbc.next());
 		System.out.println("%\n");
-		System.out.print("Permission : ");
+		/*System.out.print("Permission : ");
 		if(checkAthorization("6","581c70b04c1471dd003afb61")){
 			System.out.println("Granted");
 			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
 					"galaxy S5 noir neuf, tres peu servi");
-		}else System.out.println("Denied");
+		}else System.out.println("Denied");*/
 	}
 
 }
