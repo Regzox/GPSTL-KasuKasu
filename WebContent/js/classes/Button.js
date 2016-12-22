@@ -1,10 +1,9 @@
-class Button {
+class Button extends Element {
                 
-    constructor (id, html, tag) {
-         this.dom = $
-            (document.createElement("button"))
-            .attr("id", id)
-            .html(html);
+    constructor (id, html) {
+        super(id, "button");
+        
+        $(this.dom).html(html);
     }
 
 }

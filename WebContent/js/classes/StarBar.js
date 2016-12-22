@@ -2,7 +2,7 @@ class StarBar {
                 
     constructor(id, starCount) {
         this.dom = jQuery
-            (document.createElement("star-bar"))
+            (document.createElement("div"))
             .attr("id", id);
         this.stars = [];
         for (let i = 0; i < starCount; i++) {
@@ -23,8 +23,6 @@ class StarBar {
 
                 for (var i = 0; i <= _i; i++)
                     _stars[i].on();
-
-                console.log(_starBar.mark);
             });
             
             $(this.stars[i].dom)
@@ -35,11 +33,31 @@ class StarBar {
     }
 
     get mark () {
+        console.log("get");
         var result = 0;
         for (var star of this.stars)
             if (star.isToggled())
                 result += 1;
         return result;
+    }
+    
+    set mark (mark) {
+        console.log("set");
+        if (mark > this.stars.length)
+            console.log("Warning mark higher than possible");
+        else {
+            this.reset();
+            var i = 0;
+            do {
+                this.stars[i].on();
+                i++;
+            } while (i < mark);
+        }
+    }
+    
+    freeze() {
+        for (var star of this.stars)
+            $(star.dom).unbind("click");
     }
     
     reset () {

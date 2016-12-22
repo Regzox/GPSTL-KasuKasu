@@ -1,0 +1,94 @@
+.evaluation {
+    display: inline-block;
+    background-color: transparent;
+    width: 62%;
+}
+
+.evaluation .evaluation-wrapper .comment-label {
+    display: inline-block;
+    text-align: left;
+    width: 33.3%;
+}
+
+.evaluation .evaluation-wrapper .comment {
+    display: inline-block;
+    width: 66.6%;
+    font-family: calibri;
+    font-size: 100%;
+    border: none;
+    resize: none;
+    background-color: lightgoldenrodyellow;
+}
+
+.evaluation .evaluation-wrapper .mark-label {
+    display: inline-block;
+    text-align: left;
+    width: 33.3%;
+}
+
+.evaluation .evaluation-wrapper .mark {
+    display: inline-block;
+    background-color: transparent;
+    text-align: center;
+    cursor: pointer;
+    font-size: 133%;
+    width: 66.6%;
+}
+
+.evaluation .item-wrapper .id-label {
+    display: inline-block;
+    text-align: left;
+    width: 33.3%;
+}
+
+.evaluation .item-wrapper .id {
+    display: inline-block;
+    text-align: left;
+    width: 66.6%;
+}
+
+.evaluation .item-wrapper .title-label {
+    display: inline-block;
+    text-align: left;
+    width: 33.3%;
+}
+
+.evaluation .item-wrapper .title {
+    display: inline-block;
+    text-align: left;
+    width: 66.6%;
+}
+
+.evaluation .item-wrapper .description-label {
+    display: inline-block;
+    text-align: left;
+    width: 33.3%;
+}
+
+.evaluation .item-wrapper .description {
+    display: inline-block;
+    text-align: left;
+    width: 66.6%;
+}
+
+.evaluation .choice .cancel {
+    display: inline-block;
+   /* width: 25%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;*/
+    width: 50%;
+    height: 100%;
+    font-family: monospace;
+    border: none;
+}
+
+.evaluation .choice .validate {
+    display: inline-block;
+    /*width: 25%;
+    margin-left: 12.5%;
+    margin-right: 12.5%;*/
+    width: 50%;
+    height: 100%;
+    font-family: monospace;
+    border: none;
+}

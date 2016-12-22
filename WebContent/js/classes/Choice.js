@@ -1,12 +1,13 @@
-class Choice {
+class Choice extends Element {
                 
     static get CANCEL() { return "&#10006;"; }
     static get VALIDATE() { return "&#10004;"; }
 
-    constructor (id) {
-        this.dom = $
-            (document.createElement("choice"))
-            .attr("id", id);
+    constructor (id, tagName) {
+        super(id, tagName);
+        
+        $(this.dom).attr("class", "choice");
+        
         this.cancel = new Button(id + "-cancel", Choice.CANCEL);
         this.validate = new Button(id + "-validate", Choice.VALIDATE);
 

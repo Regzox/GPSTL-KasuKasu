@@ -25,9 +25,12 @@ public interface Entity {
 		BasicDBObject object = new BasicDBObject();
 		
 		try {
-			for (Field field : EvaluationRequest.class.getDeclaredFields())
-				if (field.get(this) != null && field.get(this) instanceof String)
+			for (Field field : this.getClass().getDeclaredFields()) {
+				if (field.get(this) instanceof Entity)
+					object.append(field.getName(), ((Entity) field.get(this)).toDBObject());
+				else if (field.get(this) != null && field.get(this) instanceof String)
 					object.append(field.getName(), field.get(this));
+			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
