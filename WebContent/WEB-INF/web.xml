@@ -461,4 +461,54 @@
 		<servlet-name>DeleteExchangePointServlet</servlet-name>
 		<url-pattern>/DeleteExchangePointServlet</url-pattern>
 	</servlet-mapping>
+	 <servlet>
+    <description></description>
+    <display-name>StopMrProgramServlet</display-name>
+    <servlet-name>StopMrProgramServlet</servlet-name>
+    <servlet-class>servlets.admin.StopMrProgramServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StopMrProgramServlet</servlet-name>
+    <url-pattern>/mrstop</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RestartMrProgramServlet</display-name>
+    <servlet-name>RestartMrProgramServlet</servlet-name>
+    <servlet-class>servlets.admin.RestartMrProgramServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestartMrProgramServlet</servlet-name>
+    <url-pattern>/mrrestart</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NewPrivateMessageServlet</display-name>
+    <servlet-name>NewPrivateMessageServlet</servlet-name>
+    <servlet-class>servlets.messenger.NewPrivateMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewPrivateMessageServlet</servlet-name>
+    <url-pattern>/newprivatemessage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConversationServlet</display-name>
+    <servlet-name>ConversationServlet</servlet-name>
+    <servlet-class>servlets.messenger.ConversationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConversationServlet</servlet-name>
+    <url-pattern>/conversation</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InterlocutorsServlet</display-name>
+    <servlet-name>InterlocutorsServlet</servlet-name>
+    <servlet-class>servlets.messenger.InterlocutorsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InterlocutorsServlet</servlet-name>
+    <url-pattern>/interlocutors</url-pattern>
+  </servlet-mapping>
 </web-app>

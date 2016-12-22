@@ -14,8 +14,9 @@ import com.mongodb.DBObject;
 
 import dao.LoaningDB;
 import dao.items.ItemsDB;
-import dao.items.mapreduce.ItemsMR;
-import dao.items.mapreduce.ObjetRSV;
+import dao.items.ItemsMR;
+import dao.search.ObjetRSV;
+import dao.search.PatternsHolder;
 import exceptions.DatabaseException;
 import utils.Tools;
 
@@ -88,6 +89,8 @@ public class Items {
 	 * @throws JSONException
 	 * @throws DatabaseException */
 	public static JSONObject userItems(String query, String userID) throws JSONException, DatabaseException{
+		query=PatternsHolder.refine(query);
+		System.out.println("userItems/refined query = "+query);
 		JSONArray jar =new JSONArray();
 		List<ObjetRSV> results=new ArrayList<ObjetRSV>();
 
@@ -95,10 +98,10 @@ public class Items {
 		cursor.sort(new BasicDBObject().append("date", -1));
 
 		if(!query.equals("")){//with QueryFilter
-			results=ItemsMR.pertinence(query,cursor);
+				results=ItemsMR.pertinence(query,cursor);
 			if(results.isEmpty()){
 				System.out.println(
-						"userItems [with queryfilter]  : No pertinent results switching to SQLMODO");
+						"userItems [with queryfilter]  : No pertinent results switching to SQLMODO :");
 				cursor=ItemsDB.userItemsSQLMODO(query, userID);}}
 
 		while(cursor.hasNext()){
@@ -123,6 +126,8 @@ public class Items {
 	 * @throws JSONException
 	 * @throws DatabaseException */
 	public static JSONObject searchItems(String query,String userID) throws JSONException, DatabaseException{		
+		query=PatternsHolder.refine(query);
+		System.out.println("searchItems/refined query = "+query);
 		JSONArray jar =new JSONArray();
 		List<ObjetRSV> results=new ArrayList<ObjetRSV>();
 
@@ -131,10 +136,10 @@ public class Items {
 
 		if(!query.equals("")){//with QueryFilter
 			System.out.println("QUERY : "+query);
-			results=ItemsMR.pertinence(query,cursor);
+				results=ItemsMR.pertinence(query,cursor);
 			if(results.isEmpty()){
 				System.out.println(
-						"searchItems  : No pertinent results switching to SQLMODO");
+						"searchItems  : No pertinent results switching to SQLMODO : ");
 				cursor=ItemsDB.utherItemsSQLMODO(query, userID);}}
 
 		while(cursor.hasNext()){

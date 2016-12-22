@@ -1,4 +1,4 @@
-package dao.items.mapreduce;
+package dao.search;
 
 import com.mongodb.DBObject;
 
@@ -22,7 +22,7 @@ public class ObjetRSV implements Comparable<ObjetRSV>{
 
 	public ObjetRSV(DBObject d, double r){
 		this.dbo = d;
-		rsv = r;}
+		this.rsv = r;}
 
 	public DBObject getDbo() {return dbo;}
 

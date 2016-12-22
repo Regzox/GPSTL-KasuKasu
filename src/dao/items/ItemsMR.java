@@ -1,4 +1,4 @@
-package dao.items.mapreduce;
+package dao.items;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -19,24 +19,22 @@ import com.mongodb.MapReduceCommand;
 import com.mongodb.MapReduceOutput;
 import com.mongodb.MongoException;
 
-import dao.items.ItemsDB;
-import dao.tools.PatternsHolder;
+import dao.search.ObjetRSV;
+import dao.search.PatternsHolder;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
-/**
+/**Leboncoin/Zone-telechargement search engines styles (mr on tf-idf)/(pattern-matching)
  * @author ANAGBLA Joan
- * Unoptimized MapReduce management  		
- * //TODO opti : Gerer les mots accentue et et ameliorer le filtre de separation
- *  (ne va pas du tout) + d'autres opti de pattern & conversion , filtre , epuration,
- *  unification des racines communes de mots */
+ * map-reduce [with one level of optimization : accents ]   		
+ * //TODO opti 2nd level : unification des racines communes de mots, pluriels , etc */
 public class ItemsMR {
 
 	private static DBCollection collection = ItemsDB.collection;
 	private static DBCollection tfcoll = KasuDB.getMongoCollection("tf");
 	private static DBCollection dfcoll = KasuDB.getMongoCollection("df");
 
-	private static String mrpattern=PatternsHolder.mrpattern;   
+	private static String mrpattern=PatternsHolder.notWord;   
 
 	/**
 	 * @param query
@@ -44,7 +42,6 @@ public class ItemsMR {
 	 * @throws DatabaseException
 	 * @throws JSONException */
 	public static List<ObjetRSV> pertinence(String query,DBCursor cursor) throws JSONException, DatabaseException{
-		ItemsMR.updateTFDF();//TODO replace by an mrprog in future sprints
 		Set<String> querywords =PatternsHolder.wordSet(query,ItemsMR.mrpattern);	
 		List<ObjetRSV> results = new ArrayList<ObjetRSV>();
 
@@ -166,7 +163,14 @@ public class ItemsMR {
 	private static List<JSONObject> TFList() throws JSONException {
 		String map ="function(){var cont=this.title + \" \"+this.description;"
 				+ "cont=cont.toLowerCase();"
-				+ "var Words=cont.split("+mrpattern+");"
+				+ "cont=cont.replace(/[йкил]/gi,\"e\");"
+				+ "cont=cont.replace(/[авд]/gi,\"a\");"
+				+ "cont=cont.replace(/[щыь]/gi,\"u\");"
+				+ "cont=cont.replace(/[фц]/gi,\"o\");"
+				+ "cont=cont.replace(/[оп]/gi,\"e\");"
+				+ "cont=cont.replace(/[я]/gi,\"y\");"
+				+ "cont=cont.replace(/[з]/gi,\"c\");"
+				+ "var Words=cont.split(/"+mrpattern+"/);"
 				+ "for(var i in Words){if(Words[i]!=\"\")"
 				+ "emit({mongodocid:this._id,word:Words[i]},1);}}";
 
@@ -193,7 +197,14 @@ public class ItemsMR {
 	private static List<JSONObject> DFList() throws JSONException {  
 		String map ="function () {var cont = this.title + \" \"+this.description;"
 				+ "cont = cont.toLowerCase();"
-				+ "var Words = cont.split("+mrpattern+");"
+				+ "cont=cont.replace(/[йкил]/gi,\"e\");"
+				+ "cont=cont.replace(/[авд]/gi,\"a\");"
+				+ "cont=cont.replace(/[щыь]/gi,\"u\");"
+				+ "cont=cont.replace(/[фц]/gi,\"o\");"
+				+ "cont=cont.replace(/[оп]/gi,\"e\");"
+				+ "cont=cont.replace(/[я]/gi,\"y\");"
+				+ "cont=cont.replace(/[з]/gi,\"c\");"
+				+ "var Words = cont.split(/"+mrpattern+"/);"
 				+ "dictionary = Words.filter(function(elem,pos) "
 				+ "{return Words.indexOf(elem)==pos;});"
 				+ "for(var i in dictionary){if(dictionary[i]!=\"\")"

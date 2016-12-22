@@ -143,9 +143,7 @@ public class Loaning {
 	}
 	
 	public static JSONObject returnItem(String loanId) {
-				
-		
-		
+						
 		DBCollection loanings = KasuDB.getMongoCollection("loaning");
 		DBCursor cl = loanings.find(new BasicDBObject().append("_id", new ObjectId(loanId)));
 		DBObject loan = cl.next();

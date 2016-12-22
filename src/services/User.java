@@ -9,9 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-
+import dao.search.ObjetRSV;
 import dao.users.UserDao;
 import dao.users.UsersImagesDao;
 import exceptions.StringNotFoundException;
@@ -299,23 +297,17 @@ public class User {
 	 * @param query
 	 * @return 
 	 * @throws JSONException */
-	public static JSONObject find(String userId, String query) throws JSONException {
+	public static JSONObject findUser(String userId, String query) throws JSONException {
 		JSONArray jar = new JSONArray();		
-		int index = 0;
-		DBCursor dbc =  UserDao.find(userId, query);
-
-		while (dbc.hasNext()){
-			index++;
-			DBObject user = dbc.next();
+		int sizeres = 10,i=0;
+		for(ObjetRSV user : UserDao.findUser(userId, query)){
+			if(i++>=sizeres) break;
 			jar.put(new JSONObject()
-					.put("id", user.get("_id"))
-					.put("email", user.get("email"))
-					.put("name", user.get("nom"))
-					.put("firstname", user.get("prenom"))
-					.put("phone", user.get("numero"))
-					);		
-		if (index == 0)
-			return new Warning("No user found.");
+					.put("id", user.getDbo().get("_id"))
+					.put("email", user.getDbo().get("email"))
+					.put("name", user.getDbo().get("nom"))
+					.put("firstname", user.getDbo().get("prenom"))
+					.put("phone", user.getDbo().get("numero")));
 		}
 		return new JSONObject().put("users",jar);
 	}
@@ -327,21 +319,28 @@ public class User {
 	 * @param query
 	 * @return 
 	 * @throws JSONException */
-	public static JSONObject findAmongFriends(String userId, String query) throws JSONException {
+	public static JSONObject findFriends(String userId, String query) throws JSONException {
 		JSONArray jar = new JSONArray();		
-		DBCursor dbc =  UserDao.findAmongFriends(userId, query);
-
-		while (dbc.hasNext()){
-			DBObject user = dbc.next();
-			System.out.println("user = "+user);
+		int sizeres = 10,i=0;
+		for(ObjetRSV user : UserDao.findFriends(userId, query)){
+			if(i++>=sizeres) break;			
 			jar.put(new JSONObject()
-					.put("id", user.get("_id"))
-					.put("email", user.get("email"))
-					.put("name", user.get("nom"))
-					.put("firstname", user.get("prenom"))
-					.put("phone", user.get("numero")));		
+					.put("id", user.getDbo().get("_id"))
+					.put("email", user.getDbo().get("email"))
+					.put("name", user.getDbo().get("nom"))
+					.put("firstname", user.getDbo().get("prenom"))
+					.put("phone", user.getDbo().get("numero")));
 		}
 		return new JSONObject().put("users",jar);
+	}
+
+	/**
+	 * Local tests
+	 * @param args
+	 * @throws JSONException */
+	public static void main(String[] args) throws JSONException {
+		System.out.println("main : findUser : "+findUser("5856f940a7705c0d0f55e35f",""));
+		System.out.println("main : findFriends : "+findFriends("5851476fd4fa474871be3d76","zoro tutanck"));
 	}
 
 }

@@ -1,0 +1,16 @@
+.evaluation-response-notification {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    background: rgb(255, 224, 224);
+}
+
+.evaluation-response-notification * {
+    font-family: calibri;
+    font-size: 105%;
+}
+
+.evaluation-response-notification .cancel {
+    width : 7%;
+    border: none;
+    float: right;
+}

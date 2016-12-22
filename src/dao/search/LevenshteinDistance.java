@@ -1,4 +1,4 @@
-package dao.tools;
+package dao.search;
 
 /**
  * @see https://fr.wikipedia.org/wiki/Distance_de_Levenshtein
@@ -23,23 +23,28 @@ public class LevenshteinDistance {
 	 * @param mot1
 	 * @param mot2
 	 * @return */
-	public static int getLD(String mot1, String mot2 ){
+	public static int LD(String mot1, String mot2 ){
 		if(mot1.equalsIgnoreCase(mot2)) return 0;
-
-		int m=mot1.length(); int n=mot2.length(); int substitutionCost;
-
+		
+		int m=mot1.length(); int n=mot2.length(); 
+		
+		if (n == 0) return m; else if (m == 0)	return n;
+		
 		int [][]d= new int[m+1][n+1];
 
 		for(int i=0;i<=m;i++) d[i][0]=i; //remplissage 1ere ligne
 
 		for(int j=0;j<=n;j++) d[0][j]=j; //remplissage 1ere colone
 
+		//ordre d'iteration  @see slack
+		
+		int substitutionCost;
 		for(int i=1;i<=m;i++) 
 			for(int j=1;j<=n;j++){ //System.out.println("word1["+i+"]:"+word1[0].charAt(i-1) +"  word2["+j+"]:"+word2[0].charAt(j-1)); //debug
 				if((mot1).charAt(i-1) == (mot2).charAt(j-1))
 					substitutionCost = 0;
 				else 
-					substitutionCost = 1;
+					substitutionCost = 2/*1*/;//2 instead of 1 because a substitution must cost more 
 				
 					//System.out.println("d["+i+"-1]["+j+"] + 1 = "+(d[i-1][j] + 1));//debug
 					//System.out.println("d["+i+"]["+j+"-1] + 1 = "+(d[i][j-1] + 1));//debug
@@ -65,8 +70,9 @@ public class LevenshteinDistance {
 	}
 
 	public static void main(String[] args) {
-		//System.out.println("LD="+LD("niche","chiens"));
-		//System.out.println("LD="+LD("kitten","sitting"));
-		System.out.println("LD="+getLD("saturday","sunday"));
+		System.out.println("LD="+LD("niche","chiens"));
+		System.out.println("LD="+LD("kitten","sitting"));
+		System.out.println("LD="+LD("saturday","sunday"));
+		System.out.println("LD="+LD("jo","lol"));
 	}
 }

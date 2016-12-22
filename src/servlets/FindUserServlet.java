@@ -23,12 +23,9 @@ public class FindUserServlet extends OnlineGetServlet {
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {	
 		response.getWriter().print(
-				User.find(
+				User.findUser(
 						(String)request.getSession().getAttribute("userId"),
 						params.get("value")
-						)
-				.put("response", 1)
-				.put("id", request.getSession().getAttribute("userId"))
-				);
+						));
 	}
 }

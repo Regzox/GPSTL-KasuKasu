@@ -1,11 +1,10 @@
 package dao.users;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
@@ -17,7 +16,10 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.FriendsDao;
-import dao.tools.PatternsHolder;
+import dao.search.FuzzyFinder;
+import dao.search.ObjetRSV;
+import dao.search.PatternsHolder;
+import dao.tools.DataEncryption;
 import entities.User;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
@@ -28,7 +30,9 @@ import kasudb.KasuDB;
 public class UserDao {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("users");
-
+	//According to the customer demand fuzzyness is 2(omission|substitution|addition)
+	private static int fuzzyness = 2; 
+	
 	/**
 	 * Check if user exists in database by his email
 	 * @rebasetested
@@ -41,7 +45,6 @@ public class UserDao {
 	}
 
 
-
 	/**TODO TO TEST
 	 * Check if user exists in database by his id
 	 * @param id
@@ -52,6 +55,7 @@ public class UserDao {
 				.append("_id",new ObjectId(id)))).hasNext();
 	}
 
+	
 	/**
 	 * EN : getUser(email) : Returns the object representation of the user designed by the email passed in parameters.
 	 * FR : getUser(email) : Retourne un objet representant l'utilisateur dont l'email correspond a celui passe en parametre.
@@ -127,6 +131,7 @@ public class UserDao {
 	 */
 	public static List<User> getUsersWhere(String field, String value){
 		DBCursor dbc;
+		System.out.println("$$value : "+value);
 		if(field.equals("_id"))
 			dbc = collection.find(
 					new BasicDBObject()
@@ -192,7 +197,7 @@ public class UserDao {
 		collection.insert(
 				new BasicDBObject()
 				.append("email",email)
-				.append("mdp",md5(mdp))
+				.append("mdp",DataEncryption.md5(mdp))
 				.append("nom",nom)
 				.append("prenom",prenom)
 				.append("numero",numero)
@@ -220,133 +225,78 @@ public class UserDao {
 	 * @param userId
 	 * @param query
 	 * @return */
-	public static DBCursor find(String userId, String query) {
-		//System.out.println("UserDao/find -> userId : "+ userId);
-		return collection.find(findUserCore(userId,query));
+	public static List<ObjetRSV> findUser(String userId, String query) {
+		System.out.println("UserDao/findUser -> userId : "+ userId);
+		return findUserCore(userId,query,fuzzyness,new BasicDBObject("_id",
+				new BasicDBObject("$ne",new ObjectId(userId))));
 	}
+	
 
 	/**
-	 * find an user according to the query among user's friends
+	 * Find an user according to the query among user's friends
 	 * @param userId
 	 * @param query
 	 * @return */
-	public static DBCursor findAmongFriends(String userId, String query) {
-		System.out.println("UserDao/findAmongFriends -> userId : "+ userId+" query:"+query);//debug
-		//System.out.println(findUserCore(userId,query));//debug
-		return collection.find(
-				findUserCore(userId,query)
-				.append("_id",
-						new BasicDBObject()
-						.append("$in",FriendsDao.myFriendsOID(userId) )
-						)
-				);
+	public static List<ObjetRSV> findFriends(String userId, String query) {
+		System.out.println("UserDao/findFriends -> userId : "+ userId+" query:"+query);//debug
+		BasicDBList list = new  BasicDBList(); 
+		list.add(new BasicDBObject("_id",
+				new BasicDBObject("$ne", new ObjectId(userId))));
+		list.add(new BasicDBObject("_id",
+				new BasicDBObject("$in", FriendsDao.myFriendsOID(userId))));
+		return findUserCore(userId,query,fuzzyness, new BasicDBObject("$and", list));
 	}
-
+	
 
 	/**
-	 * Centralization of the db object to find (shared by functions find and findAmongFriends  )
+	 * Shared core of findUser and findFriend methods  
 	 * @param userId
 	 * @param query
+	 * @param max_indulgence
+	 * @param constraints
+	 * @param limit
 	 * @return */
-	public static BasicDBObject findUserCore(String userId, String query){
-		BasicDBObject bdbo = 
-				new BasicDBObject()
-				.append("_id",
-						new BasicDBObject()
-						.append("$ne", new ObjectId(userId)));
-
+	public static List<ObjetRSV> findUserCore(String userId, String query,
+			int fuzzyness, BasicDBObject constraints){
+		if(query.trim().length()==0) return new ArrayList<ObjetRSV>();
+		System.out.println("UserDao/findUserCore -> "+
+				Arrays.asList(query.trim().split(PatternsHolder.blank)));//debug
+		
 		Pattern p1 = Pattern.compile(PatternsHolder.email); //is email
-		Pattern p2 = Pattern.compile(PatternsHolder.phoneNumber); //is phone number
-		List<Pattern> nouns = new ArrayList<>();
-
-		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(PatternsHolder.blank)));//debug
-
-		for(String word : Arrays.asList(query.trim().split(PatternsHolder.blank)))
+		Pattern p2 = Pattern.compile(PatternsHolder.nums); //is phone number
+		
+		Set<String>queryWords = PatternsHolder.wordSet(query,PatternsHolder.blank);
+		for(String word : queryWords)
 			if(p1.matcher(word).matches())
-				bdbo.append("email",word);
+				constraints.put("email",word);
 			else if(p2.matcher(word).matches())
-				bdbo.append("numero",word);
-			else
-				nouns.add(
-						Pattern.compile(
-								"^"+word,
-								Pattern.CASE_INSENSITIVE
-								)
-						);
-
-		if(nouns.size()>0){
-			BasicDBList identity = new BasicDBList();
-
-			if(nouns.size()>1)
-				identity.add(new BasicDBObject()
-						.append("nom",
-								new BasicDBObject()
-								.append("$in", nouns)
-								)
-						.append("prenom",
-								new BasicDBObject()
-								.append("$in", nouns)
-								)
-						);				
-
-			else if(nouns.size()==1){
-				identity.add(
-						new BasicDBObject()
-						.append("nom",
-								new BasicDBObject()
-								.append("$in", nouns)
-								)
-						);
-				identity.add(
-						new BasicDBObject()
-						.append("prenom",
-								new BasicDBObject()
-								.append("$in", nouns)
-								)
-						);
-			}
-			bdbo.append("$or", identity);
-		}
-		return bdbo;
+				constraints.put("numero",word);
+		
+		return FuzzyFinder.find(collection,queryWords, fuzzyness,
+				Arrays.asList("nom","prenom"),constraints);
 	}
-
-
-
-	public static String md5(String input) {
-
-		String md5 = null;
-
-		if(null == input) return null;
-
-		try {
-
-			//Create MessageDigest object for MD5
-			MessageDigest digest = MessageDigest.getInstance("MD5");
-
-			//Update input string in message digest
-			digest.update(input.getBytes(), 0, input.length());
-
-			//Converts message digest value in base 16 (hex) 
-			md5 = new BigInteger(1, digest.digest()).toString(16);
-
-		} catch (NoSuchAlgorithmException e) {
-
-			e.printStackTrace();
-		}
-		return md5;
+	
+	
+	
+	private static void testAdd(String prev,int nb){
+		String alphabet = "aioeujnsb"/*cdfghklmpkrtvwxyz*/;
+		prev=prev+alphabet.charAt(new Random().nextInt(alphabet.length()));
+		addUser("x@x.fr", "ppp",prev, "lol", "0122345896");
+		if(nb>0)	testAdd(prev,--nb);
 	}
-
-
-
+	
+	
 	/**
 	 * local test
 	 * @param args */
 	public static void main(String[] args){
-		//addUser("j@j.fr", "hardtobreakpassword", "A", "j", "0122345896");
-		System.out.println(Pattern.compile(".+@.+").matcher("Aa.a@ab.f").matches());
-		System.out.println(Pattern.compile("\\d+").matcher("02287282").matches());
+		testAdd("j",7);
+		/*addUser("jojotut@tut.fr", "hardtobreakpassword", "joan", "joAm", "0122345896");
+		System.out.println(Pattern.compile(
+				PatternsHolder.email).matcher("Aa.a@ab.f").matches());
+		System.out.println(Pattern.compile(
+				PatternsHolder.nums).matcher("02287282").matches());
 		String password = "MyPasswo3";
-
-		System.out.println("MD5 in hex: " + md5(password));
+		System.out.println("MD5 in hex: " + DataEncryption.md5(password));*/			
 	}
 }

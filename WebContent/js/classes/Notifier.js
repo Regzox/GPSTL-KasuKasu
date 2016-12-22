@@ -2,7 +2,7 @@ class Notifier {
     
     constructor (id) {
         this._id = id;
-        this._dom = document.createElement("notifier");
+        this._dom = document.createElement("div");
         
         $(this._dom).attr("id", id);
     }
@@ -18,6 +18,11 @@ class Notifier {
     remove(index) {
         if (index < $(this._dom).children().length)
             $(this._dom).children()[index - 1].remove();
+    }
+    
+    clear() {
+    	while ($(this._dom).children().length > 0)
+    		this.pop();
     }
     
 }
