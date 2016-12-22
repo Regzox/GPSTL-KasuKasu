@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import services.business.Messenger;
+import services.Messenger;
 import servlets.tools.templates.online.OnlinePostServlet;
 
 public class NewPrivateMessageServlet extends OnlinePostServlet {
@@ -23,9 +23,8 @@ public class NewPrivateMessageServlet extends OnlinePostServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
-		System.out.println("prmskey="+params.get("skey"));
 		response.getWriter().print(Messenger.newPrivateMessage(
-				params.get("skey"),
+				(String) request.getSession().getAttribute("userId"),
 				request.getParameter("uther"),
 				request.getParameter("msg")));}
 

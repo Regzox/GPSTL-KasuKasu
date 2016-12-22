@@ -47,9 +47,10 @@ public class ItemsMRProgram {
 				@Override
 				public void run() {
 					while(true)
-						try {ItemsMR.updateTFDF();sleep(1000*60*ItemsMRProgram.nbmin);} 
-					catch (JSONException e) {e.printStackTrace();}//Do Nothing but warn
-					catch (InterruptedException e) {e.printStackTrace();}//Do Nothing but warn
+						try {ItemsMR.updateTFDF();sleep(1000*60*ItemsMRProgram.nbmin);}
+					//TODO on stop Exception in thread "Thread-6" java.lang.IllegalArgumentException: timeout value is negative why?
+					catch (JSONException e) {System.out.println("mr is now interrupted");}//Do Nothing but warn
+					catch (InterruptedException e) {System.out.println("mr is now interrupted");}//Do Nothing but warn
 					}}).start(); //1000 milliseconds is one second.
 		return Tools.serviceMessage("MRProgram has started and refresh 's frequency is "+ItemsMRProgram.nbmin+" minute(s).");}
 

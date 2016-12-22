@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import services.business.Messenger;
+import services.Messenger;
 import servlets.tools.templates.online.OnlineGetServlet;
 
 public class ConversationServlet extends OnlineGetServlet {
@@ -24,7 +24,7 @@ public class ConversationServlet extends OnlineGetServlet {
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
 		response.getWriter().print(Messenger.conversation(
-				params.get("skey"),
+				(String) request.getSession().getAttribute("userId"),
 				request.getParameter("uther")));}
 
 }

@@ -5,21 +5,22 @@ import java.util.Date;
 
 import org.json.JSONException;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.MongoException;
 
-import db.tools.BasicDBListFI;
-import db.tools.DBConnectionManager;
-import db.tools.DbException;
+import kasudb.KasuDB;
 
+
+/**
+ * @author AJoan */
 public class MessengerDB {
 
-	private static DBCollection collection = DBConnectionManager.getMongoDBCollection("Messenger");
+	private static DBCollection collection = KasuDB.getMongoCollection("messenger");
 
-	/**
-	 * Add a new message between two users 
+	/**Add a new message between two users 
 	 * @param sender
 	 * @param recipient
 	 * @param message
@@ -38,37 +39,45 @@ public class MessengerDB {
 	 * @param talkerB
 	 * @return
 	 * @throws DbException */
-	public static DBCursor messages(String talkerA, String talkerB){  
-		return collection.find(
-				new BasicDBObject()
-				.append("$or",BasicDBListFI.addAll(Arrays.asList(new BasicDBObject[]{
+	public static DBCursor messages(String talkerA, String talkerB){ 
+		BasicDBList orlist = new BasicDBList();
+		orlist.addAll(Arrays.asList(
+				new BasicDBObject[]{
 						new BasicDBObject()
 						.append("sender",talkerB)
 						.append("recipient",talkerA)
 						,new BasicDBObject()
 						.append("sender",talkerA)
-						.append("recipient",talkerB)}))));}
-	
+						.append("recipient",talkerB)
+				}));
+		return collection.find(
+				new BasicDBObject()
+				.append("$or",orlist));}
+
 	/**
 	 * Chronological shuffled List of message involving user
 	 * @param userID
 	 * @return
 	 * @throws DbException */
-	public static DBCursor messages(String userID){  
-		return collection.find(
-				new BasicDBObject()
-				.append("$or",BasicDBListFI.addAll(Arrays.asList(new BasicDBObject[]{
+	public static DBCursor messages(String userID){ 
+		BasicDBList orlist = new BasicDBList();
+		orlist.addAll(Arrays.asList(
+				new BasicDBObject[]	{
 						new BasicDBObject()
 						.append("sender",userID)
 						,new BasicDBObject()
-						.append("recipient",userID)}))));}
-	
-	public static void main(String[] args) throws MongoException, DbException, JSONException {
-//		MessengerDB.collection.drop();//reset : determinism required for tests
-//		newMessage("lola58", "jo42", "ohayo jo");
-//		newMessage("jo42", "lola58", "kombawa lola");
-//		System.out.println(messages("lola58", "jo42"));
+						.append("recipient",userID)
+				}));
+		return collection.find(
+				new BasicDBObject()
+				.append("$or",orlist));}
+
+	public static void main(String[] args) throws MongoException, JSONException {
+		MessengerDB.collection.drop();//reset : determinism required for tests
+		newMessage("lola58", "jo42", "ohayo jo");
+		newMessage("jo42", "lola58", "kombawa lola");
+		System.out.println(messages("lola58", "jo42"));
 		System.out.println(messages("d910952c404b4b6cca5d6f61a5ab9df0"));
 	}
-	
+
 }

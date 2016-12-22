@@ -10,15 +10,11 @@ import org.json.JSONObject;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.MongoException;
 
-import db.mongo.MessengerDB;
-import db.sqldb.business.UserDB;
-import db.tools.DbException;
-import services.tools.ServiceCaller;
-import services.tools.ServiceCodes;
-import services.tools.ServicesToolBox;
-import services.tools.SessionManager;
+import dao.MessengerDB;
+import dao.users.UserDao;
+import exceptions.DatabaseException;
+import utils.Tools;
 
 /**
  * @author AJoan
@@ -36,12 +32,10 @@ public class Messenger {
 	 * @return
 	 * @throws DbException
 	 * @throws JSONException */
-	public static JSONObject newPrivateMessage(String skey,String remoteuser,String message) 
-			throws DbException, JSONException{		
-		MessengerDB.newMessage(SessionManager.sessionOwner(skey)
-				,remoteuser,message);
-		return ServicesToolBox.reply(ServiceCodes.STATUS_KANPEKI
-				,null,null,ServiceCaller.whichServletIsAsking().hashCode());}
+	public static JSONObject newPrivateMessage(String userID,String remoteuser,String message) 
+			throws JSONException{		
+		MessengerDB.newMessage(userID,remoteuser,message);
+		return Tools.serviceMessage(1);}
 
 
 	/**
@@ -49,60 +43,62 @@ public class Messenger {
 	 * @param skey
 	 * @param remoteuser
 	 * @return
-	 * @throws DbException
+	 * @throws DatabaseException
 	 * @throws JSONException */
-	public static JSONObject conversation(String skey,String remoteuser) 
-			throws DbException, JSONException{
+	public static JSONObject conversation(String userID,String remoteuser) 
+			throws DatabaseException, JSONException{
 		JSONArray jar=new JSONArray();
-		DBCursor cursor =MessengerDB.messages(
-				SessionManager.sessionOwner(skey),remoteuser);
+		DBCursor cursor =MessengerDB.messages(userID,remoteuser);
 		cursor.sort(new BasicDBObject("date",-1)); 
 		cursor.limit(maxInOne);
 		while (cursor.hasNext()){
 			DBObject dbo=cursor.next();
+			entities.User sender = UserDao.getUserById((String)dbo.get("sender"));
+			entities.User recipient = UserDao.getUserById((String)dbo.get("recipient"));
 			jar.put(new JSONObject()
 					.put("id",dbo.get("_id"))
 					.put("type","message")
 					.put("sender",dbo.get("sender"))
-					.put("sendername",
-							UserDB.getUsernameById((String)dbo.get("sender")))
+					.put("sendername",sender.getName()+" "+sender.getFirstname())
 					.put("recipient",dbo.get("recipient"))
-					.put("recipientname",
-							UserDB.getUsernameById((String)dbo.get("recipient")))
+					.put("recipientname",recipient.getName()+" "+recipient.getFirstname())
 					.put("message",dbo.get("message"))
 					.put("date",dbo.get("date")));}
-		return ServicesToolBox.reply(ServiceCodes.STATUS_KANPEKI,
-				new JSONObject().put("messages", jar)
-				,null,ServiceCaller.whichServletIsAsking().hashCode());}
+		return new JSONObject().put("messages", jar);
+	}
 
 
 
-	public static JSONObject interlocutors(String skey) 
-			throws DbException, JSONException{
+	/**
+	 * Return the interlocutors of the current user
+	 * @param userID
+	 * @return
+	 * @throws JSONException
+	 * @throws DatabaseException
+	 */
+	public static JSONObject interlocutors(String userID) 
+			throws JSONException, DatabaseException{
 		JSONArray jar=new JSONArray();
 		Set<String>unicqids=new HashSet<>();
-		String uid=SessionManager.sessionOwner(skey);
-		DBCursor cursor =MessengerDB.messages(uid);
+		DBCursor cursor =MessengerDB.messages(userID);
 		cursor.sort(new BasicDBObject("date",-1)); 
 		cursor.limit(maxInOne);
 		while (cursor.hasNext()){
 			DBObject dbo=cursor.next();
-			unicqids.add(dbo.get("sender").equals(uid)==true?
-					(String)dbo.get("recipient")
-					:
-						(String)dbo.get("sender"));}
-		for(String unicqid : unicqids)
+			unicqids.add(dbo.get("sender").equals(userID)==true?
+					(String)dbo.get("recipient") : (String)dbo.get("sender"));}
+		for(String unicqid : unicqids){
+			entities.User interlocutor = UserDao.getUserById(unicqid);
 			jar.put(new JSONObject()
 					//.put("id",dbo.get("_id")) //useless for now for our configuration
 					.put("type","speaker")
-					.put("username",UserDB.getUsernameById(unicqid))
+					.put("interlocutor",interlocutor.getName()+" "+interlocutor.getFirstname())
 					.put("id",unicqid));
-		return ServicesToolBox.reply(ServiceCodes.STATUS_KANPEKI,
-				new JSONObject().put("speakers",jar),null,
-				ServiceCaller.whichServletIsAsking().hashCode());}
+		}
+		return new JSONObject().put("speakers",jar);}
 
 
-	public static void main(String[] args) throws MongoException, DbException, JSONException {
+	public static void main(String[] args) throws JSONException, DatabaseException {
 		System.out.println(interlocutors("a981a551a770b86e02f3a5a0f49ee2bd"));}
 
 }
