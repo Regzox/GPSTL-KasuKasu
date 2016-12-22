@@ -2,6 +2,8 @@ package dao;
 
 import java.util.ArrayList;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -26,14 +28,7 @@ public class FriendsDao {
 				new BasicDBObject()
 				.append("id1",id1)
 				.append("id2",id2)
-				);
-
-		/*String sqlQuery = "INSERT INTO FRIENDS values ('"+id1+"','"+id2+"');";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sqlQuery);
-		s.close();
-		c.close();*/	
+				);	
 	}
 
 	/**
@@ -54,13 +49,6 @@ public class FriendsDao {
 		collection.remove(
 				new BasicDBObject().append("$or", bdbl)
 				);
-
-		/*String sqlQuery = "DELETE FROM FRIENDS WHERE ((id1='"+user1+"' AND id2='"+user2+"') OR (id1='"+user2+"' AND id2='"+user1+"'));";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sqlQuery);
-		s.close();
-		c.close();*/	
 	}
 
 	/**
@@ -82,61 +70,60 @@ public class FriendsDao {
 		return collection.find(
 				new BasicDBObject().append("$or", bdbl)
 				).hasNext();
-
-		/*String sql = "SELECT * FROM FRIENDS WHERE ((id1='"+user1+"' AND id2='"+user2+"') OR (id1='"+user2+"' AND id2='"+user1+"'));";
-		Connection connection = KasuDB.SQLConnection();
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-
-		boolean areFriends=resultSet.next();
-
-		resultSet.close();
-		statement.close();
-		connection.close();
-
-		return areFriends;*/
 	}
 
 	/**
 	 * @rebasetested
 	 * @param user
-	 * @return
-	 */
+	 * @return */
 	public static ArrayList<String> myFriends(String user){
 		ArrayList<String> ids=new ArrayList<String>();
-		
+
 		DBCursor dbc = collection.find(
 				new BasicDBObject()
 				.append("id1",user)
 				);
 		while(dbc.hasNext())
 			ids.add((String) dbc.next().get("id2"));
-		
+
 		dbc = collection.find(
 				new BasicDBObject()
 				.append("id2",user)
 				);
 		while(dbc.hasNext())
 			ids.add((String) dbc.next().get("id1"));
-		
+
 		return ids;
-
-		/*ArrayList<Integer> myFriends = new ArrayList<Integer>();
-		String sql = "SELECT id2 FROM FRIENDS WHERE (id1='"+user+"') UNION SELECT id1 FROM FRIENDS WHERE (id2='"+user+"');";
-		Connection connection = KasuDB.SQLConnection();
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-
-		while (resultSet.next())
-			myFriends.add(resultSet.getInt(1));
-
-		resultSet.close();
-		statement.close();
-		connection.close();
-
-		return myFriends;*/
 	}
 
+	
+	
+	/**
+	 * @rebasetested
+	 * @param user
+	 * @return */
+	public static ArrayList<ObjectId> myFriendsOID(String user){
+		ArrayList<ObjectId> ids=new ArrayList<ObjectId>();
+
+		DBCursor dbc = collection.find(
+				new BasicDBObject()
+				.append("id1",user)
+				);
+		while(dbc.hasNext())
+			ids.add(new ObjectId((String)dbc.next().get("id2")));
+
+		dbc = collection.find(
+				new BasicDBObject()
+				.append("id2",user)
+				);
+		while(dbc.hasNext())
+			ids.add(new ObjectId((String) dbc.next().get("id1")));
+
+		return ids;
+	}
+
+	
+	
 	/**
 	 * @rebasetested
 	 * @param idfrom
@@ -147,13 +134,6 @@ public class FriendsDao {
 				.append("idfrom",idfrom)
 				.append("idto",idto)
 				);
-
-		/*String sqlQuery = "INSERT INTO FRIENDREQUESTS values ('"+idfrom+"','"+idto+"');";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sqlQuery);
-		s.close();
-		c.close();	*/
 	}
 
 	/**
@@ -174,13 +154,6 @@ public class FriendsDao {
 		requests.remove(
 				new BasicDBObject().append("$or", bdbl)
 				);
-
-		/*String sqlQuery = "DELETE FROM FRIENDREQUESTS WHERE ((idto='"+idto+"'AND idfrom='"+idfrom+"') OR (idto='"+idfrom+"'AND idfrom='"+idto+"'));";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sqlQuery);
-		s.close();
-		c.close();*/	
 	}
 
 	/**
@@ -196,23 +169,8 @@ public class FriendsDao {
 				);
 		while(dbc.hasNext())
 			ids.add((String) dbc.next().get("idfrom"));
-		
+
 		return ids;
-
-		/*ArrayList<Integer> pendingRequests=new ArrayList<Integer>();
-		String sqlQuery = "SELECT idfrom FROM FRIENDREQUESTS WHERE idto='"+user+"';";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		ResultSet resultSet = s.executeQuery(sqlQuery);
-
-		while (resultSet.next())
-			pendingRequests.add(resultSet.getInt(1));
-
-		resultSet.close();
-		s.close();
-		c.close();
-
-		return pendingRequests;*/	
 	}
 
 	/**
@@ -227,19 +185,5 @@ public class FriendsDao {
 				.append("idfrom",idfrom)
 				.append("idto",idto)
 				).hasNext();
-
-		/*String sql = "SELECT * FROM FRIENDREQUESTS WHERE (idfrom='"+idfrom+"' AND idto='"+idto+"');";
-		Connection connection = KasuDB.SQLConnection();
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-
-		boolean isPending=resultSet.next();
-
-		resultSet.close();
-		statement.close();
-		connection.close();
-
-		return isPending;*/
-
 	}
 }

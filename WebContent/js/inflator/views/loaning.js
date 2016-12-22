@@ -72,14 +72,20 @@ list_loaning_response = function(json)
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"loansBox\">";	
 
-		if(loans.length==0)
+		if(loans.length==0)	
 			fhtm+="<h3>Vous n'avez emprunté aucun objet.</h3>";
 
 		for(var i in loans)
-			fhtm+=loans[i].getHTML();
+			fhtm+= loans[i].getHTML();
 		
 		fhtm+="</div>\n"; 
-		printHTML("#found-loans",fhtm); 
+		printHTML("#found-loans",fhtm);
+		
+		for (var loan of loans) {
+			console.log(loan);
+			$("#item-title" + loan.loan_id).append(makeReturnItemButton(loan));
+		}
+		
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
  }
@@ -87,10 +93,10 @@ list_loaning_response = function(json)
 Loan.prototype.getHTML=function(){  
 	//alert("Loan ->getHtml ");
 	var s;
-	s="<div class=\"loanBox\" id=\"loanBox"+this.id+"\">";
-	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
-	s+="<a href=/KasuKasu/item.jsp?id="+this.item+"&title="+this.title+">";
-	s+="<b>"+this.title+"</b>";
+	s="<div class=\"loanBox\" id=\"loanBox"+ this.loan_id +"\">";
+	s+="<div class=\"item-title\" id=\"item-title"+ this.loan_id +"\">";
+	s+="<a href=/KasuKasu/item.jsp?id="+ this.item +"&title="+ this.title +">";
+	s+="<b>"+ this.title +"</b>";
 	s+="</a>";
 	s+="</div>\n";	
 	s+="<div class=\"item-infos\">";
@@ -110,4 +116,20 @@ function refresh(result){
 		fillNOTIFIER(result.error);
 	else
 	window.location.reload();
+}
+
+function makeReturnItemButton(loan) {
+	var button = window.document.createElement("button");
+	
+	$(button).html("Rendre");
+	$(button).click( function () {
+		$.post("ReturnItemServlet", {
+			loan_id : loan.loan_id
+		})
+		.done( function () {
+			window.location.reload();
+		});
+	});
+	
+	return button;
 }

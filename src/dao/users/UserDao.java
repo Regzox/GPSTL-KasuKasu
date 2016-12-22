@@ -16,6 +16,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.FriendsDao;
+import dao.tools.PatternsHolder;
 import entities.User;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
@@ -36,17 +38,6 @@ public class UserDao {
 		return (collection.find(
 				new BasicDBObject()
 				.append("email",email))).hasNext();
-
-		/*boolean answer=false;
-		String sql = "SELECT * FROM USERS WHERE email= '"+email+"' ;";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		ResultSet rs = s.executeQuery(sql); 
-		answer=rs.next();	
-		rs.close();
-		s.close();
-		c.close();	
-		return answer;*/
 	}
 
 
@@ -59,17 +50,6 @@ public class UserDao {
 		return (collection.find(
 				new BasicDBObject()
 				.append("_id",new ObjectId(id)))).hasNext();
-
-		/*boolean answer=false;
-		String sql = "SELECT * FROM USERS WHERE id= '"+id+"' ;";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		ResultSet rs = s.executeQuery(sql); 
-		answer=rs.next();	
-		rs.close();
-		s.close();
-		c.close();	
-		return answer;*/
 	}
 
 	/**
@@ -103,25 +83,6 @@ public class UserDao {
 				(String)user.get("nom"), 
 				(String)user.get("prenom"),
 				(String)user.get("numero"));
-
-
-		/*String sqlQuery = "SELECT * FROM USERS WHERE email='" + email +"';";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		ResultSet rs = s.executeQuery(sqlQuery);
-
-		if (!rs.next())
-			throw new UserNotFoundException();
-
-		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getString("numero"));
-
-		if (rs.next())
-			throw new UserNotUniqueException();
-
-		rs.close();
-		s.close();
-		c.close();	
-		return user;*/
 	}
 
 	/**
@@ -155,25 +116,6 @@ public class UserDao {
 				(String)user.get("nom"), 
 				(String)user.get("prenom"),
 				(String)user.get("numero"));
-
-		/*String sqlQuery = "SELECT * FROM USERS WHERE id='" + id +"';";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		ResultSet rs = s.executeQuery(sqlQuery);
-
-		if (!rs.next())
-			throw new UserNotFoundException();
-
-		User user = new User(rs.getInt("id"), rs.getString("email"), rs.getString("mdp"), rs.getString("nom"), rs.getString("prenom"), rs.getString("numero"));
-
-		if (rs.next())
-			throw new UserNotUniqueException();
-
-		rs.close();
-		s.close();
-		c.close();	
-
-		return user;*/
 	}
 
 	/**
@@ -207,29 +149,6 @@ public class UserDao {
 					);
 		}
 		return users;
-
-		/*List<User> users = new ArrayList<User>();
-		String sql = "SELECT * FROM USERS WHERE " + field + "='" + value + "';";
-		Connection connection = KasuDB.SQLConnection();
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-
-		while (resultSet.next()) {
-			User user = new User (
-					resultSet.getInt("id"),
-					resultSet.getString("email"),
-					resultSet.getString("mdp"),
-					resultSet.getString("nom"),
-					resultSet.getString("prenom"),
-					resultSet.getString("numero"));
-			users.add(user);
-		}
-
-		resultSet.close();
-		statement.close();
-		connection.close();
-
-		return users;*/
 	}
 
 	/**
@@ -258,31 +177,6 @@ public class UserDao {
 						.append("prenom",newUser.getFirstname())
 						.append("email",newUser.getEmail()))
 				); 
-
-		/*String sqlQuery = "SELECT * FROM USERS WHERE email='" + oldUser.getEmail() +"';";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		ResultSet rs = s.executeQuery(sqlQuery);
-
-		if (!rs.next())
-			throw new UserNotFoundException();
-
-		sqlQuery = "UPDATE USERS SET " + 
-				"email = '" + newUser.getEmail() + 
-				"', mdp = '" + newUser.getPassword() + 
-				"', nom = '" + newUser.getName() + 
-				"', prenom = '"	+ newUser.getFirstname() + 
-				"', numero = '"	+ newUser.getPhone() + 
-				"' WHERE email = '" + oldUser.getEmail() + "';";
-
-		if (rs.next())
-			throw new UserNotUniqueException();
-
-		s.executeUpdate(sqlQuery);
-
-		rs.close();
-		s.close();
-		c.close();*/
 	}
 
 
@@ -303,15 +197,6 @@ public class UserDao {
 				.append("prenom",prenom)
 				.append("numero",numero)
 				);
-		/*String sql = "INSERT INTO USERS(email,mdp,nom,prenom,numero,accountdate) VALUES ("
-				+ "'"+email+"' , '"+mdp+"' , '"+nom+"' , '"+prenom+"' , '"+numero
-				+"' , '" +Tools.getCurrentTimeStamp()+ "' ) ;";
-		System.out.println(sql); //sql debug
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sql);
-		s.close();
-		c.close();*/
 	}
 
 
@@ -328,14 +213,6 @@ public class UserDao {
 						new BasicDBObject()
 						.append("checked",true))
 				);
-
-		/*String sql= "UPDATE USERS SET " + 
-				"checked= '" + 1 +"' WHERE id = '" + id+ "' ;";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sql); 	
-		s.close();
-		c.close();*/
 	}
 
 	/**
@@ -345,66 +222,112 @@ public class UserDao {
 	 * @return */
 	public static DBCursor find(String userId, String query) {
 		//System.out.println("UserDao/find -> userId : "+ userId);
+		return collection.find(findUserCore(userId,query));
+	}
+
+	/**
+	 * find an user according to the query among user's friends
+	 * @param userId
+	 * @param query
+	 * @return */
+	public static DBCursor findAmongFriends(String userId, String query) {
+		System.out.println("UserDao/findAmongFriends -> userId : "+ userId+" query:"+query);//debug
+		//System.out.println(findUserCore(userId,query));//debug
+		return collection.find(
+				findUserCore(userId,query)
+				.append("_id",
+						new BasicDBObject()
+						.append("$in",FriendsDao.myFriendsOID(userId) )
+						)
+				);
+	}
+
+
+	/**
+	 * Centralization of the db object to find (shared by functions find and findAmongFriends  )
+	 * @param userId
+	 * @param query
+	 * @return */
+	public static BasicDBObject findUserCore(String userId, String query){
 		BasicDBObject bdbo = 
 				new BasicDBObject()
 				.append("_id",
 						new BasicDBObject()
 						.append("$ne", new ObjectId(userId)));
 
-		Pattern p1 = Pattern.compile(".+@.+"); //is email
-		Pattern p2 = Pattern.compile("\\d+"); //is phone number
-		List<String> nouns = new ArrayList<>();
+		Pattern p1 = Pattern.compile(PatternsHolder.email); //is email
+		Pattern p2 = Pattern.compile(PatternsHolder.phoneNumber); //is phone number
+		List<Pattern> nouns = new ArrayList<>();
 
-		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(" ")));//debug
+		System.out.println("UserDao/find -> "+Arrays.asList(query.trim().split(PatternsHolder.blank)));//debug
 
-		for(String word : Arrays.asList(query.trim().split(" ")))
+		for(String word : Arrays.asList(query.trim().split(PatternsHolder.blank)))
 			if(p1.matcher(word).matches())
 				bdbo.append("email",word);
 			else if(p2.matcher(word).matches())
 				bdbo.append("numero",word);
 			else
-				nouns.add(word);
+				nouns.add(
+						Pattern.compile(
+								"^"+word,
+								Pattern.CASE_INSENSITIVE
+								)
+						);
 
 		if(nouns.size()>0){
 			BasicDBList identity = new BasicDBList();
 
 			if(nouns.size()>1)
-				for(String noun : nouns)
-					identity.add(new BasicDBObject()
-							.append("nom",noun)
-							.append("prenom",
-									new BasicDBObject()
-									.append("$in", nouns)));
+				identity.add(new BasicDBObject()
+						.append("nom",
+								new BasicDBObject()
+								.append("$in", nouns)
+								)
+						.append("prenom",
+								new BasicDBObject()
+								.append("$in", nouns)
+								)
+						);				
+
 			else if(nouns.size()==1){
 				identity.add(
 						new BasicDBObject()
-						.append("nom",nouns.get(0)));
+						.append("nom",
+								new BasicDBObject()
+								.append("$in", nouns)
+								)
+						);
 				identity.add(
 						new BasicDBObject()
-						.append("prenom",nouns.get(0)));
+						.append("prenom",
+								new BasicDBObject()
+								.append("$in", nouns)
+								)
+						);
 			}
-
 			bdbo.append("$or", identity);
 		}
-		return collection.find(bdbo);
+		return bdbo;
 	}
 
-public static String md5(String input) {
-		
-		String md5 = null;
-		
-		if(null == input) return null;
-		
-		try {
-			
-		//Create MessageDigest object for MD5
-		MessageDigest digest = MessageDigest.getInstance("MD5");
-		
-		//Update input string in message digest
-		digest.update(input.getBytes(), 0, input.length());
 
-		//Converts message digest value in base 16 (hex) 
-		md5 = new BigInteger(1, digest.digest()).toString(16);
+
+	public static String md5(String input) {
+
+		String md5 = null;
+
+		if(null == input) return null;
+
+		try {
+
+			//Create MessageDigest object for MD5
+			MessageDigest digest = MessageDigest.getInstance("MD5");
+
+			//Update input string in message digest
+			digest.update(input.getBytes(), 0, input.length());
+
+			//Converts message digest value in base 16 (hex) 
+			md5 = new BigInteger(1, digest.digest()).toString(16);
 
 		} catch (NoSuchAlgorithmException e) {
 
@@ -412,6 +335,8 @@ public static String md5(String input) {
 		}
 		return md5;
 	}
+
+
 
 	/**
 	 * local test

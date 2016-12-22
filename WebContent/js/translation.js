@@ -35,7 +35,7 @@ function trans()
 	var href = document.location.href;
 	var fileName = href.substr(href.lastIndexOf('/') + 1);
 	//alert(fileName);
-	xhr.open("GET","traduction.json",false);
+	xhr.open("GET","restricted/traduction.json",false);
 	xhr.send();
 	//alert(xhr.readyState+" "+xhr.status);
 	
@@ -50,8 +50,9 @@ function trans()
 	            document.getElementById('btn_fr').onclick = function() {document.cookie = "lang=fr";/*translation(dico,"fr",fileName);*/}
 	            document.getElementById('btn_en').onclick = function() {document.cookie = "lang=en";/*translation(dico,"en",fileName);*/}           
         	}
-            
+            //alert(document.cookie);
 	            	var cook = document.cookie;
+	            	//alert(cook);
 	            	
 	            	if(cook.search("lang=en")>0)
 	            		{
@@ -65,9 +66,10 @@ function trans()
 	            				{
 	            					translation(dico,"fr",fileName);
 	            					//window.location(document.location);
+	            					//alert("fr "+cook.search("lang=fr"));
 	            				}
 	            			
-	            			//alert("fr "+cook.search("lang=fr"));
+	            			
 	            		}
 		            		
 	            	
@@ -356,30 +358,43 @@ function translation(dico,lang,fileName)
   					{
   						printHTML("#titre",traductions[k].expression);
   						printHTML("#ajout",traductions[k].expression);k=k+2;
+  						printHTML("#noml",traductions[k].expression);k=k+2;
+  						printHTML("#descl",traductions[k].expression);k=k+2;
+  						printHTML("#pts",traductions[k].expression);k=k+2;
+  						printHTML("#ajout_btn",traductions[k].expression);k=k+2;
+  						printHTML("#vis",traductions[k].expression);k=k+2;
+  						printHTML("#submit",traductions[k].expression);
   					} 
      				k=1;
       				if(lang=="en" && k< traductions.length/*&& langue == "en-GB"*/)
   					{
       					printHTML("#titre",traductions[k].expression);
       					printHTML("#ajout",traductions[k].expression);k=k+2;
+      					printHTML("#noml",traductions[k].expression);k=k+2;
+  						printHTML("#descl",traductions[k].expression);k=k+2;
+  						printHTML("#pts",traductions[k].expression);k=k+2;
+  						printHTML("#ajout_btn",traductions[k].expression);k=k+2;
+  						printHTML("#vis",traductions[k].expression);k=k+2;
+  						printHTML("#submit",traductions[k].expression);
   					}	           				
       		}
-	  		if(id == "createobject.jsp" && id == fileName)
+	  		if(id == "userLoans.jsp" && id == fileName)
   			{ 
 	  			traductions = dico[i].traductions;	
      				k=0;
      				if(lang=="fr" && k< traductions.length)
   					{
   						printHTML("#titre",traductions[k].expression);
-  						printHTML("#ajout",traductions[k].expression);k=k+2;
+  						printHTML("#liste",traductions[k].expression);
   					} 
      				k=1;
       				if(lang=="en" && k< traductions.length/*&& langue == "en-GB"*/)
   					{
       					printHTML("#titre",traductions[k].expression);
-      					printHTML("#ajout",traductions[k].expression);k=k+2;
+  						printHTML("#liste",traductions[k].expression);
   					}	           				
       		}
+	  		
   			//}
   			
   		}

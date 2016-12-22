@@ -1,9 +1,6 @@
 package kasudb;
 
 import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -46,10 +43,8 @@ public class KasuDB {
 				MongoConnection = getMongoConnection();
 			} catch (UnknownHostException e) {			
 				e.printStackTrace();
-
 			} catch (MongoException e) {
 				e.printStackTrace();
-
 			}
 
 		}
@@ -62,7 +57,6 @@ public class KasuDB {
 	private static Mongo getMongoConnection() throws UnknownHostException, MongoException{
 		Mongo m = new Mongo(MONGO_ADR, MONGO_PORT);	
 		return m;
-
 	}
 
 	/**
@@ -78,11 +72,9 @@ public class KasuDB {
 				db =  MongoConnection.getDB(MONGO_DB_NAME);
 			} catch (Exception e) {
 				throw new RuntimeException("DB Not found", e);
-
 			}
 		}
 		return db;
-
 	}
 
 	/**
@@ -107,28 +99,5 @@ public class KasuDB {
 			throw new NullPointerException("Instance to the DB is null");
 
 		}
-
-
 	}
-
-
-	public static Connection SQLConnection() throws SQLException {
-		try {Class.forName("com.mysql.jdbc.Driver");
-		return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root","root"));}
-		catch (ClassNotFoundException e) {e.printStackTrace();return null;}
-	}
-
-	public static Connection SQLConnection(String password) throws SQLException {
-		try {Class.forName("com.mysql.jdbc.Driver");
-		return (DriverManager.getConnection("jdbc:mysql://localhost/KASUDB","root",password));}
-		catch (ClassNotFoundException e) {e.printStackTrace();return null;}
-	}
-
-
-
-
-
-
-
 }
-

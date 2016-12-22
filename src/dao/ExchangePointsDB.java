@@ -11,6 +11,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import exceptions.NotPermitedException;
 import kasudb.KasuDB;
 
 /**
@@ -43,17 +44,10 @@ public class ExchangePointsDB {
 				.append("lon",lon)
 				.append("subscribers",bdbl)
 				);
-		/*String sql = "INSERT INTO POINT_PRET(id_user,nom,lat,lon,radius) VALUES ("
-				+ "'"+id_user+"' , '"+nom+"' , '"+lat+"' , '"+lon+"' , '"+radius+ "' ) ;";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sql);
-		s.close();
-		c.close();*/
 	}
 
 	/**
-	 * ADMIN FUNCTION  : check if user have already created such an exchange point
+	 * ADMIN FUNCTION  : check if an exchange point at this position already exists
 	 * @param lat
 	 * @param lon
 	 * @param userID
@@ -70,7 +64,7 @@ public class ExchangePointsDB {
 
 	
 	/**
-	 * ADMIN FUNCTION  : check if user have already created or subscribed such an exchange point
+	 * ADMIN FUNCTION  : check if user have subscribed such an exchange point
 	 * @param lat
 	 * @param lon
 	 * @param userID
@@ -118,7 +112,7 @@ public class ExchangePointsDB {
 	 * @param id
 	 * @param userID
 	 * @param items */
-	public static void subscribeToExchangePoint(String id,String userID,String name){ 
+	public static void subscribeToExchangePoint(String id,String userID,String name, int radius){ 
 		collection.update(
 				new BasicDBObject()
 				.append("_id",new ObjectId(id)),
@@ -129,6 +123,7 @@ public class ExchangePointsDB {
 								new BasicDBObject()
 								.append("id_user", userID)
 								.append("name", name)
+								.append("radius", radius)
 								.append("date", new Date())
 								.append("useritems",new BasicDBList())
 								)
@@ -148,22 +143,15 @@ public class ExchangePointsDB {
 			String id,String userID,int radius,String name){ 
 		collection.update(
 				new BasicDBObject()
-				.append("_id",id)
+				.append("_id", new ObjectId(id))
 				.append("subscribers.id_user",userID),
 				new BasicDBObject()
 				.append("$set",
 						new BasicDBObject()
-						.append("subscribers.name",name)
-						.append("subscribers.radius",radius)
+						.append("subscribers.$.name",name)
+						.append("subscribers.$.radius",radius)
 						)
 				);
-		/*String sql = "INSERT INTO POINT_PRET(id_user,nom,lat,lon,radius) VALUES ("
-				+ "'"+id_user+"' , '"+nom+"' , '"+lat+"' , '"+lon+"' , '"+radius+ "' ) ;";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sql);
-		s.close();
-		c.close();*/
 	}
 
 
@@ -203,46 +191,9 @@ public class ExchangePointsDB {
 				//TODO FILTER BY GROUP APPARTENANCE according to items's groups
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));
-
-		/*JSONArray myPointsPret = new JSONArray();
-		String sql = "SELECT nom FROM POINT_PRET WHERE id_user='"+user+"';";
-		Connection connection = KasuDB.SQLConnection();
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-
-		while (resultSet.next())
-		{
-			myPointsPret.put(new JSONObject()
-					.put("nom",resultSet.getString(1)));
-		}	
-
-		resultSet.close();
-		statement.close();
-		connection.close();
-
-		return new JSONObject().put("points",myPointsPret);*/
 	}
 
 
-	/**
-	 * Add a list of user's items to an exchange point in db
-	 * @param id
-	 * @param userID
-	 * @param items */
-	public static void addBulkUserItemsToExchangePoint(String id,String userID, String[] items){ 
-		BasicDBList bdbl = new BasicDBList();
-		bdbl.addAll(Arrays.asList(items));
-		collection.update(
-				new BasicDBObject()
-				.append("_id",new ObjectId(id))
-				.append("subscribers.id_user", userID),
-				new BasicDBObject()
-				.append("$addToSet", 
-						new BasicDBObject()
-						.append("subscribers.useritems",bdbl) //TODO find how it work
-						)
-				);
-	}
 
 	/**
 	 * Return the list of user's subscribed exchange points
@@ -253,20 +204,43 @@ public class ExchangePointsDB {
 				new BasicDBObject()
 				.append("subscribers.id_user",userID));}
 
-	/**
-	 * Return the list of user friend's exchange points
+	/** TODO mod add groups visibility constraints
+	 * Return the list of user friend's exchange points (including subscribed user's points)
 	 * @param userID
 	 * @return */
-	public static DBCursor friendsExchangePoints(String userID){
+	public static DBCursor friendsLargeExchangePoints(String userID){
 		BasicDBList exprs = new BasicDBList();
 		exprs.add(
 				new BasicDBObject()
 				.append("subscribers.id_user",
 						new BasicDBObject()
-						.append("$in",FriendsDao.myFriends(userID)))
+						.append("$in",FriendsDao.myFriends(userID))
+						.append("$ne", userID)
+						)
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));	
 	}
+	
+	
+	/** TODO mod add groups visibility constraints
+	 * Return the list of user friend's exchange points 
+	 * @param userID
+	 * @return */
+	public static DBCursor friendsStrictExchangePoints(String userID){
+		BasicDBList exprs = new BasicDBList();
+		exprs.add(
+				new BasicDBObject()
+				.append("subscribers.id_user",
+						new BasicDBObject()
+						.append("$in",FriendsDao.myFriends(userID))
+				.append("subscribers.id_user",
+						new BasicDBObject()
+						.append("$nin", Arrays.asList(new String[]{userID}))))
+				);
+		return collection.find(new BasicDBObject().append("$or", exprs));	
+	}
+	
+	
 
 	/**
 	 * Return the list of users subscribed in an exchange point
@@ -295,6 +269,30 @@ public class ExchangePointsDB {
 	}*/
 
 
+	
+
+	/**
+	 * Add a list of user's items to an exchange point in db
+	 * @param id
+	 * @param userID
+	 * @param items */
+	public static void addBulkUserItemsToExchangePoint(String id,String userID, String[] items){ 
+		BasicDBList bdbl = new BasicDBList();
+		bdbl.addAll(Arrays.asList(items));
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id))
+				.append("subscribers.id_user", userID),
+				new BasicDBObject()
+				.append("$addToSet", 
+						new BasicDBObject()
+						.append("subscribers.useritems",bdbl) //TODO find how it work
+						)
+				);
+	}
+	
+	
+	
 	public static void removeItemFromExPoint(String itemID,String exPointID){
 		BasicDBObject updateQuery = new BasicDBObject();
 		updateQuery.put("_id", new ObjectId(itemID));
@@ -307,6 +305,17 @@ public class ExchangePointsDB {
 		BasicDBList groups = (BasicDBList) item.get("exchangepoints");
 		return groups;
 	}*/
+	
+	/**
+	 * Delete an exchange point subscribed by the user
+	 * @param id
+	 * @param ownerID
+	 */
+	public static void deleteExchangePoint(String id,String ownerID){
+		BasicDBObject match = new BasicDBObject("_id", new ObjectId(id)); 
+		BasicDBObject update = new BasicDBObject("subscribers", new BasicDBObject("id_user", ownerID));
+		collection.update(match, new BasicDBObject("$pull", update));		
+		}
 
 
 
@@ -323,40 +332,14 @@ public class ExchangePointsDB {
 		subscribeToExchangePoint(excpt_id, "new_user_id3", "l'enfer");
 		addBulkUserItemsToExchangePoint(excpt_id,"5jhjy62hghfj5874gtg5",
 				new String[]{"itemid1","itemid2","itemid3"});*/
-		System.out.println(userPoints("58496e8c273633e062a41acd").next());
+		//System.out.println(userPoints("58496e8c273633e062a41acd").next());
+//		//System.out.println(userPoints("58496e19273633e062a41acc").next());
+//		System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
+//		System.out.println(userPoints("58496e8c273633e062a41acd").next());
 		System.out.println(userPoints("58496e19273633e062a41acc").next());
-		System.out.println(friendsExchangePoints("58496e19273633e062a41acc").next());
+		deleteExchangePoint("584c410d27360cb6adb9514b","58496e19273633e062a41acc");
+		System.out.println(userPoints("58496e19273633e062a41acc").next());
+
 
 	}
-
-	/*public static void addPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius)
-			throws SQLException	
-	{ 
-		String sql = "INSERT INTO POINT_EMPRUNT(id_user,nom,lat,lon,radius) VALUES ("
-				+ "'"+id_user+"' , '"+nom+"' , '"+lat+"' , '"+lon+"' , '"+radius+ "' ) ;";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sql);
-		s.close();
-		c.close();
-	}*/
-
-	/*
-	 * Ajoute un objet à la base mongo
-	 * @param authorid
-	 * @param text
-	 * @throws UnknownHostException
-	 * @throws MongoException
-	 *
-	public static void addPoint(JSONObject point) throws UnknownHostException, MongoException{
-		// Instance de la collection
-		DBCollection collection = KasuDB.getMongoCollection(MDB_POINTS_COLLECTION);
-
-		// Parsing de l'objet
-		DBObject dbObj = (DBObject) com.mongodb.util.JSON.parse(point.toString());
-
-
-		// Ajout dans la base de données
-		collection.insert( dbObj ).toString();
-	}*/
 }

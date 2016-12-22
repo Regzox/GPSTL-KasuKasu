@@ -1,13 +1,12 @@
 package servlets;
 
-import java.io.IOException;
+import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import enumerations.Url;
+import servlets.tools.templates.online.OnlineGetServlet;
 
 /**
  * Servlet de déconnexion, l'utilisateur émet une requête de déconnexion sans paramètres.
@@ -19,14 +18,14 @@ import enumerations.Url;
  *
  */
 
-public class DisconnectionServlet extends HttpServlet {
-	
+public class DisconnectionServlet extends OnlineGetServlet {
 	private static final long serialVersionUID = -3545293914840448417L;
-
+ 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
+			throws Exception {
 		request.getSession().removeAttribute("userId");
-		response.sendRedirect(Url.PORTAL.value());
+		response.sendRedirect(Url.PORTAL.value());		
 	}
 	
 }

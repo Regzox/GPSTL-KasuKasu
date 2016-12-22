@@ -25,7 +25,10 @@ public enum Url {
 	LISTOBJECTS("/useritems.jsp"),
 	LISTLOANS("/userLoans.jsp"),
 	AJOUTERLIEU("/addpoint.jsp"),
-	IMPORTLIEU("/importpoint.jsp")
+	IMPORTLIEU("/importpoint.jsp"),
+	LISTLIEU("/restricted/listpoint.jsp"),
+	EVALUATION("/restricted/evaluation.jsp");
+
 
 
 	;

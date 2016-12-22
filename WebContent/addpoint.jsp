@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Ajouter un lieu d'échange</title>
+<title id='titre' >Ajouter un lieu d'échange</title>
 
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
@@ -15,6 +15,8 @@
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/addpoint.js" charset="utf-8"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
@@ -34,7 +36,7 @@ html, body, #mapdiv {
 
 </head>
 
-<body onload="javascript:init()">
+<body onload="javascript:init(); trans();">
 
 
 	<%@ include file="/fragments/sidebar.jspf"%>
@@ -44,7 +46,7 @@ html, body, #mapdiv {
 		<div class='col-md-6'>
 			
 			<div class="form-group row">
-				<div class="col-xs-10">Choisissez des points d'échange sur la carte</div>
+				<div id='choix' class="col-xs-10">Choisissez des points d'échange sur la carte</div>
 			</div>
 
 			<div id="mapdiv" style="width: 400px; height: 400px"></div>
@@ -61,7 +63,7 @@ html, body, #mapdiv {
 
 			<div id='error_point'></div>
 
-			<input type="submit" class="btn btn-primary btn-block"
+			<input id='submit' type="submit" class="btn btn-primary btn-block"
 				onClick="javascript:createobject()">
 		</div>
 	</div>

@@ -516,6 +516,14 @@
 		[
 			{
 				"langue" : "fr-FR",
+				"expression" : "Mes objets"
+			},
+			{
+				"langue" : "en-GB",
+				"expression" : "My items"
+			},
+			{
+				"langue" : "fr-FR",
 				"expression" : "Gérer vos objets"
 			},
 			{
@@ -578,11 +586,11 @@
 		[
 			{
 				"langue" : "fr-FR",
-				"expression" : "Liste de vos objets empruntés"
+				"expression" : "Ma liste d'objets empruntés"
 			},
 			{
 				"langue" : "en-GB",
-				"expression" : "Your loans list"
+				"expression" : "My loans list"
 			}
 		]
 	},

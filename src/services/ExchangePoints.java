@@ -10,8 +10,11 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.ExchangePointsDB;
+import dao.FriendsDao;
 import dao.items.ItemsDB;
+import dao.users.UserDao;
 import exceptions.DatabaseException;
+import exceptions.NotPermitedException;
 import utils.Tools;
 
 /**
@@ -35,11 +38,21 @@ public class ExchangePoints {
 				ExchangePointsDB.subscribeToExchangePoint(
 						ExchangePointsDB.getExchangePointByLatLon(lat,lon)
 						.get("_id").toString()
-						, userID, name);
-		}else ExchangePointsDB.addExchangePoint(lat,lon,radius,userID,name);
+						, userID, name,radius);
+		}else 
+			ExchangePointsDB.addExchangePoint(lat,lon,radius,userID,name);
 		return Tools.serviceMessage(1);
 	}
 
+	public static void main(String[] args) throws DatabaseException, JSONException {
+		System.out.println(addExchangePoint(2,3,200,"5jhjy62hghfj5874gtg5","fac"));
+		System.out.println(addExchangePoint(2,3,500,"7jhjy62hghfj5874gtg5","maison"));
+		
+		//System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
+		//System.out.println(userPoints("Coucou"));
+	}		
+	
+	
 
 	/**
 	 * Subscribe to an existing exchange point
@@ -48,9 +61,9 @@ public class ExchangePoints {
 	 * @param name
 	 * @return
 	 * @throws JSONException */
-	public static JSONObject subscribeToExchangePoint(String id,String userID,String name) 
+	public static JSONObject subscribeToExchangePoint(String id,String userID,String name, int radius) 
 			throws JSONException {			
-		ExchangePointsDB.subscribeToExchangePoint(id, userID, name);		
+		ExchangePointsDB.subscribeToExchangePoint(id, userID, name, radius);		
 		return Tools.serviceMessage(1);
 	}
 
@@ -65,9 +78,9 @@ public class ExchangePoints {
 	 * @throws JSONException */
 	public static JSONObject updateExchangePoint(
 			String id,String userID,int radius,String name) throws JSONException{ 
-		if(!ExchangePointsDB.isMember(id ,userID))
-			return Tools.serviceRefused
-					("Vous n'avez pas le droit de modifier ce point d'echange!", -1);
+//		if(!ExchangePointsDB.isMember(id ,userID))
+//			return Tools.serviceRefused
+//					("Vous n'avez pas le droit de modifier ce point d'echange!", -1);
 		ExchangePointsDB.updateExchangePoint(id, userID, radius, name);
 		return Tools.serviceMessage(1);
 	}
@@ -115,13 +128,33 @@ public class ExchangePoints {
 		while (cursor.hasNext()){
 			DBObject dbo=cursor.next();
 			BasicDBList bl = (BasicDBList) dbo.get("subscribers");
-			String name = (String) ((DBObject)bl.get(0)).get("name"); 
+			int i=0;			
+			String name="";
+			int radius=0;
+			boolean trouve=false;
+			String id_user;
+			
+			while (i< bl.size() && trouve==false)				
+			{
+				 id_user= (String)((DBObject)bl.get(i)).get("id_user");
+				 if (id_user.equals(userID)) 
+					 {
+					    trouve=true;
+					    name = (String)((DBObject)bl.get(i)).get("name");
+					    radius = (int)((DBObject)bl.get(i)).get("radius");
+				    
+					    
+					 }
+				 else i++;
+
+			}
+			
 			jar.put(new JSONObject()
 					.put("id",dbo.get("_id"))
 					.put("lat",dbo.get("lat"))
 					.put("name", name)
 					.put("lon",dbo.get("lon"))
-					.put("radius",dbo.get("rad")));}
+					.put("radius",radius));}
 		return new JSONObject().put("expts",jar);
 	}
 
@@ -154,64 +187,47 @@ public class ExchangePoints {
 
 
 
-
-
-
 	/**
 	 * Return the list of user friend's exchange points
 	 * @param userID
 	 * @return */
 	public static JSONObject friendsExchangePoints(String userID) throws DatabaseException, JSONException{
 		JSONArray jar=new JSONArray();
-		DBCursor cursor = ExchangePointsDB.friendsExchangePoints(userID);
+		DBCursor cursor = ExchangePointsDB.friendsLargeExchangePoints(userID);
 		cursor.sort(new BasicDBObject("date",-1)); 
-		while (cursor.hasNext()){
+		while (cursor.hasNext())
+		{
 			DBObject dbo=cursor.next();
 			BasicDBList bl = new BasicDBList();
 			bl = (BasicDBList) dbo.get("subscribers");
-			String name = (String) ((DBObject)bl.get(0)).get("name"); 
-			JSONArray put = jar.put(new JSONObject()
-					.put("id",dbo.get("_id"))
-					.put("lat",dbo.get("lat"))
-					.put("name", name)
-					.put("lon",dbo.get("lon"))
-					.put("radius",dbo.get("rad")));}
+			String name="";
+			for (int i=0;i< bl.size(); i++)				
+			{
+				String user_firstname = UserDao.getUserById((String)((DBObject)bl.get(i)).get("id_user")).getFirstname();
+				String user_name = UserDao.getUserById((String)((DBObject)bl.get(i)).get("id_user")).getName();
+
+				if (i==bl.size()-1) name = name+ user_firstname+" "+ user_name+ "."; 
+				else name = name+ user_firstname+" "+ user_name+", ";
+			}
+			
+				JSONArray put = jar.put(new JSONObject()
+						.put("id",dbo.get("_id"))
+						.put("lat",dbo.get("lat"))
+						.put("name", name)
+						.put("lon",dbo.get("lon"))
+						.put("radius",dbo.get("rad")));
+
+	     }
 		return new JSONObject().put("expts",jar);
 	}
-
-	/**
-	 * Return the list of user friend's exchange points
-	 * @param userID
-	 * @return */
-	public static JSONObject pointUsersName(String lat, String lon) throws DatabaseException, JSONException{
-		JSONArray jar=new JSONArray();
-		DBCursor cursor = ExchangePointsDB.pointUsersName(lat,lon);
-		cursor.sort(new BasicDBObject("date",-1)); 
-		while (cursor.hasNext()){
-			DBObject dbo=cursor.next();
-			BasicDBList bl = new BasicDBList();
-			bl = (BasicDBList) dbo.get("subscribers");
-			String name = (String) ((DBObject)bl.get(0)).get("id_user"); 
-			JSONArray put = jar.put(new JSONObject()
-					.put("id",dbo.get("_id"))
-					.put("lat",dbo.get("lat"))
-					.put("id_user", name)
-					.put("lon",dbo.get("lon"))
-					.put("radius",dbo.get("rad")));}
-		return new JSONObject().put("expts",jar);
-	}
-
-	public static void main(String[] args) throws DatabaseException, JSONException 
+	
+	public static JSONObject deleteExchangePoint(String id,String ownerID) throws JSONException 
 	{
-		System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
-		//System.out.println(userPoints("Coucou"));
+		ExchangePointsDB.deleteExchangePoint(id,ownerID);
+		return Tools.serviceMessage(1);
+
 	}
 
 
-	/*public static JSONObject createPointEmprunt(int id_user,String nom,Double lat,Double lon,int radius) 
-			throws SQLException, JSONException
-	{			
-		PointEmpruntDao.addPointEmprunt(id_user,nom,lat,lon,radius);
-		return Tools.serviceMessage(1);
-	}*/
+
 }

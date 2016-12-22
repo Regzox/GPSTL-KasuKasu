@@ -23,18 +23,10 @@ public class Tools{
 	 * @return	 */
 	public static JSONObject serviceRefused(Object msg, int errorCode)throws JSONException{
 		JSONObject json=new JSONObject();
-		json.put("erreur",msg);
+		json.put("error",msg);
 		json.put("erreurcode",errorCode);
 		return json;}
 	
-	/**
-	 * Return the current timestamp
-	 * @return */
-	public static java.sql.Timestamp getCurrentTimeStamp() {
-		java.util.Date now = new java.util.Date();
-		return new java.sql.Timestamp(now.getTime());
-	}
-
 	/**
 	 * Return the complete StackTrace of the throwable as String 
 	 * @param thr
@@ -44,6 +36,20 @@ public class Tools{
 		PrintWriter pw = new PrintWriter(sw);
 		thr.printStackTrace(pw);
 		return sw.toString();
+	}
+	
+
+	/**
+	 * Balance two words to the same length
+	 * @param word1
+	 * @param word2 */
+	public static void balanceWordsLengths(String[]word1, String[]word2){
+		if(word1.length>0 && word2.length>0)
+			while(((Integer)word1[0].length()).compareTo(word2[0].length())!=0)
+				if(word1[0].length()<word2[0].length())
+					word1[0]+="*";
+				else if(word2[0].length()<word1[0].length())
+					word2[0]+="*"; 
 	}
 	
 }

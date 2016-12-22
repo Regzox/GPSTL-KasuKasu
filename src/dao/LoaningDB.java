@@ -19,6 +19,7 @@ public class LoaningDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("loaning");//LOANING_REQUESTS
 	public static DBCollection requests = KasuDB.getMongoCollection("lrqst");
+	public static DBCollection items = ItemsDB.collection;
 
 	/**
 	 * Add an applicant's request for an item 
@@ -33,13 +34,6 @@ public class LoaningDB {
 				.append("debut", "") //TODO
 				.append("fin", "")//TODO
 				);
-		
-		/*String sqlQuery = "INSERT INTO "+table_name +" values ('"+idSend+"','"+idObject+"',null,null,NOW());";
-		Connection c = KasuDB.SQLConnection();
-		Statement s = c.createStatement();
-		s.executeUpdate(sqlQuery);
-		s.close();
-		c.close();	*/
 	}
 
 
@@ -108,22 +102,6 @@ public class LoaningDB {
 		return requests.find(
 				new BasicDBObject()
 				.append("id_applicant", idApplicant));
-
-
-		/*ArrayList<Integer> myDemandes = new ArrayList<Integer>();
-		String sql = "SELECT idSend FROM "+table_name +" WHERE (idRecep='"+user+"');";
-		Connection connection = KasuDB.SQLConnection();
-		Statement statement = connection.createStatement();
-		ResultSet resultSet = statement.executeQuery(sql);
-
-		while (resultSet.next())
-			myDemandes.add(resultSet.getInt(1));
-
-		resultSet.close();
-		statement.close();
-		connection.close();
-
-		return myDemandes;*/
 	}
 
 	
@@ -142,14 +120,30 @@ public class LoaningDB {
 		return requests.find(
 				new BasicDBObject()
 				.append("id_item", id_item));
-
-		/*String sql = "SELECT * FROM "+table_name +" WHERE id_objet= '"+id_objet+"' ;";
-		try {
-			Connection c = KasuDB.SQLConnection();
-			Statement s = c.createStatement();
-			return new CSRShuttleBus(c, s, s.executeQuery(sql));}
-		catch (SQLException e) {
-			throw new DatabaseException(DAOToolBox.getStackTrace(e));}*/
+	}
+	
+	/**
+	 * Remove an loan by removing from the collection "loanings" and setting up to 'available' the item referenced in this one
+	 * 
+	 * TODO Push the removed loan to another saving collection
+	 * 
+	 * @param id_loan
+	 */
+	
+	public static void removeLoan(String id_loan) {
+		DBCursor dbc = collection.find(new BasicDBObject("_id", new ObjectId(id_loan)));
+		DBObject loan = dbc.next();
+		
+		if (dbc.count() == 1) {
+			BasicDBObject item = new BasicDBObject().append("_id", new ObjectId((String)loan.get("id_item")));	
+			
+			dbc = items.find(item);
+			item = (BasicDBObject) dbc.next();
+			item.append("status", "available");
+			collection.remove(loan);
+			items.update(new BasicDBObject().append("_id", new ObjectId(item.getString("_id"))), item);	
+			KasuDB.getMongoCollection("lhistory").save(loan);
+		}
 	}
 
 	public static void main(String[] args) {
@@ -157,5 +151,4 @@ public class LoaningDB {
 		System.out.println(applicantRequests("5849a585641a80878d717279").next());
 		System.out.println(applicantLoanings("5849a585641a80878d717279").next());
 	}
-
 }

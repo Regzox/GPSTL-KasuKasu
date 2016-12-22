@@ -11,10 +11,12 @@
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/loaning.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
-<title>Ma liste d'objets empruntés</title>
+<title id='titre'>Ma liste d'objets empruntés</title>
 </head>
-<body onload="javascript:find_user_loans()">
+<body onload="javascript:find_user_loans(); trans();">
 <%@ include file="/fragments/sidebar.jspf"%>
 <div id='page'>
 		<div class='layer-center'>
@@ -33,7 +35,7 @@
 
 <!-- 			<br><hr><br> -->
 			
-			<h2>Liste de vos objets empruntés</h2>
+			<h2 id='liste'>Ma liste d'objets empruntés</h2>
 			<div id="found-loans" class="abootsraper"></div>
 		</div>
 	</div>
