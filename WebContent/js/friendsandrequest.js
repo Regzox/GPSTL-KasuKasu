@@ -1,3 +1,9 @@
+var bool;
+if(document.cookie.search("lang=en")!=-1)
+	bool=1;
+else
+	if(document.cookie.search("lang=fr")!=-1)
+		bool=0;
 function retrieveFriendsFunc() 
 {
 	printHTML("#notifier","");
@@ -40,15 +46,32 @@ function retrieveRequests(requestv)
 
 function ProcessRetrieveFriends(rep) 
 {
-	var message = "<table class=\"table\">" +
-	"<tr>" +
-	"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-	"</tr>";
+	
+	var message; 
 	var endmessage ="</table>";
 	var bodymessage ="";
-
+	
+	
+	if(bool==1)
+	{
+		message = "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Last name</th><th>First name</th><th>Profile</th>" +
+		"</tr>";
+	}
+	else
+	{
+		if(bool==0)
+		{
+			message = "<table class=\"table\">" +
+			"<tr>" +
+			"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+			"</tr>";
+		}
+	}
 	var jsonData =rep.result;//= JSON.parse(rep);
-	if(jsonData.users == undefined || jsonData.users.length == 0){
+	if((jsonData.users == undefined || jsonData.users.length == 0)){
+		if(bool==0)
 		bodymessage = bodymessage+
 		"<tr style='text-align: left'>" +
 		"<td> Aucun</td>" +
@@ -57,7 +80,18 @@ function ProcessRetrieveFriends(rep)
 		"<td></td>"+
 		"<td></td>"+
 		"</tr>";
+		else
+			bodymessage = bodymessage+
+			"<tr style='text-align: left'>" +
+			"<td> No</td>" +
+			"<td> Friend </td>"+
+			"<td></td>"+
+			"<td></td>"+
+			"<td></td>"+
+			"</tr>";
+			
 	}else{
+		if(bool=0)
 		for (var i = 0; i < jsonData.users.length; i++) {
 			var user = jsonData.users[i];
 
@@ -65,10 +99,22 @@ function ProcessRetrieveFriends(rep)
 			"<tr>" +
 			"<td>"+user.name+"</td>" +
 			"<td>"+user.firstname+"</td>"+
-			"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+user.id+"\"> Voir Profil </a></td>"+
-			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=2&id="+user.id+"\"> Supprimer Amis </a></td>"
+			"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+user.id+"\"> Afficher le profil </a></td>"+
+			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=2&id="+user.id+"\"> Supprimer </a></td>"
 			"</tr>";
 		}
+		else
+			for (var i = 0; i < jsonData.users.length; i++) {
+				var user = jsonData.users[i];
+
+				bodymessage = bodymessage+
+				"<tr>" +
+				"<td>"+user.name+"</td>" +
+				"<td>"+user.firstname+"</td>"+
+				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+user.id+"\"> Show profile </a></td>"+
+				"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=2&id="+user.id+"\"> Delete </a></td>"
+				"</tr>";
+			}	
 	}
 	var div=(message+bodymessage+endmessage);
 	func_message(div);
@@ -76,26 +122,54 @@ function ProcessRetrieveFriends(rep)
 
 function ProcessRetrieveRequests(rep) 
 {
-
-	var message = "<table class=\"table\">" +
+	var message;
+	
+	if(bool==0)
+	{
+		message = "<table class=\"table\">" +
 	"<tr>" +
 	"<th>Nom</th><th>Prenom</th><th>Profil</th><th>Accepter</th><th>Refuser</th>" +
 	"</tr>";
+	}
+	else
+	{
+		if(bool==1)
+		{
+			message = "<table class=\"table\">" +
+			"<tr>" +
+			"<th>Last name</th><th>First name</th><th>Profile</th><th>Accept</th><th>Decline</th>" +
+			"</tr>";
+		}
+	}	
 	var endmessage ="</table>";
 	var bodymessage ="";
 
 	var jsonData = rep.result;//JSON.parse(rep);
 	if(jsonData.users == undefined || jsonData.users.length == 0){
+		
+		if(bool==0)
 		bodymessage = bodymessage+
 		"<tr style='text-align: left'>" +
 		"<td> Aucune</td>" +
-		"<td> Requêtes</td>"+
+		"<td> Requête</td>"+
 		"<td></td>"+
 		"<td></td>"+
 		"<td></td>"+
 		"<td></td>"+
 		"</tr>";
+		else
+			if(bool==1)
+				bodymessage = bodymessage+
+				"<tr style='text-align: left'>" +
+				"<td> No</td>" +
+				"<td> Request</td>"+
+				"<td></td>"+
+				"<td></td>"+
+				"<td></td>"+
+				"<td></td>"+
+				"</tr>";
 	}else{
+		if(bool==0)
 		for (var i = 0; i < jsonData.users.length; i++) {
 			var user = jsonData.users[i];
 
@@ -103,11 +177,25 @@ function ProcessRetrieveRequests(rep)
 			"<tr>" +
 			"<td>"+user.name+"</td>" +
 			"<td>"+user.firstname+"</td>"+
-			"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+user.id+"\"> Voir Profil </a></td>"+
-			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=1&id="+user.id+"\"> Accepter Requete </a></td>"+
-			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=4&id="+user.id+"\"> Refuser Requete </a></td>"
+			"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+user.id+"\"> Afficher le profil </a></td>"+
+			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=1&id="+user.id+"\"> Accepter la requête </a></td>"+
+			"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=4&id="+user.id+"\"> Refuser le requête </a></td>"
 			"</tr>";
 		}
+		else
+			if(bool==1)
+				for (var i = 0; i < jsonData.users.length; i++) {
+					var user = jsonData.users[i];
+
+					bodymessage = bodymessage+
+					"<tr>" +
+					"<td>"+user.name+"</td>" +
+					"<td>"+user.firstname+"</td>"+
+					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+user.id+"\"> Show profile </a></td>"+
+					"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=1&id="+user.id+"\"> Accept the request </a></td>"+
+					"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=4&id="+user.id+"\"> Decline the request </a></td>"
+					"</tr>";
+				}
 	}
 	var div=(message+bodymessage+endmessage);
 	func_message(div);

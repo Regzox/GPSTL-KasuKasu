@@ -1,4 +1,10 @@
 var map;
+bool=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool=0;
 function init() 
 {
 	map = new OpenLayers.Map("mapdiv");
@@ -131,14 +137,23 @@ function traiteReponse2(json)
 
 	      var lon = json.expts[i].lon;
 	       var lat = json.expts[i].lat;
-	       
-	        var feature = new OpenLayers.Feature.Vector
+	      var feature;
+	       if(bool==0)
+	        feature = new OpenLayers.Feature.Vector
 	        (
 
 	                new OpenLayers.Geometry.Point( lon, lat ),
-	                {description: "Vos amis sur ce lieu: "+json.expts[i].name} ,
+	                {description: "Mes amis sur ce lieu: "+json.expts[i].name} ,
 	                {externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
-	         );             
+	         ); 
+	       if(bool==1)
+		        feature = new OpenLayers.Feature.Vector
+		        (
+
+		                new OpenLayers.Geometry.Point( lon, lat ),
+		                {description: "My friends in this place : "+json.expts[i].name} ,
+		                {externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
+		         ); 
 	        vectorLayer.addFeatures(feature);
 
 		}

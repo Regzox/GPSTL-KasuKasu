@@ -72,7 +72,7 @@ html, body, #mapdiv {
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- dialog body -->
-      <div class="modal-body">
+      <div id='comment' class="modal-body">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         Les lieux ont bien été ajoutés
       </div>

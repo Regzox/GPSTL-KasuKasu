@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
-<title id='titre'>Mes Groupes</title>
+<title id="titre">Mes Groupes</title>
 </head>
 <body onload="userGroups(); trans();">
 
@@ -26,7 +26,7 @@
 
 		<div class='layer-center'>
 
-			<p id='create'class='capital'>Créer un nouveau groupe</p>
+			<p id="create" class='capital'>Créer un nouveau groupe</p>
 
 			<div id='notifier'></div>
 			<br>
@@ -39,8 +39,8 @@
 					</div>
 				</div>
 
-				<input id='submit' type="submit" class="btn btn-primary btn-block"
-					value="Creer un nouveau groupe"> <br>
+				<input id="submit" type="submit" class="btn btn-primary btn-block"
+					value="Créer un nouveau groupe"> <br>
 
 				<div id="found-groups" class="abootsraper"></div>
 

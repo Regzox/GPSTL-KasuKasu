@@ -12,7 +12,7 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
-<title id='titre'>Mes Amis</title>
+<title id='titre'>Requêtes d'amis</title>
 </head>
  <body onload="retrieveRequestsFunc(); trans();">
 	<%@ include file="/fragments/sidebar.jspf"%>

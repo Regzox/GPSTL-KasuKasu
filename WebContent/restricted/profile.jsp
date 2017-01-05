@@ -98,7 +98,8 @@
 </script>
 
 </head>
-<body onload="trans()">
+
+<body onload = "trans()">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 

@@ -1,3 +1,9 @@
+bool=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool=0;
 function finduseramongfriends(form) {
 
 	if (form.query.value.length==0)
@@ -17,10 +23,17 @@ function finduseramongfriends(form) {
 
 
 function ProcessFindUser(rep) {
-	var message = "<table class=\"table\">" +
-	"<tr>" +
-	"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-	"</tr>";
+	var message;
+	if(bool==0)
+		message= "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Nom</th><th>Prénom</th><th>Profil</th>" +
+		"</tr>";
+	if(bool==1)
+		message= "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Last name</th><th>First name</th><th>Profile</th>" +
+		"</tr>";
 	var endmessage ="</table>";
 	var bodymessage ="";
 	var nb=0;
@@ -37,25 +50,43 @@ function ProcessFindUser(rep) {
 				if(field=='id')
 					z=value;
 			});
-
-			bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
-			"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>";
+			if(bool==0)
+				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
+				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Afficher profil </a></td>";
+			if(bool==1)
+				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
+				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Show profile </a></td>";
 			//alert("z="+z+" "+MEM[z]);
 			if(!(MEM[z]!= undefined && MEM[z]!= null))
-				bodymessage+="<td><button class=\"joanlinkasbutton\" " +
-				"id=\"add-"+z+"-to_group-"+GID+"\" " +
-				"onClick=\"addMember('"+GID+"','"+z+"')\">" +
-				"Ajouter au groupe</button>\n</td>";
+				if(bool==0)
+					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					"id=\"add-"+z+"-to_group-"+GID+"\" " +
+					"onClick=\"addMember('"+GID+"','"+z+"')\">" +
+					"Ajouter au groupe</button>\n</td>";
+				if(bool==1)
+					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					"id=\"add-"+z+"-to_group-"+GID+"\" " +
+					"onClick=\"addMember('"+GID+"','"+z+"')\">" +
+					"Add to the group</button>\n</td>";
 			else
-				bodymessage+="<td><button class=\"joanlinkasbutton\" " +
-				"id=\"remove-"+z+"-to_group-"+GID+"\" " +
-				"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
-				"Retirer du groupe</button>\n</td>";
+				if(bool==1)
+					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					"id=\"remove-"+z+"-to_group-"+GID+"\" " +
+					"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
+					"Retirer du groupe</button>\n</td>";
+				if(bool==1)
+					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					"id=\"remove-"+z+"-to_group-"+GID+"\" " +
+					"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
+					"Remove from the group</button>\n</td>";
 			bodymessage+="</tr>";
 		});
 
 	if(nb==0){
-		message="Aucun utilisateur ne correspond.";
+		if(bool==0)
+			message="Aucun utilisateur ne correspond.";
+		if(bool==1)
+			message="No user matches.";
 		bodymessage="";
 		endmessage="";
 	}
@@ -86,8 +117,10 @@ Member.traiteReponseJSON=function(json){
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"membersBox\">";	
 
-		if(members.length==0)
+		if(members.length==0 && bool==0)
 			fhtm+="<h3>Il n'y a aucun membre pour le moment.</h3>";
+		if(members.length==0 && bool==1)
+			fhtm+="<h3>There is no member for the moment.</h3>";
 		MEM=[];
 		for(var i in members){
 			//alert(JSON.stringify(members[i]));

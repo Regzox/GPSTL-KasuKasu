@@ -8,11 +8,13 @@
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/listpoint.js"></script>
-<title>Liste de point d'échange</title>
+<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
+<title id="titre">Liste des points d'échange</title>
 
 
 </head>
-<body onload="userPoints()">
+<body onload="trans(); userPoints()">
 	<%@ include file="/fragments/sidebar.jspf"%>
 	<div id='page'>
 		<div class='layer-center'>
@@ -24,7 +26,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- dialog body -->
-      <div class="modal-body">
+      <div id="comment" class="modal-body">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         Les changements ont bien été pris en compte
       </div>
@@ -40,7 +42,7 @@
 				<!-- Modal Header -->
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+						<span aria-hidden="true">&times;</span> <span id="close" class="sr-only">Fermer</span>
 					</button>
 					<h4 class="modal-title" id="myModalLabel">Modifier le lieu</h4>
 				</div>
@@ -50,18 +52,21 @@
 
 					<form class="form-horizontal" role="form">
 						<div class="form-group row">
-							<label for="old_email_input" class="col-xs-3 col-form-label">Nom</label>
+							<label id="nom" for="old_email_input" class="col-xs-3 col-form-label">Nom</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="nom_input"
-									name="nom_input" placeholder="Nom">
+									name="nom_input" >
+<!-- 									placeholder="Nom" -->
+									
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
+							<label id="range" for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="radius_input"
 									type="number" name="radius_input"
-									placeholder="Portée">
+									>
+<!-- 									placeholder="Portée" -->
 							</div>
 						</div>
 					</form>
@@ -75,8 +80,8 @@
 
 				<!-- Modal Footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">	Fermer</button>
-					<button type="button" id="save" class="btn btn-primary">Enregistrer</button>
+					<button id="ferm" type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+					<button id="enreg" type="button" id="save" class="btn btn-primary">Enregistrer</button>
 				</div>
 			</div>
 		</div>

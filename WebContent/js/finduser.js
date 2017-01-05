@@ -1,3 +1,9 @@
+bool=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool=0;
 function finduser(form) 
 {
 	printHTML("#notifier","");
@@ -23,10 +29,19 @@ function findUserJS(valuev)
 
 function ProcessFindUser(rep) 
 {
-	var message = "<table class=\"table\">" +
-	"<tr>" +
-	"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-	"</tr>";
+	var message = "";
+	
+	if(bool==0)
+		message= "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+		"</tr>";
+	if(bool==1)
+		message="<table class=\"table\">" +
+		"<tr>" +
+		"<th>Last name</th><th>First name</th><th>Profile</th>" +
+		"</tr>";
+	
 	var endmessage ="</table>";
 
 	var bodymessage ="";
@@ -48,21 +63,36 @@ function ProcessFindUser(rep)
 				if(z==rep.id)
 					return;
 				nb++;
-				bodymessage = bodymessage+
-				"<tr>" +
-				"<td>"+x+"</td>" +
-				"<td>"+y+"</td>"+
-				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
-				"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=3&id="+z+"\"> Ajouter amis </a></td>"+
-				"</tr>";
+				if(bool==0)
+					bodymessage = bodymessage+
+					"<tr>" +
+					"<td>"+x+"</td>" +
+					"<td>"+y+"</td>"+
+					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
+					"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=3&id="+z+"\"> Ajouter amis </a></td>"+
+					"</tr>";
+				if(bool==1)
+					bodymessage = bodymessage+
+					"<tr>" +
+					"<td>"+x+"</td>" +
+					"<td>"+y+"</td>"+
+					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Show Profile </a></td>"+
+					"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=3&id="+z+"\"> Add friend </a></td>"+
+					"</tr>";
 			}else{
-				message="Aucun utilisateur ne correspond.";
+				if(bool==0)
+					message="Aucun utilisateur ne correspond.";
+				if(bool==1)
+					message="No user matches.";
 				bodymessage="";
 				endmessage="";
 			}
 		});
 	if(nb==0){
-		message="Aucun utilisateur ne correspond.";
+		if(bool==0)
+			message="Aucun utilisateur ne correspond.";
+		if(bool==1)
+			message="No user matches.";
 		bodymessage="";
 		endmessage="";
 	}

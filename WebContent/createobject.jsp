@@ -146,7 +146,7 @@
       <!-- dialog body -->
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        L'objet a bien été ajouté
+       <p id="comment">  L'objet a bien été ajouté </p>
       </div>
     </div>
   </div>

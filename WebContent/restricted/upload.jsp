@@ -7,23 +7,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 <!-- <script type="text/javascript" src="js/enregistrement.js"></script> -->
 
-<title>File Upload Demo</title>
+<title id="titre">Télécharger une image</title>
 
 </head>
-<body>
+<body onload="trans();">
 	
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id="page">
 		<form method="post" action="/KasuKasu/imagesservlet"  enctype="multipart/form-data">
         
-            Select a image to upload
+           <div id="upload">Sélectionner une image à télécharger</div> 
             <input type="file" name="url" id="url"/>
             <br/>
                      
-           	<input type="submit" value="Upload" /> 		
+           	<input id="submit" type="submit" value="Télécharger" /> 		
         </form>
 	</div>
 

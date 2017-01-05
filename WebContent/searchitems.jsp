@@ -35,8 +35,7 @@
 							id="iquery">
 					</div>
 				</div>
-				<input id="submit" type="submit" class="btn btn-primary btn-block"
-					>
+				<input id="submit" type="submit" class="btn btn-primary btn-block">
 			</form>
 
 			<br><hr><br>
