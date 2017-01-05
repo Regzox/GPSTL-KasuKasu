@@ -11,7 +11,7 @@
 				if ( !(~$(location).attr('href').indexOf('<%= Url.SEARCHITEMS.value() %>')))
 					$(location).attr('href', '<%= Url.SEARCHITEMS.value() %>');
 			">
-</img>
+
 		</div>
 		<div class="navigable">
 			<div onclick="
@@ -30,6 +30,11 @@
 				if ( !(~$(location).attr('href').indexOf('<%= Url.EVALUATION.value() %>')))
 					$(location).attr('href', '<%= Url.EVALUATION.value() %>');
 			"> Evaluations </div>
+			
+			<div onclick="
+				if ( !(~$(location).attr('href').indexOf('<%= Url.CONVERSATION.value() %>')))
+					$(location).attr('href', '<%= Url.CONVERSATION.value() %>');
+			"> Conversations </div>
 			
 			 <div class="dropdown">Mes amis
 				  <div class="dropdown-content">

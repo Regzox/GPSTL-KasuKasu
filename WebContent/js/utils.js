@@ -18,3 +18,7 @@ function resetNOTIFIER(){printHTML("#notifier","");}
 function removeHTML(dom,htm){$(dom).remove(htm);}
 
 function removeElt(dom){$(dom).remove(); }
+
+function chill(){/*alert('I m lazy')*/}
+
+function refresh(result){location.reload();}

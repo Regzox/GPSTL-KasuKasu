@@ -23,8 +23,8 @@
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
-	<%@ page import="services.User" %>
-	<%@ page import="org.json.JSONObject" %>
+	<%@ page import="services.User"%>
+	<%@ page import="org.json.JSONObject"%>
 
 	<%
 		String id = request.getParameter("id");
@@ -43,30 +43,39 @@
 		<div id="profile">
 			<table>
 				<tr>
-					<td colspan="2" id="image-wrapper"><img id="image" src="<%= url %>"></img></td>
+					<td colspan="2" id="image-wrapper"><img id="image"
+						src="<%=url%>"></img></td>
 				</tr>
 
-				<tr class="row">
-					<td class="title">Id</td>
-					<td class="information" id="id"><%= user.getId() %></td>
-				</tr>
+				<!-- 				<tr class="row"> -->
+				<!-- 					<td class="title">Id</td> -->
+				<%-- 					<td class="information" id="id"><%= user.getId() %></td> --%>
+				<!-- 				</tr> -->
 				<tr class="row">
 					<td class="title">Prénom</td>
-					<td class="information" id="firstname"><%= user.getFirstname() %></td>
+					<td class="information" id="firstname"><%=user.getFirstname()%></td>
 				</tr>
 				<tr class="row">
 					<td class="title">Nom</td>
-					<td class="information" id="name"><%= user.getName() %></td>
+					<td class="information" id="name"><%=user.getName()%></td>
 				</tr>
 				<tr class="row">
 					<td class="title">Email</td>
-					<td class="information" id="email"><%= user.getEmail() %></td>
+					<td class="information" id="email"><%=user.getEmail()%></td>
 				</tr>
 				<tr class="row">
 					<td class="title">Téléphone</td>
-					<td class="information" id="phone"><%= user.getPhone() %></td>
+					<td class="information" id="phone"><%=user.getPhone()%></td>
 				</tr>
 			</table>
+		</div>
+		<br>
+		<br>
+		<div id="profile-action">
+			<a class="contact-user"
+				href="http://localhost:8080/KasuKasu/conversation.jsp?uther=<%=user.getId()%>
+				&interlocutor=<%=user.getName()%> <%=user.getFirstname()%>">
+				Contacter</a>
 		</div>
 	</div>
 

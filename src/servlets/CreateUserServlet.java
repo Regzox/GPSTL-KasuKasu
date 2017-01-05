@@ -17,7 +17,7 @@ import servlets.tools.templates.offline.OfflinePostServlet;
  * * @author Anagbla Jean */
 public class CreateUserServlet extends OfflinePostServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -27,8 +27,8 @@ public class CreateUserServlet extends OfflinePostServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, 
 			HttpServletResponse response, Map<String, String> params)
-			throws Exception {
-		
+					throws Exception {
+
 		JSONObject json = User.createUser(
 				params.get("email"),
 				params.get("mdp"),
@@ -38,6 +38,8 @@ public class CreateUserServlet extends OfflinePostServlet {
 
 		request.getSession().setAttribute("userId", 
 				User.getUser(params.get("email")).getId());
-		response.getWriter().print(json); }
-	
+		request.getSession().setMaxInactiveInterval(3600*24);//24 inactive hours before session invalidation
+		response.getWriter().print(json); 
 	}
+
+}

@@ -27,6 +27,7 @@ public enum Url {
 	AJOUTERLIEU("/addpoint.jsp"),
 	IMPORTLIEU("/importpoint.jsp"),
 	LISTLIEU("/restricted/listpoint.jsp"),
+	CONVERSATION("/messenger.jsp"),
 	EVALUATION("/restricted/evaluation.jsp");
 
 

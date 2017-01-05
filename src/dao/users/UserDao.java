@@ -2,6 +2,8 @@ package dao.users;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -32,7 +34,7 @@ public class UserDao {
 	public static DBCollection collection = KasuDB.getMongoCollection("users");
 	//According to the customer demand fuzzyness is 2(omission|substitution|addition)
 	private static int fuzzyness = 2; 
-	
+
 	/**
 	 * Check if user exists in database by his email
 	 * @rebasetested
@@ -55,7 +57,7 @@ public class UserDao {
 				.append("_id",new ObjectId(id)))).hasNext();
 	}
 
-	
+
 	/**
 	 * EN : getUser(email) : Returns the object representation of the user designed by the email passed in parameters.
 	 * FR : getUser(email) : Retourne un objet representant l'utilisateur dont l'email correspond a celui passe en parametre.
@@ -201,6 +203,7 @@ public class UserDao {
 				.append("nom",nom)
 				.append("prenom",prenom)
 				.append("numero",numero)
+				.append("date",new Date())
 				);
 	}
 
@@ -220,6 +223,34 @@ public class UserDao {
 				);
 	}
 
+
+	/**
+	 * check if user account is checked :
+	 * return true if the 24 hours time limit is not exceeded
+	 * return false after the 24 hours time limit if the user has not confirmed 
+	 * his account else true 
+	 * @rebasetested 
+	 * @param id */
+	public static boolean isConfirmed(String id){
+		int nb_days = 1; //time limit to confirm user account
+		DBCursor dbc = collection.find(new BasicDBObject("_id",new ObjectId(id)));
+		if(dbc.hasNext()) {
+			DBObject dbo = dbc.next();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime((Date)dbo.get("date"));
+			cal.add(Calendar.DAY_OF_MONTH, nb_days); 
+			System.out.println("UserDao::isConfirmed ->\ncurrent date : "
+					+new Date()+"\nregDate+1: "+cal.getTime());//debug
+			if (new Date().before(cal.getTime()))
+				return true;
+			if(dbo.containsField("checked"))
+				return (boolean) dbo.get("checked");
+		} 
+		return false;
+	}
+
+
+
 	/**
 	 * find an user according to the query
 	 * @param userId
@@ -230,7 +261,7 @@ public class UserDao {
 		return findUserCore(userId,query,fuzzyness,new BasicDBObject("_id",
 				new BasicDBObject("$ne",new ObjectId(userId))));
 	}
-	
+
 
 	/**
 	 * Find an user according to the query among user's friends
@@ -246,7 +277,7 @@ public class UserDao {
 				new BasicDBObject("$in", FriendsDao.myFriendsOID(userId))));
 		return findUserCore(userId,query,fuzzyness, new BasicDBObject("$and", list));
 	}
-	
+
 
 	/**
 	 * Shared core of findUser and findFriend methods  
@@ -261,42 +292,44 @@ public class UserDao {
 		if(query.trim().length()==0) return new ArrayList<ObjetRSV>();
 		System.out.println("UserDao/findUserCore -> "+
 				Arrays.asList(query.trim().split(PatternsHolder.blank)));//debug
-		
+
 		Pattern p1 = Pattern.compile(PatternsHolder.email); //is email
 		Pattern p2 = Pattern.compile(PatternsHolder.nums); //is phone number
-		
+
 		Set<String>queryWords = PatternsHolder.wordSet(query,PatternsHolder.blank);
 		for(String word : queryWords)
 			if(p1.matcher(word).matches())
 				constraints.put("email",word);
 			else if(p2.matcher(word).matches())
 				constraints.put("numero",word);
-		
+
 		return FuzzyFinder.find(collection,queryWords, fuzzyness,
 				Arrays.asList("nom","prenom"),constraints);
 	}
-	
-	
-	
+
+
+
 	private static void testAdd(String prev,int nb){
 		String alphabet = "aioeujnsb"/*cdfghklmpkrtvwxyz*/;
 		prev=prev+alphabet.charAt(new Random().nextInt(alphabet.length()));
 		addUser("x@x.fr", "ppp",prev, "lol", "0122345896");
 		if(nb>0)	testAdd(prev,--nb);
 	}
-	
-	
+
+
 	/**
 	 * local test
 	 * @param args */
 	public static void main(String[] args){
-		testAdd("j",7);
-		/*addUser("jojotut@tut.fr", "hardtobreakpassword", "joan", "joAm", "0122345896");
-		System.out.println(Pattern.compile(
-				PatternsHolder.email).matcher("Aa.a@ab.f").matches());
-		System.out.println(Pattern.compile(
-				PatternsHolder.nums).matcher("02287282").matches());
-		String password = "MyPasswo3";
-		System.out.println("MD5 in hex: " + DataEncryption.md5(password));*/			
+		//testAdd("j",7);
+		//System.out.println("isConfirmed="+isConfirmed("586d77806c7ebc482eceea74"));
+		//addUser("joujou@ondabeat.fr", "hardtobreakpassword", "joanne", "joana", "0122345896");
+		//		addUser("jojotut@tut.fr", "hardtobreakpassword", "joan", "joAm", "0122345896");
+		//		System.out.println(Pattern.compile(
+		//				PatternsHolder.email).matcher("Aa.a@ab.f").matches());
+		//		System.out.println(Pattern.compile(
+		//				PatternsHolder.nums).matcher("02287282").matches());
+		//		String password = "MyPasswo3";
+		//		System.out.println("MD5 in hex: " + DataEncryption.md5(password));			
 	}
 }
