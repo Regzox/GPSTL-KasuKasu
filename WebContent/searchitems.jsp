@@ -14,6 +14,9 @@
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
+
 <script>
 	$(document).ready(function() {
 		$("#iquery").keyup(function(e) {
@@ -22,18 +25,18 @@
 	});
 </script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
-<title>Recherche d'objets</title>
+<title id='titre'>Recherche d'objets</title>
 </head>
 
-<body onload="searchMRItems('')">
+<body onload="searchMRItems(''); trans();">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id="page">
 		<div class='layer-center'>
 
-			<p class='capital'>Trouvez des Objets à proximité de vos points
-				d'emprunt</p>
+			<p id='p' class='capital'>Trouvez des Objets à proximité de vos points
+				d'échanges</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:searchItems(this.iquery.value)">
@@ -43,8 +46,7 @@
 							id="iquery" autocomplete="off">
 					</div>
 				</div>
-				<input type="submit" class="btn btn-primary btn-block"
-					value="Rechercher">
+				<input id="submit" type="submit" class="btn btn-primary btn-block">
 			</form>
 
 			<br>

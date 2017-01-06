@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title id='titre'>Profil</title>
 
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
@@ -17,9 +17,10 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/check-connection.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/profile.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
 </head>
-<body>
+<body onload="trans()">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
@@ -52,20 +53,20 @@
 				<%-- 					<td class="information" id="id"><%= user.getId() %></td> --%>
 				<!-- 				</tr> -->
 				<tr class="row">
-					<td class="title">Prénom</td>
-					<td class="information" id="firstname"><%=user.getFirstname()%></td>
+					<td id="prenom" class="title">Prénom</td>
+					<td class="information" id="firstname"><%= user.getFirstname() %></td>
 				</tr>
 				<tr class="row">
-					<td class="title">Nom</td>
-					<td class="information" id="name"><%=user.getName()%></td>
+					<td id="nom" class="title">Nom</td>
+					<td class="information" id="name"><%= user.getName() %></td>
 				</tr>
 				<tr class="row">
-					<td class="title">Email</td>
-					<td class="information" id="email"><%=user.getEmail()%></td>
+					<td id="mail" class="title">Email</td>
+					<td class="information" id="email"><%= user.getEmail() %></td>
 				</tr>
 				<tr class="row">
-					<td class="title">Téléphone</td>
-					<td class="information" id="phone"><%=user.getPhone()%></td>
+					<td id="tel" class="title">Téléphone</td>
+					<td class="information" id="phone"><%= user.getPhone() %></td>
 				</tr>
 			</table>
 		</div>

@@ -1,6 +1,11 @@
 /**
- * ANAGBLA Joan */
-
+ * ANAGBLA Joan*/
+bool=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool=0;
 function Item(id,owner,group,date,longitude,latitude,title,description,permission){
 	//alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","+description+","+permission+")");
 	this.id=id;
@@ -24,9 +29,10 @@ Item.traiteReponseJSON=function(json){
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"itemsBox\">";	
 
-		if(items.length==0)
+		if(items.length==0 && bool==0)
 			fhtm+="<h3>Il n'y a rien à afficher.</h3>";
-
+		if(items.length==0 && bool==1)
+			fhtm+="<h3>Nothing to display.</h3>";
 		for(var i in items){
 			//alert(JSON.stringify(items[i]));
 			if(items[i].permission==1){
@@ -211,10 +217,18 @@ function getItem(id){
  * @param rep
  */
 function ProcessFindApplicants(rep) {
-	var message = "<table class=\"table\">" +
-	"<tr>" +
-	"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-	"</tr>";
+	var message;
+	if(bool==0)
+		message = "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+		"</tr>";
+	
+	if(bool==1)
+		message = "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Last name</th><th>First name</th><th>Profile</th>" +
+		"</tr>";
 	var endmessage ="</table>";
 
 	var bodymessage ="";
@@ -235,21 +249,39 @@ function ProcessFindApplicants(rep) {
 
 				if(z==rep.id)return;//Skip if the user is yourself
 				nb++;
+				if(bool==0)
 				bodymessage +=
 					"<tr>" +
 					"<td>"+x+"</td>" +
 					"<td>"+y+"</td>"+
-					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
+					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Afficher le profil </a></td>"+
 					"<td>" +
 					"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
 					"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
 					"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
 					"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
 				"</tr>";
+				if(bool==1)
+					bodymessage +=
+						"<tr>" +
+						"<td>"+x+"</td>" +
+						"<td>"+y+"</td>"+
+						"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Show profile </a></td>"+
+						"<td>" +
+						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
+						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
+						"<input style=\"float:right;\" type=\"button\" value=\"Validate\" class=\"accept_request_btn\" " +
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
+					"</tr>";
+					
 			} 
 		});
 	if(nb==0){
-		message="<br>Aucune demande sur cet objet pour le moment.";
+		if(bool==0)
+			message="<br>Aucune demande sur cet objet pour le moment.";
+		if(bool==1)
+			message="<br>No request on this item for the moment.";
+
 		bodymessage="";
 		endmessage="";
 	}

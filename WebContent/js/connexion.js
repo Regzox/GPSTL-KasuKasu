@@ -1,3 +1,9 @@
+bool=0;
+	if(document.cookie.search("lang=en")!=-1)
+			bool=1;
+		else
+			if(document.cookie.search("lang=fr")!=-1)
+				bool=0;
 function connexion(form) 
 {
 	var mail = form.mail.value;
@@ -18,21 +24,30 @@ function checkInput(mail, pass)
 	if(mail.length==0)
 	{
 		//func_error_login("Email missing");
-		func_error_login("Email manquant");
+		if(bool==0)
+			func_error_login("Email manquant");
+		if(bool==1)
+			func_error_login("Email missing");
 		return false;
 	}
 
 	if(pass.length==0)
 	{
 		//func_error_login("Password missing");
-		func_error_login("Mot de passe manquant");
+		if(bool==0)
+			func_error_login("Mot de passe manquant");
+		if(bool==1)
+			func_error_login("Password missing");
 		return false;
 	}
 	
 	if(pass.length<8)
 	{
 		//func_error_login("Password too short");
-		func_error_login("Mot de passe trop court");
+		if(bool==0)
+			func_error_login("Mot de passe trop court");
+		if(bool==1)
+			func_error_login("Password too short");
 		return false;
 	}
 	else 

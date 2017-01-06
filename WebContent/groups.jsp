@@ -12,19 +12,21 @@
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/groups.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
-<title>Mes Groupes</title>
+<title id="titre">Mes Groupes</title>
 </head>
-<body onload="userGroups()">
+<body onload="userGroups(); trans();">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 	<div id="page">
 
 		<div class='layer-center'>
 
-			<p class='capital'>Creez un nouveau groupe</p>
+			<p id="create" class='capital'>Créer un nouveau groupe</p>
 
 			<div id='notifier'></div>
 			<br>
@@ -37,8 +39,8 @@
 					</div>
 				</div>
 
-				<input type="submit" class="btn btn-primary btn-block"
-					value="Creer un nouveau groupe"> <br>
+				<input id="submit" type="submit" class="btn btn-primary btn-block"
+					value="Créer un nouveau groupe"> <br>
 
 				<div id="found-groups" class="abootsraper"></div>
 

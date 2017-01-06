@@ -11,17 +11,19 @@
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
-<title>Objet <%=request.getParameter("title")%></title>
+<title id="titre">Objet <%=request.getParameter("title")%></title>
 </head>
-<body onload="getItem('<%=request.getParameter("id")%>')">
+<body onload="trans(); getItem('<%=request.getParameter("id")%>')">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Objet <%=request.getParameter("title")%></p>
+			<p id="obj" class='capital'>Objet <div> <%=request.getParameter("title")%></div></p>
 
 			<br><hr><br>
 			

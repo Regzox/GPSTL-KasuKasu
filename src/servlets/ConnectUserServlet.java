@@ -27,8 +27,6 @@ public class ConnectUserServlet extends OfflinePostServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
-		HttpSession session=request.getSession();
-		request.getSession().setMaxInactiveInterval(3600*24);//24 inactive hours before session invalidation
 		JSONObject js=new JSONObject();
 		String mail = request.getParameter("mail");
 		String pass = request.getParameter("pass");
@@ -40,14 +38,17 @@ public class ConnectUserServlet extends OfflinePostServlet {
 
 		if(verified)
 			if(User.isConfirmed(user.getId())){
-				Cookie cookieId = new Cookie("userId", user.getId());
+				//init session
+				HttpSession session=request.getSession();
+				request.getSession().setMaxInactiveInterval(3600*24);//24 inactive hours before session invalidation
 				session.setAttribute("userId", user.getId());
+				//send cookie
+				Cookie cookieId = new Cookie("userId", user.getId());
 				response.addCookie(cookieId);
 
 				//js.put("response", 1);
 				response.getWriter().print(js);
 				//response.sendRedirect(Url.SEARCHITEMS.value());
-				//TODO repasser en synchrone idem pour create user
 				//response.sendRedirect("/KasuKasu/dashboard.jsp");
 				System.out.println("User connexion successfull");
 			}else

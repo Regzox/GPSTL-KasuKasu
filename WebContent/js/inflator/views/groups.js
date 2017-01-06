@@ -1,5 +1,11 @@
 /**
- * ANAGBLA Joan */
+ * ANAGBLA Joan & Ouiza B*/
+bool=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool=0;
 
 function Group(id,name,type,owner,date){
 	//alert("new Group("+id+","+name+","+type+","+owner+","+date+")");
@@ -21,8 +27,10 @@ Group.traiteReponseJSON=function(json){
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"groupsBox\">";	
 
-		if(groups .length==0)
+		if(groups .length==0 && bool==0)
 			fhtm+="<h3>Il n'y a aucun groupe pour le moment.</h3>";
+		if(groups .length==0 && bool==1)
+			fhtm+="<h3>No group for the moment.</h3>";
 
 		for(var i in groups){
 			//alert(JSON.stringify(groups[i]));

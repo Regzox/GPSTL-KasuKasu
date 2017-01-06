@@ -1,6 +1,11 @@
 	T = new Array();
 	i = 0;
-
+	bool=0;
+	if(document.cookie.search("lang=en")!=-1)
+			bool=1;
+		else
+			if(document.cookie.search("lang=fr")!=-1)
+				bool=0;
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 	defaultHandlerOptions : {
 		'single' : true,
@@ -59,7 +64,11 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		i=i+1;		
 		var nom = document.createElement("input");
 		nom.type = "text";
-		nom.setAttribute("placeholder", "Nom du lieu"); 	
+		if(bool==0)
+			nom.setAttribute("placeholder", "Nom du lieu"); 
+		if(bool==1)
+			nom.setAttribute("placeholder", "Place's name"); 
+
 		nom.id=i;
 		div.appendChild(nom);
 		
@@ -77,7 +86,10 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		var radius = document.createElement("input");
 		radius.type = "text";
 		radius.setAttribute("size", 40);
-		radius.setAttribute("placeholder", "Portée en mètres. Exemple : 250"); 	
+		if(bool==0)
+			radius.setAttribute("placeholder", "Portée en mètres. Exemple : 250");
+		if(bool==1)
+			radius.setAttribute("placeholder", "Range in meters. Example : 250");
 		radius.id=i;
 		div.appendChild(radius);
 		
@@ -93,7 +105,10 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
 		var supp = document.createElement("input");
 		supp.type = "button";
-		supp.value = "Supprimer";
+		if(bool==0)
+			supp.value = "Supprimer";
+		if(bool==1)
+			supp.value = "Delete";
 		supp.onclick = function() 
 		{
 
@@ -190,8 +205,12 @@ if (document.getElementById(i+3)!=null&&document.getElementById(i+3).value.lengt
 	{
 		if (document.getElementById(i+4)!=null)	
 		{
-		  document.getElementById(i+4).innerHTML="<span style='color:red;font-size:80%'>Nom obligatoire</span>";
-		  document.getElementById(i+4).scrollIntoView();
+			if(bool==0)
+				document.getElementById(i+4).innerHTML="<span style='color:red;font-size:80%'>Nom obligatoire</span>";
+			if(bool==1)
+				document.getElementById(i+4).innerHTML="<span style='color:red;font-size:80%'>Place's name required</span>";
+		  
+			document.getElementById(i+4).scrollIntoView();
 		}
 		
 		bool = false;
@@ -201,8 +220,12 @@ if (document.getElementById(i+6)!=null&&document.getElementById(i+6).value.lengt
 {
 	if (document.getElementById(i+7)!=null)	
 	{
-	  document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>Portée obligatoire</span>";
-	  document.getElementById(i+7).scrollIntoView();
+		if(bool==0)
+			document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>Portée obligatoire</span>";
+		if(bool==1)
+			document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>Range required</span>";
+
+		document.getElementById(i+7).scrollIntoView();
 	}
 
 	bool = false;		
@@ -219,8 +242,12 @@ if (document.getElementById(i+6)!=null&&document.getElementById(i+6).value.lengt
 	{ 
 		if (document.getElementById(i+7)!=null)	
 		{
-		  document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>Portée doit être un nombre positif</span>";
-		  document.getElementById(i+7).scrollIntoView();
+			if(bool==0)
+				document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>Portée doit être un nombre positif</span>";
+			if(bool==1)
+				document.getElementById(i+7).innerHTML="<span style='color:red;font-size:80%'>The range must be a positive number</span>";
+
+			document.getElementById(i+7).scrollIntoView();
 		}
 	  bool = false;
 
@@ -239,7 +266,6 @@ if (bool==true)
 			    "lat": document.getElementById(i+1).value,
 			    "nom": document.getElementById(i+3).value,
 			    "radius": document.getElementById(i+6).value
-	
 		}
 	
 		 result2.points.push(point);

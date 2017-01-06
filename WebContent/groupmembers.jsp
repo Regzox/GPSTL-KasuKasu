@@ -12,6 +12,9 @@
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/groupmembers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
+
 <script>
 	$(document).ready(function() {
 		$("#query").keyup(function(e) {
@@ -19,19 +22,24 @@
 		});
 	});
 </script>
+
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
-<title>Groupe <%=request.getParameter("gname")%></title>
+<title id="titre">Groupe <%=request.getParameter("gname")%></title>
 </head>
-<body onload="groupMembers('<%=request.getParameter("gid")%>')">
-
+<body onload="groupMembers('<%=request.getParameter("gid")%>'); trans();">
+	
 	<%@ include file="/fragments/sidebar.jspf"%>
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>
-				Gerez le groupe
-				<%=request.getParameter("gname")%>.
+			<p id="gest" class='capital'>Gérer le groupe 
+				<div class='capital'> <%=request.getParameter("gname")%>
+				</div>
+				<p id="comment">
+					En ajoutant des membres
+				</p>
 			</p>
+
 
 			<!-- 			<div id='notifier'>TODO REPLACE BY MODAL</div> -->
 
@@ -44,16 +52,21 @@
 					</div>
 				</div>
 
-				<input type="submit" class="btn btn-primary btn-block"
+				<input id = "submit" type="submit" class="btn btn-primary btn-block"
 					value="Chercher"> <br>
 			</form>
 
 			<div id="found-friends" class="abootsraper"></div>
+<<<<<<< HEAD
+			<br><br><hr><br>
+			<h2 id="liste">Liste des membres du groupe</h2>
+=======
 			<br>
 			<br>
 			<hr>
 			<br>
 			<h2>Liste des membres du groupe</h2>
+>>>>>>> df1d59612f6db0e734a164daba1e75c4ae2cc480
 			<div id="found-members" class="abootsraper"></div>
 
 		</div>

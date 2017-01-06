@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- <title>KasuKasu - Modify your account</title> -->
- <title>KasuKasu - Modifier votre compte</title> 
+ <title id='titre'>KasuKasu - Modifier votre compte</title> 
 
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
@@ -18,15 +18,17 @@
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="/KasuKasu/js/modify-user-submit.js"></script>
+
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 </head>
 
-<body>
+<body onload="trans();">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id='page'>
 
-		<div class="fit-width capital center show">Modifier votre compte</div>
+		<div id='a' class="fit-width capital center show">Modifier votre compte</div>
 
 		<div class="layer-center">
 
@@ -64,10 +66,10 @@
 	
 	                <hr /> -->
 
-					<legend>Taper vos modifications</legend>
+					<legend id='modif'>Saisissez vos modifications</legend>
 
 					<div class="form-group row">
-						<label for="new_email_input" class="col-xs-3 col-form-label">Nouvel
+						<label id='emaill' for="new_email_input" class="col-xs-3 col-form-label">Nouvel
 							email</label>
 						<div class="col-xs-9">
 							<input class="form-control" type="email" value=""
@@ -77,7 +79,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="new_password_input" class="col-xs-3 col-form-label">Nouveau
+						<label id='mdpl'for="new_password_input" class="col-xs-3 col-form-label">Nouveau
 							mot de passe</label>
 						<div class="col-xs-9">
 							<input class="form-control" type="password" value=""
@@ -88,7 +90,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="new_name_input" class="col-xs-3 col-form-label">Nouveau
+						<label id='noml' for="new_name_input" class="col-xs-3 col-form-label">Nouveau
 							nom</label>
 						<div class="col-xs-9">
 							<input class="form-control" type="text" value=""
@@ -98,7 +100,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="new_firstname_input" class="col-xs-3 col-form-label">Nouveau
+						<label id='prenoml' for="new_firstname_input" class="col-xs-3 col-form-label">Nouveau
 							prénom</label>
 						<div class="col-xs-9">
 							<input class="form-control" type="text" value=""
@@ -109,7 +111,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label for="new_phone_input" class="col-xs-3 col-form-label">Nouveau
+						<label id='numl' for="new_phone_input" class="col-xs-3 col-form-label">Nouveau
 							téléphone</label>
 						<div class="col-xs-9">
 							<input class="form-control" type="text" value=""
@@ -124,7 +126,7 @@
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
+									<button id='submit' type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
@@ -133,7 +135,7 @@
 								<div class="modal-body">
 <!-- 									<p>Please type your current information to apply your -->
 <!-- 										changes</p> -->
-									<p>Veuillez renseigner vos informations pour appliquer vos changements</p> 
+									<p id="verif">Veuillez renseigner vos informations pour appliquer les changements</p> 
 									<!-- <div class="form-group row">
 										<label for="old_email_input" class="col-xs-3 col-form-label">Email
 											*</label>
@@ -144,7 +146,7 @@
 										</div>
 									</div> -->
 									<div class="form-group row">
-										<label for="old_password_input"
+										<label id="psw" for="old_password_input"
 											class="col-xs-3 col-form-label">Mot de passe *</label>
 										<div class="col-xs-8">
 											<input class="form-control" type="password" value=""
@@ -154,14 +156,14 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<input class="fit-width button" type="submit"
+									<input id="enreg" class="fit-width button" type="submit"
 										value="Sauvegarder les changements" />
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<button type="button" class="fit-width button" data-toggle="modal"
+					<button id="valider" type="button" class="fit-width button" data-toggle="modal"
 						data-target="#myModal">Valider</button>
 
 				</fieldset>

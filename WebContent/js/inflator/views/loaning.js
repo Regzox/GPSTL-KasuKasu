@@ -1,3 +1,9 @@
+bool=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool=0;
 function Loan(loan_id,item,title,debut,fin){
 	//alert("new Loan("+loan_id+","+item+","+title+","+debut+","+fin+")");
 	this.loan_id=loan_id;
@@ -72,8 +78,10 @@ list_loaning_response = function(json)
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"loansBox\">";	
 
-		if(loans.length==0)	
+		if(loans.length==0 && bool==0)	
 			fhtm+="<h3>Vous n'avez emprunté aucun objet.</h3>";
+		if(loans.length==0 && bool==1)	
+			fhtm+="<h3>You haven't borrowed any item.</h3>";
 
 		for(var i in loans)
 			fhtm+= loans[i].getHTML();
@@ -120,8 +128,10 @@ function refresh(result){
 
 function makeReturnItemButton(loan) {
 	var button = window.document.createElement("button");
-	
-	$(button).html("Rendre");
+	if(bool==0)	
+		$(button).html("Rendre");
+	if(bool==1)	
+		$(button).html("Return");
 	$(button).click( function () {
 		$.post("ReturnItemServlet", {
 			loan_id : loan.loan_id

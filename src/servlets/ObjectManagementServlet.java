@@ -42,8 +42,9 @@ public class ObjectManagementServlet extends HttpServlet{
 			}
 			switch(data){
 			case "data":
-				JSONObject item =Items.getItem(objectId,
-						(String) request.getSession().getAttribute("userId"));
+
+				JSONObject item =Items.getItem(objectId,userId);
+
 				JSONObject groups = Groups.userGroups(userId);
 				JSONObject userExPoints = ExchangePoints.userPoints(userId);
 				

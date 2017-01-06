@@ -10,9 +10,11 @@
 
 <script type="text/javascript" src="/KasuKasu/js/friendsandrequest.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<title>Mes Amis</title>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
+<title id='titre'>Requêtes d'amis</title>
 </head>
- <body onload="retrieveRequestsFunc()">
+ <body onload="retrieveRequestsFunc(); trans();">
 	<%@ include file="/fragments/sidebar.jspf"%>
 	<div id='page'>
 		<div class='layer-center'>

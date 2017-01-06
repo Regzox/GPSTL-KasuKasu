@@ -1,3 +1,10 @@
+bool=0;
+	if(document.cookie.search("lang=en")!=-1)
+			bool=1;
+		else
+			if(document.cookie.search("lang=fr")!=-1)
+				bool=0;
+
 function enregistrement(formulaire) 
 {
 	printHTML("#error_prenom","");
@@ -39,12 +46,19 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	var bool = true;
 	if(prenom.length==0)
 	{
+		if(bool==0)
+			printHTML("#error_prenom","Prénom manquant");
+			$("#error_prenom").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool==1)
+			printHTML("#error_prenom","First name missing");
+			$("#error_prenom").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 
-		printHTML("#error_prenom","Prenom manquant");
-		$("#error_prenom").css({
-			"color":"red",
-			"font-size": "80%"
-		});
 		//window.scrollTo(0,0);
 		document.getElementById('error_prenom').scrollIntoView();
 		bool = false;
@@ -52,12 +66,18 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 
 	if(nom.length==0)
 	{
-
-		printHTML("#error_nom","Nom manquant");
-		$("#error_nom").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+		if(bool==0)
+			printHTML("#error_nom","Nom manquant");
+			$("#error_nom").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool==1)
+			printHTML("#error_nom","Last name missing");
+			$("#error_nom").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 		//window.scrollTo(0,0);
 		document.getElementById('error_nom').scrollIntoView();
 		bool = false;
@@ -65,12 +85,18 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 
 	if(numero.length==0)
 	{
-
-		printHTML("#error_telephone","Telephone manquant");
-		$("#error_telephone").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+		if(bool==0)
+			printHTML("#error_telephone","Téléphone manquant");
+			$("#error_telephone").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool==1)
+			printHTML("#error_telephone","Phone number missing");
+			$("#error_telephone").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 		//window.scrollTo(0,0);
 		document.getElementById('error_telephone').scrollIntoView();
 		bool = false;
@@ -78,12 +104,18 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 
 	if(email.length==0)
 	{
-
-		printHTML("#error_email","Email manquant");
-		$("#error_email").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+		if(bool==0)
+			printHTML("#error_email","Email manquant");
+			$("#error_email").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool==1)
+			printHTML("#error_email","Email missing");
+			$("#error_email").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 		//window.scrollTo(0,0);
 		document.getElementById('error_email').scrollIntoView();
 
@@ -92,12 +124,18 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 
 	if(mdp.length==0)
 	{
-
-		printHTML("#error_mdp","Mot de passe manquant");		
-		$("#error_mdp").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+		if(bool==0)
+			printHTML("#error_mdp","Mot de passe manquant");		
+			$("#error_mdp").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool==1)
+			printHTML("#error_mdp","Password missing");		
+			$("#error_mdp").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 		//window.scrollTo(0,0);
 		document.getElementById('error_mdp').scrollIntoView();
 
@@ -106,12 +144,18 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 
 	if(mdp.length<8)
 	{
-
-		printHTML("#error_mdp","Veuillez inserer un mot de passe de taille > 7");
-		$("#error_mdp").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+		if(bool==0)
+			printHTML("#error_mdp","Veuillez saisir un mot de passe de taille > 7");
+			$("#error_mdp").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool==1)
+			printHTML("#error_mdp","Please enter a password > 7");
+			$("#error_mdp").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 		//window.scrollTo(0,0);
 		document.getElementById('error_mdp').scrollIntoView();
 
@@ -121,12 +165,18 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 
 	if(mdp != confirmation)	
 	{
-
-		printHTML("#error_confirmation","Mots de passe incompatibles");
-		$("#error_confirmation").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+		if(bool==0)
+			printHTML("#error_confirmation","Mots de passe incompatibles");
+			$("#error_confirmation").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool==1)
+			printHTML("#error_confirmation","Incompatible passwords");
+			$("#error_confirmation").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 		//window.scrollTo(0,0);
 		document.getElementById('error_confirmation').scrollIntoView();
 
@@ -135,12 +185,18 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 
 	if (!ValidCaptcha())
 	{
-
-		printHTML("#error_captcha","Ce n'est pas Einstein !");
-		$("#error_captcha").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+		if(bool==0)
+			printHTML("#error_captcha","Ce n'est pas Einstein !");
+			$("#error_captcha").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool==1)
+		printHTML("#error_captcha","It is not Einstein !");
+			$("#error_captcha").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 		document.getElementById('error_captcha').scrollIntoView();
 
 		return false;

@@ -9,6 +9,8 @@
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
 <script>
 	$(document).ready(function() {
 		$("#query").keyup(function(e) {
@@ -17,15 +19,17 @@
 	});
 </script>
 <script type="text/javascript" src="/KasuKasu/js/finduser.js"></script>
-<title>Rechercher Utilisateur</title>
+
+<title id='titre'>Rechercher un utilisateur</title>
+
 </head>
-<body>
+<body onload="trans()">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Rechercher un utilisateur</p>
+			<p id='rech' class='capital'>Rechercher un utilisateur</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this.query.value)">
@@ -36,7 +40,7 @@
 					</div>
 				</div>
 
-				<input type="submit" class="btn btn-primary btn-block"
+				<input id='submit' type="submit" class="btn btn-primary btn-block"
 					value="Chercher"> <br>
 			</form>
 

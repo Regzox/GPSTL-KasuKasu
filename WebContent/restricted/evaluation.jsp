@@ -31,9 +31,10 @@
 <script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationRequestNotification.js"></script>
 <script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationResponseNotification.js"></script>
 <script type="text/ecmascript" src="/KasuKasu/js/classes/Notifier.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/translation.js"></script>
 
 </head>
-<body>
+<body onload="trans();">
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id="page">

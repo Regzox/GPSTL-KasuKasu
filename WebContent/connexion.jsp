@@ -10,14 +10,15 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 
 <script type="text/javascript" src="/KasuKasu/js/connexion.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
-<title>Connexion</title>
+<title id='titre'>Connexion</title>
 </head>
-<body>
+<body onload = "trans()">
 
 	<div class='layer-center'>
 
-		<p class='capital'>Connexion</p>
+		<p id='connex' class='capital'>Connexion</p>
 
 		<div id='notifier' class='notifier'></div>
 
@@ -26,7 +27,7 @@
 
 			<!--  	<form action="/KasuKasu/connectuser"> -->
 			<div class="form-group row">
-				<label for="email" class="col-xs-2 col-form-label">Email</label>
+				<label id='email' for="email" class="col-xs-2 col-form-label">Email</label>
 				<div class="col-xs-10">
 					<input class="form-control" name="mail" type="email" value=""
 						id="mail">
@@ -36,7 +37,7 @@
 
 			<div class="form-group row">
 <!-- 				<label for="mdp" class="col-xs-2 col-form-label">Password</label> -->
-								<label for="mdp" class="col-xs-2 col-form-label">Mot de passe</label>
+								<label id='mdp' for="mdp" class="col-xs-2 col-form-label">Mot de passe</label>
 				
 				<div class="col-xs-10">
 					<input class="form-control" name="pass" type="password" value=""
@@ -44,9 +45,10 @@
 				</div>
 			</div>
 
-			<input type="submit" class="btn btn-primary btn-block"
-				value="Connexion"> <br> <a
-				href="/KasuKasu/retrievePassword.jsp">Mot de passe oublié?</a>
+			<input id='connex' type="submit" class="btn btn-primary btn-block"
+				value="Connexion"> <br> 
+				<a
+				href="/KasuKasu/retrievePassword.jsp" id='mdpo'>Mot de passe oublié?</a>
 		</form>
 	</div>
 </body>

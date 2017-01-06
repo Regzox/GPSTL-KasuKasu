@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Importer un lieu d'échange</title>
+<title id='titre'>Importer un lieu d'échange</title>
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
@@ -95,7 +95,7 @@ html, body, #mapdiv {
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- dialog body -->
-				<div class="modal-body">
+				<div id='comment' class="modal-body">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 					Le lieu a bien été ajouté
 				</div>

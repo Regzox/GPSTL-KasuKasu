@@ -461,7 +461,7 @@
 		<servlet-name>DeleteExchangePointServlet</servlet-name>
 		<url-pattern>/DeleteExchangePointServlet</url-pattern>
 	</servlet-mapping>
-	 <servlet>
+  <servlet>
     <description></description>
     <display-name>StopMrProgramServlet</display-name>
     <servlet-name>StopMrProgramServlet</servlet-name>
@@ -511,4 +511,24 @@
     <servlet-name>InterlocutorsServlet</servlet-name>
     <url-pattern>/interlocutors</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>StopCUAProgramServlet</display-name>
+    <servlet-name>StopCUAProgramServlet</servlet-name>
+    <servlet-class>servlets.admin.StopCUAProgramServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StopCUAProgramServlet</servlet-name>
+    <url-pattern>/cuastop</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RestartCUAProgramServlet</display-name>
+    <servlet-name>RestartCUAProgramServlet</servlet-name>
+    <servlet-class>servlets.admin.RestartCUAProgramServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RestartCUAProgramServlet</servlet-name>
+    <url-pattern>/cuarestart</url-pattern>
+  </servlet-mapping>  
 </web-app>

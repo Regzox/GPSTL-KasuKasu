@@ -1,7 +1,12 @@
 var result = new Array();
 var result2 = new Array();
 
-
+bool_trans=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool_trans=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool_trans=0;
 
 function init() 
 {
@@ -124,23 +129,36 @@ function verif(nom, description, result, result2)
 
 	if(nom.length==0)
 	{
-		printHTML("#error_nom","Nom manquant");
-		$("#error_nom").css({
-			"color":"red",
-			"font-size": "80%"
-		});
-		
+		if(bool_trans==0)
+			printHTML("#error_nom","Nom manquant");
+			$("#error_nom").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool_trans==1)
+			printHTML("#error_nom","Name missing");
+			$("#error_nom").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 		document.getElementById('error_nom').scrollIntoView();
 		bool = false;
 	}
 
 	if(description.length==0)
 	{
-		printHTML("#error_description","Description manquante");
-		$("#error_description").css({
-			"color":"red",
-			"font-size": "80%"
-		});
+		if(bool_trans==0)
+			printHTML("#error_description","Description manquante");
+			$("#error_description").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool_trans==1)
+			printHTML("#error_description","Description missing");
+			$("#error_description").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 
 		document.getElementById('error_description').scrollIntoView();
 		bool = false;
@@ -149,12 +167,18 @@ function verif(nom, description, result, result2)
 	
 	if(result2.length==0)
 	{
-
-				printHTML("#error_point","Vous devez selectionner au moins un point");
-				$("#error_point").css({
-					"color":"red",
-					"font-size": "80%"
-				});
+		if(bool_trans==0)
+			printHTML("#error_point","Vous devez sélectionner au moins un point");
+			$("#error_point").css({
+				"color":"red",
+				"font-size": "80%"
+			});
+		if(bool_trans==1)
+			printHTML("#error_point","You must select at least one exchange point");
+			$("#error_point").css({
+				"color":"red",
+				"font-size": "80%"
+			});
 	
 				document.getElementById('error_point').scrollIntoView();
 				bool = false;
@@ -166,11 +190,18 @@ function verif(nom, description, result, result2)
 	{
 		if (!isSelected())
 			{
-				printHTML("#error_groupe","Vous devez selectionner au moins un groupe");
-				$("#error_groupe").css({
-					"color":"red",
-					"font-size": "80%"
-				});
+				if(bool_trans==0)
+					printHTML("#error_groupe","Vous devez sélectionner au moins un groupe");
+					$("#error_groupe").css({
+						"color":"red",
+						"font-size": "80%"
+					});
+				if(bool_trans==1)
+					printHTML("#error_groupe","You must select at least one group");
+					$("#error_groupe").css({
+						"color":"red",
+						"font-size": "80%"
+					});
 		
 				document.getElementById('error_groupe').scrollIntoView();
 				bool = false;

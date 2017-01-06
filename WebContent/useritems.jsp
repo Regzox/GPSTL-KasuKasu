@@ -14,6 +14,8 @@
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
 <script>
 	$(document).ready(function() {
 		$("#iquery").keyup(function(e) {
@@ -23,15 +25,15 @@
 </script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
-<title>Mes Objets</title>
+<title id='titre'>Mes Objets</title>
 </head>
-<body onload="userItems('')">
+<body onload="userItems(''); trans();">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id='page'>
 		<div class='layer-center'>
-			<p class='capital'>Gerez vos objets</p>
+			<p id='manage' class='capital'>Gerez vos objets</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:filterUserItems(this.iquery.value)">
@@ -40,15 +42,13 @@
 						<input type="text" class="form-control" name="iquery" id="iquery">
 					</div>
 				</div>
-				<input type="submit" class="btn btn-primary btn-block"
+				<input id='submit' type="submit" class="btn btn-primary btn-block"
 					value="Filtrer" autocomplete="off">
 			</form>
 
-			<br>
-			<hr>
-			<br>
-
-			<h2>Liste de vos objets</h2>
+			<br><hr><br>
+			
+			<h2 id='liste' >Liste de vos objets</h2>
 			<div id="found-items" class="abootsraper"></div>
 		</div>
 	</div>

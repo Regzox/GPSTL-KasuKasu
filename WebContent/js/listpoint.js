@@ -1,3 +1,9 @@
+bool=0;
+	if(document.cookie.search("lang=en")!=-1)
+			bool=1;
+		else
+			if(document.cookie.search("lang=fr")!=-1)
+				bool=0;
 function userPoints(){
 		$.ajax({
 			type : "GET",
@@ -21,31 +27,56 @@ function ProcessRetrievePoints(json)
 
 	
 	if(json.expts == undefined || json.expts.length==0){
-		bodymessage = bodymessage+
-		"<tr style='text-align: left'>" +
-		"<td> Aucun point d'échange</td>" +
-		"<td></td>"+
-		"<td></td>"+
-		"<td></td>"+
-		"</tr>";
+		if(bool==0)
+			bodymessage = bodymessage+
+			"<tr style='text-align: left'>" +
+			"<td> Aucun point d'échange</td>" +
+			"<td></td>"+
+			"<td></td>"+
+			"<td></td>"+
+			"</tr>";
+		if(bool==1)
+			bodymessage = bodymessage+
+			"<tr style='text-align: left'>" +
+			"<td> You have no exchage point</td>" +
+			"<td></td>"+
+			"<td></td>"+
+			"<td></td>"+
+			"</tr>";
 	}else{
-		var message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Nom</th><th>Latitude</th><th>Longitude</th><th>Portée</th>" +
-		"</tr>";
+		if(bool==0)
+			var message = "<table class=\"table\">" +
+			"<tr>" +
+			"<th>Nom</th><th>Latitude</th><th>Longitude</th><th>Portée</th>" +
+			"</tr>";
+		if(bool==1)
+			var message = "<table class=\"table\">" +
+			"<tr>" +
+			"<th>Name</th><th>Latitude</th><th>Longitude</th><th>Range</th>" +
+			"</tr>";
 		var endmessage ="</table>";
 		for (var i = 0; i < json.expts.length; i++) {
 			var point = json.expts[i];
-
-			bodymessage = bodymessage+
-			"<tr>" +
-			"<td>"+point.name+"</td>" +
-			"<td>"+point.lat+"</td>"+
-			"<td>"+point.lon+"</td>"+
-			"<td>"+point.radius+"m"+"</td>"+
-			'<td><a href="#" onclick="Delete(\''+point.id+'\');"> Supprimer</a></td>'+
-			'<td><a href=# onclick="Modifier(\'' + point.id + '\',\'' + point.name + '\' ,\'' + point.radius+ '\')"> Modifier</a></td>'+
-			"</tr>";
+			if(bool==0)
+				bodymessage = bodymessage+
+				"<tr>" +
+				"<td>"+point.name+"</td>" +
+				"<td>"+point.lat+"</td>"+
+				"<td>"+point.lon+"</td>"+
+				"<td>"+point.radius+"m"+"</td>"+
+				'<td><a href="#" onclick="Delete(\''+point.id+'\');"> Supprimer</a></td>'+
+				'<td><a href=# onclick="Modifier(\'' + point.id + '\',\'' + point.name + '\' ,\'' + point.radius+ '\')"> Modifier</a></td>'+
+				"</tr>";
+			if(bool==1)
+				bodymessage = bodymessage+
+				"<tr>" +
+				"<td>"+point.name+"</td>" +
+				"<td>"+point.lat+"</td>"+
+				"<td>"+point.lon+"</td>"+
+				"<td>"+point.radius+"m"+"</td>"+
+				'<td><a href="#" onclick="Delete(\''+point.id+'\');"> Delete</a></td>'+
+				'<td><a href=# onclick="Modifier(\'' + point.id + '\',\'' + point.name + '\' ,\'' + point.radius+ '\')"> Modify</a></td>'+
+				"</tr>";
 		}
 	}
 	var div=(message+bodymessage+endmessage);

@@ -1,0 +1,74 @@
+dico:
+[
+	{
+		id : "id_page_inscription",
+		type : "traduction",
+		traductions : 
+		[
+			{
+				langue : "fr-FR",
+				expression : "Prenom manquant"
+			},
+			{
+				langue : "en-GB",
+				expression : "First name missing"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Nom manquant"
+			},
+			{
+				langue : "en-GB",
+				expression : "Last name missing"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Telephone manquant"
+			},
+			{
+				langue : "en-GB",
+				expression : "Phone number missing"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Email manquant"
+			},
+			{
+				langue : "en-GB",
+				expression : "Email missing"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Mot de passe manquant"
+			},
+			{
+				langue : "en-GB",
+				expression : "Password missing"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Veuillez saisir un mot de passe de taille > 7"
+			},
+			{
+				langue : "en-GB",
+				expression : "Please enter a password longer than 7 caracters"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Mots de passe incompatibles"
+			},
+			{
+				langue : "en-GB",
+				expression : "Incompatible passwods"
+			},
+			{
+				langue : "fr-FR",
+				expression : "Ce n'est pas Einstein !"
+			},
+			{
+				langue : "en-GB",
+				expression : "It's not Einstein"
+			}
+		]
+	}
+]
