@@ -5,8 +5,10 @@ import java.util.HashSet;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import enumerations.Url;
 import services.User;
@@ -25,8 +27,16 @@ public class ConfirmAccountServlet extends OnlinePostServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
-		User.confirmUser(request.getParameter ("id"));
-		//TODO create session if not exists before redirect
+		String uid = request.getParameter ("id");
+		User.confirmUser(uid);
+		//init session
+		HttpSession session=request.getSession();
+		request.getSession().setMaxInactiveInterval(3600*24);//24 inactive hours before session invalidation
+		session.setAttribute("userId", uid);
+		//send cookie
+		Cookie cookieId = new Cookie("userId", uid);
+		response.addCookie(cookieId);
+		//redirect to dashboard
 		response.sendRedirect(Url.DASHBOARD.value());		
 	}
 }
