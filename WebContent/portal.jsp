@@ -25,7 +25,7 @@
 <!-- 		<p>The web site where you can share your items with your friends</p> -->
 
 	<button id='btn_en' type="button" >English</button>
-<button id='btn_fr' type="button">Français</button>	
+	<button id='btn_fr' type="button">Français</button>	
 <div id='bienvenue'>Bienvenue sur KasuKasu !</div>
 <!-- 		<p class='capital'>Bienvenue sur KasuKasu !<p> -->
 <p id='site'>Le site où vous pouvez prêter vos objets à vos amis</p>

@@ -26,7 +26,7 @@ function trans()
 	var href = document.location.href;
 	var fileName = href.substr(href.lastIndexOf('/') + 1);
 	
-	xhr.open("GET","traduction.json",false);
+	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
 	//xhr.onreadystatechange = function() {
 
