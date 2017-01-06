@@ -105,8 +105,8 @@
 
 	<div id="page">
 
-	<button id='btn_en' type="button" >English</button>
-	<button id='btn_fr' type="button">Français</button>	
+<!-- 	<button id='btn_en' type="button" >English</button> -->
+<!-- 	<button id='btn_fr' type="button">Français</button>	 -->
 
 
 		<%@ include file="/fragments/profile.jspf"%>
