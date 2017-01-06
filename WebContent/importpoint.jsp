@@ -30,8 +30,13 @@ html, body, #mapdiv {
 </head>
 <body onload="javascript:init()">
 	<%@ include file="/fragments/sidebar.jspf"%>
-	<div id="mapdiv"></div>
+<!-- 	<div id="mapdiv"></div> -->
+	<div id="page">
 
+		<div class='col-md-6'>
+			<div id="mapdiv" style="width: 600px; height: 600px"></div>
+		</div>
+	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

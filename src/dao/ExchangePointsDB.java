@@ -11,6 +11,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.items.ItemsDB;
 import exceptions.NotPermitedException;
 import kasudb.KasuDB;
 
@@ -209,6 +210,13 @@ public class ExchangePointsDB {
 	 * @param userID
 	 * @return */
 	public static DBCursor friendsLargeExchangePoints(String userID){
+		
+//		BasicDBList useritemsvisible = new BasicDBList();
+//		DBCursor dbc = ItemsDB.accessibleItems(userID);
+//
+//		while(dbc.hasNext())
+//			useritemsvisible.add(dbc.next().get("_id").toString());
+		
 		BasicDBList exprs = new BasicDBList();
 		exprs.add(
 				new BasicDBObject()
@@ -217,6 +225,11 @@ public class ExchangePointsDB {
 						.append("$in",FriendsDao.myFriends(userID))
 						.append("$ne", userID)
 						)
+				/*********** A tester ************/
+//				.append("subscribers.useritems",
+//						new BasicDBObject()
+//						.append("$in",useritemsvisible)
+//						)
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));	
 	}

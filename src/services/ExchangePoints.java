@@ -196,6 +196,7 @@ public class ExchangePoints {
 		while (cursor.hasNext())
 		{
 			DBObject dbo=cursor.next();
+			/*Récupérer les noms des personnes abonnés à ce lieu */
 			BasicDBList bl = new BasicDBList();
 			bl = (BasicDBList) dbo.get("subscribers");
 			String name="";

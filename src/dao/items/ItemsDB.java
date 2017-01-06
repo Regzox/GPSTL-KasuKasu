@@ -20,6 +20,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
+import dao.FriendsDao;
 import dao.GroupsDB;
 import dao.search.PatternsHolder;
 import exceptions.DatabaseException;
@@ -265,6 +266,27 @@ public class ItemsDB {
 		BasicDBList groups = (BasicDBList) item.get("groups");
 		return groups;
 	}
+	
+/**
+ * Get the list of items visible by the user
+ * @param itemID
+ * @param userID
+ * @return
+ */
+	public static DBCursor accessibleItems(String userID) {
+
+		BasicDBList usergroupsmembership = new BasicDBList();
+		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
+
+		while(dbc.hasNext())
+			usergroupsmembership.add(dbc.next().get("_id").toString());
+		
+		return  collection.find(
+				new BasicDBObject()
+				.append("groups.id", new BasicDBObject().append("$in",usergroupsmembership)));
+
+	}
+	
 
 
 	public static void main(String[] args) {
@@ -275,7 +297,7 @@ public class ItemsDB {
 		//DBCursor dbc =userItemsSQLMODO("    S5 noir  ","6"); //OK
 		//DBCursor dbc =userItemsSQLMODO("    S5  noir  ","6"); //NOK : not mr (pattern is strict : too much space between 2 words fails to match pattern)
 		//DBCursor dbc =utherItemsSQLMODO("S5","6");//OK
-		DBCursor dbc =utherItemsSQLMODO("vélo","1");//OK
+		DBCursor dbc =utherItemsSQLMODO("vï¿½lo","1");//OK
 		while(dbc.hasNext())
 			System.out.println(dbc.next());
 		System.out.println("%\n");
@@ -286,5 +308,9 @@ public class ItemsDB {
 					"galaxy S5 noir neuf, tres peu servi");
 		}else System.out.println("Denied");*/
 	}
+	
+
+	
+
 
 }
