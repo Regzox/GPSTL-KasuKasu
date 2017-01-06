@@ -47,7 +47,6 @@ public class ConnectUserServlet extends OfflinePostServlet {
 				//js.put("response", 1);
 				response.getWriter().print(js);
 				//response.sendRedirect(Url.SEARCHITEMS.value());
-				//TODO repasser en synchrone idem pour create user
 				//response.sendRedirect("/KasuKasu/dashboard.jsp");
 				System.out.println("User connexion successfull");
 			}else

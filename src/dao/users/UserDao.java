@@ -203,6 +203,7 @@ public class UserDao {
 				.append("nom",nom)
 				.append("prenom",prenom)
 				.append("numero",numero)
+				.append("checked",false)
 				.append("date",new Date())
 				);
 	}
@@ -232,23 +233,33 @@ public class UserDao {
 	 * @rebasetested 
 	 * @param id */
 	public static boolean isConfirmed(String id){
-		int nb_days = 1; //time limit to confirm user account
-		DBCursor dbc = collection.find(new BasicDBObject("_id",new ObjectId(id)));
-		if(dbc.hasNext()) {
-			DBObject dbo = dbc.next();
-			Calendar cal = Calendar.getInstance();
-			cal.setTime((Date)dbo.get("date"));
-			cal.add(Calendar.DAY_OF_MONTH, nb_days); 
-			System.out.println("UserDao::isConfirmed ->\ncurrent date : "
-					+new Date()+"\nregDate+1: "+cal.getTime());//debug
-			if (new Date().before(cal.getTime()))
-				return true;
-			if(dbo.containsField("checked"))
-				return (boolean) dbo.get("checked");
-		} 
-		return false;
+		int nb_days = 1; //time limit to confirm user account before checked access requirement
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DAY_OF_MONTH, -nb_days); //nb_days before current date
+		return collection.find(
+				new BasicDBObject("_id",new ObjectId(id))
+				.append("$or",new BasicDBObject[]{
+						new BasicDBObject("checked",true),
+						new BasicDBObject("date",
+								new BasicDBObject("$gt",cal.getTime()))}
+						)
+				).hasNext();
 	}
 
+
+
+	/**ADMIN FUNCTION : 
+	 * remove from database unconfirmed account since nb_days */
+	public static void deleteUnconfirmedAccounts(){
+		int nb_days = 7; //time limit to confirm user account before its deletion
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		cal.add(Calendar.DAY_OF_MONTH, -nb_days); //nb_days before current date
+		collection.remove(
+				new BasicDBObject("date",new BasicDBObject("$lt",cal.getTime()))
+				.append("checked", false));
+	}
 
 
 	/**
@@ -322,14 +333,15 @@ public class UserDao {
 	 * @param args */
 	public static void main(String[] args){
 		//testAdd("j",7);
-		//System.out.println("isConfirmed="+isConfirmed("586d77806c7ebc482eceea74"));
+		//deleteUnconfirmedAccounts();
 		//addUser("joujou@ondabeat.fr", "hardtobreakpassword", "joanne", "joana", "0122345896");
-		//		addUser("jojotut@tut.fr", "hardtobreakpassword", "joan", "joAm", "0122345896");
-		//		System.out.println(Pattern.compile(
-		//				PatternsHolder.email).matcher("Aa.a@ab.f").matches());
-		//		System.out.println(Pattern.compile(
-		//				PatternsHolder.nums).matcher("02287282").matches());
-		//		String password = "MyPasswo3";
-		//		System.out.println("MD5 in hex: " + DataEncryption.md5(password));			
+		//addUser("jojotut@tut.fr", "hardtobreakpassword", "joan", "joAm", "0122345896");
+		//System.out.println("isConfirmed="+isConfirmed("586ef97a6c7e0d1c7185d4b9"));
+		//System.out.println(Pattern.compile(
+		//PatternsHolder.email).matcher("Aa.a@ab.f").matches());
+		//System.out.println(Pattern.compile(
+		//PatternsHolder.nums).matcher("02287282").matches());
+		//String password = "MyPasswo3";
+		//System.out.println("MD5 in hex: " + DataEncryption.md5(password));			
 	}
 }
