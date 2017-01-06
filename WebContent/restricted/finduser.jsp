@@ -8,12 +8,20 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
-
-<script type="text/javascript" src="/KasuKasu/js/finduser.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
+<script>
+	$(document).ready(function() {
+		$("#query").keyup(function(e) {
+			finduser($("#query").val());
+		});
+	});
+</script>
+<script type="text/javascript" src="/KasuKasu/js/finduser.js"></script>
+
 <title id='titre'>Rechercher un utilisateur</title>
+
 </head>
 <body onload="trans()">
 
@@ -23,13 +31,12 @@
 		<div class='layer-center'>
 			<p id='rech' class='capital'>Rechercher un utilisateur</p>
 
-
 			<form action="javascript:(function(){return;})()" method="get"
-				OnSubmit="javascript:finduser(this)">
-
+				OnSubmit="javascript:finduser(this.query.value)">
 				<div class="form-group row">
 					<div class="col-xs-10">
-						<input class="form-control" name="value" value="" id="value">
+						<input type="text" class="form-control" name="query" value=""
+							id="query" autocomplete="off" >
 					</div>
 				</div>
 

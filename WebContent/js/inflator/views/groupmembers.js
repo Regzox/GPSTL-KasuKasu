@@ -4,14 +4,12 @@ if(document.cookie.search("lang=en")!=-1)
 	else
 		if(document.cookie.search("lang=fr")!=-1)
 			bool=0;
-function finduseramongfriends(form) {
-
-	if (form.query.value.length==0)
-		return;
+function finduseramongfriends(query) {
+	if (query.length==0) return;
 	$.ajax({
 		type : "GET",
 		url : "/KasuKasu/findamongfriends",
-		data : {query : form.query.value},
+		data : {query : query},
 		dataType : "JSON",
 		success : ProcessFindUser,
 		error : function(xhr,status,errorthrown){

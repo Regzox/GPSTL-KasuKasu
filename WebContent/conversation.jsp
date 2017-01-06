@@ -5,21 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Conversation with <%=request.getParameter("interlocutor")%></title>
-<link rel="stylesheet" href="css/messenger.css" type="text/css" />
+<script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="js/inflator/views/messenger.js"></script>
 <script type="text/javascript" src="js/inflator/mirror.js"></script>
 <script type="text/javascript" src="js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
 <body id="gc-search"
 	onload="conversation('<%=request.getParameter("uther")%>')">
 
+	<%@ include file="/fragments/sidebar.jspf"%>
+
 	<h1 align="center" class="title">
-		Conversation with @<%=request.getParameter("interlocutor")%>
+		Conversation avec
+		<%=request.getParameter("interlocutor")%>
 	</h1>
 	<br>
-	<div id="found-messages" style="max-height: 500px; overflow: auto"
-		align="center"></div>
+	<div id="found-messages" align="center"></div>
 	<br>
 	<div class="new_message-content-wrapper" align="center">
 		<div id="new_message-form-container">
@@ -29,8 +32,8 @@
 			  ,this.msg.value)"
 				autocomplete="on">
 				<div class="input-wrapper">
-					<input id="new_message-input" type="text" name="msg"
-						placeholder="Write a new message here to @<%=request.getParameter("username")%>."
+					<input id="new_message-input" type="text" name="msg" autocomplete="off" 
+						placeholder="Ecrivez un nouveau message a <%=request.getParameter("interlocutor")%>"
 						style="height: 25px;" size="100%" />
 				</div>
 			</form>

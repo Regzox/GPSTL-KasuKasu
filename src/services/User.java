@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +61,17 @@ public class User {
 		return Tools.serviceMessage(1);
 	}
 
+	
+	
+	/**
+	 * check if user account is checked
+	 * @rebasetested 
+	 * @param id */
+	public static boolean isConfirmed(String id){
+		return UserDao.isConfirmed(id);
+	}
+	
+	
 	/**
 	 * Met � jour les informations de l'utilisateur correspondant � l'email et au mot de passe par celle contenues
 	 * dans l'instance d'entities.User

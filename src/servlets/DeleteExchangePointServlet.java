@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import services.ExchangePoints;
 import servlets.tools.templates.online.OnlinePostServlet;
-import utils.Tools;
 
 public class DeleteExchangePointServlet extends OnlinePostServlet {
 	private static final long serialVersionUID = 1L;

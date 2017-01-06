@@ -118,9 +118,10 @@ function searchMRItems(query){
 		}
 	});
 }
-function searchItems(form){
-	if (checkQuery(form.iquery.value))		
-		searchMRItems(form.iquery.value);
+function searchItems(query){
+	console.log("query="+query);
+	if (checkQuery(query))		
+		searchMRItems(query);
 }
 function checkQuery(query){
 	if(query.length==0)
@@ -128,9 +129,10 @@ function checkQuery(query){
 	return true;
 }
 
-function filterUserItems(form){
-	if (checkQuery(form.iquery.value))		
-		userItems(form.iquery.value);
+function filterUserItems(query){
+	console.log("query="+query);
+	if (checkQuery(query))		
+		userItems(query);
 }
 
 function userItems(query){

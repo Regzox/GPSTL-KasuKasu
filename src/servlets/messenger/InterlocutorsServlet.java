@@ -15,7 +15,6 @@ public class InterlocutorsServlet extends OnlineGetServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
-		System.out.println("InterlocutorsServlet skey="+params.get("skey"));
 		response.getWriter().print(Messenger.interlocutors(
 				(String) request.getSession().getAttribute("userId")));}
 

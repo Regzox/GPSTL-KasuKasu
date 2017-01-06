@@ -4,12 +4,13 @@ if(document.cookie.search("lang=en")!=-1)
 	else
 		if(document.cookie.search("lang=fr")!=-1)
 			bool=0;
-function finduser(form) 
+
+function finduser(query) 
 {
+	console.log("query="+query);
 	printHTML("#notifier","");
-	if (form.value.value.length==0)
-		return; 
-		findUserJS(form.value.value);	
+	if (query.length==0)return; 
+	findUserJS(query);	
 }
 
 function findUserJS(valuev) 
@@ -101,8 +102,6 @@ function ProcessFindUser(rep)
 }
 
 
-
-
 function func_message(msg)
 {
 	printHTML("#notifier",msg);
@@ -113,8 +112,4 @@ function printHTML(dom,htm)
 { 
 	$(dom).html(htm);
 }
-
-
-
-
 
