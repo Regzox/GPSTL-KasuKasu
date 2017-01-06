@@ -33,7 +33,7 @@ function trans()
 	if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) 
 	{
 		dico = JSON.parse(xhr.responseText);
-		if(fileName == "portal.jsp" || fileName == "")
+		if(fileName == "profile.jsp")
 		{
 			document.getElementById('btn_fr').onclick = function() {
 				document.cookie = 'lang=fr';

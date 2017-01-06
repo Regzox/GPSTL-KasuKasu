@@ -30,7 +30,7 @@
 				if ( !(~$(location).attr('href').indexOf('<%= Url.EVALUATION.value() %>')))
 					$(location).attr('href', '<%= Url.EVALUATION.value() %>');
 			"> Evaluations </div>
-			
+			<div  class="dropdown"> <div id="amis">Mes amis</div>
 				  <div class="dropdown-content">
 				    <div id="rech_user" onclick="
 						if ( !(~$(location).attr('href').indexOf('<%= Url.FIND_USER.value() %>')))
