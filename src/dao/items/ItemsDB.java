@@ -219,10 +219,7 @@ public class ItemsDB {
 
 
 	public static void main(String[] args) {
-		
-		
-		
-		
+
 		
 		System.out.println("Results...\n%");
 //		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
