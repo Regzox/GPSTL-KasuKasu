@@ -217,10 +217,28 @@ public class ItemsDB {
 		return groups;
 	}
 
-
-	public static void main(String[] args) {
+	/**
+	 * Get the list of items visible by the user
+	 * @param itemID
+	 * @param userID
+	 * @return
+	 */
+		public static DBCursor accessibleItems(String userID) {
+			
+			BasicDBList usergroupsmembership = new BasicDBList();
+			DBCursor dbc = GroupsDB.userGroupsMembership(userID);
+			
+			while(dbc.hasNext())
+				usergroupsmembership.add(dbc.next().get("_id").toString());
+			
+			return  collection.find(
+					new BasicDBObject()
+					.append("groups.id", new BasicDBObject().append("$in",usergroupsmembership)));
+		}
 
 		
+
+	public static void main(String[] args) {
 		System.out.println("Results...\n%");
 //		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
 //		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
