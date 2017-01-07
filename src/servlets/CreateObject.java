@@ -30,12 +30,10 @@ public class CreateObject extends OnlinePostServlet {
 	
 	@Override
 	public void init() throws ServletException {
-		super.init();
-//		super.epn= new HashSet<>(Arrays.asList(new String[] {
-//				"nom",
-//				"description",
-////				"groupe", // TODO Je ne sais pas si c'est vraiment un champ obligatoire (Daniel)
-//				"coordonees" }));
+		super.epn= new HashSet<>(Arrays.asList(new String[] {
+				"nom",
+				"description",
+				"coordonees" }));
 	}
 
 	
@@ -61,7 +59,6 @@ public class CreateObject extends OnlinePostServlet {
 		if( ParametersChecker.testMultipleNonEmpty(		map, 
 				"nom",
 				"description",
-				"groupe",
 				"coordonees"
 				)){
 			logger.warning("A request parameter is missing."); 

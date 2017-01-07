@@ -2,13 +2,8 @@ package dao.items;
 
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
@@ -21,6 +16,7 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 
 import dao.GroupsDB;
+import dao.search.FuzzyFinder;
 import dao.search.PatternsHolder;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
@@ -30,6 +26,8 @@ import kasudb.KasuDB;
 public class ItemsDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("items");
+	//According to the customer demand fuzzyness is 2(omission|substitution|addition)
+	private static int fuzzyness = 2; 
 
 	/**
 	 * Ajoute un objet a la base mongo
@@ -120,7 +118,7 @@ public class ItemsDB {
 				new BasicDBObject()
 				.append("_id",new ObjectId(id)));
 	}	
-	
+
 
 	/**
 	 * return item's status 
@@ -135,111 +133,64 @@ public class ItemsDB {
 	}	
 
 
+
 	/**
 	 * Find all items owned by the user
 	 * @param userID
 	 * @return
 	 * @throws DatabaseException */
-	public static DBCursor userItems(String userID)  {  
-		return collection.find(
-				new BasicDBObject()
-				.append("owner",userID));
-		}
-	
-	
-	/**zone-telechargement search engine's style
-	 * ADMIN FUNCTION : sub common function of (SQLMODO methods)
-	 * @param userID
-	 * @return */
-	private static BasicDBList itemsSQLMODOCore(String query){
-		Set<String> wordsSet= new HashSet<>(Arrays.asList(
-				query.trim().split(PatternsHolder.blank)));
-		List<Pattern> patterns = new ArrayList<>();
-		for(String word : wordsSet)	
-			patterns.add(Pattern.compile(
-					PatternsHolder.stain(word)
-					//PatternsHolder.fuzzyfy(word,2)//if you want to fuzzy search instead of pattern-matching
-			, Pattern.CASE_INSENSITIVE));
-		BasicDBList orlist = new BasicDBList(); 
-		for(String field : Arrays.asList("title","description"))
-			orlist.add(new BasicDBObject(field, new BasicDBObject("$in", patterns)));
-		System.out.println("ItemsDB/itemsSQLMODOCore::orlist="+orlist);//debug
-		return orlist;
+	public static Iterable<DBObject> userItems(String userID,String query)  {  
+		BasicDBObject constraints = new BasicDBObject("owner",userID);
+		if(query.trim().length()==0) 
+			return collection.aggregate(Arrays.asList(
+					new BasicDBObject("$match", constraints)
+					,new BasicDBObject("$sort",new BasicDBObject("date", -1))
+					//,new BasicDBObject("$project",new BasicDBObject("nom",1).append("prenom",1).append("_id", 0))//debug
+					)).results();
+		return FuzzyFinder.find(collection,	
+				PatternsHolder.wordSet(query,PatternsHolder.blank),
+				fuzzyness,
+				Arrays.asList("title","description"),constraints);
+		
 	}
-	
-	
-	/**
-	 * Find all items owned by the user using mongo's SQl way
-	 * @param query
-	 * @param userID
-	 * @return */
-	public static DBCursor userItemsSQLMODO(String query,String userID) {  
- 		return collection.find(new BasicDBObject()
-				.append("owner",userID)
-				.append("$or",itemsSQLMODOCore(query)));
- 		}
 
 
 	/**
-	 * Find all items not owned by user
+	 * Find all items not owned by user (uther = other user)
 	 * @param userID
 	 * @return
 	 * @throws DatabaseException */
-	public static DBCursor utherItems(String userID) {  
-		return collection.find(utherItemCore(userID));}	
-	/**
-	 * Find all items not owned by user
-	 * @param userID
-	 * @return
-	 * @throws DatabaseException */
-	public static DBCursor utherItemsSQLMODO(String query, String userID) {  
-		return collection.find(
-				utherItemCore(userID)
-				.append("status","available")
-				.append("$or",itemsSQLMODOCore(query))
-				.append("owner",
-						new BasicDBObject()
-						.append("$ne",userID)));}
-
-	
-	/**
-	 * ADMIN FUNCTION : sub common function of (utherItems methods)
-	 * @param userID
-	 * @return */
-	private static BasicDBObject utherItemCore(String userID){
+	public static Iterable<DBObject> utherItems(String userID,String query) { 
 		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-		BasicDBList bdbl = new BasicDBList();
+		BasicDBList groupsIDList = new BasicDBList();
 		while(dbc.hasNext())
-			bdbl.add(dbc.next().get("_id").toString());
-		//System.out.println("ItemDB/utherItems::userGroupsMembership="+bdbl);//debug
-		
-		BasicDBList exprs = new BasicDBList();
-		exprs.add(
-				new BasicDBObject()
-				.append("groups", 
-						new BasicDBObject()
-						.append("$in",bdbl)));
-		exprs.add(
-				new BasicDBObject()
-				.append("groups",
-						new BasicDBObject()
-						.append("$size",0)));
-		
-		return new BasicDBObject()
-		.append("status","available")
-		//.append("$or", exprs)
-		.append("owner",
-				new BasicDBObject()
-				.append("$ne",userID));
-		}
+			groupsIDList.add(dbc.next().get("_id").toString());
+		System.out.println("ItemDB/utherItems::userGroupsMembership="+groupsIDList);//debug
+
+		BasicDBList orList = new BasicDBList();
+		orList.add(new BasicDBObject("groups", new BasicDBObject("$in",groupsIDList)));
+		orList.add(new BasicDBObject("groups",new BasicDBObject("$size",0)));
+
+		BasicDBObject constraints = new BasicDBObject("status","available")
+				//.append("$or", orList)
+				.append("owner",new BasicDBObject("$ne",userID));
+
+		if(query.trim().length()==0) 
+			return collection.aggregate(Arrays.asList(
+					new BasicDBObject("$match", constraints)
+					,new BasicDBObject("$sort",new BasicDBObject("date", -1))
+					//,new BasicDBObject("$project",new BasicDBObject("nom",1).append("prenom",1).append("_id", 0))//debug
+					)).results();
+		return FuzzyFinder.find(collection,
+				PatternsHolder.wordSet(query,PatternsHolder.blank),
+				fuzzyness,
+				Arrays.asList("title","description"),constraints);
+	}	
 
 
 
-	/**
-	 * 
-	 * 				ITEMS GROUPS (& VISIBILITY ) MANAGEMENT
-	 * 
-	 * */
+	
+	/***************** ITEMS GROUPS (VISIBILITY ) MANAGEMENT *****************/
 
 
 	public static void addGroupToItem(String itemID, String groupID){
@@ -268,23 +219,24 @@ public class ItemsDB {
 
 
 	public static void main(String[] args) {
+		
+		
+		
+		
+		
 		System.out.println("Results...\n%");
-		//DBCursor dbc =userItems("6");//Ok
-		//DBCursor dbc =utherItems("6");//Ok
-		//DBCursor dbc =utherItems("1");//OK
-		//DBCursor dbc =userItemsSQLMODO("    S5 noir  ","6"); //OK
-		//DBCursor dbc =userItemsSQLMODO("    S5  noir  ","6"); //NOK : not mr (pattern is strict : too much space between 2 words fails to match pattern)
-		//DBCursor dbc =utherItemsSQLMODO("S5","6");//OK
-		DBCursor dbc =utherItemsSQLMODO("vélo","1");//OK
-		while(dbc.hasNext())
-			System.out.println(dbc.next());
-		System.out.println("%\n");
-		/*System.out.print("Permission : ");
-		if(checkAthorization("6","581c70b04c1471dd003afb61")){
-			System.out.println("Granted");
-			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
-					"galaxy S5 noir neuf, tres peu servi");
-		}else System.out.println("Denied");*/
+//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
+//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
+//		Iterable<DBObject> res =utherItems("1","");
+//		Iterable<DBObject> res =utherItems("6","    Vélo   noir  ");
+//		for(DBObject o : res)System.out.println(o);
+//		System.out.println("%\n");
+//		System.out.print("Permission : ");
+//		if(checkAthorization("6","581c70b04c1471dd003afb61")){
+//			System.out.println("Granted");
+//			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
+//					"galaxy S5 noir neuf, tres peu servi");
+//		}else System.out.println("Denied");
 	}
 
 }

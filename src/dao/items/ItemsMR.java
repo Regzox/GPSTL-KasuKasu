@@ -41,33 +41,30 @@ public class ItemsMR {
 	 * @return
 	 * @throws DatabaseException
 	 * @throws JSONException */
-	public static List<ObjetRSV> pertinence(String query,DBCursor cursor) throws JSONException, DatabaseException{
+	public static List<ObjetRSV> pertinence(String query,Iterable<DBObject> input) throws JSONException, DatabaseException{
 		Set<String> querywords =PatternsHolder.wordSet(query,ItemsMR.mrpattern);	
 		List<ObjetRSV> results = new ArrayList<ObjetRSV>();
 
-		while(cursor.hasNext()){
-			DBObject doc = cursor.next();
-			String docID = ((ObjectId)doc.get("_id")).toString();
-			//calculate document's score
-			Double score = 0.0;
+		for(DBObject doc : input){
+			Double score = 0.0; //document's score
+			
+			int docTotalNbWords = PatternsHolder.wordList(
+					doc.get("title")+" "+doc.get("description"),
+					PatternsHolder.blank).size();
+			
 			for(String word : querywords){
 				//TF
 				DBCursor dbc = tfcoll.find(
-						new BasicDBObject()
-						.append("word",word)
-						.append("docID",docID)
-						);
+						new BasicDBObject("word",word)
+						.append("docID",((ObjectId)doc.get("_id")).toString()));
 				if(!dbc.hasNext()) continue;
 				if(dbc.count()>1) 
 					throw new DatabaseException("TF Base is inconsistent!");
 
-				double tf =(double)dbc.next().get("tf");
+				double tf =(double)dbc.next().get("tf")/(double)docTotalNbWords;
 
 				//DF
-				dbc = dfcoll.find(
-						new BasicDBObject()
-						.append("word",word)
-						);
+				dbc = dfcoll.find(new BasicDBObject("word",word));
 				if(!dbc.hasNext()) 
 					throw new DatabaseException("DF Base is inconsistent!");
 				if(dbc.count()>1) 
@@ -76,26 +73,26 @@ public class ItemsMR {
 				double df =(double)dbc.next().get("df");
 
 				/** Be aware : 
+				 * D = the corpus total size (number of documents in database).
 				 * DBCursor.count(): Counts the number of objects matching the query.
 				 * This does not take limit/skip into consideration.
 				 * DBCursor.size(): Counts the number of objects matching the query.
 				 * This does take limit/skip into consideration*/
-				System.out.println("Pertinence of "+word+" in doc-"+docID+":"
-						+ " tf="+tf+" df="+df+" score="+score);//Debug formula is respected
-				score = score + tf * Math.log(cursor.count()/df); }
-			/** This suppose cursor contains all the results without limit/skip
+				score += tf * Math.log(collection.find().count()/df);
+				System.out.println("Pertinence of "+word+" in doc-"+doc+":"
+						+ " tf="+tf+" df="+df+" score="+score);//Debug
+			}
+			
+			/** This suppose results contains all the results without limit/skip
 			 * Limit will be in the display function (client side) */
-			results.add(new ObjetRSV(doc,score));}
-
+			results.add(new ObjetRSV(doc,score));
+		}
 		Collections.sort(results,Collections.reverseOrder());
-		for(ObjetRSV o: results)	System.out.println(o);//Debug
-		List<ObjetRSV> pertinentResults=new ArrayList<ObjetRSV>();
-		for(ObjetRSV orsv : results)
-			if(orsv.getRsv()>0)  
-				pertinentResults.add(orsv);
-		return pertinentResults;}
+		for(ObjetRSV o: results)	System.out.println("ItemsMR::pertinence : o="+o);//Debug
+		return results;
+	}
 
-	
+
 
 	/**
 	 * Filling both TF & DF tables

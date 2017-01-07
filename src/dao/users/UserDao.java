@@ -314,7 +314,7 @@ public class UserDao {
 			else if(p2.matcher(word).matches())
 				constraints.put("numero",word);
 
-		return FuzzyFinder.find(collection,queryWords, fuzzyness,
+		return FuzzyFinder.findPertinent(collection,queryWords, fuzzyness,
 				Arrays.asList("nom","prenom"),constraints);
 	}
 
@@ -333,6 +333,7 @@ public class UserDao {
 	 * @param args */
 	public static void main(String[] args){
 		//testAdd("j",7);
+		//addUser("joujou@ondabeat.fr", "hardtobreakpassword", "je", "lola", "0122345896");
 		//deleteUnconfirmedAccounts();
 		//addUser("joujou@ondabeat.fr", "hardtobreakpassword", "joanne", "joana", "0122345896");
 		//addUser("jojotut@tut.fr", "hardtobreakpassword", "joan", "joAm", "0122345896");

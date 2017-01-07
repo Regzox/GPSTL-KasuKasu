@@ -1,15 +1,10 @@
 package services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.LoaningDB;
@@ -89,26 +84,11 @@ public class Items {
 	 * @throws JSONException
 	 * @throws DatabaseException */
 	public static JSONObject userItems(String query, String userID) throws JSONException, DatabaseException{
-		query=PatternsHolder.refine(query);
+		query=PatternsHolder.refine(query); //important to early refine
 		System.out.println("userItems/refined query = "+query);
+
 		JSONArray jar =new JSONArray();
-		List<ObjetRSV> results=new ArrayList<ObjetRSV>();
-
-		DBCursor cursor = ItemsDB.userItems(userID);
-		cursor.sort(new BasicDBObject().append("date", -1));
-
-		if(!query.equals("")){//with QueryFilter
-				results=ItemsMR.pertinence(query,cursor);
-			if(results.isEmpty()){
-				System.out.println(
-						"userItems [with queryfilter]  : No pertinent results switching to SQLMODO :");
-				cursor=ItemsDB.userItemsSQLMODO(query, userID);}}
-
-		while(cursor.hasNext()){
-			DBObject doc = cursor.next();
-			results.add(new ObjetRSV(doc,1));}
-
-		for(ObjetRSV orsv : results )
+		for(ObjetRSV orsv : ItemsMR.pertinence(query,ItemsDB.userItems(userID,query)))
 			jar.put(new JSONObject()
 					.put("id",orsv.getDbo().get("_id"))
 					.put("type","item")
@@ -119,6 +99,7 @@ public class Items {
 					.put("description",orsv.getDbo().get("description")));
 		return new JSONObject().put("items",jar);}
 
+
 	/**
 	 * Search Items by query using ItemsMR's pertinence
 	 * @param query
@@ -126,27 +107,11 @@ public class Items {
 	 * @throws JSONException
 	 * @throws DatabaseException */
 	public static JSONObject searchItems(String query,String userID) throws JSONException, DatabaseException{		
-		query=PatternsHolder.refine(query);
+		query=PatternsHolder.refine(query); //important to early refine 
 		System.out.println("searchItems/refined query = "+query);
+
 		JSONArray jar =new JSONArray();
-		List<ObjetRSV> results=new ArrayList<ObjetRSV>();
-
-		DBCursor cursor = ItemsDB.utherItems(userID);
-		cursor.sort(new BasicDBObject().append("date", -1));
-
-		if(!query.equals("")){//with QueryFilter
-			System.out.println("QUERY : "+query);
-				results=ItemsMR.pertinence(query,cursor);
-			if(results.isEmpty()){
-				System.out.println(
-						"searchItems  : No pertinent results switching to SQLMODO : ");
-				cursor=ItemsDB.utherItemsSQLMODO(query, userID);}}
-
-		while(cursor.hasNext()){
-			DBObject doc = cursor.next();
-			results.add(new ObjetRSV(doc,1));}
-
-		for(ObjetRSV orsv : results )
+		for(ObjetRSV orsv : ItemsMR.pertinence(query,ItemsDB.utherItems(userID,query)))
 			if(LoaningDB.requestExists(userID,orsv.getDbo().get("_id").toString()))
 				continue;
 			else
@@ -158,25 +123,46 @@ public class Items {
 						.put("title",orsv.getDbo().get("title"))
 						.put("date",orsv.getDbo().get("date"))
 						.put("description", orsv.getDbo().get("description")));
-		return new JSONObject().put("items",jar);}
+		return new JSONObject().put("items",jar);
+	}
 
+	public static void main(String[] args) throws JSONException, DatabaseException {
+		searchItems("Vélo RoûGe","1");
+	}
+
+	/**
+	 * Add a groupId to an item
+	 * @param itemID
+	 * @param groupID
+	 * @param userID */
 	public static void addGroupToItem(String itemID, String groupID,String userID){
-		if(!ItemsDB.checkAthorization(userID,itemID))
+		if(!ItemsDB.checkAthorization(userID,itemID)) 
 			return ;
 		ItemsDB.addGroupToItem(itemID, groupID);
 	}
 
 
+	/**
+	 * Remove a groupId from an item
+	 * @param itemID
+	 * @param groupID
+	 * @param userID */
 	public static void removeGroupFromItem(String itemID, String groupID,String userID){
-		if(!ItemsDB.checkAthorization(userID,itemID))
+		if(!ItemsDB.checkAthorization(userID,itemID)) 
 			return ;
 		ItemsDB.removeGroupFromItem(itemID, groupID);
 	}
 
 
+	/**
+	 * Return item's groups
+	 * @param itemID
+	 * @param userID
+	 * @return
+	 * @throws JSONException */
 	public static JSONArray getGroupsFromItem(String itemID,String userID) throws JSONException{
 		/* => BasicDBList */
-		if(!ItemsDB.checkAthorization(userID,itemID))
+		if(!ItemsDB.checkAthorization(userID,itemID)) 
 			return null;
 		BasicDBList o= ItemsDB.getGroupsFromItem(itemID);
 		JSONArray js;
@@ -186,6 +172,4 @@ public class Items {
 			js=new JSONArray(o.toString());
 		return js;
 	}
-
-
 }

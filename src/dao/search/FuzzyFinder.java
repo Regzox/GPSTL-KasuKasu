@@ -26,17 +26,13 @@ import exceptions.DatabaseException;
 public class FuzzyFinder {
 
 	/**Find in "in" collection the set of words (contained in wordsSet)
-	 * And return a sorted list of results according some "constraints" and
-	 * inFields (fields of database on which search is done)
+	 * and return an unsorted Iterable of results according some "constraints"
+	 * and inFields (fields of database on which search is done)
 	 * @param query
 	 * @return */
-	public static List<ObjetRSV> find(DBCollection in, Set<String> wordsSet,
+	public static Iterable<DBObject> find(DBCollection in, Set<String> wordsSet,
 			int fuzzyness,	List<String> inFields, BasicDBObject constraints){		
 		System.out.println("FuzzyFinder/find -> "+in+" "+wordsSet+" "+fuzzyness+" "+inFields+" "+constraints);//debug
-
-		BasicDBObject criteria = new BasicDBObject();
-		for(Map.Entry<String,Object> constraint : constraints.entrySet())
-			criteria.append(constraint.getKey(),constraint.getValue());	
 
 		List<Pattern> nouns = new ArrayList<>();
 		for(String word : wordsSet)	
@@ -46,16 +42,28 @@ public class FuzzyFinder {
 		BasicDBList orlist = new BasicDBList(); 
 		for(String field : inFields)
 			orlist.add(new BasicDBObject(field, new BasicDBObject("$in", nouns)));
-		criteria.append("$or", orlist);
+		constraints.append("$or", orlist);
 
-		System.out.println("\ncriteria="+criteria+"\n");//debug 
+		System.out.println("\ncriteria="+constraints+"\n");//debug 
 
-		return pertinence(wordsSet, in.aggregate(Arrays.asList(
-				(DBObject) new BasicDBObject("$match",criteria)
-				//debug TODO comment 
-				//,(DBObject) new BasicDBObject("$project",new BasicDBObject("nom",1).append("prenom",1).append("_id", 0))
-				))
-				.results(), inFields);
+		return in.aggregate(Arrays.asList(
+				 new BasicDBObject("$match",constraints)			
+				//,new BasicDBObject("$project",new BasicDBObject("nom",1).append("prenom",1).append("_id", 0))//debug
+				)).results();
+	}
+
+
+	/**Find in "in" collection the set of words (contained in wordsSet)
+	 * and return a pertinent (sorted by relevance score) list of results 
+	 * according to some search's "constraints" to respect 
+	 * and inFields (fields of database on which search is done)
+	 * @param query
+	 * @return */
+	public static List<ObjetRSV> findPertinent(DBCollection in, Set<String> wordsSet,
+			int fuzzyness,	List<String> inFields, BasicDBObject constraints){		
+		return pertinence(wordsSet,
+				find(in, wordsSet, fuzzyness, inFields, constraints),
+				inFields);
 	}
 
 
@@ -69,7 +77,7 @@ public class FuzzyFinder {
 		System.out.println("pertinence input : "+input);
 		Map<Integer,List<ObjetRSV>> groups = new HashMap<>();		
 		for(DBObject doc : input){			
-			int min=Integer.MAX_VALUE;
+			int min=Integer.MAX_VALUE; //reset min fo max_value for next document
 			int mac=0;//minimum accumulator 
 			System.out.println("doc("+doc+")");//debug
 			List<Integer> minimums= new ArrayList<>();
@@ -108,8 +116,7 @@ public class FuzzyFinder {
 	 * local test
 	 * @param args */
 	public static void main(String[] args){
-		find(UserDao.collection,PatternsHolder.wordSet("ttanck", PatternsHolder.blank), 2,
+		findPertinent(UserDao.collection,PatternsHolder.wordSet("ttanck", PatternsHolder.blank), 2,
 				Arrays.asList("nom","prenom"),	new  BasicDBObject());
 	}
-
 }

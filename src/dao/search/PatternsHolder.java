@@ -61,21 +61,6 @@ public class PatternsHolder {
 		return word;
 	}
 
-	public static void main(String[] args) {
-		/*System.out.println(Pattern.matches(word, "574ythtgtrg"));
-		System.out.println(Pattern.matches(word, "574ythétgtrg"));
-		System.out.println(wordSet("57:y4_y,thét;gt-rg!ujh",notWord));*/
-
-		/*List<String> words= Arrays.asList("","y","AB","JOE","NOEL","JOANE","JOANNE","TTANCK");
-		for(String word : words)
-			System.out.println("fuzzyfy("+word+"): "+fuzzyfy(word,2));*/	
-		
-		//System.out.println(refine("héêàlèônÿçç"));
-		
-		System.out.println(stain("vélo"));
-		System.out.println(stain("héêàlèônÿçç"));
-	}	
-
 
 	/**
 	 * Return a set of words contained in a string 
@@ -123,21 +108,22 @@ public class PatternsHolder {
 
 	/**Return a fuzzy string-regex (with extra, substituted(or transposed) or missing 
 	 * characters) from an original string.
+	 * The word to fuzzify  must be at least one character longer than fuzzy 
+	 * (because fuzzy characters will be removed from it)
+	 * otherwise extended search based only on the first character is performed. 
 	 * @param word
 	 * @param fuzzy
 	 * @return */  
-	public static String fuzzyfy(String word,int fuzzy){
+	public static String fuzzyfy(String word,int fuzzy){//TODO stain the words smartly
 		System.out.println("\nmot="+word+" &fuzzy="+fuzzy);//debug
+		if(fuzzy==0)return "^"+word;//strict match (can be incomplete but not fuzzy)
 		if(word.length()==0) return ".{0,}"; //anything
-		//the word must be at least one character longer than fuzzy 
-		//(because fuzzy characters will be removed from it)
 		if(!(word.length()>fuzzy)) return "^"+word.charAt(0);
-		//TODO try to avoid the cut effect 
-		//(^to find nothing but ^t find tutanck and then tot find also tutanck)
 		StringBuilder fuzzyfied = new StringBuilder();
 		//i begin at 1(not 0) because : 
 		//-substring is end exclusive 
-		//-beginning by i=0 is too large (tuo find (l<->(tu=..)ol))
+		//-beginning by i=0 would be too large :
+		//(searching "tuo" would be equivalent to search (l<->(tu=..)ol)), so :
 		//-the first character must be harder than rock (it define the direction)
 		for(int i=1;i<=word.length()-(fuzzy);i++){ 
 			String prefix=word.substring(0,i);System.out.print("prefix : "+prefix+"  ");//debug
@@ -149,7 +135,7 @@ public class PatternsHolder {
 			else{
 				fuzzyfied.append("^"+prefix/*+trunk.substring(0,j)*/
 						+".{0,"+(fuzzy)+"}"+suffix+".{0,}"+"|");
-				/*@1Failure : fuzzyfy is Not really generic (TODO). 
+				/*@Failure : fuzzyfy is Not really generic (TODO). 
 				  it is too specific for fuzzy=2 especially at this 2 followings 
 				  lines that consider trunk's size to 1 
 				  ((.replace(j,j+1,) instead of .replace(j,j+k))
@@ -172,11 +158,26 @@ public class PatternsHolder {
 							.replace(j,j,".{0,"+(fuzzy)+"}")+suffix+".{0,}"+"|");
 				//StringBuilder do more precise job than substring here because 
 				//it makes it possible to replace the first character of the trunk
-				//instead of /*+trunk.substring(0,j)*/ that didn't 
+				//instead of /*+trunk.substring(0,j)*/ that doesn't 
 			}
 			System.out.println(" --> fuzzyfied : "+fuzzyfied); //debug
 		}
 		return fuzzyfied.toString();
 	}
+	
+	public static void main(String[] args) {
+		/*System.out.println(Pattern.matches(word, "574ythtgtrg"));
+		System.out.println(Pattern.matches(word, "574ythétgtrg"));
+		System.out.println(wordSet("57:y4_y,thét;gt-rg!ujh",notWord));*/
+
+		/*List<String> words= Arrays.asList("","y","AB","JOE","NOEL","JOANE","JOANNE","TTANCK");
+		for(String word : words)
+			System.out.println("fuzzyfy("+word+"): "+fuzzyfy(word,2));*/	
+
+		//System.out.println(refine("héêàlèônÿçç"));
+
+		System.out.println(stain("vélo"));
+		System.out.println(stain("héêàlèônÿçç"));
+	}	
 
 }
