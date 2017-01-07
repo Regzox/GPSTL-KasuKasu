@@ -149,7 +149,7 @@ public class GroupsDB{
 		return collection.find(
 				new BasicDBObject()
 				.append("members",userID));}
-
+	
 
 	public static void main(String[] args) throws DatabaseException, JSONException, GroupExistsException{
 		collection.drop();//reset : determinism required for the tests
@@ -162,6 +162,7 @@ public class GroupsDB{
 		addMember(id,"12");
 		System.out.println(userGroups("2"));
 		System.out.println(groupMembers(id));
+
 	}
 
 }
