@@ -114,11 +114,11 @@ public class PatternsHolder {
 	 * @param word
 	 * @param fuzzy
 	 * @return */  
-	public static String fuzzyfy(String word,int fuzzy){//TODO stain the words smartly
+	public static String fuzzyfy(String word,int fuzzy,String head){//TODO stain the words smartly
 		System.out.println("\nmot="+word+" &fuzzy="+fuzzy);//debug
-		if(fuzzy==0)return "^"+word;//strict match (can be incomplete but not fuzzy)
+		if(fuzzy==0)return head+word;//strict match (can be incomplete but not fuzzy)
 		if(word.length()==0) return ".{0,}"; //anything
-		if(!(word.length()>fuzzy)) return "^"+word.charAt(0);
+		if(!(word.length()>fuzzy)) return head+word.charAt(0);
 		StringBuilder fuzzyfied = new StringBuilder();
 		//i begin at 1(not 0) because : 
 		//-substring is end exclusive 
@@ -131,9 +131,9 @@ public class PatternsHolder {
 			String suffix=word.substring(i+fuzzy);System.out.print("suffix : "+suffix+" ");//debug
 
 			if(i==word.length()-(fuzzy))  
-				fuzzyfied.append("^"+prefix+".{0,}"); //last fuzzyfying is "open end"
+				fuzzyfied.append(head+prefix+".{0,}"); //last fuzzyfying is "open end"
 			else{
-				fuzzyfied.append("^"+prefix/*+trunk.substring(0,j)*/
+				fuzzyfied.append(head+prefix/*+trunk.substring(0,j)*/
 						+".{0,"+(fuzzy)+"}"+suffix+".{0,}"+"|");
 				/*@Failure : fuzzyfy is Not really generic (TODO). 
 				  it is too specific for fuzzy=2 especially at this 2 followings 
@@ -151,10 +151,10 @@ public class PatternsHolder {
 				for(int j=0;j<trunk.length();j++)
 					//< instead of <= to avoid duplication on last replacement 
 					//(replace "" by .{0,}): the second for do the same
-					fuzzyfied.append("^"+prefix+new StringBuilder(trunk)
+					fuzzyfied.append(head+prefix+new StringBuilder(trunk)
 							.replace(j,j+1,".{0,"+(fuzzy)+"}")+suffix+".{0,}"+"|");
 				for(int j=0;j<=trunk.length();j++)
-					fuzzyfied.append("^"+prefix+new StringBuilder(trunk)
+					fuzzyfied.append(head+prefix+new StringBuilder(trunk)
 							.replace(j,j,".{0,"+(fuzzy)+"}")+suffix+".{0,}"+"|");
 				//StringBuilder do more precise job than substring here because 
 				//it makes it possible to replace the first character of the trunk
@@ -175,9 +175,19 @@ public class PatternsHolder {
 			System.out.println("fuzzyfy("+word+"): "+fuzzyfy(word,2));*/	
 
 		//System.out.println(refine("héêàlèônÿçç"));
-
-		System.out.println(stain("vélo"));
-		System.out.println(stain("héêàlèônÿçç"));
+		List<String> d1 =wordList(refine("Son nom est célébré par le bocage qui frémit, et par le ruisseau qui murmure, les vents l’emportent jusqu’à l’arc céleste, l’arc de grâce et de consolation que sa main tendit dans les nuages."), notWord);
+		System.out.println("d1="+d1);
+		System.out.println("d1_size="+d1.size());
+		
+		List<String> d2 =wordList(refine("À peine distinguait-on deux buts à l’extrémité de la carrière : des chênes ombrageaient l’un, autour de l’autre des palmiers se dessinaient dans l’éclat du soir."), notWord);
+		System.out.println("d2="+d2);
+		System.out.println("d2_size="+d2.size());
+		
+		List<String> d3 =wordList(refine("Ah ! le beau temps de mes travaux poétiques ! les beaux jours que j’ai passés près de toi ! Les premiers, inépuisables de joie, de paix et de liberté ; les derniers, empreints d’une mélancolie qui eut bien aussi ses charmes."), notWord);
+		System.out.println("d3="+d3);
+		System.out.println("d3_size="+d3.size());
+		//System.out.println(stain("vélo"));
+		//System.out.println(stain("héêàlèônÿçç"));
 	}	
 
 }

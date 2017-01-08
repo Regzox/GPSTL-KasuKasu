@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import enumerations.Url;
 import services.User;
-import servlets.tools.templates.online.OnlinePostServlet;
+import servlets.tools.templates.offline.OfflinePostServlet;
 
 /**
  * * @author Anagbla Jean */
-public class ConfirmAccountServlet extends OnlinePostServlet {
+public class ConfirmAccountServlet extends OfflinePostServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override

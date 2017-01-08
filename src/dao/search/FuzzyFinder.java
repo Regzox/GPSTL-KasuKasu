@@ -31,12 +31,12 @@ public class FuzzyFinder {
 	 * @param query
 	 * @return */
 	public static Iterable<DBObject> find(DBCollection in, Set<String> wordsSet,
-			int fuzzyness,	List<String> inFields, BasicDBObject constraints){		
+			int fuzzyness,	List<String> inFields, BasicDBObject constraints,String head){		
 		System.out.println("FuzzyFinder/find -> "+in+" "+wordsSet+" "+fuzzyness+" "+inFields+" "+constraints);//debug
 
 		List<Pattern> nouns = new ArrayList<>();
 		for(String word : wordsSet)	
-			nouns.add(Pattern.compile(PatternsHolder.fuzzyfy(word, fuzzyness)
+			nouns.add(Pattern.compile(PatternsHolder.fuzzyfy(word, fuzzyness,head)
 					, Pattern.CASE_INSENSITIVE));
 
 		BasicDBList orlist = new BasicDBList(); 
@@ -60,9 +60,9 @@ public class FuzzyFinder {
 	 * @param query
 	 * @return */
 	public static List<ObjetRSV> findPertinent(DBCollection in, Set<String> wordsSet,
-			int fuzzyness,	List<String> inFields, BasicDBObject constraints){		
+			int fuzzyness,	List<String> inFields, BasicDBObject constraints,String head){		
 		return pertinence(wordsSet,
-				find(in, wordsSet, fuzzyness, inFields, constraints),
+				find(in, wordsSet, fuzzyness, inFields, constraints,head),
 				inFields);
 	}
 
@@ -117,6 +117,6 @@ public class FuzzyFinder {
 	 * @param args */
 	public static void main(String[] args){
 		findPertinent(UserDao.collection,PatternsHolder.wordSet("ttanck", PatternsHolder.blank), 2,
-				Arrays.asList("nom","prenom"),	new  BasicDBObject());
+				Arrays.asList("nom","prenom"),	new  BasicDBObject(),"^");
 	}
 }

@@ -315,7 +315,7 @@ public class UserDao {
 				constraints.put("numero",word);
 
 		return FuzzyFinder.findPertinent(collection,queryWords, fuzzyness,
-				Arrays.asList("nom","prenom"),constraints);
+				Arrays.asList("nom","prenom"),constraints,"^");
 	}
 
 

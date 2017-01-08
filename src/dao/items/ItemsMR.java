@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.bson.types.ObjectId;
 import org.json.JSONException;
@@ -42,17 +41,23 @@ public class ItemsMR {
 	 * @throws DatabaseException
 	 * @throws JSONException */
 	public static List<ObjetRSV> pertinence(String query,Iterable<DBObject> input) throws JSONException, DatabaseException{
-		Set<String> querywords =PatternsHolder.wordSet(query,ItemsMR.mrpattern);	
+		/** Be aware : 
+		 * D = the corpus total size (number of documents in database).
+		 * DBCursor.count(): Counts the number of objects matching the query.
+		 * This does not take limit/skip into consideration.
+		 * DBCursor.size(): Counts the number of objects matching the query.
+		 * This does take limit/skip into consideration*/
+		int D = collection.find().count(); //corpus total size
+		
 		List<ObjetRSV> results = new ArrayList<ObjetRSV>();
-
 		for(DBObject doc : input){
-			Double score = 0.0; //document's score
-			
+			double score = 0.0; //document's score
+
 			int docTotalNbWords = PatternsHolder.wordList(
-					doc.get("title")+" "+doc.get("description"),
-					PatternsHolder.blank).size();
-			
-			for(String word : querywords){
+					PatternsHolder.refine(doc.get("title")+" "+doc.get("description")),
+					ItemsMR.mrpattern).size();
+
+			for(String word : PatternsHolder.wordSet(query,ItemsMR.mrpattern)){
 				//TF
 				DBCursor dbc = tfcoll.find(
 						new BasicDBObject("word",word)
@@ -60,8 +65,8 @@ public class ItemsMR {
 				if(!dbc.hasNext()) continue;
 				if(dbc.count()>1) 
 					throw new DatabaseException("TF Base is inconsistent!");
-
-				double tf =(double)dbc.next().get("tf")/(double)docTotalNbWords;
+				double tf = (double)dbc.next().get("tf"); //simple tf (count)//Debug easy
+				double TF =tf/(double)docTotalNbWords; //real tf(average)
 
 				//DF
 				dbc = dfcoll.find(new BasicDBObject("word",word));
@@ -72,23 +77,19 @@ public class ItemsMR {
 
 				double df =(double)dbc.next().get("df");
 
-				/** Be aware : 
-				 * D = the corpus total size (number of documents in database).
-				 * DBCursor.count(): Counts the number of objects matching the query.
-				 * This does not take limit/skip into consideration.
-				 * DBCursor.size(): Counts the number of objects matching the query.
-				 * This does take limit/skip into consideration*/
-				score += tf * Math.log(collection.find().count()/df);
+				score += TF * Math.log10(D/df);
 				System.out.println("Pertinence of "+word+" in doc-"+doc+":"
-						+ " tf="+tf+" df="+df+" score="+score);//Debug
+						+" tf="+tf+" TF="+TF+" df="+df+" score="+score
+						+" docTotalNbWords="+docTotalNbWords+" D="+D
+						+" IDF="+Math.log10(D/df));//Debug 
 			}
-			
+
 			/** This suppose results contains all the results without limit/skip
 			 * Limit will be in the display function (client side) */
 			results.add(new ObjetRSV(doc,score));
 		}
 		Collections.sort(results,Collections.reverseOrder());
-		for(ObjetRSV o: results)	System.out.println("ItemsMR::pertinence : o="+o);//Debug
+		for(ObjetRSV o: results)	System.out.println("ItemsMR::pertinence : o="+o);//Debug final order
 		return results;
 	}
 

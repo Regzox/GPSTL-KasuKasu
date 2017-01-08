@@ -2,10 +2,10 @@
  * ANAGBLA Joan*/
 bool=0;
 if(document.cookie.search("lang=en")!=-1)
-		bool=1;
-	else
-		if(document.cookie.search("lang=fr")!=-1)
-			bool=0;
+	bool=1;
+else
+	if(document.cookie.search("lang=fr")!=-1)
+		bool=0;
 function Item(id,owner,group,date,longitude,latitude,title,description,permission){
 	//alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","+description+","+permission+")");
 	this.id=id;
@@ -120,19 +120,13 @@ function searchMRItems(query){
 }
 function searchItems(query){
 	console.log("query="+query);
-	if (checkQuery(query))		
-		searchMRItems(query);
-}
-function checkQuery(query){
-	if(query.length==0)
-		return false; //do nothing
-	return true;
+	searchMRItems(query);
 }
 
+
 function filterUserItems(query){
-	console.log("query="+query);
-	if (checkQuery(query))		
-		userItems(query);
+	console.log("query="+query);	
+	userItems(query);
 }
 
 function userItems(query){
@@ -223,7 +217,7 @@ function ProcessFindApplicants(rep) {
 		"<tr>" +
 		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
 		"</tr>";
-	
+
 	if(bool==1)
 		message = "<table class=\"table\">" +
 		"<tr>" +
@@ -250,16 +244,16 @@ function ProcessFindApplicants(rep) {
 				if(z==rep.id)return;//Skip if the user is yourself
 				nb++;
 				if(bool==0)
-				bodymessage +=
-					"<tr>" +
-					"<td>"+x+"</td>" +
-					"<td>"+y+"</td>"+
-					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Afficher le profil </a></td>"+
-					"<td>" +
-					"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
-					"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
-					"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
-					"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
+					bodymessage +=
+						"<tr>" +
+						"<td>"+x+"</td>" +
+						"<td>"+y+"</td>"+
+						"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Afficher le profil </a></td>"+
+						"<td>" +
+						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
+						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
+						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
 				"</tr>";
 				if(bool==1)
 					bodymessage +=
@@ -272,8 +266,8 @@ function ProcessFindApplicants(rep) {
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
 						"<input style=\"float:right;\" type=\"button\" value=\"Validate\" class=\"accept_request_btn\" " +
 						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
-					"</tr>";
-					
+				"</tr>";
+
 			} 
 		});
 	if(nb==0){

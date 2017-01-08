@@ -150,7 +150,7 @@ public class ItemsDB {
 		return FuzzyFinder.find(collection,	
 				PatternsHolder.wordSet(query,PatternsHolder.blank),
 				fuzzyness,
-				Arrays.asList("title","description"),constraints);
+				Arrays.asList("title","description"),constraints,"");
 		
 	}
 
@@ -184,7 +184,7 @@ public class ItemsDB {
 		return FuzzyFinder.find(collection,
 				PatternsHolder.wordSet(query,PatternsHolder.blank),
 				fuzzyness,
-				Arrays.asList("title","description"),constraints);
+				Arrays.asList("title","description"),constraints,"");
 	}	
 
 
