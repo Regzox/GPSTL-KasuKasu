@@ -14,7 +14,7 @@
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -46,9 +46,11 @@
 					value="Filtrer" autocomplete="off">
 			</form>
 
-			<br><hr><br>
-			
-			<h2 id='liste' >Liste de vos objets</h2>
+			<br>
+			<hr>
+			<br>
+
+			<h2 id='liste'>Liste de vos objets</h2>
 			<div id="found-items" class="abootsraper"></div>
 		</div>
 	</div>

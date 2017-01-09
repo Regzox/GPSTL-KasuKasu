@@ -109,7 +109,7 @@ Item.prototype.getHTML2=function(){
 function searchMRItems(query){
 	$.ajax({
 		type : "GET",
-		url : "searchitems",
+		url : "/KasuKasu/searchitems",
 		data : "query=" +query,
 		dataType : "JSON",
 		success : Item.traiteReponseJSON,
@@ -132,7 +132,7 @@ function filterUserItems(query){
 function userItems(query){
 	$.ajax({
 		type : "GET",
-		url : "useritems",
+		url : "/KasuKasu/useritems",
 		data : "query=" +query,
 		dataType : "JSON",
 		success : Item.traiteReponseJSON,
@@ -147,7 +147,7 @@ function item_applicants(id) {
 
 	$.ajax({
 		type : "GET",
-		url : "itemapplicantslist",
+		url : "/KasuKasu/itemapplicantslist",
 		data : "id=" +id,
 		dataType : "JSON",
 		success : ProcessFindApplicants,
@@ -162,7 +162,7 @@ function removeItem(id) {
 
 	$.ajax({
 		type : "POST",
-		url : "removeitem",
+		url : "/KasuKasu/removeitem",
 		data : "id=" +id,
 		dataType : "JSON",
 		success : refresh,
@@ -194,7 +194,7 @@ function reset_applicants_shared_div(id){
 function getItem(id){
 	$.ajax({
 		type : "GET",
-		url : "getitem",
+		url : "/KasuKasu/getitem",
 		data : "id=" +id,
 		dataType : "JSON",
 		success : Item.traiteReponseJSON,

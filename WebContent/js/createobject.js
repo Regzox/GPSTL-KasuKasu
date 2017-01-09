@@ -224,7 +224,7 @@ function send(nom, description, result, result2)
 
 	$.ajax({
 	type : "POST",
-	url : "createobject",
+	url : "/KasuKasu/createobject",
 
 	data : "nom=" + nom + "&description=" + description + "&groupe=" + json + "&coordonnees=" + json2, 
 
@@ -263,7 +263,7 @@ function printHTML(dom,htm)
 function userGroups(){
 	$.ajax({
 		type : "GET",
-		url : "usergroups",
+		url : "/KasuKasu/usergroups",
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse,
@@ -365,7 +365,7 @@ function traiteReponse(json)
 function userPoints(){
 	$.ajax({
 		type : "GET",
-		url : "PointsUserList",
+		url : "/KasuKasu/PointsUserList",
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse2,

@@ -153,7 +153,7 @@ function groupMembers(gid){
 	GID=gid; //Globalise gid
 	$.ajax({
 		type : "GET",
-		url : "groupmembers",
+		url : "/KasuKasu/groupmembers",
 		data : "gid="+gid,
 		dataType : "JSON",
 		success : Member.traiteReponseJSON,
@@ -165,7 +165,7 @@ function groupMembers(gid){
 function addMember(gid,member){
 	$.ajax({
 		type : "POST",
-		url : "addmember",
+		url : "/KasuKasu/addmember",
 		data :  "gid="+gid+"&member="+member,
 		dataType : "JSON",
 		success : refresh,
@@ -178,7 +178,7 @@ function addMember(gid,member){
 function removeMember(gid,member){
 	$.ajax({
 		type : "POST",
-		url : "removemember",
+		url : "/KasuKasu/removemember",
 		data :  "gid="+gid+"&member="+member,
 		dataType : "JSON",
 		success : refresh,

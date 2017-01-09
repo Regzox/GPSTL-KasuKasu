@@ -1,22 +1,21 @@
-une semaine timeout pourr conserver un compte
-ficihier texte por parametrer les langues 
-serialiser le dico
-tous les patametre dans un fihchier de parametre ou une pafge htm de parametrisation de lapp
-tout parametrer
+voir screen error user not connected not redirect auto
+ajaxs : boolean no duplicated requests
+kasane name groups
+revoir createObject
+quartz cron to do
+duplication create object
+liste des subscribers
 
-connectuser 
+http://stackoverflow.com/questions/4053857/similarity-join-using-hadoop
 
-	passer en assynchrone avec un inscription.js et du jsonObject server side
-    pas tres safe de laisser les identifiants de connexion 
-	Cookie c_mail=new Cookie("mail",mail);
-	Cookie c_pass=new Cookie("pass",pass); 
+http://stackoverflow.com/questions/19603542/mongodb-update-data-in-nested-field
 
 
-in faut pouvoir bloquer l'acces à un user non confirmé apres 24h
-au niveau de connectuser et des autres pages (session tracking reflechir a comment faire)
+tous les patametre dans un fihchier de parametre ou
+une pafge htm de parametrisation de lapp&
 
-dans 
-modifUserServlet c'est Map<String, String[]> map = req.getParameterMap();
-au lieu de  Map<String, String> map = req.getParameterMap();
+later generiser fuzzyfy
 
-double appel axja : use un boolean pr bloquer un second appel tq la reponse du premier n'est pas back 			
+virer error.jsp si ne sert rien et replace by modal ou print message
+
+evaluation.jsp : faudrait penser a un message du genre aucune evaluation en suspend

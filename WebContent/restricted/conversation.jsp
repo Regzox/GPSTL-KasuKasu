@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Conversation with <%=request.getParameter("interlocutor")%></title>
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
-<script type="text/javascript" src="js/inflator/views/messenger.js"></script>
-<script type="text/javascript" src="js/inflator/mirror.js"></script>
-<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/inflator/views/messenger.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
 <body id="gc-search"

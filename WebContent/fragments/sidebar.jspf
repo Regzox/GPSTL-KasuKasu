@@ -34,7 +34,7 @@
 			<div id="eval" onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.CONVERSATION.value() %>')))
 					$(location).attr('href', '<%= Url.CONVERSATION.value() %>');
-			"> Conversation </div>
+			"> Messagerie </div>
 			
 			
 			<div  class="dropdown"> <div id="amis">Mes amis</div>

@@ -17,7 +17,7 @@ function Loan(loan_id,item,title,debut,fin){
 function request_item(id){	
 	$.ajax({
 		type : "POST",
-		url : "requestitem",
+		url : "/KasuKasu/requestitem",
 		data : "id=" +id,
 		dataType : "JSON",
 		success : loaning_request_response,
@@ -35,7 +35,7 @@ function loaning_request_response(rep){
 function accept_item_request(id_applicant, id_item){	
 	$.ajax({
 		type : "POST",
-		url : "acceptrequests",
+		url : "/KasuKasu/acceptrequests",
 		data : "applicant="+id_applicant+"&item="+id_item,
 		dataType : "JSON",
 		success : loaning_request_response,
@@ -48,7 +48,7 @@ function accept_item_request(id_applicant, id_item){
 function refuse_item_request(id){	
 	$.ajax({
 		type : "POST",
-		url : "refuserequests",
+		url : "/KasuKasu/refuserequests",
 		data : "id=" +id,
 		dataType : "JSON",
 		success : loaning_request_response,
@@ -62,7 +62,7 @@ function refuse_item_request(id){
 function find_user_loans(){	
 	$.ajax({
 		type : "GET",
-		url : "applicantloaning",
+		url : "/KasuKasu/applicantloaning",
 		dataType : "JSON",
 		success : list_loaning_response,
 		error : function(xhr,status,errorthrown){

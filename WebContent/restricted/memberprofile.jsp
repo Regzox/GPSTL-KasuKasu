@@ -70,8 +70,7 @@
 				</tr>
 			</table>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 		<div id="profile-action">
 			<a class="contact-user"
 				href="http://localhost:8080/KasuKasu/conversation.jsp?uther=<%=user.getId()%>

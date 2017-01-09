@@ -42,7 +42,7 @@ function new_private_message(uther,msg){
 	if(msg.length>0)
 		$.ajax({
 			type : "POST",
-			url : "newprivatemessage",
+			url : "/KasuKasu/newprivatemessage",
 			data : "uther="+uther+"&msg="+msg,
 			dataType : "JSON",
 			success : refreshMSG,
@@ -61,11 +61,11 @@ function refreshMSG(result){
 function conversation(uther){
 	//alert("conversation with uther : "+uther);
 	if(uther=='null' || uther==undefined)
-		gotoURL("/Momento/messenger.jsp");
+		refresh();
 	else
 		$.ajax({
 			type : "GET",
-			url : "conversation",
+			url : "/KasuKasu/conversation",
 			data : "uther="+uther,
 			dataType : "JSON",
 			success : Message.TraiteReponse,
@@ -122,7 +122,7 @@ Speaker.prototype.getHTML=function(){
 function interlocutors(){
 	$.ajax({
 		type : "GET",
-		url : "interlocutors",
+		url : "/KasuKasu/interlocutors",
 		data : "",
 		dataType : "JSON",
 		success : Speaker.traiteReponse,

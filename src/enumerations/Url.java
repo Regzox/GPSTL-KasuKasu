@@ -5,29 +5,33 @@ import org.json.JSONObject;
 import json.Error;
 
 public enum Url {
+	
+	/*Offline mode*/
 	PORTAL("/portal.jsp"),
 	CREATE_USER("/createuser.jsp"),
 	CONNECTION("/connexion.jsp"),
 	ERROR_PAGE("/errorpage.jsp"),
 	RETRIEVE_PASSWORD("/retrievePassword.jsp"),
-	DASHBOARD("/searchitems.jsp"),
+	
+	/*Online mode(restricted)*/
+	DASHBOARD("/restricted/searchitems.jsp"),
 	FIND_USER("/restricted/finduser.jsp"),
 	MODIFY_USER("/restricted/modifyUser.jsp"),
 	PROFILE("/restricted/profile.jsp"),
-	SEARCHITEMS("/searchitems.jsp"),
+	SEARCHITEMS("/restricted/searchitems.jsp"),
 	MY_FRIENDS("/restricted/myfriends.jsp"),
 	PENDING_REQUESTS("/restricted/pendingrequests.jsp"),
 	UPLOAD("/restricted/upload.jsp"),
-	GROUPE("/groups.jsp"),
-	CREATEOBJECT("/createobject.jsp"),
-	DEMANDESRECUES("/demande.jsp"),
-	RECHERCHEROBJECT("/searchitems.jsp"),
-	LISTOBJECTS("/useritems.jsp"),
-	LISTLOANS("/userLoans.jsp"),
+	GROUPE("/restricted/groups.jsp"),
+	CREATEOBJECT("/restricted/createobject.jsp"),
+	DEMANDESRECUES("/demande.jsp"), /*TODO WHAT IS IT? */
+	RECHERCHEROBJECT("/restricted/searchitems.jsp"),
+	LISTOBJECTS("/restricted/useritems.jsp"),
+	LISTLOANS("/restricted/userLoans.jsp"),
 	AJOUTERLIEU("/addpoint.jsp"),
 	IMPORTLIEU("/importpoint.jsp"),
 	LISTLIEU("/restricted/listpoint.jsp"),
-	CONVERSATION("/messenger.jsp"),
+	CONVERSATION("/restricted/messenger.jsp"),
 	EVALUATION("/restricted/evaluation.jsp");
 
 
