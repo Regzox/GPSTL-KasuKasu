@@ -3,7 +3,6 @@ package dao;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -84,6 +83,19 @@ public class ExchangePointsDB {
 				).hasNext();
 	}
 
+	
+	/**
+	 * Check if an user is a subscriber to an exchange point
+	 * @param id
+	 * @param userID
+	 * @return */
+	public static Boolean isMember(String id , String userID){
+		return collection.find(
+				new BasicDBObject()
+				.append("_id",id)
+				.append("subscribers.id_user",userID)).hasNext();
+	}
+	
 	
 	/**
 	 * Return the list of user's subscribed exchange points
@@ -189,6 +201,10 @@ public class ExchangePointsDB {
 	}
 
 	
+	/**
+	 * Retun the list of ExchangePoints where the item is in loan
+	 * @param itemID
+	 * @return */
 	public static DBCursor itemExchangePoints(String itemID){
 		return collection.find( 
 						new BasicDBObject("subscribers.useritems",
@@ -215,12 +231,17 @@ public class ExchangePointsDB {
 								new BasicDBObject("$in",itemIDs))
 						)
 				);
-
-
 	}
 	
 	
-
+	
+	
+	
+	
+	
+	/*
+	 * ************************A TESTER 
+	 */	
 	/**
 	 * Delete an exchange point subscribed by the user
 	 * @param id
@@ -230,9 +251,7 @@ public class ExchangePointsDB {
 		BasicDBObject update = new BasicDBObject("subscribers", new BasicDBObject("id_user", ownerID));
 		collection.update(match, new BasicDBObject("$pull", update));		
 	}
-
-
-
+	
 
 	public static void main(String[] args) {
 		collection.remove(new BasicDBObject());
@@ -258,30 +277,6 @@ public class ExchangePointsDB {
 		//				deleteExchangePoint("584c410d27360cb6adb9514b","58496e19273633e062a41acc");
 		//				System.out.println(userPoints("58496e19273633e062a41acc").next());
 	}
-
-
-	/**
-	 * Check if an user is a subscriber to an exchange point
-	 * @param id
-	 * @param userID
-	 * @return */
-	public static Boolean isMember(String id , String userID){
-		return collection.find(
-				new BasicDBObject()
-				.append("_id",id)
-				.append("subscribers.id_user",userID)).hasNext();
-	}
-
-
-	
-
-
-
-
-
-
-
-
 
 
 

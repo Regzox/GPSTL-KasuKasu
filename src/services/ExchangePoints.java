@@ -1,5 +1,8 @@
 package services;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,12 +48,12 @@ public class ExchangePoints {
 	public static void main(String[] args) throws DatabaseException, JSONException {
 		System.out.println(addExchangePoint(2,3,200,"5jhjy62hghfj5874gtg5","fac"));
 		System.out.println(addExchangePoint(2,3,500,"7jhjy62hghfj5874gtg5","maison"));
-		
+
 		//System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
 		//System.out.println(userPoints("Coucou"));
 	}		
-	
-	
+
+
 
 	/**
 	 * Subscribe to an existing exchange point
@@ -76,9 +79,9 @@ public class ExchangePoints {
 	 * @throws JSONException */
 	public static JSONObject updateExchangePoint(
 			String id,String userID,int radius,String name) throws JSONException{ 
-//		if(!ExchangePointsDB.isMember(id ,userID))
-//			return Tools.serviceRefused
-//					("Vous n'avez pas le droit de modifier ce point d'echange!", -1);
+		//		if(!ExchangePointsDB.isMember(id ,userID))
+		//			return Tools.serviceRefused
+		//					("Vous n'avez pas le droit de modifier ce point d'echange!", -1);
 		ExchangePointsDB.updateExchangePoint(id, userID, radius, name);
 		return Tools.serviceMessage(1);
 	}
@@ -105,18 +108,7 @@ public class ExchangePoints {
 
 
 	/**
-	 * Add a list of user's items to an exchange point in db
-	 * @param id
-	 * @param userID
-	 * @param items 
-	 * @throws JSONException */
-	public static JSONObject addBulkUserItemsToExchangePoint(String id,String userID, String[] items) throws JSONException{
-		ExchangePointsDB.addBulkUserItemsToExchangePoint(id, userID, items);
-		return Tools.serviceMessage(1);
-	}
-
-	/**
-	 * Return the list of user's subscribe exchange points
+	 * Return the list of user's subscribed exchange points
 	 * @param userID
 	 * @return */
 	public static JSONObject userPoints(String userID) throws DatabaseException, JSONException{
@@ -131,22 +123,22 @@ public class ExchangePoints {
 			int radius=0;
 			boolean trouve=false;
 			String id_user;
-			
+
 			while (i< bl.size() && trouve==false)				
 			{
-				 id_user= (String)((DBObject)bl.get(i)).get("id_user");
-				 if (id_user.equals(userID)) 
-					 {
-					    trouve=true;
-					    name = (String)((DBObject)bl.get(i)).get("name");
-					    radius = (int)((DBObject)bl.get(i)).get("radius");
-				    
-					    
-					 }
-				 else i++;
+				id_user= (String)((DBObject)bl.get(i)).get("id_user");
+				if (id_user.equals(userID)) 
+				{
+					trouve=true;
+					name = (String)((DBObject)bl.get(i)).get("name");
+					radius = (int)((DBObject)bl.get(i)).get("radius");
+
+
+				}
+				else i++;
 
 			}
-			
+
 			jar.put(new JSONObject()
 					.put("id",dbo.get("_id"))
 					.put("lat",dbo.get("lat"))
@@ -159,21 +151,24 @@ public class ExchangePoints {
 	public static void addItemToExPoint(String itemID,String exPointID,String userID){
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return ;
-		//ExchangePointsDB.addItemToExPoint(itemID, exPointID);
+		ExchangePointsDB.addItemsToExPoint(exPointID, userID, 
+				new HashSet<>(Arrays.asList(itemID)));
 	}
 
 
 	public static void removeItemFromExPoint(String itemID,String exPointID,String userID){
 		if(!ItemsDB.checkAthorization(userID,itemID))
 			return ;
-		ExchangePointsDB.removeItemFromExPoint(itemID, exPointID);
+		ExchangePointsDB.removeItemsFromExPoint(exPointID,userID,
+				new HashSet<String>(Arrays.asList(new String[]{itemID})));
 	}
 
 
+	/*TODO REVOIR ENTIEEMENT*/
 	public static JSONArray getItemExchangePoints(String itemID,String userID) throws JSONException{
 		/* o => BasicDBList */
 		if(!ItemsDB.checkAthorization(userID,itemID))
-			return null;
+			return null; //TODO DS KL ESPRIT CA A ETE ECRIT (SEUL LE PROPRIO PE VOIR WHY)
 		//BasicDBList o= (BasicDBList)ExchangePointsDB.getItemExchangePoints(itemID);
 		JSONArray js;
 		//if(o==null)
@@ -208,25 +203,24 @@ public class ExchangePoints {
 				if (i==bl.size()-1) name = name+ user_firstname+" "+ user_name+ "."; 
 				else name = name+ user_firstname+" "+ user_name+", ";
 			}
-			
-				JSONArray put = jar.put(new JSONObject()
-						.put("id",dbo.get("_id"))
-						.put("lat",dbo.get("lat"))
-						.put("name", name)
-						.put("lon",dbo.get("lon"))
-						.put("radius",dbo.get("rad")));
 
-	     }
+			jar.put(new JSONObject()
+					.put("id",dbo.get("_id"))
+					.put("lat",dbo.get("lat"))
+					.put("name", name)
+					.put("lon",dbo.get("lon"))
+					.put("radius",dbo.get("rad")));
+
+		}
 		return new JSONObject().put("expts",jar);
 	}
-	
+
 	public static JSONObject deleteExchangePoint(String id,String ownerID) throws JSONException 
 	{
 		ExchangePointsDB.deleteExchangePoint(id,ownerID);
 		return Tools.serviceMessage(1);
 
 	}
-
 
 
 }
