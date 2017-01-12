@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import dao.items.ItemsDB;
+import services.ExchangePoints;
 import servlets.tools.templates.online.OnlinePostServlet;
 import utils.ParametersChecker;
 
@@ -83,4 +85,5 @@ public class CreateObject extends OnlinePostServlet {
 		
 		logger.fine("Object " + request.getParameter("nom") + "added"); 
 	} 
+	
 }

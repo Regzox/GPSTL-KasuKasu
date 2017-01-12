@@ -298,10 +298,9 @@ function translation(dico,lang,fileName)
 			printHTML("#titre",traductions[k].expression);k=k+2;
 		}
 		if(id == "conversation.jsp" && fileName.search(id) != -1 && k< traductions.length)
-		{ alert('hello');
+		{ 
 			printHTML("#titre",traductions[k].expression);k=k+2;
-			//alert(docuement.getElementById("new_message-input").placeholder.value);
-			//docuement.getElementById("new_message-input").placeholder.value = traduction[k].expression;
+			document.getElementById("new_message-input").placeholder = traductions[k].expression;
 		}
 		if(id == "evaluation.jsp" && id == fileName && k< traductions.length)
 		{ 

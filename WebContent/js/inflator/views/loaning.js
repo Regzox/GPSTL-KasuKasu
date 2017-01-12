@@ -127,6 +127,7 @@ function refresh(result){
 }
 
 function makeReturnItemButton(loan) {
+	
 	var button = window.document.createElement("button");
 	if(bool==0)	
 		$(button).html("Rendre");

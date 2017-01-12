@@ -68,8 +68,12 @@ Item.prototype.getHTML=function(){
 	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
 	s+="<div class=\"item-more\">";
 	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
-	s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"iwantit_btn\" " +
-	"id=\"iwantit_btn"+this.id+"\" OnClick=\"request_item('"+this.id+"');\"/>\n";
+	if(bool==0)
+		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"iwantit_btn\" " +
+		"id=\"iwantit_btn"+this.id+"\" OnClick=\"request_item('"+this.id+"');\"/>\n";
+	if(bool==1)
+		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"I want it\" class=\"iwantit_btn\" " +
+		"id=\"iwantit_btn"+this.id+"\" OnClick=\"request_item('"+this.id+"');\"/>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
 	return s;
@@ -98,7 +102,11 @@ Item.prototype.getHTML2=function(){
 	" alt=\"Submit\" width=\"30\" type=\"image\" height=\"30\" " +
 	" src=\"icons/Empty_Trash_Filled-50.png\" class=\"iwantit_btn\" " +
 	"id=\"remove_item_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
-	s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='/KasuKasu/objectmanagement?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modifier</button>";
+	if(bool==0)
+		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='/KasuKasu/objectmanagement?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modifier</button>";
+	if(bool==1)
+		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='/KasuKasu/objectmanagement?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modify</button>";
+	
 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";

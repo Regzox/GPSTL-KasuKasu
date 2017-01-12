@@ -34,12 +34,13 @@
 <script type="text/ecmascript" src="/KasuKasu/js/translation.js"></script>
 
 </head>
-<body onload="trans();">
+<body>
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id="page">
 
 		<script type="text/javascript">
+		trans();
 		bool=0;
 		if(document.cookie.search("lang=en")!=-1)
 				bool=1;
