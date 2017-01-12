@@ -34,4 +34,5 @@ public class AddExchangePointServlet extends OnlinePostServlet {
 						)
 				);
 	}
+	
 }

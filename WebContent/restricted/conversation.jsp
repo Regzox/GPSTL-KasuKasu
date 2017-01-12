@@ -10,15 +10,19 @@
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
 <body id="gc-search"
-	onload="conversation('<%=request.getParameter("uther")%>')">
+	onload="trans(); conversation('<%=request.getParameter("uther")%>')">
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
-	<h1 align="center" class="title">
+	<h1  align="center" class="title">
+		<p id="titre">
 		Conversation avec
+		</p>
 		<%=request.getParameter("interlocutor")%>
 	</h1>
 	<br>

@@ -263,7 +263,11 @@ function translation(dico,lang,fileName)
 			printHTML("#prenom",traductions[k].expression);k=k+2;	
 			printHTML("#nom",traductions[k].expression);k=k+2;				
 			printHTML("#mail",traductions[k].expression);k=k+2;				
-			printHTML("#tel",traductions[k].expression);				
+			printHTML("#tel",traductions[k].expression);k=k+2;
+			//printHTML("#contact",traductions[k].expression);
+			document.getElementById("contact").value = traductions[k].expression;
+
+
 		}
 		if(id == "groupmembers.jsp" && fileName.search(id)!=-1 && k< traductions.length)
 		{ 
@@ -288,6 +292,16 @@ function translation(dico,lang,fileName)
 			printHTML("#range",traductions[k].expression);k=k+2;			
 			printHTML("#ferm",traductions[k].expression);k=k+2;			
 			printHTML("#enreg",traductions[k].expression);k=k+2;						
+		}
+		if(id == "messenger.jsp" && id == fileName && k< traductions.length)
+		{ 
+			printHTML("#titre",traductions[k].expression);k=k+2;
+		}
+		if(id == "conversation.jsp" && fileName.search(id) != -1 && k< traductions.length)
+		{ alert('hello');
+			printHTML("#titre",traductions[k].expression);k=k+2;
+			//alert(docuement.getElementById("new_message-input").placeholder.value);
+			//docuement.getElementById("new_message-input").placeholder.value = traduction[k].expression;
 		}
 		if(id == "evaluation.jsp" && id == fileName && k< traductions.length)
 		{ 

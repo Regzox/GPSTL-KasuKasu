@@ -72,7 +72,7 @@
 		</div>
 		<br> <br>
 		<div id="profile-action">
-			<a class="contact-user"
+			<a id="contact" class="contact-user"
 				href="http://localhost:8080/KasuKasu/conversation.jsp?uther=<%=user.getId()%>
 				&interlocutor=<%=user.getName()%> <%=user.getFirstname()%>">
 				Contacter</a>

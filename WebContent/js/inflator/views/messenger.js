@@ -1,7 +1,12 @@
 /**
  *Messenger  
  */
-
+bool=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool=0;
 MESSAGESMAP = new Map();
 SPEAKERSMAP = new Map();
 
@@ -86,7 +91,12 @@ Message.TraiteReponse = function(result){
 
 	var fhtm="<div id=\"universalBox\">\n";		
 	if(messages.length==0)
-		fhtm+="<h2 class=\"nothing\">Commencez par ecrire un premier message</h2>";
+	{
+		if(bool == 0)
+			fhtm+="<h2 class=\"nothing\">Commencer par écrire un premier message</h2>";
+		if(bool == 1)
+			fhtm+="<h2 class=\"nothing\">Start by writing a first message</h2>";
+	}
 
 	for(var i=0;i<messages.length;i++)
 		//alert("messages[i] : "+JSON.stringify(messages[i]));
@@ -143,7 +153,13 @@ Speaker.traiteReponse = function (result){
 
 	var fhtm="<div id=\"universalBox\">\n";		
 	if(speakers.length==0)
-		fhtm+="<h2 class=\"nothing\">Commencez par demarrer une conversation</h2>";
+	{
+		if(bool==0)
+			fhtm+="<h2 class=\"nothing\">Démarrer une conversation</h2>";
+		
+		if(bool==1)
+			fhtm+="<h2 class=\"nothing\">Start a conversation</h2>";
+	}
 
 	for(var i=0;i<speakers.length;i++)
 		//alert("messages[i] : "+JSON.stringify(speakers[i]));
