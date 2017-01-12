@@ -1,9 +1,9 @@
 bool=0;
 if(document.cookie.search("lang=en")!=-1)
-		bool=1;
-	else
-		if(document.cookie.search("lang=fr")!=-1)
-			bool=0;
+	bool=1;
+else
+	if(document.cookie.search("lang=fr")!=-1)
+		bool=0;
 function Loan(loan_id,item,title,debut,fin){
 	//alert("new Loan("+loan_id+","+item+","+title+","+debut+","+fin+")");
 	this.loan_id=loan_id;
@@ -14,7 +14,7 @@ function Loan(loan_id,item,title,debut,fin){
 } 
 
 
-function request_item(id){	
+function request_item_query(id){	
 	$.ajax({
 		type : "POST",
 		url : "/KasuKasu/requestitem",
@@ -26,6 +26,52 @@ function request_item(id){
 		}
 	});
 }
+
+//Request item process
+//1) Show date/time dialog
+//2) Send query
+function request_item(id){	
+// TODO: Uncomment for date begin end dialog
+//	// Add DataPickerHTML
+//	$( "#datePickerDialog" ).html(
+//			"<div id='myModal' class='modal'>\n" +
+//				"<div class='modal-content'>\n"+
+//				 "<span class='close'>&times;</span>"+
+//				 "<table>"+
+//				 "<tr>"+
+//				 	"<td>"+
+//					"<div class='begin_section'>\n" +
+//						"<div id='date_begin'></div>\n" +
+//						"</div>\n" +
+//						"</td>"+
+//						"<td>"+
+//						"<div class='end_section'>\n" +
+//						"<div id='date_end'></div>\n" +
+//						"</div>\n" +
+//						"</td>"+
+//					"</div>\n"+
+//				"</tr>"+
+//				"</table>"+
+//			"</div>\n"
+//	);
+//
+//	
+//	 
+//	// Show jquery data pickers 
+//	$('#date_begin').datepicker();
+//	$('#date_end').datepicker();
+//	
+//	// Show popUp
+//	$("#myModal").css("display", "block");
+//	$(".close").click( 
+//			function() {$("#myModal").css("display", "none");}
+//			
+//	);
+
+	request_item_query(id);
+
+}
+
 
 function loaning_request_response(rep){	
 	//alert("afficher modal"); //afficher modal TODO
@@ -73,30 +119,30 @@ function find_user_loans(){
 
 
 list_loaning_response = function(json)
- {var jsob =JSON.parse(JSON.stringify(json),mirror);
-	loans = jsob.loans;
-	if(jsob.error==undefined){
-		var fhtm="<br><div id=\"loansBox\">";	
+{var jsob =JSON.parse(JSON.stringify(json),mirror);
+loans = jsob.loans;
+if(jsob.error==undefined){
+	var fhtm="<br><div id=\"loansBox\">";	
 
-		if(loans.length==0 && bool==0)	
-			fhtm+="<h3>Vous n'avez emprunté aucun objet.</h3>";
-		if(loans.length==0 && bool==1)	
-			fhtm+="<h3>You haven't borrowed any item.</h3>";
+	if(loans.length==0 && bool==0)	
+		fhtm+="<h3>Vous n'avez emprunté aucun objet.</h3>";
+	if(loans.length==0 && bool==1)	
+		fhtm+="<h3>You haven't borrowed any item.</h3>";
 
-		for(var i in loans)
-			fhtm+= loans[i].getHTML();
-		
-		fhtm+="</div>\n"; 
-		printHTML("#found-loans",fhtm);
-		
-		for (var loan of loans) {
-			console.log(loan);
-			$("#item-title" + loan.loan_id).append(makeReturnItemButton(loan));
-		}
-		
-	}else
-		console.log("server error ! : " +jsob.error+"\n");
- }
+	for(var i in loans)
+		fhtm+= loans[i].getHTML();
+
+	fhtm+="</div>\n"; 
+	printHTML("#found-loans",fhtm);
+
+	for (var loan of loans) {
+		console.log(loan);
+		$("#item-title" + loan.loan_id).append(makeReturnItemButton(loan));
+	}
+
+}else
+	console.log("server error ! : " +jsob.error+"\n");
+}
 
 Loan.prototype.getHTML=function(){  
 	//alert("Loan ->getHtml ");
@@ -123,11 +169,11 @@ function refresh(result){
 	if(result.error!=undefined)
 		fillNOTIFIER(result.error);
 	else
-	window.location.reload();
+		window.location.reload();
 }
 
 function makeReturnItemButton(loan) {
-	
+
 	var button = window.document.createElement("button");
 	if(bool==0)	
 		$(button).html("Rendre");
@@ -141,6 +187,6 @@ function makeReturnItemButton(loan) {
 			window.location.reload();
 		});
 	});
-	
+
 	return button;
 }
