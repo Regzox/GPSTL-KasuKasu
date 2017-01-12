@@ -40,7 +40,12 @@
 	<div id="page">
 
 		<script type="text/javascript">
-		
+		bool=0;
+		if(document.cookie.search("lang=en")!=-1)
+				bool=1;
+			else
+				if(document.cookie.search("lang=fr")!=-1)
+					bool=0;
 		var notifier = undefined;
 		
 		function loadEvaluationRequestNotifications () {
@@ -130,20 +135,35 @@
 								erqn.profile.imageDimensions(150, 150);
 						        erqn.profile.idLabel("Id");
 						        erqn.profile.id(array[i].senderId);
-								erqn.profile.firstnameLabel("Prénom");
+						        if(bool==0)
+									erqn.profile.firstnameLabel("Prénom");
+						        if(bool==1)
+									erqn.profile.firstnameLabel("First name");
 								erqn.profile.firstname(array[i].senderFirstname);
-								erqn.profile.lastnameLabel("Nom");
+								if(bool==0)
+									erqn.profile.lastnameLabel("Nom");
+								if(bool==1)
+									erqn.profile.lastnameLabel("Last name");
 								erqn.profile.lastname(array[i].senderLastname);
 								
 						        erqn.evaluation.itemWrapper.idLabel("Id");
 						        erqn.evaluation.itemWrapper.id(array[i].itemId);
-						        erqn.evaluation.itemWrapper.titleLabel("Titre");
+						        if(bool==0)
+						       		erqn.evaluation.itemWrapper.titleLabel("Titre");
+						        if(bool==1)
+						       		erqn.evaluation.itemWrapper.titleLabel("Title");
 						        erqn.evaluation.itemWrapper.title(array[i].itemTitle);
 						        erqn.evaluation.itemWrapper.descriptionLabel("Description");
 						        erqn.evaluation.itemWrapper.description(array[i].itemDescription);
 						        
-						        erqn.evaluation.evaluationWrapper.commentLabel("Commentaire");
-						        erqn.evaluation.evaluationWrapper.markLabel("Note");
+						        if(bool==0)
+						        	erqn.evaluation.evaluationWrapper.commentLabel("Commentaire");
+						        if(bool==1)
+						        	erqn.evaluation.evaluationWrapper.commentLabel("Comment");
+						        if(bool==0)
+						        	erqn.evaluation.evaluationWrapper.markLabel("Note");
+						        if(bool==1)
+							        erqn.evaluation.evaluationWrapper.markLabel("Mark");
 								
 								$(notifier._dom).append(erqn.dom);
 							}
@@ -187,21 +207,40 @@
 								ersn.profile.imageDimensions(150, 150);
 								ersn.profile.idLabel("Id");
 								ersn.profile.id(ersn_data.senderId);
-								ersn.profile.firstnameLabel("Prénom");
+								if(bool==0)
+									ersn.profile.firstnameLabel("Prénom");
+								if(bool==1)
+									ersn.profile.firstnameLabel("First name");
+									
 								ersn.profile.firstname(ersn_data.senderFirstname);
-								ersn.profile.lastnameLabel("Nom");
+								if(bool==0)
+									ersn.profile.lastnameLabel("Nom");
+								if(bool==1)
+									ersn.profile.lastnameLabel("Last name");
+									
 								ersn.profile.lastname(ersn_data.senderLastname);
 								
 								ersn.evaluation.itemWrapper.idLabel("Id");
 								ersn.evaluation.itemWrapper.id(ersn_data.itemId);
-								ersn.evaluation.itemWrapper.titleLabel("Titre");
+								if(bool==0)
+									ersn.evaluation.itemWrapper.titleLabel("Titre");
+								if(bool==1)
+									ersn.evaluation.itemWrapper.titleLabel("Title");
+								
 								ersn.evaluation.itemWrapper.title(ersn_data.itemTitle);
 								ersn.evaluation.itemWrapper.descriptionLabel("Description");
 								ersn.evaluation.itemWrapper.description(ersn_data.itemDescription);
-				                
-								ersn.evaluation.evaluationWrapper.commentLabel("Commentaire");
+								
+								if(bool==0)
+									ersn.evaluation.evaluationWrapper.commentLabel("Commentaire");
+								if(bool==1)
+									ersn.evaluation.evaluationWrapper.commentLabel("Comment");
+									
 								ersn.evaluation.evaluationWrapper.comment(ersn_data.comment);
-								ersn.evaluation.evaluationWrapper.markLabel("Note");
+								if(bool==0)
+									ersn.evaluation.evaluationWrapper.markLabel("Note");
+								if(bool==1)
+									ersn.evaluation.evaluationWrapper.markLabel("Mark");
 								ersn.evaluation.evaluationWrapper.mark = ersn_data.mark;
 								
 								$(notifier._dom).append(ersn.dom);

@@ -1,3 +1,9 @@
+bool=0;
+if(document.cookie.search("lang=en")!=-1)
+		bool=1;
+	else
+		if(document.cookie.search("lang=fr")!=-1)
+			bool=0;
 class EvaluationWrapper extends Element {
     
     constructor (id, tagName) {
@@ -9,11 +15,19 @@ class EvaluationWrapper extends Element {
             .attr("id", id + "-comment-label")
             .attr("class", "comment-label");
         
-        this.dom_comment = $(document.createElement("textarea"))
-            .attr("rows", "3")
-            .attr("id", id + "-comment")
-            .attr("class", "comment")
-            .attr("placeholder", "Type your comment");
+        if(bool==0)
+	        this.dom_comment = $(document.createElement("textarea"))
+	            .attr("rows", "3")
+	            .attr("id", id + "-comment")
+	            .attr("class", "comment")
+	            .attr("placeholder", "Saisir un commentaire");
+        
+        if(bool==1)
+	        this.dom_comment = $(document.createElement("textarea"))
+	            .attr("rows", "3")
+	            .attr("id", id + "-comment")
+	            .attr("class", "comment")
+	            .attr("placeholder", "Type a comment");
         
         this.dom_mark_label = $(document.createElement(this.tagName))
             .attr("id", id + "-mark-label")

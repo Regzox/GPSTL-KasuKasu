@@ -1057,6 +1057,14 @@
 			{
 				"langue" : "en-GB",
 				"expression" : "Phone number"
+			},
+			{
+				"langue" : "fr-FR",
+				"expression" : "Contacter"
+			},
+			{
+				"langue" : "en-GB",
+				"expression" : "Contact"
 			}
 		]
 	},
@@ -1088,6 +1096,44 @@
 			{
 				"langue" : "en-GB",
 				"expression" : "Upload"
+			}
+		]
+	},
+	{
+		"id" : "messenger.jsp",
+		"type" : "traduction",
+		"traductions" : 
+		[
+			{
+				"langue" : "fr-FR",
+				"expression" : "Toutes mes conversations"
+			},
+			{
+				"langue" : "en-GB",
+				"expression" : "All my conversations"
+			}
+		]
+	},
+	{
+		"id" : "conversation.jsp",
+		"type" : "traduction",
+		"traductions" : 
+		[
+			{
+				"langue" : "fr-FR",
+				"expression" : "Conversation avec"
+			},
+			{
+				"langue" : "en-GB",
+				"expression" : "Conversation with"
+			},
+			{
+				"langue" : "fr-FR",
+				"expression" : "Ecrivez un nouveau message a <%=request.getParameter("interlocutor")%>",
+			},
+			{
+				"langue" : "en-GB",
+				"expression" : "Write a new message to <%=request.getParameter("interlocutor")%>"
 			}
 		]
 	}
