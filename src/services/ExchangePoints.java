@@ -15,6 +15,7 @@ import com.mongodb.DBObject;
 import dao.ExchangePointsDB;
 import dao.items.ItemsDB;
 import dao.users.UserDao;
+import entities.User;
 import exceptions.DatabaseException;
 import utils.Tools;
 
@@ -46,8 +47,9 @@ public class ExchangePoints {
 	}
 
 	public static void main(String[] args) throws DatabaseException, JSONException {
-		System.out.println(addExchangePoint(2,3,200,"5jhjy62hghfj5874gtg5","fac"));
-		System.out.println(addExchangePoint(2,3,500,"7jhjy62hghfj5874gtg5","maison"));
+		//System.out.println(addExchangePoint(2,3,200,"5jhjy62hghfj5874gtg5","fac"));
+		//System.out.println(addExchangePoint(2,3,500,"7jhjy62hghfj5874gtg5","maison"));
+		System.out.println(userPointDetail("586e8cd92736d4e126b99c07", 6250249.17563, 261632.91313));
 
 		//System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
 		//System.out.println(userPoints("Coucou"));
@@ -221,6 +223,21 @@ public class ExchangePoints {
 		return Tools.serviceMessage(1);
 
 	}
+	
+	public static JSONObject userPointDetail(String userID, double lat,double lon) throws JSONException 
+	{
+		DBObject dbc = ExchangePointsDB.userPointDetail(userID,lat,lon);
+		BasicDBList bl = new BasicDBList();
+		bl = (BasicDBList) dbc.get("subscribers");
+		JSONObject jo = new JSONObject(); 
+		jo.put("id", dbc.get("_id").toString());
+		jo.put("name", ((DBObject)bl.get(0)).get("name"));
+		jo.put("radius", ((DBObject)bl.get(0)).get("radius"));
+		return jo;
+
+	}
+	
+
 
 
 }

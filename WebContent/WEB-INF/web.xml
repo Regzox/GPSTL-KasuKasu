@@ -531,4 +531,14 @@
     <servlet-name>RestartCUAProgramServlet</servlet-name>
     <url-pattern>/cuarestart</url-pattern>
   </servlet-mapping>  
+    <servlet>
+    <description></description>
+    <display-name>GetPointMarkerDetail</display-name>
+    <servlet-name>GetPointMarkerDetail</servlet-name>
+    <servlet-class>servlets.GetPointMarkerDetail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPointMarkerDetail</servlet-name>
+    <url-pattern>/GetPointMarkerDetail</url-pattern>
+  </servlet-mapping> 
 </web-app>

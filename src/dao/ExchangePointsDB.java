@@ -106,6 +106,8 @@ public class ExchangePointsDB {
 				new BasicDBObject()
 				.append("subscribers.id_user",userID));}
 	
+
+	
 	
 	/**
 	 * ADMIN FUNCTION  : get an exchange point by latitude longitude 
@@ -121,6 +123,9 @@ public class ExchangePointsDB {
 				.append("lon",lon)
 				);
 	}
+	
+	
+
 
 	/**
 	 * ADMIN FUNCTION  : get an exchange point by his id  
@@ -357,6 +362,15 @@ public class ExchangePointsDB {
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));	
 	}
+	
+	
+	public static DBObject userPointDetail(String userID, double lat,double lon) { 
+		return collection.findOne(
+				new BasicDBObject()
+				.append("lat",lat)
+				.append("lon",lon)
+				.append("subscribers.id_user",userID)
+				);}
 
 
 
