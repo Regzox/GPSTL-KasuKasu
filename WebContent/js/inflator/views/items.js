@@ -44,6 +44,9 @@ Item.traiteReponseJSON=function(json){
 				//alert("JSOB.htmling : "+items[i].getHTML());
 			}
 		}		
+		
+		// DatePickerDialog
+		fhtm+="<div id='datePickerDialog'></div>"; 
 		fhtm+="</div>\n"; 
 		//alert("items.html = "+fhtm);  
 		printHTML("#found-items",fhtm); 
