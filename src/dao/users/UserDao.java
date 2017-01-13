@@ -23,6 +23,7 @@ import dao.search.ObjetRSV;
 import dao.search.PatternsHolder;
 import dao.tools.DataEncryption;
 import entities.User;
+import enumerations.Status.STATUS;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
@@ -327,11 +328,117 @@ public class UserDao {
 		if(nb>0)	testAdd(prev,--nb);
 	}
 
+	public static DBObject getUser(String id) throws UserNotFoundException, UserNotUniqueException{
+		DBCursor dbc = collection.find(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id)));
 
+		if (!dbc.hasNext())
+			throw new UserNotFoundException();
+
+		if (dbc.count()>1)
+			throw new UserNotUniqueException();
+
+		DBObject user = dbc.next();
+		return user;
+	}
+	
+	public static void setStatus(String userId,STATUS status){
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(userId))
+				,new BasicDBObject()
+				.append("$set",
+						new BasicDBObject()						
+						.append("status",status.toString())));
+	}
+	
+	public static void setAdmin(String userId){
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(userId))
+				,new BasicDBObject()
+				.append("$set",
+						new BasicDBObject()						
+						.append("isAdmin","true")));
+	}
+	
+	public static void unsetAdmin(String userId){
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(userId))
+				,new BasicDBObject()
+				.append("$set",
+						new BasicDBObject()						
+						.append("isAdmin","false")));
+	}
+	
+	public static boolean isAdmin(String userId) throws UserNotFoundException, UserNotUniqueException{
+		DBObject user = getUser(userId);
+		String status;
+		try{
+		 status=user.get("isAdmin").toString();
+		 return status.compareTo("true")==0;
+		}catch(Exception e){
+			return false;
+		}
+	}
+
+	public static void freeze(String userId) throws UserNotFoundException, UserNotUniqueException {
+		if(isNormal(userId))
+		setStatus(userId,STATUS.FROZEN);
+	}
+
+	public static void unfreeze(String userId) throws UserNotFoundException, UserNotUniqueException {
+		if(isFrozen(userId))
+		setStatus(userId,STATUS.NORMAL);
+	}
+
+	public static void ban(String userId) {
+		setStatus(userId,STATUS.BANNED);
+	}
+	
+	public static void unban(String userId) throws UserNotFoundException, UserNotUniqueException {
+		if(isBanned(userId))
+		setStatus(userId,STATUS.NORMAL);
+	}
+
+	public static boolean isFrozen(String userId) throws UserNotFoundException, UserNotUniqueException {
+		return getStatus(userId).equals(STATUS.FROZEN);
+	}
+
+	public static boolean isBanned(String userId) throws UserNotFoundException, UserNotUniqueException {
+		return getStatus(userId).equals(STATUS.BANNED);
+	}
+
+	public static boolean isNormal(String userId) throws UserNotFoundException, UserNotUniqueException{
+		return getStatus(userId).equals(STATUS.NORMAL);
+	}
+
+	public static STATUS getStatus(String userId) throws UserNotFoundException, UserNotUniqueException{
+		DBObject user = getUser(userId);
+		String status;
+		try{
+		 status=user.get("status").toString();
+		}catch(Exception e){
+			return STATUS.NORMAL;
+		}
+
+		switch(status){
+		case "FROZEN" :
+			return STATUS.FROZEN;
+		case "BANNED" :
+			return STATUS.BANNED;
+		default:
+			return STATUS.NORMAL;
+		}
+	}
 	/**
 	 * local test
-	 * @param args */
-	public static void main(String[] args){
+	 * @param args 
+	 * @throws UserNotUniqueException 
+	 * @throws UserNotFoundException */
+	public static void main(String[] args) throws UserNotFoundException, UserNotUniqueException{
 		//testAdd("j",7);
 		//addUser("joujou@ondabeat.fr", "hardtobreakpassword", "je", "lola", "0122345896");
 		//deleteUnconfirmedAccounts();
@@ -343,6 +450,39 @@ public class UserDao {
 		//System.out.println(Pattern.compile(
 		//PatternsHolder.nums).matcher("02287282").matches());
 		//String password = "MyPasswo3";
-		//System.out.println("MD5 in hex: " + DataEncryption.md5(password));			
+		//System.out.println("MD5 in hex: " + DataEncryption.md5(password));
+		
+//		System.out.println("**UNBAN**");
+//		unban("58593a49cc29874daef62069");
+//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//
+//		System.out.println("**FREEZE**");
+//		freeze("58593a49cc29874daef62069");
+//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		
+//		System.out.println("**BAN**");
+//		ban("58593a49cc29874daef62069");
+//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		
+//		System.out.println("**FREEZE**");
+//		freeze("58593a49cc29874daef62069");
+//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		
+//		System.out.println("**UNFREEZE**");
+		unfreeze("58593a49cc29874daef62069");
+		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		
+//		System.out.println("**UNBAN**");
+//		unban("58593a49cc29874daef62069");
+//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+		
+		//setAdmin("58593a49cc29874daef62069");
+		//System.out.println(isAdmin("58593a49cc29874daef62069"));
+//		
+//		unsetAdmin("58593a49cc29874daef62069");
+//		System.out.println(isAdmin("58593a49cc29874daef62069"));
+		
+//		confirmUser("58593a49cc29874daef62069");
+		
 	}
 }

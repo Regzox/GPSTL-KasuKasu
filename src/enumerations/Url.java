@@ -32,7 +32,8 @@ public enum Url {
 	IMPORTLIEU("/importpoint.jsp"),
 	LISTLIEU("/restricted/listpoint.jsp"),
 	CONVERSATION("/restricted/messenger.jsp"),
-	EVALUATION("/restricted/evaluation.jsp");
+	EVALUATION("/restricted/evaluation.jsp"),
+	USER_PROFILE("/restricted/memberprofile.jsp");
 
 
 

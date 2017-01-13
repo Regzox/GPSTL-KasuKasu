@@ -531,4 +531,14 @@
     <servlet-name>RestartCUAProgramServlet</servlet-name>
     <url-pattern>/cuarestart</url-pattern>
   </servlet-mapping>  
+      <servlet>
+    <description></description>
+    <display-name>AdminUserManagementServlet</display-name>
+    <servlet-name>AdminUserManagementServlet</servlet-name>
+    <servlet-class>servlets.AdminUserManagementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminUserManagementServlet</servlet-name>
+    <url-pattern>/admin/user</url-pattern>
+  </servlet-mapping>
 </web-app>

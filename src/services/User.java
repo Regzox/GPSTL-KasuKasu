@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import dao.search.ObjetRSV;
 import dao.users.UserDao;
 import dao.users.UsersImagesDao;
+import enumerations.Status;
+import enumerations.Status.STATUS;
 import exceptions.StringNotFoundException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
@@ -346,6 +348,41 @@ public class User {
 		return new JSONObject().put("users",jar);
 	}
 
+	public static void freeze(String userId) throws UserNotFoundException, UserNotUniqueException {
+		UserDao.freeze(userId);
+	}
+
+	public static void unfreeze(String userId) throws UserNotFoundException, UserNotUniqueException {
+		UserDao.unfreeze(userId);
+	}
+
+	public static void ban(String userId) {
+		UserDao.ban(userId);
+	}
+	
+	public static boolean isFrozen(String userId) throws UserNotFoundException, UserNotUniqueException{
+		return UserDao.isFrozen(userId);
+	}
+	
+	public static boolean isBanned(String userId) throws UserNotFoundException, UserNotUniqueException{
+		return UserDao.isBanned(userId);
+	}
+	
+	public static boolean isNormal(String userId) throws UserNotFoundException, UserNotUniqueException{
+		return UserDao.isNormal(userId);
+	}
+	
+	public static void setStatus(String userId,STATUS status){
+		UserDao.setStatus(userId, status);
+	}
+	public static STATUS getStatus(String userId) throws UserNotFoundException, UserNotUniqueException{
+		return UserDao.getStatus(userId);
+	}
+	
+	public static boolean isAdmin(String userId) throws UserNotFoundException, UserNotUniqueException{
+		return UserDao.isAdmin(userId);
+	}
+	
 	/**
 	 * Local tests
 	 * @param args
@@ -354,5 +391,9 @@ public class User {
 		System.out.println("main : findUser : "+findUser("5856f940a7705c0d0f55e35f",""));
 		System.out.println("main : findFriends : "+findFriends("5851476fd4fa474871be3d76","zoro tutanck"));
 	}
+
+
+
+
 
 }

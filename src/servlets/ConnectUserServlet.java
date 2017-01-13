@@ -9,9 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.json.JSONObject;
-
 import services.User;
 import servlets.tools.ServletToolBox;
 import servlets.tools.templates.offline.OfflinePostServlet;
@@ -42,6 +40,11 @@ public class ConnectUserServlet extends OfflinePostServlet {
 				HttpSession session=request.getSession();
 				request.getSession().setMaxInactiveInterval(3600*24);//24 inactive hours before session invalidation
 				session.setAttribute("userId", user.getId());
+				String ia="false";
+				if(User.isAdmin(user.getId()))
+					ia="true";
+				session.setAttribute("isAdmin",ia);
+
 				//send cookie
 				Cookie cookieId = new Cookie("userId", user.getId());
 				response.addCookie(cookieId);
