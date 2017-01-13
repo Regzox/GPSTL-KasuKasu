@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import services.ExchangePoints;
-import services.Items;
 import servlets.tools.templates.online.OnlineGetServlet;
 
 public class GetPointMarkerDetail extends OnlineGetServlet {

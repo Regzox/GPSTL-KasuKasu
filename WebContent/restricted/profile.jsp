@@ -93,6 +93,9 @@
 
 	window.onload = function () {
 		fillMyProfile();
+		
+		$("#modif").attr("href", modifyUser_jsp);
+		$("#photo").attr("href", upload_jsp);
 	}
 			
 </script>
@@ -111,13 +114,9 @@
 
 		<%@ include file="/fragments/profile.jspf"%>
 		<br /> 
-		<a id='modif' href='<%= Url.MODIFY_USER.value() %>'> Modifier mes informations</a> 
+		<a id='modif' > Modifier mes informations</a> 
 		<br /> 
-		<a id='photo' href='<%= Url.UPLOAD.value() %>'> 	Changer de photo</a>
-
-
-
-
+		<a id='photo' > 	Changer de photo</a>
 
 	</div>
 

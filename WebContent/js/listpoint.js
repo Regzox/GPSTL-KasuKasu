@@ -7,7 +7,7 @@ bool=0;
 function userPoints(){
 		$.ajax({
 			type : "GET",
-			url : "/KasuKasu/PointsUserList",
+			url : PointsUserList,
 			data : "",
 			dataType : "JSON",
 			success : ProcessRetrievePoints,
@@ -93,7 +93,7 @@ function Delete(id)
 {
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/DeleteExchangePointServlet",
+		url : DeleteExchangePointServlet,
 		data : "id="+id,
 		dataType : "JSON",
 		success : function (data)
@@ -108,7 +108,7 @@ function Delete(id)
 	    		    });
 	    	       
 	    	       $("#myModal").on('hidden.bs.modal', function () {
-	    	           window.location.href = "/KasuKasu/restricted/listpoint.jsp";
+	    	           window.location.href = listpoint_jsp;
 	    	       });
 	        	}
 		},		error : function(xhr,status,errorthrown){
@@ -151,7 +151,7 @@ function updatePoint(id,radius,name)
 {
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/updateexchangepoint",
+		url : UpdateExchangePointServlet,
 		data : "id=" + id + "&radius=" + radius + "&name=" + name, 
 		dataType : "JSON",
 		success : function (data)
@@ -168,7 +168,7 @@ function updatePoint(id,radius,name)
 	    		    });
 	    	       
 	    	       $("#myModal").on('hidden.bs.modal', function () {
-	    	           window.location.href = "/KasuKasu/restricted/listpoint.jsp";
+	    	           window.location.href = listpoint_jsp;
 	    	       });
 	        	}
 		},		error : function(xhr,status,errorthrown){

@@ -17,7 +17,7 @@ function Loan(loan_id,item,title,debut,fin){
 function request_item_query(id){	
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/requestitem",
+		url : RequestItemServlet,
 		data : "id=" +id,
 		dataType : "JSON",
 		success : loaning_request_response,
@@ -81,7 +81,7 @@ function loaning_request_response(rep){
 function accept_item_request(id_applicant, id_item){	
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/acceptrequests",
+		url : AcceptRequestsServlet,
 		data : "applicant="+id_applicant+"&item="+id_item,
 		dataType : "JSON",
 		success : loaning_request_response,
@@ -94,7 +94,7 @@ function accept_item_request(id_applicant, id_item){
 function refuse_item_request(id){	
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/refuserequests",
+		url : RefuseRequestsServlet,
 		data : "id=" +id,
 		dataType : "JSON",
 		success : loaning_request_response,
@@ -108,7 +108,7 @@ function refuse_item_request(id){
 function find_user_loans(){	
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/applicantloaning",
+		url : ApplicantLoaningServlet,
 		dataType : "JSON",
 		success : list_loaning_response,
 		error : function(xhr,status,errorthrown){
@@ -149,7 +149,7 @@ Loan.prototype.getHTML=function(){
 	var s;
 	s="<div class=\"loanBox\" id=\"loanBox"+ this.loan_id +"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+ this.loan_id +"\">";
-	s+="<a href=/KasuKasu/item.jsp?id="+ this.item +"&title="+ this.title +">";
+	s+="<a href=" + item_jsp + "?id="+ this.item +"&title="+ this.title +">";
 	s+="<b>"+ this.title +"</b>";
 	s+="</a>";
 	s+="</div>\n";	

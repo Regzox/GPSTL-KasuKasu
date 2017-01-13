@@ -60,7 +60,7 @@ Item.prototype.getHTML=function(){
 	var s;
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
-	s+="<a href=/KasuKasu/item.jsp?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
+	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
 	s+="<b>"+this.title+"</b>";
 	s+="</a>";
 	s+="</div>\n";	
@@ -88,7 +88,7 @@ Item.prototype.getHTML2=function(){
 	var s;
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
-	s+="<a href=/KasuKasu/item.jsp?id="+this.id+"&title="+this.title+">";
+	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">";
 	s+="<b>"+this.title+"</b>";
 	s+="</a>";
 	s+="</div>\n";		
@@ -106,9 +106,9 @@ Item.prototype.getHTML2=function(){
 	" src=\"icons/Empty_Trash_Filled-50.png\" class=\"iwantit_btn\" " +
 	"id=\"remove_item_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
 	if(bool==0)
-		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='/KasuKasu/objectmanagement?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modifier</button>";
+		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modifier</button>";
 	if(bool==1)
-		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='/KasuKasu/objectmanagement?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modify</button>";
+		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modify</button>";
 	
 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+="</div>";
@@ -120,7 +120,7 @@ Item.prototype.getHTML2=function(){
 function searchMRItems(query){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/searchitems",
+		url : SearchItemsServlet,
 		data : "query=" +query,
 		dataType : "JSON",
 		success : Item.traiteReponseJSON,
@@ -143,7 +143,7 @@ function filterUserItems(query){
 function userItems(query){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/useritems",
+		url : UserItemsServlet,
 		data : "query=" +query,
 		dataType : "JSON",
 		success : Item.traiteReponseJSON,
@@ -158,7 +158,7 @@ function item_applicants(id) {
 
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/itemapplicantslist",
+		url : ItemApplicantsListServlet,
 		data : "id=" +id,
 		dataType : "JSON",
 		success : ProcessFindApplicants,
@@ -173,7 +173,7 @@ function removeItem(id) {
 
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/removeitem",
+		url : RemoveItemServlet,
 		data : "id=" +id,
 		dataType : "JSON",
 		success : refresh,
@@ -205,7 +205,7 @@ function reset_applicants_shared_div(id){
 function getItem(id){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/getitem",
+		url : GetItemServlet,
 		data : "id=" +id,
 		dataType : "JSON",
 		success : Item.traiteReponseJSON,
@@ -259,7 +259,7 @@ function ProcessFindApplicants(rep) {
 						"<tr>" +
 						"<td>"+x+"</td>" +
 						"<td>"+y+"</td>"+
-						"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Afficher le profil </a></td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher le profil </a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
@@ -271,7 +271,7 @@ function ProcessFindApplicants(rep) {
 						"<tr>" +
 						"<td>"+x+"</td>" +
 						"<td>"+y+"</td>"+
-						"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Show profile </a></td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+

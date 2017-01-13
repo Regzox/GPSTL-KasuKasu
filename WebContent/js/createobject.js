@@ -224,7 +224,7 @@ function send(nom, description, result, result2)
 
 	$.ajax({
 	type : "POST",
-	url : "/KasuKasu/createobject",
+	url : CreateObject,
 
 	data : "nom=" + nom + "&description=" + description + "&groupe=" + json + "&coordonnees=" + json2, 
 
@@ -241,7 +241,7 @@ function send(nom, description, result, result2)
     		    });
     	       
     	       $("#myModal").on('hidden.bs.modal', function () {
-    	           window.location.href = "/KasuKasu/useritems.jsp";
+    	           window.location.href = useritems_jsp;
     	       });
         	}
 	},
@@ -263,7 +263,7 @@ function printHTML(dom,htm)
 function userGroups(){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/usergroups",
+		url : UserGroupsServlet,
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse,
@@ -365,7 +365,7 @@ function traiteReponse(json)
 function userPoints(){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/PointsUserList",
+		url : PointsUserList,
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse2,
@@ -388,7 +388,7 @@ function traiteReponse2(json)
 	{ 
         $('#ajout').show();
         $("#ajout").click(function(){
-	           window.location.href = "/KasuKasu/addpoint.jsp";
+	           window.location.href = addpoint_jsp;
 	          return false;
         }); 
     }

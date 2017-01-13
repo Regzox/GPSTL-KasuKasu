@@ -8,8 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import fr.upmc.file.Resource;
 import services.ExchangePoints;
 import services.Groups;
 import services.Items;
@@ -17,6 +20,14 @@ import services.Items;
 public class ObjectManagementServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
+	private Resource resource;
+	
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		resource = ((Resource) this.getServletContext().getAttribute("resource"));
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session=request.getSession();
@@ -83,14 +94,14 @@ public class ObjectManagementServlet extends HttpServlet{
 				break;
 			default:
 				request.setAttribute("objectId", objectId);
-				request.getRequestDispatcher("restricted/itemmanagement.jsp").forward(request, response);
+				request.getRequestDispatcher(resource.relativePath("itemmanagement_jsp")).forward(request, response);
 			}
 			//request.getRequestDispatcher("restricted/itemmanagement.jsp").forward(request, response);
 		}catch (Exception e) {
 			// Redirection vers une page d'erreur
 			e.printStackTrace();
 			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher("errorpage.jsp").forward(request, response);
+			request.getRequestDispatcher(resource.relativePath("errorpage_jsp")).forward(request, response);
 
 		}
 	}
@@ -188,7 +199,7 @@ public class ObjectManagementServlet extends HttpServlet{
 			// Rédiréction vers une page d'erreur
 			e.printStackTrace();
 			request.setAttribute("error", e); //remote debug
-			request.getRequestDispatcher("errorpage.jsp").forward(request, response);
+			request.getRequestDispatcher(resource.relativePath("errorpage_jsp")).forward(request, response);
 
 		}
 	}

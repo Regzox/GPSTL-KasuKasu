@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +13,6 @@ import dao.search.ObjetRSV;
 import dao.users.UserDao;
 import dao.users.UsersImagesDao;
 import enumerations.Status;
-import enumerations.Status.STATUS;
 import exceptions.StringNotFoundException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
@@ -375,10 +373,10 @@ public class User {
 		return UserDao.isNormal(userId);
 	}
 	
-	public static void setStatus(String userId,STATUS status){
+	public static void setStatus(String userId,Status status){
 		UserDao.setStatus(userId, status);
 	}
-	public static STATUS getStatus(String userId) throws UserNotFoundException, UserNotUniqueException{
+	public static Status getStatus(String userId) throws UserNotFoundException, UserNotUniqueException{
 		return UserDao.getStatus(userId);
 	}
 	

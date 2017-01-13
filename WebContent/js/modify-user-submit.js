@@ -45,7 +45,7 @@ var validation = function (form) {
 	}
 
 	$
-	.post("/KasuKasu/modify", json)
+	.post(ModifyUserServlet, json)
 	.done(function (data) {
 		notify($.parseJSON(data));
 	})

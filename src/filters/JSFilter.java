@@ -88,7 +88,8 @@ public class JSFilter implements Filter
     	 */
         
         imports.add("<script type='text/javascript' src='/KasuKasu/js/paths.js'></script>");
-        imports.add("<script type='text/javascript'>" + new Resource(this.filterConfig.getServletContext().getRealPath("/")).toJavaScript() + "</script>");
+        imports.add("<script type='text/javascript'>" + ((Resource) filterConfig.getServletContext().getAttribute("resource")).toJavaScript() + "</script>");
+        //imports.add("<script type='text/javascript'>" + new Resource(this.filterConfig.getServletContext().getRealPath("/")).toJavaScript() + "</script>");
         
     }
 

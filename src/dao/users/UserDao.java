@@ -23,7 +23,7 @@ import dao.search.ObjetRSV;
 import dao.search.PatternsHolder;
 import dao.tools.DataEncryption;
 import entities.User;
-import enumerations.Status.STATUS;
+import enumerations.Status;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
@@ -321,6 +321,7 @@ public class UserDao {
 
 
 
+	@SuppressWarnings("unused")
 	private static void testAdd(String prev,int nb){
 		String alphabet = "aioeujnsb"/*cdfghklmpkrtvwxyz*/;
 		prev=prev+alphabet.charAt(new Random().nextInt(alphabet.length()));
@@ -343,7 +344,7 @@ public class UserDao {
 		return user;
 	}
 	
-	public static void setStatus(String userId,STATUS status){
+	public static void setStatus(String userId,Status status){
 		collection.update(
 				new BasicDBObject()
 				.append("_id",new ObjectId(userId))
@@ -386,51 +387,51 @@ public class UserDao {
 
 	public static void freeze(String userId) throws UserNotFoundException, UserNotUniqueException {
 		if(isNormal(userId))
-		setStatus(userId,STATUS.FROZEN);
+		setStatus(userId,Status.FROZEN);
 	}
 
 	public static void unfreeze(String userId) throws UserNotFoundException, UserNotUniqueException {
 		if(isFrozen(userId))
-		setStatus(userId,STATUS.NORMAL);
+		setStatus(userId,Status.NORMAL);
 	}
 
 	public static void ban(String userId) {
-		setStatus(userId,STATUS.BANNED);
+		setStatus(userId,Status.BANNED);
 	}
 	
 	public static void unban(String userId) throws UserNotFoundException, UserNotUniqueException {
 		if(isBanned(userId))
-		setStatus(userId,STATUS.NORMAL);
+		setStatus(userId,Status.NORMAL);
 	}
 
 	public static boolean isFrozen(String userId) throws UserNotFoundException, UserNotUniqueException {
-		return getStatus(userId).equals(STATUS.FROZEN);
+		return getStatus(userId).equals(Status.FROZEN);
 	}
 
 	public static boolean isBanned(String userId) throws UserNotFoundException, UserNotUniqueException {
-		return getStatus(userId).equals(STATUS.BANNED);
+		return getStatus(userId).equals(Status.BANNED);
 	}
 
 	public static boolean isNormal(String userId) throws UserNotFoundException, UserNotUniqueException{
-		return getStatus(userId).equals(STATUS.NORMAL);
+		return getStatus(userId).equals(Status.NORMAL);
 	}
 
-	public static STATUS getStatus(String userId) throws UserNotFoundException, UserNotUniqueException{
+	public static Status getStatus(String userId) throws UserNotFoundException, UserNotUniqueException{
 		DBObject user = getUser(userId);
 		String status;
 		try{
 		 status=user.get("status").toString();
 		}catch(Exception e){
-			return STATUS.NORMAL;
+			return Status.NORMAL;
 		}
 
 		switch(status){
 		case "FROZEN" :
-			return STATUS.FROZEN;
+			return Status.FROZEN;
 		case "BANNED" :
-			return STATUS.BANNED;
+			return Status.BANNED;
 		default:
-			return STATUS.NORMAL;
+			return Status.NORMAL;
 		}
 	}
 	/**
@@ -454,27 +455,27 @@ public class UserDao {
 		
 //		System.out.println("**UNBAN**");
 //		unban("58593a49cc29874daef62069");
-//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
 //
 //		System.out.println("**FREEZE**");
 //		freeze("58593a49cc29874daef62069");
-//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
 //		
 //		System.out.println("**BAN**");
 //		ban("58593a49cc29874daef62069");
-//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
 //		
 //		System.out.println("**FREEZE**");
 //		freeze("58593a49cc29874daef62069");
-//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
 //		
 //		System.out.println("**UNFREEZE**");
 		unfreeze("58593a49cc29874daef62069");
-		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
 //		
 //		System.out.println("**UNBAN**");
 //		unban("58593a49cc29874daef62069");
-//		System.out.println("STATUS ? : "+getStatus("58593a49cc29874daef62069"));
+//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
 		
 		//setAdmin("58593a49cc29874daef62069");
 		//System.out.println(isAdmin("58593a49cc29874daef62069"));

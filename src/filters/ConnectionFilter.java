@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import enumerations.Url;
-
 public class ConnectionFilter implements Filter {
 	
 	private final static String USER_ID = "userId";

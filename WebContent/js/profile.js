@@ -1,6 +1,6 @@
 function fillMyProfile() {
 	$
-	.get("/KasuKasu/profile")
+	.get(UserProfileServlet)
 	.done( function (data) {
 		var json = $.parseJSON(data);
 		
@@ -13,7 +13,7 @@ function fillMyProfile() {
 	} );
 	
 	$
-	.get("/KasuKasu/imagesservlet")
+	.get(ImagesServlet)
 	.done( function (data) {
 		var json = $.parseJSON(data);
 		if (json.success!=undefined) $('#image').attr('src', json.success);
@@ -24,7 +24,7 @@ function fillMyProfile() {
 
 function fillProfileById(user_id) {
 	$
-	.get("/KasuKasu/profile?id=" + user_id)
+	.get(UserProfileServlet + "?id=" + user_id)
 	.done( function (data) {
 		var json = $.parseJSON(data);
 		
@@ -37,7 +37,7 @@ function fillProfileById(user_id) {
 	} );
 	
 	$
-	.get("/KasuKasu/imagesservlet?id=" + user_id)
+	.get(ImagesServlet + "?id=" + user_id)
 	.done( function (data) {
 		var json = $.parseJSON(data);
 		

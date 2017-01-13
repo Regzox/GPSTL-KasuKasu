@@ -84,7 +84,7 @@ function abonnement(lat,lon)
     
     $("#myModal").on('hidden.bs.modal', function () {
 	    $(this).removeData('modal');
-         window.location.href = "/KasuKasu/importpoint.jsp";
+         window.location.href = importpoint_jsp;
   });  
 
    
@@ -134,7 +134,7 @@ function addPoint(nom_abo,radius_abo,lat,lon)
 	     		    });
 	     	       
 	     	       $("#myModal2").on('hidden.bs.modal', function () {
-	     	           window.location.href = "/KasuKasu/importpoint.jsp";
+	     	           window.location.href = importpoint_jsp;
 	     	       });
    	    
 	        	}
@@ -230,7 +230,7 @@ function traiteReponse2(json)
 function userPoints(){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/PointsUserList",
+		url : PointsUserList,
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse,
@@ -323,7 +323,7 @@ function Delete(id)
 {
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/DeleteExchangePointServlet",
+		url : DeleteExchangePointServlet,
 		data : "id="+id,
 		dataType : "JSON",
 		success : function (data)
@@ -338,7 +338,7 @@ function Delete(id)
 	    		    });
 	    	       
 	    	       $("#myModal3").on('hidden.bs.modal', function () {
-	    	           window.location.href = "/KasuKasu/importpoint.jsp";
+	    	           window.location.href = importpoint_jsp;
 	    	       });
 	        	}
 		},		error : function(xhr,status,errorthrown){
@@ -386,7 +386,7 @@ function updatePoint(id_modif,radius_modif,name_modif)
 {
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/updateexchangepoint",
+		url : UpdateExchangePointServlet,
 		data : "id=" + id_modif + "&radius=" + radius_modif + "&name=" + name_modif, 
 		dataType : "JSON",
 		success : function (data)
@@ -403,7 +403,7 @@ function updatePoint(id_modif,radius_modif,name_modif)
 	    		    });
 	    	       
 	    	       $("#myModal3").on('hidden.bs.modal', function () {
-	    	           window.location.href = "/KasuKasu/importpoint.jsp";
+	    	           window.location.href = importpoint_jsp;
 	    	       });
 	        	}
 		},		error : function(xhr,status,errorthrown){
@@ -417,7 +417,7 @@ function getMarkerDetail(lat,lon)
 {
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/GetPointMarkerDetail",
+		url : GetPointMarkerDetails,
 	    async: false,
 		data : "lat=" + lat + "&lon=" + lon,
 		dataType : "JSON",

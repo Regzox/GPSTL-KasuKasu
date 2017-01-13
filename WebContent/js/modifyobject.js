@@ -9,7 +9,7 @@ function updateItemInformations(){
 	{
 		$.ajax({
 			type : "GET",
-			url : "/KasuKasu/objectmanagement",
+			url : ObjectManagementServlet,
 			data : {objectId : id, data : "data"},
 			dataType : "JSON",
 			success : processItemInformations,
@@ -65,7 +65,7 @@ function modifyItem(){
 	{
 		$.ajax({
 			type : "POST",
-			url : "/KasuKasu/objectmanagement",
+			url : ObjectManagementServlet,
 			data : {objectId : id, target : "item", action: "update" ,title : title, description : description},
 			dataType : "JSON",
 			success : actionSuccess,
@@ -123,7 +123,7 @@ function addZonePost(obj,zone){
 	{
 		$.ajax({
 			type : "POST",
-			url : "/KasuKasu/objectmanagement",
+			url : ObjectManagementServlet,
 			data : {objectId : obj, target : "expoints", targetid : zone, action : "update"},
 			dataType : "JSON",
 			success : actionSuccess,
@@ -138,7 +138,7 @@ function addGroupPost(obj,group){
 	{
 		$.ajax({
 			type : "POST",
-			url : "/KasuKasu/objectmanagement",
+			url : ObjectManagementServlet,
 			data : {objectId : obj, target : "groups", targetid : group, action : "update"},
 			dataType : "JSON",
 			success : actionSuccess,
@@ -171,7 +171,7 @@ function removeZonePost(obj,zone){
 	{
 		$.ajax({
 			type : "POST",
-			url : "/KasuKasu/objectmanagement",
+			url : ObjectManagementServlet,
 			data : {objectId : obj,target : "expoints", targetid : zone, action : "delete"},
 			dataType : "JSON",
 			success : actionSuccess,
@@ -186,7 +186,7 @@ function removeGroupPost(obj,group){
 	{
 		$.ajax({
 			type : "POST",
-			url : "/KasuKasu/objectmanagement",
+			url : ObjectManagementServlet,
 			data : {objectId : obj, target : "groups", targetid : group, action : "delete"},
 			dataType : "JSON",
 			success : actionSuccess,

@@ -61,7 +61,7 @@ function checkConnexion(mailv, passv)
 {
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/connectuser",
+		url : ConnectUserServlet,
 		data : {mail : mailv, pass : passv},
 		dataType : "json",
 		success : ProcessLoginRequest,
@@ -82,7 +82,7 @@ function ProcessLoginRequest(rep)
 	}
 	else 
 	{
-		window.location.href = "/KasuKasu/searchitems.jsp";
+		window.location.href = kasukasu.private.dashboard;
 	}
 }
 
