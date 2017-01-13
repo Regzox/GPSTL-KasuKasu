@@ -19,6 +19,7 @@ import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import json.Success;
 import kasudb.KasuDB;
+import lingua.Lingua;
 import utils.SendEmail;
 import utils.Tools;
 
@@ -32,7 +33,7 @@ public class Loaning {
 	 * @param idItem 
 	 * @throws Exception 
 	 * @throws SQLException */
-	public static JSONObject requestItem(String idApplicant,String idItem) throws SQLException, Exception{
+	public static JSONObject requestItem(String value, String idApplicant,String idItem) throws SQLException, Exception{
 		if(LoaningDB.requestExists(idApplicant, idItem))
 			return Tools.serviceRefused
 					("Vous avez deja une demande en cours pour cet objet!", -1);
@@ -42,13 +43,23 @@ public class Loaning {
 		String to = User.getUserById(
 				item.get("owner").toString())
 				.getEmail();
-		String subject ="Demande d'emprunt pour l'objet "+item.get("title");
-		String contenu ="Vous avez une demande d'emprunt pour "
-				+ "l'objet "+item.get("title")+" "
-				+"venant de "+applicant.getFirstname()+" "+applicant.getName()+"."
-				+ "\nMerci de consulter votre compte.";
-		SendEmail.sendMail(to, subject, contenu);
-
+		
+		if(value.equals("fr"))
+			SendEmail.sendMail(to, 
+							"[kasukasu] Demande d'emprunt pour l'objet : "+item.get("title"),
+							"Vous avez une demande d'emprunt pour "
+							+ "l'objet "+item.get("title")+" "
+							+"venant de "+applicant.getFirstname()+" "+applicant.getName()+"."
+							+ "\nMerci de consulter votre compte."
+							+ "L'équipe KasuKasu");
+		if(value.equals("en"))
+			SendEmail.sendMail(to, 
+					"[kasukasu] Loan request for the item : "+item.get("title"),
+					"You have got a loan request  "
+					+ "for the item : "+item.get("title")+" "
+					+"coming from "+applicant.getFirstname()+" "+applicant.getName()+"."
+					+ "\nPlease, check your account."
+					+ "Team KasuKasu");
 		return Tools.serviceMessage(1);
 	}
 	

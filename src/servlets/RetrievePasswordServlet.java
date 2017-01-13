@@ -6,12 +6,14 @@ import java.util.HashSet;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
 import exceptions.UserNotFoundException;
+import lingua.Lingua;
 import services.User;
 import servlets.tools.templates.online.OnlineGetServlet;
 import utils.SendEmail;
@@ -34,6 +36,16 @@ public class RetrievePasswordServlet extends OnlineGetServlet {
 			throws Exception {
 		PrintWriter out = response.getWriter();
 		String mail = request.getParameter("mail");
+		
+		Cookie[] cookies = request.getCookies();
+			String value = "";
+		for (int i = 0; i < cookies.length; i++) {
+		
+				  if(cookies[i].getName().equals("lang"))
+				  {
+					  value = cookies[i].getValue();
+				  }
+		}
 		 
 				try{
 					User.getUser(mail); // Retrait de d�claration de entities.User user inutile 
@@ -46,11 +58,12 @@ public class RetrievePasswordServlet extends OnlineGetServlet {
 			 
 		String mdp = User.getUser(mail).getPassword(); //TODO PB not safe
 
-		System.out.println("Envoie du mail à : "+ mail);
-		String contenu = "Voici votre mot de passe : " + mdp;
-		String sujet = "Recuperation du mot de passe";
+		System.out.println("Envoie du mail à : "+ mail+" "+mdp);
 		
-		SendEmail.sendMail(mail, sujet, contenu);
+		
+		SendEmail.sendMail(mail,
+							Lingua.get("retMailSubject", value), 
+							Lingua.get("retMailMessage", value) + mdp);
 
 		request.getRequestDispatcher("portal.jsp").forward(request, response);
 		
@@ -58,4 +71,5 @@ public class RetrievePasswordServlet extends OnlineGetServlet {
 		out.close();
 		
 	}
+	
 }

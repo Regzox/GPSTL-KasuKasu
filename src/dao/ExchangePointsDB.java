@@ -83,7 +83,7 @@ public class ExchangePointsDB {
 				).hasNext();
 	}
 
-	
+
 	/**
 	 * Check if an user is a subscriber to an exchange point
 	 * @param id
@@ -95,8 +95,8 @@ public class ExchangePointsDB {
 				.append("_id",id)
 				.append("subscribers.id_user",userID)).hasNext();
 	}
-	
-	
+
+
 	/**
 	 * Return the list of user's subscribed exchange points
 	 * @param userID
@@ -105,10 +105,7 @@ public class ExchangePointsDB {
 		return collection.find(
 				new BasicDBObject()
 				.append("subscribers.id_user",userID));}
-	
 
-	
-	
 	/**
 	 * ADMIN FUNCTION  : get an exchange point by latitude longitude 
 	 * @param lat
@@ -205,21 +202,21 @@ public class ExchangePointsDB {
 				);
 	}
 
-	
+
 	/**
 	 * Retun the list of ExchangePoints where the item is in loan
 	 * @param itemID
 	 * @return */
 	public static DBCursor itemExchangePoints(String itemID){
 		return collection.find( 
-						new BasicDBObject("subscribers.useritems",
-								new BasicDBObject("$elemMatch",
-										new BasicDBObject("$eq",itemID))
+				new BasicDBObject("subscribers.useritems",
+						new BasicDBObject("$elemMatch",
+								new BasicDBObject("$eq",itemID))
 						)
 				);
 	}
 
-	
+
 
 	/**
 	 * remove a list of items IDs from an exchange point for a specific user
@@ -237,26 +234,20 @@ public class ExchangePointsDB {
 						)
 				);
 	}
+
+
 	
-	
-	
-	
-	
-	
-	
-	/*
-	 * ************************A TESTER 
-	 */	
 	/**
 	 * Delete an exchange point subscribed by the user
 	 * @param id
 	 * @param ownerID */
 	public static void deleteExchangePoint(String id,String ownerID){
-		BasicDBObject match = new BasicDBObject("_id", new ObjectId(id)); 
-		BasicDBObject update = new BasicDBObject("subscribers", new BasicDBObject("id_user", ownerID));
-		collection.update(match, new BasicDBObject("$pull", update));		
+		collection.update(new BasicDBObject("_id", new ObjectId(id)), 
+				new BasicDBObject("$pull",
+						new BasicDBObject("subscribers", 
+								new BasicDBObject("id_user", ownerID))));		
 	}
-	
+
 
 	public static void main(String[] args) {
 		collection.remove(new BasicDBObject());
@@ -274,19 +265,19 @@ public class ExchangePointsDB {
 		removeItemsFromExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
 				new HashSet<String>(Arrays.asList(new String[]
 						{"LOLitemID7","LOLitemID8","LOLitemID0"}
-				)));
+						)));
 		System.out.println("userPoints : "+userPoints("new_user_id").next());
 		try{System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());//Must throw NoSuchElementException
-		}catch(NoSuchElementException nsee){nsee.printStackTrace();}
+		}catch(NoSuchElementException nsee){System.out.println("NoSuchElementException");}
 		//				System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
-		//				deleteExchangePoint("584c410d27360cb6adb9514b","58496e19273633e062a41acc");
-		//				System.out.println(userPoints("58496e19273633e062a41acc").next());
+		deleteExchangePoint(excpt_id,"new_user_id3");
+		System.out.println("userPoints : "+userPoints("new_user_id").next());
 	}
 
 
 
 
-	/**
+	/**TODO REVOIR SI UTILE A GARDER AVEC LINA : SEMBLE OBSOLETE
 	 * Return all the accessible exchange points of an user 
 	 * (his subscribed points and visible friends points)
 	 * @param userID
@@ -299,13 +290,9 @@ public class ExchangePointsDB {
 		while(dbc.hasNext())
 			usergroupsmembership.add(dbc.next().get("_id").toString());
 
-		exprs.add(new BasicDBObject()
-				.append("subscribers.id_user", userID));
-		exprs.add(
-				new BasicDBObject()
-				.append("subscribers.id_user",
-						new BasicDBObject()
-						.append("$in",FriendsDao.myFriends(userID)))
+		exprs.add(new BasicDBObject("subscribers.id_user", userID));
+		exprs.add(new BasicDBObject("subscribers.id_user",
+						new BasicDBObject("$in",FriendsDao.myFriends(userID)))
 				//TODO FILTER BY GROUP APPARTENANCE according to items's groups
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));
@@ -315,7 +302,7 @@ public class ExchangePointsDB {
 
 
 
-	/** TODO mod add groups visibility constraints
+	/** TODO mod add groups visibility constraints 
 	 * Return the list of user friend's exchange points (including subscribed user's points)
 	 * @param userID
 	 * @return */

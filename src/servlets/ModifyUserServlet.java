@@ -3,12 +3,14 @@ package servlets;
 import java.sql.SQLException;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import json.Error;
 import json.Success;
 import json.Warning;
+import lingua.Lingua;
 import services.User;
 import servlets.tools.templates.online.OnlinePostServlet;
 import utils.SendEmail;
@@ -29,7 +31,15 @@ public class ModifyUserServlet extends OnlinePostServlet {
 		Map<String, String> map = req.getParameterMap();
 		String oldEmail = null, oldPassword = null, email = null, password = null, name = null, firstname = null, phone = null;
 		entities.User oldUser = null, user = null;
-
+		Cookie[] cookies = req.getCookies();
+		String value = "";
+		for (int i = 0; i < cookies.length; i++) {
+		
+				  if(cookies[i].getName().equals("lang"))
+				  {
+					  value = cookies[i].getValue();
+				  }
+		}
 
 		for (String parameter : map.keySet()) {
 			System.out.println(parameter + " : " + req.getParameter(parameter));
@@ -97,7 +107,7 @@ public class ModifyUserServlet extends OnlinePostServlet {
 						resp.getWriter().print(new Warning("Your new email is already choosen"));
 					} catch (SQLException e) {
 						e.printStackTrace();
-						resp.getWriter().print(new Error("We are apologize, an internal error has occur during email searching"));
+						resp.getWriter().print(new Error("We apologize, an internal error has occured during email searching"));
 						return;
 					} catch (Exception e) {} // It's ok email is being modify
 				}
@@ -116,7 +126,14 @@ public class ModifyUserServlet extends OnlinePostServlet {
 			if (password.equals(""))
 				password = oldUser.getPassword();
 			else
-				SendEmail.sendMail(oldEmail, "Modification de mot de passe", "Bonjour,\n\n Votre mot de passe a récement fait l'objet d'une modification. Contactez au plus vite un administrateur si cette demande de changement de mot de passe n'a pas été initié par vous.\n\n Cordialement,\n Team KasuKasu");
+			{
+					SendEmail.sendMail(oldEmail, 
+							Lingua.get("modifMailSubject"
+									, value), 
+							Lingua.get("modifMailMessage"
+									, value)
+							);
+			}
 
 			if (name.equals(""))
 				name = oldUser.getName();
@@ -128,7 +145,7 @@ public class ModifyUserServlet extends OnlinePostServlet {
 				phone = "" + oldUser.getPhone();
 
 		}  else {
-			resp.getWriter().print(new Error("We are apologize, the submit system maybe faulty"));
+			resp.getWriter().print(new Error("We apologize, the submition system may be faulty"));
 			return;
 		}
 

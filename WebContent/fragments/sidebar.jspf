@@ -34,7 +34,7 @@
 			<div id="eval" onclick="
 				if ( !(~$(location).attr('href').indexOf('<%= Url.CONVERSATION.value() %>')))
 					$(location).attr('href', '<%= Url.CONVERSATION.value() %>');
-			"> Messagerie </div>
+			"> Conversation </div>
 			
 			
 			<div  class="dropdown"> <div id="amis">Mes amis</div>
@@ -54,7 +54,7 @@
 				   <div id="req_amis" onclick="
 					if ( !(~$(location).attr('href').indexOf('<%= Url.PENDING_REQUESTS.value() %>')))
 						$(location).attr('href', '<%= Url.PENDING_REQUESTS.value() %>');
-					">Requetes d'amis</div>
+					">Requêtes d'amis</div>
 					
 					
 				    <div id="grp_amis" onclick="

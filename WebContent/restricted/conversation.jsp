@@ -37,7 +37,7 @@
 				autocomplete="on">
 				<div class="input-wrapper">
 					<input id="new_message-input" type="text" name="msg" autocomplete="off" 
-						placeholder="Ecrivez un nouveau message a <%=request.getParameter("interlocutor")%>"
+						placeholder="Ecrivez un nouveau message à <%=request.getParameter("interlocutor")%>"
 						style="height: 25px;" size="100%" />
 				</div>
 			</form>

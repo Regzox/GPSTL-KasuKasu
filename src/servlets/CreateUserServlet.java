@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,8 +29,17 @@ public class CreateUserServlet extends OfflinePostServlet {
 	public void doBusiness(HttpServletRequest request, 
 			HttpServletResponse response, Map<String, String> params)
 					throws Exception {
-
-		JSONObject json = User.createUser(
+		Cookie[] cookies = request.getCookies();
+		String value = "";
+		for (int i = 0; i < cookies.length; i++) {
+		
+				  if(cookies[i].getName().equals("lang"))
+				  {
+					  value = cookies[i].getValue();
+				  }
+		}
+		
+		JSONObject json = User.createUser(value,
 				params.get("email"),
 				params.get("mdp"),
 				params.get("nom"), 

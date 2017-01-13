@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title >Messenger</title>
+<title >Conversations</title>
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/messenger.js"></script>

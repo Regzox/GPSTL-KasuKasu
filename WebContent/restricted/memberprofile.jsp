@@ -26,8 +26,16 @@
 
 	<%@ page import="services.User"%>
 	<%@ page import="org.json.JSONObject"%>
+	<%@ page import="enumerations.Status"%>
 
 	<%
+		boolean isAdmin = false;
+		try {
+			isAdmin = ((String) session.getAttribute("isAdmin")).compareTo("true") == 0;
+		} catch (Exception e) {
+			isAdmin = false;
+		}
+
 		String id = request.getParameter("id");
 		entities.User user = User.getUserById(id);
 		JSONObject json = User.getUserImage(user);
@@ -54,20 +62,60 @@
 				<!-- 				</tr> -->
 				<tr class="row">
 					<td id="prenom" class="title">Prénom</td>
-					<td class="information" id="firstname"><%= user.getFirstname() %></td>
+					<td class="information" id="firstname"><%=user.getFirstname()%></td>
 				</tr>
 				<tr class="row">
 					<td id="nom" class="title">Nom</td>
-					<td class="information" id="name"><%= user.getName() %></td>
+					<td class="information" id="name"><%=user.getName()%></td>
 				</tr>
 				<tr class="row">
 					<td id="mail" class="title">Email</td>
-					<td class="information" id="email"><%= user.getEmail() %></td>
+					<td class="information" id="email"><%=user.getEmail()%></td>
 				</tr>
 				<tr class="row">
 					<td id="tel" class="title">Téléphone</td>
-					<td class="information" id="phone"><%= user.getPhone() %></td>
+					<td class="information" id="phone"><%=user.getPhone()%></td>
 				</tr>
+				<%
+					if (isAdmin) {
+						String status = User.getStatus(id).toString();
+				%>
+				<tr class="row">
+					<td id="admin" class="title">STATUS : <%=status%></td> 
+
+					<%
+						switch (status) {
+							case "BANNED":
+					%>
+					<td class="information" id="admin-action">...</td>
+					<%
+						break;
+							case "FROZEN":
+					%>
+					<td class="information" id="admin-action"><a class="btn btn-success btn-block btn-sm"
+						href="/KasuKasu/admin/user?action=2&userId=<%=id%>"> Unfreeze
+					</a> <a class="btn btn-danger btn-block btn-sm" href="/KasuKasu/admin/user?action=3&userId=<%=id%>"> Ban /!\
+							REVERT IMPOSSIBLE /!\ </a></td>
+
+					<%
+						break;
+							default:
+					%>
+					<td class="information" id="admin-action"><a class="btn btn-danger btn-block btn-sm"
+						href="/KasuKasu/admin/user?action=1&userId=<%=id%>"> Freeze </a> <a class="btn btn-danger btn-block btn-sm"
+						href="/KasuKasu/admin/user?action=3&userId=<%=id%>"> Ban /!\
+							REVERT IMPOSSIBLE /!\ </a></td>
+					<%
+						break;
+
+							}
+					%>
+
+				</tr>
+				<%
+					}
+				%>
+
 			</table>
 		</div>
 		<br> <br>
