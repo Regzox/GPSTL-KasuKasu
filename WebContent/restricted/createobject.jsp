@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title id='titre'>Ajout d'un Objet</title>
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
@@ -56,8 +55,8 @@
 					<div id='error_description'></div>
 
 					<!-- 				<div class="form-group row"> -->
-					<!-- 					<label for="datedeb" class="col-xs-2 col-form-label">Début -->
-					<!-- 						du prêt</label> -->
+					<!-- 					<label for="datedeb" class="col-xs-2 col-form-label">DÃ©but -->
+					<!-- 						du prÃªt</label> -->
 					<!-- 					<div class="col-xs-10"> -->
 					<!-- 						<input type="date" id="datedeb" placeholder="Format : jj/mm/aaaa"> -->
 					<!-- 					</div> -->
@@ -68,7 +67,7 @@
 
 					<!-- 				<div class="form-group row"> -->
 					<!-- 					<label for="datefin" class="col-xs-2 col-form-label">Fin du -->
-					<!-- 						prêt</label> -->
+					<!-- 						prÃªt</label> -->
 					<!-- 					<div class="col-xs-10"> -->
 					<!-- 						<input type="date" id="datefin" placeholder="Format : jj/mm/aaaa"> -->
 					<!-- 					</div> -->
@@ -79,7 +78,7 @@
 					<div id="found-points" class="abootsraper"></div>
 					<div class="form-point row">
 						<label id='pts' for="point" class="col-xs-2 col-form-label">Points
-							d'échange</label>
+							d'Ã©change</label>
 						<div class="col-xs-10" id="id_check2">
 							<!-- 						<select name="point" id="point" multiple> -->
 							<!-- 						</select> -->
@@ -91,11 +90,11 @@
 
 					<button id='ajout_btn' type="submit" class="positive" name="ajout"
 						id="ajout" style="display: none;">Ajouter un point
-						d'échange</button>
+						d'Ã©change</button>
 
 					<div id="found-groups" class="abootsraper"></div>
 					<div class="form-group row">
-						<label id='vis' for="groupe" class="col-xs-2 col-form-label">Visibilité</label>
+						<label id='vis' for="groupe" class="col-xs-2 col-form-label">VisibilitÃ©</label>
 						<div class="col-xs-10" id="id_check"></div>
 					</div>
 
@@ -144,7 +143,7 @@
 				<!-- dialog body -->
 				<div class="modal-body">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<p id="comment">L'objet a bien été ajouté</p>
+					<p id="comment">L'objet a bien Ã©tÃ© ajoutÃ©</p>
 				</div>
 			</div>
 		</div>

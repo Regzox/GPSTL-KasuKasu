@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- <title>KasuKasu - Modify your account</title> -->
  <title id='titre'>KasuKasu - Modifier votre compte</title> 
 
@@ -101,22 +101,22 @@
 
 					<div class="form-group row">
 						<label id='prenoml' for="new_firstname_input" class="col-xs-3 col-form-label">Nouveau
-							prénom</label>
+							prÃ©nom</label>
 						<div class="col-xs-9">
 							<input class="form-control" type="text" value=""
 								id="new_firstname_input" name="new_firstname_input"
-								placeholder="Votre nouveau prénom (optionnel)"
+								placeholder="Votre nouveau prÃ©nom (optionnel)"
 								pattern=".{0}|.{1,64}">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label id='numl' for="new_phone_input" class="col-xs-3 col-form-label">Nouveau
-							téléphone</label>
+							tÃ©lÃ©phone</label>
 						<div class="col-xs-9">
 							<input class="form-control" type="text" value=""
 								id="new_phone_input" name="new_phone_input"
-								placeholder="Votre nouveau téléphone (optionnel)" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
+								placeholder="Votre nouveau tÃ©lÃ©phone (optionnel)" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
 						</div>
 					</div>
 

@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
 
                 
            <div class="form-group row">
-				<label id='prenoml' for="prenom" class="col-xs-2">Prénom</label>
+				<label id='prenoml' for="prenom" class="col-xs-2">PrÃ©nom</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="text" value=""
 						id="prenom" maxlength="255">
@@ -60,7 +60,7 @@
 			             
               
 			<div class="form-group row">
-				<label id='numl' for="numero" class="col-xs-2" >Téléphone</label>
+				<label id='numl' for="numero" class="col-xs-2" >TÃ©lÃ©phone</label>
 				<div class="col-xs-10">
 					<input class="form-control" type="tel" value="" 
 						id="numero"  pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
@@ -88,7 +88,7 @@
 			<div class="form-group row">
 				<label id='mdpl' for="mdp" class="col-xs-2" >Mot de passe</label>
 				<div class="col-xs-10">
-					<input class="form-control" type="password" value="" placeholder="Minimum 8 caractères"
+					<input class="form-control" type="password" value="" placeholder="Minimum 8 caractÃ¨res"
 						id="mdp" maxlength="255">
 				</div>
 			</div>
@@ -111,7 +111,7 @@
 			
 			
 			<div  class="form-group row">
-				<p id='captchal'>Veuillez cocher la case correspondante à Albert Einstein</p>
+				<p id='captchal'>Veuillez cocher la case correspondante Ã  Albert Einstein</p>
 				<br> 
 				<br>
 				<div class="col-xs-12">

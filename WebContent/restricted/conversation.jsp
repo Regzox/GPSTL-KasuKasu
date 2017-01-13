@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Conversation with <%=request.getParameter("interlocutor")%></title>
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/messenger.js"></script>
@@ -37,7 +37,7 @@
 				autocomplete="on">
 				<div class="input-wrapper">
 					<input id="new_message-input" type="text" name="msg" autocomplete="off" 
-						placeholder="Ecrivez un nouveau message à <%=request.getParameter("interlocutor")%>"
+						placeholder="Ecrivez un nouveau message Ã  <%=request.getParameter("interlocutor")%>"
 						style="height: 25px;" size="100%" />
 				</div>
 			</form>

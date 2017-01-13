@@ -100,14 +100,7 @@ public class JSFilter implements Filter
     public void doFilter(
             ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException
-    {   
-    	System.out.println(System.getProperty("user.dir"));
-    	System.out.println(((HttpServletRequest)request).getContextPath());
-    	System.out.println(((HttpServletRequest)request).getPathTranslated());
-    	System.out.println(((HttpServletRequest)request).getServletPath());
-    	System.out.println();
-    	System.out.println(filterConfig.getServletContext().getRealPath("/"));
-    	
+    {       	
         CharResponseWrapper wrappedResponse = new CharResponseWrapper(
                 (HttpServletResponse)response);
                 
