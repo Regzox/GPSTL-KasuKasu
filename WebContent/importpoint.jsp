@@ -46,6 +46,8 @@ html, body, #mapdiv {
                 <br></br>				
 				<img alt="" src="data/marker.png" width="10" height="10">
 				Points d'échange de vos amis
+				<br></br>	
+				Double-cliquez sur la carte pour ajouter un lieu
 				</p>
 			</div>
 
@@ -64,7 +66,7 @@ html, body, #mapdiv {
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Importer le lieu</h4>
+					<h4 class="modal-title" id="myModalLabel">Ajouter le lieu</h4>
 				</div>
 
 				<!-- Modal Body -->
@@ -105,8 +107,6 @@ html, body, #mapdiv {
 		</div>
 	</div>
 
-	<input type="hidden" name="lat" id="lat" value="0">
-	<input type="hidden" name="lon" id="lon" value="0">
 
 	<div id="myModal2" class="modal fade">
 		<div class="modal-dialog">

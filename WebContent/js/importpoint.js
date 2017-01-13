@@ -9,36 +9,43 @@ var id;
 var name; 
 var radius;
 
-//OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
-//	defaultHandlerOptions : {
-//		'single' : true,
-//		'double' : false,
-//		'pixelTolerance' : 0,
-//		'stopSingle' : false,
-//		'stopDouble' : false
-//	},
-//
-//	initialize : function(options) {
-//		this.handlerOptions = OpenLayers.Util.extend({},
-//				this.defaultHandlerOptions);
-//		OpenLayers.Control.prototype.initialize.apply(this, arguments);
-//		this.handler = new OpenLayers.Handler.Click(this, {
-//			'click' : this.trigger
-//		}, this.handlerOptions);
-//	},
-//
-//	trigger : function(e) {
-//		var toProjection = new OpenLayers.Projection("EPSG:4326");
-//		var lonlat = map.getLonLatFromViewPortPx(e.xy);
-//		
-//		var markers = new OpenLayers.Layer.Markers("Markers");
-//		map.addLayer(markers);
-//
-//		var marker = new OpenLayers.Marker(lonlat);
-//		markers.addMarker(marker);
-//		
-//	}
-//});
+var json1; 
+var json2;
+/* idée : regrouper json1 et 2 en une seule fonction d'affichage */
+
+OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+	defaultHandlerOptions : {
+		'single' : true,
+		'double' : true,
+		'pixelTolerance' : 0,
+		'stopSingle' : false,
+		'stopDouble' : true
+	},
+
+	initialize : function(options) {
+		this.handlerOptions = OpenLayers.Util.extend({},
+				this.defaultHandlerOptions);
+		OpenLayers.Control.prototype.initialize.apply(this, arguments);
+		this.handler = new OpenLayers.Handler.Click(this, {
+			'click' : this.trigger2,
+			'dblclick': this.trigger 
+
+		}, this.handlerOptions);
+	},
+
+
+	trigger : function(e) {
+		var toProjection = new OpenLayers.Projection("EPSG:4326");
+		var lonlat = map.getLonLatFromViewPortPx(e.xy);
+		
+		abonnement(lonlat.lat.toFixed(5),lonlat.lon.toFixed(5));
+		
+	},
+	
+	trigger2 : function(e) {
+		
+	}
+});
 
 function init() 
 {
@@ -53,18 +60,20 @@ function init()
 	var zoom = 14;
 	map.setCenter(lonLat, zoom);
 	//Afficher les points d'échange des amis de l'utilisateur auxquels il peut s'abonner
-	userFriendsPoints();
 	//Afficher les points d'échange de l'utilisateur
 	userPoints();
 
-//	var click = new OpenLayers.Control.Click();
-//	map.addControl(click);
-//	click.activate();
+	userFriendsPoints();
+
+	var click = new OpenLayers.Control.Click();
+	map.addControl(click);
+	click.activate();
+
 
 }
 
 /************************************* S'abonner à un point d'échange ************************************/
-function abonnement()
+function abonnement(lat,lon)
 {
     $("#myModal").modal({                    
 	      "backdrop"  : "static",
@@ -72,27 +81,34 @@ function abonnement()
 	      "show"      : true                     
 	    });
     
+    
+    $("#myModal").on('hidden.bs.modal', function () {
+	    $(this).removeData('modal');
+         window.location.href = "/KasuKasu/importpoint.jsp";
+  });  
+
+   
 	$('#save').on(
 			'click',
 			function(evt)
 			{
-			    nom = $("#myModal").find("#nom_input").val();
-			    radius = $("#myModal").find("#radius_input").val();
-			    lat = $("#lat").val();
-			    lon = $("#lon").val();
-
+			    nom_abo = $("#myModal").find("#nom_input").val();
+			    radius_abo = $("#myModal").find("#radius_input").val();
 			    
-			    if (nom.length!=0 && radius.length!=0)
+			    if (nom_abo.length!=0 && radius_abo.length!=0)
 			    	{
-				       addPoint(nom,radius,lat,lon); 
+				       addPoint(nom_abo,radius_abo,lat,lon); 
 			    	}
+			    
+			    else $("#myModal").hide(); 
 
 			}
 			);
+	
 
  }
 
-function addPoint(nom,radius,lat,lon)
+function addPoint(nom_abo,radius_abo,lat,lon)
 {
 
 	$.ajax({
@@ -102,7 +118,7 @@ function addPoint(nom,radius,lat,lon)
 		{
 			withCredentials: true
 		},
-		data : "name=" + nom + "&radius=" + radius + "&lat=" + lat + "&lon=" + lon, 
+		data : "name=" + nom_abo + "&radius=" + radius_abo + "&lat=" + lat + "&lon=" + lon, 
 		dataType : "JSON",
 		success : function (data)
 		{
@@ -156,7 +172,7 @@ function traiteReponse2(json)
 		{
 
 	      var lon = json.expts[i].lon;
-	       var lat = json.expts[i].lat;
+	      var lat = json.expts[i].lat;
 	      var feature;
 	       if(bool==0)
 	        feature = new OpenLayers.Feature.Vector
@@ -185,16 +201,13 @@ function traiteReponse2(json)
     	    };
 
     	    function createPopup(feature) {
-
+    	    	
     	    	var lonLat = feature.geometry.getBounds().getCenterLonLat();
-    			document.getElementById('lat').value=lonLat.lat;
-    			document.getElementById('lon').value=lonLat.lon;
-
 
     	         feature.popup = new OpenLayers.Popup.FramedCloud("pop",
     	          feature.geometry.getBounds().getCenterLonLat(),
     	          null, 	          
-    	          '<div class="markerContent">'+feature.attributes.description+'</div>'+'<br></br>'+'<button onclick="abonnement()">S\'abonner</button>',
+    	          '<div class="markerContent">'+feature.attributes.description+'</div>'+'<br></br>'+'<button onclick="abonnement(\'' + lonLat.lat + '\',\'' + lonLat.lon + '\')">S\'abonner</button>',
     	          null,
     	          true,
     	          function() { controls['selector'].unselectAll(); }
@@ -269,8 +282,8 @@ function traiteReponse(json)
     	    {
 
     	    	var lonLat = feature.geometry.getBounds().getCenterLonLat();
-    			document.getElementById('lat').value=lonLat.lat;
-    			document.getElementById('lon').value=lonLat.lon;
+//    			document.getElementById('lat').value=lonLat.lat;
+//    			document.getElementById('lon').value=lonLat.lon;
     			
     			id="";
     			name="";
@@ -281,7 +294,7 @@ function traiteReponse(json)
 //    			console.log(name);
 //    			console.log(radius);
 
-    	         feature.popup = new OpenLayers.Popup.FramedCloud("pop",
+    	          feature.popup = new OpenLayers.Popup.FramedCloud("popup",
     	          feature.geometry.getBounds().getCenterLonLat(),
     	          null, 	          
     	          '<div class="markerContent">'+feature.attributes.description+'</div>'+'<br></br>'+'<button onclick="Modifier(\'' + id + '\',\'' + name + '\' ,\'' + radius+ '\')"> Modifier</button>'+'<button onclick="Delete(\''+id+'\');">Supprimer</button>',
@@ -289,6 +302,7 @@ function traiteReponse(json)
     	          true,
     	          function() { controls['selector'].unselectAll(); }
     	      );
+    	          
     	      //feature.popup.closeOnMove = true;
     	      map.addPopup(feature.popup);
     	    }
@@ -359,8 +373,8 @@ function Modifier(id_modif,old_name,old_radius)
 			    
 			    if (nom_modif.length==0) nom_modif = old_name;
 			    if (radius_modif.length==0) radius_modif = old_radius;
-			    console.log(nom_modif);
-			    console.log(radius_modif);
+//			    console.log(nom_modif);
+//			    console.log(radius_modif);
 			    
 				updatePoint(id_modif,radius_modif,nom_modif); 
 
