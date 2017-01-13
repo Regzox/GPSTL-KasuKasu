@@ -28,6 +28,7 @@ import utils.Tools;
 /**
  * * @author Anagbla Jean, Daniel RADEAU
  * */
+
 public class User {
 
 	/**
@@ -43,17 +44,19 @@ public class User {
 	 * @throws UserNotUniqueException 
 	 * @throws UserNotFoundException 
 	 */
-	public static JSONObject createUser(String email,String mdp,String nom,String prenom, String numero) 
+	public static JSONObject createUser(String value, String email,String mdp,String nom,String prenom, String numero) 
 			throws SQLException, JSONException, UserNotFoundException, UserNotUniqueException{		
 		if (UserDao.userExistsByEmail(email))
 			return Tools.serviceMessage("User's email already exists.");
 
 		UserDao.addUser(email,mdp,nom,prenom,numero);
 		//TODO if we implements language choices , change fr-FR by dyn language selection
+		//choice made by the value of the cookies
 		try {
+			
 			SendEmail.sendMail(email,
-					Lingua.get("welcomeMailSubject","fr-FR"),
-					Lingua.get("welcomeMailMessage","fr-FR")
+					Lingua.get("welcomeMailSubject",value),
+					Lingua.get("welcomeMailMessage",value)
 					+"http://localhost:8080/KasuKasu/confirm?id="+UserDao.getUserByEmail(email).getId()
 					);
 		} catch (StringNotFoundException e) { 

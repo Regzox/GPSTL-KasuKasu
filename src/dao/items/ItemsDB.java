@@ -168,11 +168,11 @@ public class ItemsDB {
 		System.out.println("ItemDB/utherItems::userGroupsMembership="+groupsIDList);//debug
 
 		BasicDBList orList = new BasicDBList();
-		orList.add(new BasicDBObject("groups", new BasicDBObject("$in",groupsIDList)));
+		orList.add(new BasicDBObject("groups", new BasicDBObject("$in",groupsIDList))); //TODO plutot $elemMatch
 		orList.add(new BasicDBObject("groups",new BasicDBObject("$size",0)));
 
 		BasicDBObject constraints = new BasicDBObject("status","available")
-				//.append("$or", orList)
+				//.append("$or", orList)//TODO visibilite tester
 				.append("owner",new BasicDBObject("$ne",userID));
 
 		if(query.trim().length()==0) 
@@ -232,7 +232,7 @@ public class ItemsDB {
 				usergroupsmembership.add(dbc.next().get("_id").toString());
 			
 			return  collection.find(
-					new BasicDBObject()
+					new BasicDBObject()//TODO attention  groups.$ ou $elemMatch au lieu de groups.id(ne marchera pas)
 					.append("groups.id", new BasicDBObject().append("$in",usergroupsmembership)));
 		}
 
