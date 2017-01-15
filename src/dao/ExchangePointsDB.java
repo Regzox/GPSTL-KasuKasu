@@ -1,8 +1,10 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -185,6 +187,35 @@ public class ExchangePointsDB {
 	}
 
 
+	/** 
+	 * Add an item to the <i>useritems</i> array of the given user for every
+	 * exchange point in the given list.
+	 * 
+	 * @param itemID the item object that should be added to <i>useritems</i>..
+	 * @param userID the ID of the user that contains the array <i>useritems</i>.
+	 * @param exPoints the list of exchange points where the item should be added.
+	 * @return void  */
+	public static void addItemToUserExPoints(
+			String itemID, 
+			String userID, 
+			ArrayList<String> exPoints){
+		for (String exPoint : exPoints) {
+			collection.update(
+					new BasicDBObject()
+					.append("_id", new ObjectId(exPoint))
+					.append("subscribers.id_user",userID),
+					new BasicDBObject("$addToSet",
+							new BasicDBObject("subscribers.$.useritems",
+									itemID)
+							)
+					);
+
+		}
+	}
+
+	
+	
+	
 	/**
 	 * Add a list of items IDs to an exchange point for a specific user  
 	 * @param id
