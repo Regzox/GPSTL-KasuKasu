@@ -343,7 +343,7 @@ public class UserDao {
 		DBObject user = dbc.next();
 		return user;
 	}
-	
+
 	public static void setStatus(String userId,Status status){
 		collection.update(
 				new BasicDBObject()
@@ -353,7 +353,7 @@ public class UserDao {
 						new BasicDBObject()						
 						.append("status",status.toString())));
 	}
-	
+
 	public static void setAdmin(String userId){
 		collection.update(
 				new BasicDBObject()
@@ -363,7 +363,7 @@ public class UserDao {
 						new BasicDBObject()						
 						.append("isAdmin","true")));
 	}
-	
+
 	public static void unsetAdmin(String userId){
 		collection.update(
 				new BasicDBObject()
@@ -373,13 +373,13 @@ public class UserDao {
 						new BasicDBObject()						
 						.append("isAdmin","false")));
 	}
-	
+
 	public static boolean isAdmin(String userId) throws UserNotFoundException, UserNotUniqueException{
 		DBObject user = getUser(userId);
 		String status;
 		try{
-		 status=user.get("isAdmin").toString();
-		 return status.compareTo("true")==0;
+			status=user.get("isAdmin").toString();
+			return status.compareTo("true")==0;
 		}catch(Exception e){
 			return false;
 		}
@@ -387,21 +387,21 @@ public class UserDao {
 
 	public static void freeze(String userId) throws UserNotFoundException, UserNotUniqueException {
 		if(isNormal(userId))
-		setStatus(userId,Status.FROZEN);
+			setStatus(userId,Status.FROZEN);
 	}
 
 	public static void unfreeze(String userId) throws UserNotFoundException, UserNotUniqueException {
 		if(isFrozen(userId))
-		setStatus(userId,Status.NORMAL);
+			setStatus(userId,Status.NORMAL);
 	}
 
 	public static void ban(String userId) {
 		setStatus(userId,Status.BANNED);
 	}
-	
+
 	public static void unban(String userId) throws UserNotFoundException, UserNotUniqueException {
 		if(isBanned(userId))
-		setStatus(userId,Status.NORMAL);
+			setStatus(userId,Status.NORMAL);
 	}
 
 	public static boolean isFrozen(String userId) throws UserNotFoundException, UserNotUniqueException {
@@ -420,7 +420,7 @@ public class UserDao {
 		DBObject user = getUser(userId);
 		String status;
 		try{
-		 status=user.get("status").toString();
+			status=user.get("status").toString();
 		}catch(Exception e){
 			return Status.NORMAL;
 		}
@@ -434,6 +434,38 @@ public class UserDao {
 			return Status.NORMAL;
 		}
 	}
+
+
+	/**
+	 * Set user to vacation mode to true
+	 * All user's items will be disabled to loan 
+	 * (
+	 * 	they wont appear in search 's results 
+	 * )
+	 * @param id */
+	public static void goOnVacation(String id){
+		collection.update(
+				new BasicDBObject("_id",new ObjectId(id)),
+				new BasicDBObject("$set", new BasicDBObject("vacation",true))); 
+	}
+
+
+	/**
+	 * Set user to vacation mode to false
+	 * All user's items will be enabled to loan 
+	 * (
+	 * 	they will appear in search 's results 
+	 * )
+	 * NB: The specified value in the $unset expression (i.e. "") 
+	 * does not impact the operation
+	 * @param id */
+	public static void exitVacation(String id) {		
+		collection.update(
+				new BasicDBObject("_id",new ObjectId(id)),
+				new BasicDBObject("$unset", new BasicDBObject("vacation","")));
+	}
+	
+	
 	/**
 	 * local test
 	 * @param args 
@@ -452,38 +484,39 @@ public class UserDao {
 		//PatternsHolder.nums).matcher("02287282").matches());
 		//String password = "MyPasswo3";
 		//System.out.println("MD5 in hex: " + DataEncryption.md5(password));
-		
-//		System.out.println("**UNBAN**");
-//		unban("58593a49cc29874daef62069");
-//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
-//
-//		System.out.println("**FREEZE**");
-//		freeze("58593a49cc29874daef62069");
-//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
-//		
-//		System.out.println("**BAN**");
-//		ban("58593a49cc29874daef62069");
-//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
-//		
-//		System.out.println("**FREEZE**");
-//		freeze("58593a49cc29874daef62069");
-//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
-//		
-//		System.out.println("**UNFREEZE**");
+
+		//		System.out.println("**UNBAN**");
+		//		unban("58593a49cc29874daef62069");
+		//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
+		//
+		//		System.out.println("**FREEZE**");
+		//		freeze("58593a49cc29874daef62069");
+		//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
+		//		
+		//		System.out.println("**BAN**");
+		//		ban("58593a49cc29874daef62069");
+		//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
+		//		
+		//		System.out.println("**FREEZE**");
+		//		freeze("58593a49cc29874daef62069");
+		//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
+		//		
+		//		System.out.println("**UNFREEZE**");
 		unfreeze("58593a49cc29874daef62069");
 		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
-//		
-//		System.out.println("**UNBAN**");
-//		unban("58593a49cc29874daef62069");
-//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
-		
+		//		
+		//		System.out.println("**UNBAN**");
+		//		unban("58593a49cc29874daef62069");
+		//		System.out.println("Status ? : "+getStatus("58593a49cc29874daef62069"));
+
 		//setAdmin("58593a49cc29874daef62069");
 		//System.out.println(isAdmin("58593a49cc29874daef62069"));
-//		
-//		unsetAdmin("58593a49cc29874daef62069");
-//		System.out.println(isAdmin("58593a49cc29874daef62069"));
-		
-//		confirmUser("58593a49cc29874daef62069");
-		
+		//		
+		//		unsetAdmin("58593a49cc29874daef62069");
+		//		System.out.println(isAdmin("58593a49cc29874daef62069"));
+
+		//		confirmUser("58593a49cc29874daef62069");
+
 	}
+
 }

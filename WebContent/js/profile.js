@@ -1,4 +1,5 @@
 function fillMyProfile() {
+	
 	$
 	.get(UserProfileServlet)
 	.done( function (data) {
@@ -9,7 +10,6 @@ function fillMyProfile() {
 		$('#name').html(json.success.user0.name);
 		$('#email').html(json.success.user0.email);
 		$('#phone').html(json.success.user0.phone);
-		
 	} );
 	
 	$

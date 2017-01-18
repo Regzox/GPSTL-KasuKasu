@@ -51,7 +51,7 @@ public class User {
 		//TODO if we implements language choices , change fr-FR by dyn language selection
 		//choice made by the value of the cookies
 		try {
-			
+
 			SendEmail.sendMail(email,
 					Lingua.get("welcomeMailSubject",value),
 					Lingua.get("welcomeMailMessage",value)
@@ -64,8 +64,8 @@ public class User {
 		return Tools.serviceMessage(1);
 	}
 
-	
-	
+
+
 	/**
 	 * check if user account is checked
 	 * @rebasetested 
@@ -73,8 +73,8 @@ public class User {
 	public static boolean isConfirmed(String id){
 		return UserDao.isConfirmed(id);
 	}
-	
-	
+
+
 	/**
 	 * Met � jour les informations de l'utilisateur correspondant � l'email et au mot de passe par celle contenues
 	 * dans l'instance d'entities.User
@@ -360,30 +360,46 @@ public class User {
 	public static void ban(String userId) {
 		UserDao.ban(userId);
 	}
-	
+
 	public static boolean isFrozen(String userId) throws UserNotFoundException, UserNotUniqueException{
 		return UserDao.isFrozen(userId);
 	}
-	
+
 	public static boolean isBanned(String userId) throws UserNotFoundException, UserNotUniqueException{
 		return UserDao.isBanned(userId);
 	}
-	
+
 	public static boolean isNormal(String userId) throws UserNotFoundException, UserNotUniqueException{
 		return UserDao.isNormal(userId);
 	}
-	
+
 	public static void setStatus(String userId,Status status){
 		UserDao.setStatus(userId, status);
 	}
 	public static Status getStatus(String userId) throws UserNotFoundException, UserNotUniqueException{
 		return UserDao.getStatus(userId);
 	}
-	
+
 	public static boolean isAdmin(String userId) throws UserNotFoundException, UserNotUniqueException{
 		return UserDao.isAdmin(userId);
 	}
-	
+
+
+	/**
+	 * Set user to vacation mode
+	 * All user's items will be disabled to loan (
+	 * 	they wont appear in search 's results 
+	 * )
+	 * @param id */
+	public static JSONObject setVacationStatus(String id, boolean vacationStatus)
+			throws JSONException{
+		if (vacationStatus)
+			UserDao.goOnVacation(id);
+		else
+			UserDao.exitVacation(id);
+		return Tools.serviceMessage(1);
+	}
+
 	/**
 	 * Local tests
 	 * @param args
@@ -392,9 +408,5 @@ public class User {
 		System.out.println("main : findUser : "+findUser("5856f940a7705c0d0f55e35f",""));
 		System.out.println("main : findFriends : "+findFriends("5851476fd4fa474871be3d76","zoro tutanck"));
 	}
-
-
-
-
 
 }
