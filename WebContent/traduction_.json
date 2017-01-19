@@ -642,7 +642,6 @@
 				"fr" : "Status",
 				"en" : "Status"
 			},
-			
 			"contact" :
 			{
 				"fr" : "Contacter",
@@ -787,6 +786,66 @@
 			{
 				"fr" : "Déconnexion",
 				"en" : "Disconnection"
+			}
+		}
+	},
+	{
+		"itemmanagement.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Mon objet",
+				"en" : "My object"
+			},
+			"title" :
+			{
+				"fr" : "Titre",
+				"en" : "Title"
+			},
+			"desc" :
+			{
+				"fr" : "Description",
+				"en" : "Description"
+			},
+			"ajout" :
+			{
+				"fr" : "Ajouter",
+				"en" : "Add"
+			},
+			"groupes" :
+			{
+				"fr" : "Groupes",
+				"en" : "Groups"
+			},
+			"ajout1" :
+			{
+				"fr" : "Ajouter",
+				"en" : "Add"
+			},
+			"modify" :
+			{
+				"fr" : "Appliquer les modifications du Titre et de la description",
+				"en" : "Apply the modifications of the title and the description"
+			},
+			"zones" :
+			{
+				"fr" : "Mes zones",
+				"en" : "My zones"
+			},
+			"add_zone" :
+			{
+				"fr" : "Ajouter",
+				"en" : "Add"
+			},
+			"mes_groupes" :
+			{
+				"fr" : "Mes Groupes",
+				"en" : "My groups"
+			},
+			"add_group" :
+			{
+				"fr" : "Ajouter",
+				"en" : "Add"
 			}
 		}
 	}

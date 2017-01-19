@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Mon Objet</title>
+<title id='titre'>Mon Objet</title>
 
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/bootstrap-3.3.7-dist/css/bootstrap.min.css">
@@ -32,12 +32,9 @@
 	<div id="page">
 		<div id="profile">
 			<table>
+				
 				<tr class="row">
-					<td class="title">Id</td>
-					<td class="information" id="objectId"><%=itemid%></td>
-				</tr>
-				<tr class="row">
-					<td class="title">Titre</td>
+					<td class="title" id='title'>Titre</td>
 					<td class="information" id="title">
 						<div class="title">
 							<textarea rows="1" cols="50" id="itemtitle" name="description"
@@ -45,7 +42,7 @@
 						</div>
 				</tr>
 				<tr class="row">
-					<td class="title">Description</td>
+					<td class="title" id='desc'>Description</td>
 					<td class="information" id="description">
 						<div class="title">
 							<textarea rows="5" cols="50" id="itemdescription"
@@ -57,15 +54,15 @@
 				<tr class="row">
 					<td class="title">Zones</td>
 					<td class="information" id="zone"><span
-						class="tag label label-warning"> <span>Ajouter</span> <a><i
+						class="tag label label-warning"> <span id='ajout'>Ajouter</span> <a><i
 								onclick="showZones()"
 								class="remove glyphicon glyphicon-plus-sign glyphicon-blue"></i></a>
 					</span></td>
 				</tr>
 				<tr class="row">
-					<td class="title">Groupes</td>
+					<td class="title" id='groupes'>Groupes</td>
 					<td class="information" id="group"><span
-						class="tag label label-warning"> <span>Ajouter</span> <a><i
+						class="tag label label-warning"> <span id='ajout1'>Ajouter</span> <a><i
 								onclick="showGroups(this)"
 								class="remove glyphicon glyphicon-plus-sign glyphicon-blue"></i></a>
 					</span></td>
@@ -75,7 +72,7 @@
 			<div>
 				<button type="button" onclick="modifyItem()"
 					style="width: 100%; position: relative"
-					class="btn btn-primary btn-lg" name="modify" value="modify">Appliquer
+					class="btn btn-primary btn-lg" name="modify" id="modify">Appliquer
 					les modifications du Titre et de la description</button>
 			</div>
 		</div>
@@ -88,7 +85,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close">&times;</button>
-					<h4 class="modal-title">Mes Zones!</h4>
+					<h4 class="modal-title" id='zones'>Mes Zones</h4>
 				</div>
 				<div class="modal-body">
 					<div class="well-searchbox">
@@ -102,7 +99,7 @@
 									</SELECT>
 									<div class="col-sm-offset-4 col-sm-5">
 										<button type="submit" class="btn btn-primary" name="add-zone"
-											value="add-zone">Ajouter !</button>
+											id="add_zone">Ajouter</button>
 									</div>
 								</div>
 							</form>
@@ -120,7 +117,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close">&times;</button>
-					<h4 class="modal-title">Mes Groupes!</h4>
+					<h4 class="modal-title" id='mes_groupes'>Mes Groupes</h4>
 				</div>
 				<div class="modal-body">
 					<div class="well-searchbox">
@@ -134,7 +131,7 @@
 								</SELECT>
 								<div class="col-sm-offset-4 col-sm-5">
 									<button type="submit" class="btn btn-primary" name="add-group"
-										value="add-group">Ajouter !</button>
+										id="add_group">Ajouter </button>
 								</div>
 							</form>
 						</div>
