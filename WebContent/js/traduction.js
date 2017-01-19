@@ -18,10 +18,9 @@ function getXMLHttpRequest() {
 	return xhr;
 }
 
-function trans()
-{
+function trans(page,element){
 	var xhr = getXMLHttpRequest();
-	var dico;
+	
 	//get the file name
 	var href = document.location.href;
 	var fileName = href.substr(href.lastIndexOf('/') + 1);
@@ -32,28 +31,18 @@ function trans()
 
 	/*if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) 
 	{*/
-	dico = JSON.parse(xhr.responseText);
-	//console.log(JSON.stringify(dico));//debug
-
-	for(var i in dico){
-		var json= dico[i];
-		if(dico[i].hasOwnProperty("portal.jsp"))
-		console.log(walk_through(json,"portal.jsp","titre","fr"));
-	}
-
+	var dico = JSON.parse(xhr.responseText);
+	for(var i in dico)
+		if(dico[i].hasOwnProperty(page))
+			printHTML("#"+element, walk_through(dico[i][page],element,"fr"));
 	//}
 
 }
 
 
-function walk_through(json,topField,nextField,langue) {	
-	for (var key in json)
-		if (json.hasOwnProperty(topField)) 
-			return walk_through(json[topField],topField,nextField,langue);
-		else if (json.hasOwnProperty(nextField)){ 
-			//console.log("dico['"+topField+"#"+nextField+"'] : "+json[nextField][langue])
-			return json[nextField][langue];
-		}
+function walk_through(json,element,langue) {	
+	 if (json.hasOwnProperty(element))
+			return json[element][langue];
 }
 
 
