@@ -32,8 +32,6 @@
 <!-- 	<button id='btn_en' type="button" >English</button> -->
 <!-- 	<button id='btn_fr' type="button">Français</button>	 -->
 
-		<div id="vacation_control"></div>
-
 		<%@ include file="/fragments/interface/menus/profile_menu.jspf"%>
 		<%@ include file="/fragments/profile.jspf"%>
 		<br><br>
