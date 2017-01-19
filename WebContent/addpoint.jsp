@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title id='titre' >Ajouter un lieu d'échange</title>
+<title id='titre' >Ajout d'un lieu d'échange</title>
 
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
@@ -72,7 +72,7 @@ html, body, #mapdiv {
 			<div id='error_point'></div>
 
 			<input id='submit' type="submit" class="btn btn-primary btn-block"
-				onClick="javascript:createobject()">
+				value="Envoyer" onClick="javascript:createobject()">
 		</div>
 	</div>
 
@@ -80,9 +80,9 @@ html, body, #mapdiv {
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- dialog body -->
-      <div id='comment' class="modal-body">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        Les lieux ont bien été ajoutés
+      <div  class="modal-body">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+       <div id='comment'> Les lieux ont bien été ajoutés </div> 
       </div>
     </div>
   </div>

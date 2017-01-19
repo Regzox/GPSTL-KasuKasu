@@ -41,7 +41,7 @@
 	
 		<div class='layer-center'>
 
-			<p id='p' class='capital'>Trouvez des Objets à proximité de vos points
+			<p id='comment' class='capital'>Trouvez des Objets à proximité de vos points
 				d'échanges</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
@@ -52,7 +52,7 @@
 							id="iquery" autocomplete="off">
 					</div>
 				</div>
-				<input id="submit" type="submit" class="btn btn-primary btn-block">
+				<input id="submit" type="submit" class="btn btn-primary btn-block" value="Rechercher">
 			</form>
 
 			<br>

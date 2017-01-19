@@ -90,7 +90,7 @@
 						String status = User.getStatus(id).toString();
 				%>
 				<tr class="row">
-					<td id="admin" class="title">STATUS : <%=status%></td> 
+					<td id="admin" class="title"><div id="status">STATUS :</div> <%=status%></td> 
 
 					<%
 						switch (status) {

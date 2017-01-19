@@ -41,7 +41,7 @@
 			<p id="gest">Gérer le groupe</p>
 			<p id="comment">
 				En ajoutant des membres
-
+			</p>
 
 
 

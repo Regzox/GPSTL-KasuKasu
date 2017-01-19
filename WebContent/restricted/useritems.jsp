@@ -54,7 +54,7 @@
 			<hr>
 			<br>
 
-			<h2 id='liste'>Liste de vos objets</h2>
+			<h2 id='liste'>Liste de mes objets</h2>
 			<div id="found-items" class="abootsraper"></div>
 		</div>
 		

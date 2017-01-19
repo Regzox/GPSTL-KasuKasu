@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- <title>KasuKasu - Modify your account</title> -->
- <title id='titre'>KasuKasu - Modifier votre compte</title> 
+ <title id='titre'>Modifier mon compte</title> 
 
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
@@ -29,7 +29,7 @@
 
 	<div id='page'>
 
-		<div id='a' class="fit-width capital center show">Modifier votre compte</div>
+		<div id='titre2' class="fit-width capital center show">Modifier mon compte</div>
 
 		<div class="layer-center">
 
@@ -67,7 +67,7 @@
 	
 	                <hr /> -->
 
-					<legend id='modif'>Saisissez vos modifications</legend>
+					<legend id='modif'>Saisir mes modifications</legend>
 
 					<div class="form-group row">
 						<label id='emaill' for="new_email_input" class="col-xs-3 col-form-label">Nouvel
