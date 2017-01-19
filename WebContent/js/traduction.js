@@ -26,14 +26,34 @@ function trans()
 	var href = document.location.href;
 	var fileName = href.substr(href.lastIndexOf('/') + 1);
 	
-	xhr.open("GET","/KasuKasu/traduction.json",false);
+	xhr.open("GET","/KasuKasu/traduction_.json",false);
 	xhr.send();
 	//xhr.onreadystatechange = function() {
 
-	if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) 
-	{
+	/*if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) 
+	{*/
 		dico = JSON.parse(xhr.responseText);
-		console.log(dico);
+		//console.log(JSON.stringify(dico));
 		
-	}
+		
+		console.log(walk_through(dico,"portal.jsp","titre","fr","origin"));
+		
+			
+	//}
+	
 }
+
+
+function walk_through(json,topField,nextField,langue,origin) {	
+	for (var key in json)
+		if (json.hasOwnProperty(topField)) 
+			return walk_through(json[topField],topField,nextField,langue,origin);
+		else if (json.hasOwnProperty(nextField)){ 
+			console.log(json[nextField][langue])
+			return json[nextField][langue];
+		}
+		else 
+			return origin;
+}
+
+
