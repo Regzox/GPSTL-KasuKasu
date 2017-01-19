@@ -48,11 +48,11 @@ html, body, #mapdiv {
 
 			<div class='col-md-6'>
 				<p>
-					<img alt="" src="data/marker-red.png" width="10" height="10">
+					<img alt="" src="/KasuKasu/data/marker-red.png" width="10" height="10">
 					<div id='pts'> Vos lieux d'échange</div>
                 	<br></br>				
-					<img alt="" src="data/marker.png" width="10" height="10">
-					<div id='pts_amis'>Lieux d'échange de mes amis</div>
+					<img alt="" src="/KasuKasu/data/marker.png" width="10" height="10">
+					<div id='pts_amis'>Lieux d'échange de vos amis</div>
 					<br></br>	
 					<div id='comment'>Double-cliquez sur la carte pour ajouter un lieu</div>
 
