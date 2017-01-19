@@ -22,3 +22,5 @@ function removeElt(dom){$(dom).remove(); }
 function chill(){/*alert('I m lazy')*/}
 
 function refresh(result){location.reload();}
+
+function gotoURL(url){window.location.href=url};

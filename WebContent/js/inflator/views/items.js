@@ -85,6 +85,7 @@ Item.listItemTraiteReponseJSON=function(json){
 		fhtm+="</div>\n"; 
 		//alert("items.html = "+fhtm);  
 		printHTML("#found-items",fhtm); 
+		
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
 };
@@ -128,10 +129,10 @@ Item.prototype.getHTML=function(){
 	s+="<div class=\"item-more\">";
 	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	if(bool==0)
-		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"iwantit_btn\" " +
+		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"btn btn-primary btn-xs\" " +
 		"id=\"iwantit_btn"+this.id+"\" OnClick=\"request_item('"+this.id+"');\"/>\n";
 	if(bool==1)
-		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"I want it\" class=\"iwantit_btn\" " +
+		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"I want it\" class=\"btn btn-primary btn-xs\" " +
 		"id=\"iwantit_btn"+this.id+"\" OnClick=\"request_item('"+this.id+"');\"/>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
@@ -162,9 +163,13 @@ Item.prototype.getHTML2=function(){
 	" src=\"icons/Empty_Trash_Filled-50.png\" class=\"iwantit_btn\" " +
 	"id=\"remove_item_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
 	if(bool==0)
-		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modifier</button>";
+		s+="<input style=\"float:left;\" " +
+				"onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
+						" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modifier\">";
 	if(bool==1)
-		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modify</button>";
+		s+="<input style=\"float:left;\"" +
+				" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
+						" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">";
 	
 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+="</div>";

@@ -74,8 +74,7 @@ function request_item(id){
 
 
 function loaning_request_response(rep){	
-	//alert("afficher modal"); //afficher modal TODO
-	refresh(rep);
+	gotoURL(searchitems_jsp);
 }
 
 function accept_item_request(id_applicant, id_item){	
