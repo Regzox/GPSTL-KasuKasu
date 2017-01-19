@@ -48,6 +48,7 @@ public class ConnectionFilter implements Filter {
 		if (session.getAttribute(USER_ID) == null)
 		{
 			if ( !request.getRequestURI().contains("portal.jsp") && request.getRequestURI().contains("/restricted/") ) {
+				System.out.println("REDIRECT !");
 				response.sendRedirect(resource.absolutePath("portal_jsp"));
 			}
 		} 
@@ -55,6 +56,7 @@ public class ConnectionFilter implements Filter {
 		{
 			if ( !path.contains("/restricted/") && path.contains(".jsp"))
 			{
+				System.out.println("REDIRECT !");
 				response.sendRedirect(resource.absolutePath("dashboard_jsp"));
 			}
 		}

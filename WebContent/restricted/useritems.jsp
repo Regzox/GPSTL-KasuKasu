@@ -19,7 +19,7 @@
 <script>
 	$(document).ready(function() {
 		$("#iquery").keyup(function(e) {
-			searchItems($("#iquery").val());
+			userItems($("#iquery").val());
 		});
 	});
 </script>

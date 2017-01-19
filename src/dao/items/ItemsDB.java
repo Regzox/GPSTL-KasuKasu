@@ -18,7 +18,6 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.ExchangePointsDB;
-import dao.FriendsDao;
 import dao.GroupsDB;
 import dao.search.FuzzyFinder;
 import dao.search.PatternsHolder;
@@ -216,28 +215,49 @@ public class ItemsDB {
 	 * @param itemID
 	 * @param groupID */
 	public static void addGroupToItem(String itemID, String groupID){
-		BasicDBObject updateQuery = new BasicDBObject();
-		updateQuery.put("_id", new ObjectId(itemID));
-		BasicDBObject updateCommand = new BasicDBObject();
-		updateCommand.put("$addToSet", 
-				new BasicDBObject("groups",groupID)
-				.append("nom", GroupsDB.getGroup(groupID).get("name")));
-		collection.update(updateQuery,updateCommand);
+		collection.update(
+				new BasicDBObject("_id", new ObjectId(itemID)),
+				new BasicDBObject("$addToSet", 
+						new BasicDBObject("groups",
+								new BasicDBObject("id",groupID)
+								.append("nom", GroupsDB.getGroup(groupID).get("name"))))
+				);
 	}
+
+	
 
 
 	/**
+	 * TODO CONTINUE
 	 * remove from an item the specified groupId
 	 * @param itemID
 	 * @param groupID */
-	public static void removeGroupFromItem(String itemID, String groupID){
-		BasicDBObject updateQuery = new BasicDBObject();
-		updateQuery.put("_id", new ObjectId(itemID));
-		BasicDBObject updateCommand = new BasicDBObject();
-		updateCommand.put("$pull", new BasicDBObject("groups",groupID));
-		collection.update(updateQuery,updateCommand);
+	public static void removeGroupFromItem(String itemID, String groupID){	
+		collection.update(new BasicDBObject("_id", new ObjectId(itemID)),
+				new BasicDBObject("$pull", new BasicDBObject("groups.$.id",groupID)));
 	}
 
+	public static void main(String[] args) {
+		System.out.println("Results...\n%");
+
+		//addGroupToItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+		
+		removeGroupFromItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+
+		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
+		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
+		//		Iterable<DBObject> res =utherItems("1","");
+		//		Iterable<DBObject> res =utherItems("6","    V�lo   noir  ");
+		//		for(DBObject o : res)System.out.println(o);
+		//		System.out.println("%\n");
+		//		System.out.print("Permission : ");
+		//		if(checkAthorization("6","581c70b04c1471dd003afb61")){
+		//			System.out.println("Granted");
+		//			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
+		//					"galaxy S5 noir neuf, tres peu servi");
+		//		}else System.out.println("Denied");
+	}
+	
 
 	/**
 	 * return the list of groupIDs of an item 
@@ -259,7 +279,7 @@ public class ItemsDB {
 
 		BasicDBList usergroupsmembership = new BasicDBList();
 		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-
+ 
 		while(dbc.hasNext())
 			usergroupsmembership.add(dbc.next().get("_id").toString());
 
@@ -274,25 +294,6 @@ public class ItemsDB {
 				.append("groups",new BasicDBObject("$size", 0)));
 				
 		return collection.find(new BasicDBObject().append("$or", exprs));
-	}
-
-
-
-	public static void main(String[] args) {
-		System.out.println("Results...\n%");
-//		System.out.println(accessibleItems("586e8cd92736d4e126b99c07"));
-		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
-		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
-		//		Iterable<DBObject> res =utherItems("1","");
-		//		Iterable<DBObject> res =utherItems("6","    V�lo   noir  ");
-		//		for(DBObject o : res)System.out.println(o);
-		//		System.out.println("%\n");
-		//		System.out.print("Permission : ");
-		//		if(checkAthorization("6","581c70b04c1471dd003afb61")){
-		//			System.out.println("Granted");
-		//			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
-		//					"galaxy S5 noir neuf, tres peu servi");
-		//		}else System.out.println("Denied");
 	}
 
 }
