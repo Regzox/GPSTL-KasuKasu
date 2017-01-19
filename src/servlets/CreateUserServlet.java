@@ -38,7 +38,8 @@ public class CreateUserServlet extends OfflinePostServlet {
 					  value = cookies[i].getValue();
 				  }
 		}
-		
+		if(value.equals(""))
+			value="fr";
 		JSONObject json = User.createUser(value,
 				params.get("email"),
 				params.get("mdp"),
