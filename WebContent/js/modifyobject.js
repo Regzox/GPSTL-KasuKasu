@@ -30,30 +30,30 @@ function processItemInformations(r){
 	$('#itemdescription').val(r.item.items[0].description);
 
 	/** POUR CHAQUE ZONE ITEM **/
-	if(r.itemexpoints!=undefined)
-	for (var i = 0; i < r.itemexpoints.length; i++) {
-		var zone = r.itemexpoints[i];
-		$('#zone').prepend("<span id=\"z"+zone+"\" class=\"tag label label-info\"> <span>"
-				+zone+"</span> <a><i onclick=\"removeZone(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
+	if(r.itempoint!=undefined)
+	for (var i = 0; i < r.itempoint.length; i++) {
+		var zone = r.itempoint[i];
+		$('#zone').prepend("<span id=\"z"+zone.id+"\" class=\"tag label label-info\"> <span>"
+				+zone.nom+"</span> <a><i onclick=\"removeZone(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
 	}
 	/** POUR CHAQUE GROUPE ITEM**/
-	if(r.itemsgroups!=undefined)
-	for (var i = 0; i < r.itemsgroups.length; i++) {
-		var group = r.itemsgroups[i];
+	if(r.itemgroup!=undefined)
+	for (var i = 0; i < r.itemgroup.length; i++) {
+		var group = r.itemgroup[i];
 		$('#group').prepend("<span id=\"g"+group.id+"\" class=\"tag label label-info\"> <span>"
 				+group.name+"</span> <a><i onclick=\"removeGroup(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
 	}
 	/** MODAL ZONE USER**/
-	if(r.userexpoints.expts!=undefined)
-	for (var i = 0; i < r.userexpoints.expts.length; i++) {
-		var zone = r.userexpoints.expts[i];
-		$('#zone-id').append("<OPTION value=\""+zone.id+"\">"+zone.id+"</OPTION>");
+	if(r.userpoint!=undefined)
+	for (var i = 0; i < r.userpoint.length; i++) {
+		var zone = r.userpoint[i];
+		$('#zone-id').append("<OPTION value=\""+zone.id+"\">"+zone.nom+"</OPTION>");
 	}
 	/** MODAL GROUPE USER**/
-	if(r.groups.groups!=undefined)
-	for (var i = 0; i < r.groups.groups.length; i++) {
-		var group = r.groups.groups[i];
-		$('#group-id').append("<OPTION value=\""+group.id+"\">"+group.name+"</OPTION>");
+	if(r.usergroup!=undefined)
+	for (var i = 0; i < r.usergroup.length; i++) {
+		var group = r.usergroup[i];
+		$('#group-id').append("<OPTION value=\""+group.id+"\">"+group.nom+"</OPTION>");
 	}
 
 }

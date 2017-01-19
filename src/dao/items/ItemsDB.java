@@ -279,17 +279,21 @@ public class ItemsDB {
 
 		BasicDBList usergroupsmembership = new BasicDBList();
 		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-
+ 
 		while(dbc.hasNext())
 			usergroupsmembership.add(dbc.next().get("_id").toString());
 
-		return  collection.find(
-				new BasicDBObject()//TODO attention  groups.$ ou $elemMatch au lieu de groups.id(ne marchera pas)
-				.append("groups.id", new BasicDBObject().append("$in",usergroupsmembership)));
+		BasicDBList exprs = new BasicDBList();
+		exprs.add(
+				new BasicDBObject()
+				.append("groups", 
+						new BasicDBObject("$elemMatch",new BasicDBObject("id",new BasicDBObject("$in",usergroupsmembership)))
+						));
+		
+		exprs.add(new BasicDBObject()
+				.append("groups",new BasicDBObject("$size", 0)));
+				
+		return collection.find(new BasicDBObject().append("$or", exprs));
 	}
-
-
-
-
 
 }

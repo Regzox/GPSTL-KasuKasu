@@ -20,15 +20,15 @@
 }
 
 .header-image {
-	width: 50%;
-	height: 50%;
+	width: 65%;
+	height: 65%;
 	display: inline-block;
 	transition: width 1s, height 1s;
 }
 
-.header-image:hover {
+/* .header-image:hover {
 	width: 80%;
 	height: 80%;
 	display: inline;
 	transition: width 1s, height 1s;
-}
+} */
