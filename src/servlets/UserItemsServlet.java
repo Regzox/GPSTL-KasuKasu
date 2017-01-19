@@ -16,11 +16,14 @@ public class UserItemsServlet extends OnlineGetServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
-		if(request.getParameter("query")==null )
+		if(request.getParameter("query")==null
+				||request.getParameter("query").equals("")
+				)
 			response.getWriter().print(Items.userItems(
 					"",
 					(String) request.getSession().getAttribute("userId"))
 					);
+			
 		else
 			response.getWriter().print(Items.userItems(
 					params.get("query"),

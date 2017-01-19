@@ -29,7 +29,7 @@
 		<p id='ajout1' class='capital' style='text-align: center'>Ajout
 			d'un objet</p>
 
-		<div class='modal-body row'>
+		<div>
 			<div class='col-md-6'>
 				<form id="formulaire" method="get">
 
@@ -101,16 +101,7 @@
 
 					<div id='error_groupe'></div>
 
-
-
-
-
-
-
-
 					<input type="hidden" name="nombre" id="nombre" value="0">
-
-
 
 				</form>
 

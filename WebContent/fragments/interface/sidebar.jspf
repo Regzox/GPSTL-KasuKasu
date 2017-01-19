@@ -30,8 +30,8 @@
 			"> Mes amis </div>
 			
 			<div id="my_places" onclick="
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(listpoint_jsp)))
-					$(location).attr(&#39;href&#39;, listpoint_jsp);
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(importpoint_jsp)))
+					$(location).attr(&#39;href&#39;, importpoint_jsp);
 			"> Mes lieux </div> 
 			
 			<br><br><br><br>

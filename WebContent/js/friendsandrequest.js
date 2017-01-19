@@ -51,6 +51,9 @@ function ProcessRetrieveFriends(rep)
 	var endmessage ="</table>";
 	var bodymessage ="";
 	
+	if(bool==undefined)
+		bool=0;
+	
 	
 	if(bool==1)
 	{
@@ -91,7 +94,7 @@ function ProcessRetrieveFriends(rep)
 			"</tr>";
 			
 	}else{
-		if(bool=0)
+		if(bool==0)
 		for (var i = 0; i < jsonData.users.length; i++) {
 			var user = jsonData.users[i];
 
@@ -124,6 +127,8 @@ function ProcessRetrieveRequests(rep)
 {
 	var message;
 	
+	if(bool==undefined)
+		bool=0;
 	if(bool==0)
 	{
 		message = "<table class=\"table\">" +
@@ -140,7 +145,7 @@ function ProcessRetrieveRequests(rep)
 			"<th>Last name</th><th>First name</th><th>Profile</th><th>Accept</th><th>Decline</th>" +
 			"</tr>";
 		}
-	}	
+	}
 	var endmessage ="</table>";
 	var bodymessage ="";
 

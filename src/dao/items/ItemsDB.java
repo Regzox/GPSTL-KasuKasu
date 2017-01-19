@@ -47,11 +47,11 @@ public class ItemsDB {
 
 		// Ajout dans la base de donnees des objets
 		collection.insert( dbObj ).toString();	
-		
+
 		// Récupère l'id et l'utilisateur de l'objet qui vient d'être ajouté
 		String itemID = ((ObjectId)dbObj.get( "_id" )).toString();
 		String userID = (String) dbObj.get( "owner" );
-		
+
 		// Conversion JSONArray to ArrayList
 		ArrayList<String> exPointsList = new ArrayList<String>();     
 		JSONArray jsonArray = exPoints; 
@@ -61,7 +61,7 @@ public class ItemsDB {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		   
+
 		// Ajout l'objet dans les points d'échange de l'utilisateur
 		ExchangePointsDB.addItemToUserExPoints(itemID, userID, exPointsList);
 	}
@@ -168,7 +168,7 @@ public class ItemsDB {
 				PatternsHolder.wordSet(query,PatternsHolder.blank),
 				fuzzyness,
 				Arrays.asList("title","description"),constraints,"");
-		
+
 	}
 
 
@@ -206,35 +206,58 @@ public class ItemsDB {
 
 
 
-	
+
 	/***************** ITEMS GROUPS (VISIBILITY ) MANAGEMENT *****************/
 
 
-	/**
+	/** TODO VERIFIER QUE TOUT MARCHE BIEN LORS 
 	 * Add to an item one more groupId 
 	 * @param itemID
 	 * @param groupID */
 	public static void addGroupToItem(String itemID, String groupID){
-		BasicDBObject updateQuery = new BasicDBObject();
-		updateQuery.put("_id", new ObjectId(itemID));
-		BasicDBObject updateCommand = new BasicDBObject();
-		updateCommand.put("$addToSet", new BasicDBObject("groups",groupID));
-		collection.update(updateQuery,updateCommand);
+		collection.update(
+				new BasicDBObject("_id", new ObjectId(itemID)),
+				new BasicDBObject("$addToSet", 
+						new BasicDBObject("groups",
+								new BasicDBObject("id",groupID)
+								.append("nom", GroupsDB.getGroup(groupID).get("name"))))
+				);
 	}
+
+	
 
 
 	/**
+	 * TODO CONTINUE
 	 * remove from an item the specified groupId
 	 * @param itemID
 	 * @param groupID */
-	public static void removeGroupFromItem(String itemID, String groupID){
-		BasicDBObject updateQuery = new BasicDBObject();
-		updateQuery.put("_id", new ObjectId(itemID));
-		BasicDBObject updateCommand = new BasicDBObject();
-		updateCommand.put("$pull", new BasicDBObject("groups",groupID));
-		collection.update(updateQuery,updateCommand);
+	public static void removeGroupFromItem(String itemID, String groupID){	
+		collection.update(new BasicDBObject("_id", new ObjectId(itemID)),
+				new BasicDBObject("$pull", new BasicDBObject("groups.$.id",groupID)));
 	}
 
+	public static void main(String[] args) {
+		System.out.println("Results...\n%");
+
+		//addGroupToItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+		
+		removeGroupFromItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+
+		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
+		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
+		//		Iterable<DBObject> res =utherItems("1","");
+		//		Iterable<DBObject> res =utherItems("6","    V�lo   noir  ");
+		//		for(DBObject o : res)System.out.println(o);
+		//		System.out.println("%\n");
+		//		System.out.print("Permission : ");
+		//		if(checkAthorization("6","581c70b04c1471dd003afb61")){
+		//			System.out.println("Granted");
+		//			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
+		//					"galaxy S5 noir neuf, tres peu servi");
+		//		}else System.out.println("Denied");
+	}
+	
 
 	/**
 	 * return the list of groupIDs of an item 
@@ -252,35 +275,25 @@ public class ItemsDB {
 	 * @param userID
 	 * @return
 	 */
-		public static DBCursor accessibleItems(String userID) {
-			
-			BasicDBList usergroupsmembership = new BasicDBList();
-			DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-			
-			while(dbc.hasNext())
-				usergroupsmembership.add(dbc.next().get("_id").toString());
-			
-			return  collection.find(
-					new BasicDBObject()//TODO attention  groups.$ ou $elemMatch au lieu de groups.id(ne marchera pas)
-					.append("groups.id", new BasicDBObject().append("$in",usergroupsmembership)));
-		}
+	public static DBCursor accessibleItems(String userID) {
 
+		BasicDBList usergroupsmembership = new BasicDBList();
+		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
+ 
+		while(dbc.hasNext())
+			usergroupsmembership.add(dbc.next().get("_id").toString());
+
+		BasicDBList exprs = new BasicDBList();
+		exprs.add(
+				new BasicDBObject()
+				.append("groups", 
+						new BasicDBObject("$elemMatch",new BasicDBObject("id",new BasicDBObject("$in",usergroupsmembership)))
+						));
 		
-
-	public static void main(String[] args) {
-		System.out.println("Results...\n%");
-//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
-//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
-//		Iterable<DBObject> res =utherItems("1","");
-//		Iterable<DBObject> res =utherItems("6","    V�lo   noir  ");
-//		for(DBObject o : res)System.out.println(o);
-//		System.out.println("%\n");
-//		System.out.print("Permission : ");
-//		if(checkAthorization("6","581c70b04c1471dd003afb61")){
-//			System.out.println("Granted");
-//			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
-//					"galaxy S5 noir neuf, tres peu servi");
-//		}else System.out.println("Denied");
+		exprs.add(new BasicDBObject()
+				.append("groups",new BasicDBObject("$size", 0)));
+				
+		return collection.find(new BasicDBObject().append("$or", exprs));
 	}
 
 }
