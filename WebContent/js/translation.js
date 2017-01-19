@@ -33,6 +33,7 @@ function trans()
 	if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) 
 	{
 		dico = JSON.parse(xhr.responseText);
+		console.log(dico);
 		if(fileName == "portal.jsp" || fileName == "")
 		{
 			document.getElementById('btn_fr').onclick = function() {
