@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.tools.DataEncryption;
 import json.Error;
 import json.Success;
 import json.Warning;
@@ -49,9 +50,9 @@ public class ModifyUserServlet extends OnlinePostServlet {
 		System.out.println();
 
 		oldEmail = (map.containsKey("oldEmail")) ? req.getParameter("oldEmail") : null;
-		oldPassword = (map.containsKey("oldPassword")) ? req.getParameter("oldPassword") : null;
+		oldPassword = (map.containsKey("oldPassword")) ? DataEncryption.md5(req.getParameter("oldPassword")) : null;
 		email = (map.containsKey("newEmail")) ? req.getParameter("newEmail") : null;
-		password = (map.containsKey("newPassword")) ? req.getParameter("newPassword") : null;
+		password = (map.containsKey("newPassword")) ? DataEncryption.md5(req.getParameter("newPassword")) : null;
 		name = (map.containsKey("newName")) ? req.getParameter("newName") : null;
 		firstname = (map.containsKey("newFirstname")) ? req.getParameter("newFirstname") : null;
 		phone = (map.containsKey("newPhone")) ? req.getParameter("newPhone") : null;
