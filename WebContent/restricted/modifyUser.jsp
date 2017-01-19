@@ -29,7 +29,7 @@
 
 	<div id='page'>
 
-		<div id='a' class="fit-width capital center show">Modifier votre compte</div>
+		<div id='a' class="fit-width capital center">Modifier votre compte</div>
 
 		<div class="layer-center">
 

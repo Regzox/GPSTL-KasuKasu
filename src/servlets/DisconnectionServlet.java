@@ -1,13 +1,13 @@
 package servlets;
 
-import java.util.Map;
+import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.upmc.file.Resource;
-import servlets.tools.templates.online.OnlineGetServlet;
 
 /**
  * Servlet de déconnexion, l'utilisateur émet une requête de déconnexion sans paramètres.
@@ -19,7 +19,7 @@ import servlets.tools.templates.online.OnlineGetServlet;
  *
  */
 
-public class DisconnectionServlet extends OnlineGetServlet {
+public class DisconnectionServlet extends HttpServlet {
 	private static final long serialVersionUID = -3545293914840448417L;
 	private Resource resource;
 	
@@ -30,10 +30,13 @@ public class DisconnectionServlet extends OnlineGetServlet {
 	}
 	
 	@Override
-	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
-			throws Exception {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) {
 		request.getSession().removeAttribute("userId");
-		response.sendRedirect(resource.absolutePath("portal_jsp"));
+		try {
+			response.sendRedirect(resource.absolutePath("portal_jsp"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

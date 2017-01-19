@@ -15,6 +15,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.items.ItemsDB;
 import kasudb.KasuDB;
 
 /**
@@ -280,73 +281,18 @@ public class ExchangePointsDB {
 						new BasicDBObject("subscribers", 
 								new BasicDBObject("id_user", ownerID))));		
 	}
-
-
-	public static void main(String[] args) {
-		collection.remove(new BasicDBObject());
-		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","fac");
-		String excpt_id=accessibleExchangePoints("5jhjy62hghfj5874gtg5").next().get("_id").toString();
-		subscribeToExchangePoint(excpt_id, "new_user_id", "la prison",2);
-		subscribeToExchangePoint(excpt_id, "new_user_id2", "upmc",50);
-		subscribeToExchangePoint(excpt_id, "new_user_id3", "l'enfer",1000);
-		updateExchangePoint(excpt_id, "5jhjy62hghfj5874gtg5", 10, "UPMC");
-		addItemsToExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
-				new HashSet<String>(Arrays.asList(new String[]
-						{"LOLitemID0","LOLitemID1","LOLitemID2","LOLitemID1","LOLitemID7"}
-						)));
-		System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());
-		removeItemsFromExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
-				new HashSet<String>(Arrays.asList(new String[]
-						{"LOLitemID7","LOLitemID8","LOLitemID0"}
-						)));
-		System.out.println("userPoints : "+userPoints("new_user_id").next());
-		try{System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());//Must throw NoSuchElementException
-		}catch(NoSuchElementException nsee){System.out.println("NoSuchElementException");}
-		System.out.println("itemExchangePoints id1: "+itemExchangePoints("LOLitemID1").next());
-		//				System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
-		deleteExchangePoint(excpt_id,"new_user_id3");
-		System.out.println("userPoints : "+userPoints("new_user_id").next());
-	}
-
-
-
-
-	/**TODO REVOIR SI UTILE A GARDER AVEC LINA : SEMBLE OBSOLETE
-	 * Return all the accessible exchange points of an user 
-	 * (his subscribed points and visible friends points)
-	 * @param userID
-	 * @return */
-	public static DBCursor accessibleExchangePoints(String userID){
-		BasicDBList exprs = new BasicDBList();
-		BasicDBList usergroupsmembership = new BasicDBList();
-		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-
-		while(dbc.hasNext())
-			usergroupsmembership.add(dbc.next().get("_id").toString());
-
-		exprs.add(new BasicDBObject("subscribers.id_user", userID));
-		exprs.add(new BasicDBObject("subscribers.id_user",
-						new BasicDBObject("$in",FriendsDao.myFriends(userID)))
-				//TODO FILTER BY GROUP APPARTENANCE according to items's groups
-				);
-		return collection.find(new BasicDBObject().append("$or", exprs));
-	}
-
-
-
-
-
+	
 	/** TODO mod add groups visibility constraints 
 	 * Return the list of user friend's exchange points (including subscribed user's points)
 	 * @param userID
 	 * @return */
 	public static DBCursor friendsLargeExchangePoints(String userID){
 
-		//		BasicDBList useritemsvisible = new BasicDBList();
-		//		DBCursor dbc = ItemsDB.accessibleItems(userID);
-		//
-		//		while(dbc.hasNext())
-		//			useritemsvisible.add(dbc.next().get("_id").toString());
+				BasicDBList useritemsvisible = new BasicDBList();
+				DBCursor dbc = ItemsDB.accessibleItems(userID);
+		
+				while(dbc.hasNext())
+					useritemsvisible.add(dbc.next().get("_id").toString());
 
 		BasicDBList exprs = new BasicDBList();
 		exprs.add(
@@ -356,33 +302,48 @@ public class ExchangePointsDB {
 						.append("$in",FriendsDao.myFriends(userID))
 						.append("$ne", userID)
 						)
-				/*********** A tester ************/
-				//				.append("subscribers.useritems",
-				//						new BasicDBObject()
-				//						.append("$in",useritemsvisible)
-				//						)
+								.append("subscribers.useritems",
+										new BasicDBObject()
+										.append("$in",useritemsvisible)
+										)
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));	
 	}
 
 
-	/** TODO mod add groups visibility constraints
-	 * Return the list of user friend's exchange points 
-	 * @param userID
-	 * @return */
-	public static DBCursor friendsStrictExchangePoints(String userID){
-		BasicDBList exprs = new BasicDBList();
-		exprs.add(
-				new BasicDBObject()
-				.append("subscribers.id_user",
-						new BasicDBObject()
-						.append("$in",FriendsDao.myFriends(userID))
-						.append("subscribers.id_user",
-								new BasicDBObject()
-								.append("$nin", Arrays.asList(new String[]{userID}))))
-				);
-		return collection.find(new BasicDBObject().append("$or", exprs));	
+	public static void main(String[] args) {
+//		collection.remove(new BasicDBObject());
+//		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","fac");
+//		String excpt_id=accessibleExchangePoints("5jhjy62hghfj5874gtg5").next().get("_id").toString();
+//		subscribeToExchangePoint(excpt_id, "new_user_id", "la prison",2);
+//		subscribeToExchangePoint(excpt_id, "new_user_id2", "upmc",50);
+//		subscribeToExchangePoint(excpt_id, "new_user_id3", "l'enfer",1000);
+//		updateExchangePoint(excpt_id, "5jhjy62hghfj5874gtg5", 10, "UPMC");
+//		addItemsToExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
+//				new HashSet<String>(Arrays.asList(new String[]
+//						{"LOLitemID0","LOLitemID1","LOLitemID2","LOLitemID1","LOLitemID7"}
+//						)));
+//		System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());
+//		removeItemsFromExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
+//				new HashSet<String>(Arrays.asList(new String[]
+//						{"LOLitemID7","LOLitemID8","LOLitemID0"}
+//						)));
+//		System.out.println("userPoints : "+userPoints("new_user_id").next());
+//		try{System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());//Must throw NoSuchElementException
+//		}catch(NoSuchElementException nsee){System.out.println("NoSuchElementException");}
+//		System.out.println("itemExchangePoints id1: "+itemExchangePoints("LOLitemID1").next());
+//		//				System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
+//		deleteExchangePoint(excpt_id,"new_user_id3");
+//		System.out.println("userPoints : "+userPoints("new_user_id").next());
 	}
+
+
+
+
+
+
+
+
 	
 	
 	public static DBObject userPointDetail(String userID, double lat,double lon) { 

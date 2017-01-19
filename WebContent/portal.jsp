@@ -24,18 +24,25 @@
 	<div class="layer-center">
 		<div style="width: 100%">
 
-			<div class="wrapper">
+			<div>
+				<br><br><br>
+				<h1 id='bienvenue'>Bienvenue sur KasuKasu !</h1>
+
+				<p>
+					<h3 id='site'>Le site où vous pouvez prêter vos objets à vos amis</h3>
+				</p>
+				<br><br><br><br>
+			</div>
+
+			<div class="wrapper btn-block">
 				<div class="tier">
-				<button id='btn_en' type="button" class="btn btn-primary btn-block">English</button>
+					<button id='btn_en' type="button" class="btn btn-info btn-block">English</button>
 				</div>
 				<div class="tier"></div>
 				<div class="tier">
-				<button id='btn_fr' type="button" class="btn btn-primary btn-block">Français</button>
+					<button id='btn_fr' type="button" class="btn btn-info btn-block">Français</button>
 				</div>
 			</div>
-			<div id='bienvenue'>Bienvenue sur KasuKasu !</div>
-
-			<p id='site'>Le site où vous pouvez prêter vos objets à vos amis</p>
 
 			<button id='btn_insc' type="button" class="btn btn-primary btn-block"
 				onclick="window.location.href = '/KasuKasu/createuser.jsp';">Créer

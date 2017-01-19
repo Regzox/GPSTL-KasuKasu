@@ -41,13 +41,14 @@
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:filterUserItems(this.iquery.value)">
-				<div class="form-group row">
-					<div class="col-xs-10">
-						<input type="text" class="form-control" name="iquery" id="iquery">
-					</div>
+				<div class="wrapper">
+					<input	type="text" 
+							class="form-control" 
+							name="iquery" 
+							value=""
+							id="iquery" 
+							autocomplete="off">
 				</div>
-				<input id='submit' type="submit" class="btn btn-primary btn-block"
-					value="Filtrer" autocomplete="off">
 			</form>
 
 			<br>
