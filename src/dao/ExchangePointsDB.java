@@ -235,15 +235,13 @@ public class ExchangePointsDB {
 
 
 	/**
-	 * Retun the list of ExchangePoints where the item is in loan
+	 * Return the list of ExchangePoints where the item
 	 * @param itemID
 	 * @return */
 	public static DBCursor itemExchangePoints(String itemID){
 		return collection.find( 
-				new BasicDBObject("subscribers.useritems",
-						new BasicDBObject("$elemMatch",
-								new BasicDBObject("$eq",itemID))
-						)
+				new BasicDBObject("subscribers.useritems",itemID)
+						
 				);
 	}
 
@@ -300,6 +298,7 @@ public class ExchangePointsDB {
 		System.out.println("userPoints : "+userPoints("new_user_id").next());
 		try{System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());//Must throw NoSuchElementException
 		}catch(NoSuchElementException nsee){System.out.println("NoSuchElementException");}
+		System.out.println("itemExchangePoints id1: "+itemExchangePoints("LOLitemID1").next());
 		//				System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
 		deleteExchangePoint(excpt_id,"new_user_id3");
 		System.out.println("userPoints : "+userPoints("new_user_id").next());
