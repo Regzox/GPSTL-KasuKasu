@@ -89,25 +89,6 @@ public class ExchangePoints {
 	}
 
 
-	/**TODO FINISH IT
-	 * Return user exchange points according to his userID
-	 * @param userID
-	 * @return
-	 * @throws JSONException */
-	public static JSONObject accessibleExchangePoints(String userID) throws JSONException {			
-		JSONArray jar=new JSONArray();
-		DBCursor cursor = ExchangePointsDB.accessibleExchangePoints(userID); 
-		while(cursor.hasNext()){
-			DBObject dbo=cursor.next();
-			jar.put(new JSONObject()
-					.put("id",dbo.get("_id"))
-					.put("type","expoint")
-					.put("lat",dbo.get("lat"))
-					.put("lon",dbo.get("lon"))
-					.put("radius",dbo.get("rad")));}
-		return new JSONObject().put("expts",jar);
-	}
-
 
 	/**
 	 * Return the list of user's subscribed exchange points
