@@ -449,6 +449,18 @@ public class UserDao {
 				new BasicDBObject("$set", new BasicDBObject("vacation",true))); 
 	}
 
+	
+	/**
+	 * Check if user is on vacation or not
+	 * @param id
+	 * @return */
+	public static boolean getVacationStatus(String id){
+		return collection.find(
+				new BasicDBObject("_id",new ObjectId(id))
+				.append("vacation", true)).hasNext();
+	}
+	
+	
 
 	/**
 	 * Set user to vacation mode to false

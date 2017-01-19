@@ -399,6 +399,10 @@ public class User {
 			UserDao.exitVacation(id);
 		return Tools.serviceMessage(1);
 	}
+	
+	public static JSONObject getVacationStatus(String id) throws JSONException{
+		return new JSONObject().put("vacationstatus", UserDao.getVacationStatus(id));
+	}
 
 	/**
 	 * Local tests

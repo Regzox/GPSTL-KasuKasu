@@ -22,9 +22,7 @@ public class UserProfileServlet extends OnlineGetServlet {
 			throws Exception {
 		HttpSession session = request.getSession();
 		JSONObject object = null;
-		
-		System.out.println("UserProfileServlet begin !");
-		
+				
 		if (request.getParameter("id") == null || request.getParameter("id").equals("")) {
 			object = User.getUsersJSONProfileWhere("_id", (String) session.getAttribute("userId"));
 		} else {
@@ -36,6 +34,5 @@ public class UserProfileServlet extends OnlineGetServlet {
 		else
 			response.getWriter().println(new Success(object));
 		
-		System.out.println("UserProfileServlet end !");
-	}			 
+ 	}			 
 }

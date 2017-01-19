@@ -1,9 +1,7 @@
 package dao.items;
 
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -18,7 +16,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.MongoException;
 
 import dao.ExchangePointsDB;
 import dao.GroupsDB;
@@ -62,7 +59,6 @@ public class ItemsDB {
 			try {
 				exPointsList.add(jsonArray.get(i).toString());
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		   
@@ -214,6 +210,10 @@ public class ItemsDB {
 	/***************** ITEMS GROUPS (VISIBILITY ) MANAGEMENT *****************/
 
 
+	/**
+	 * Add to an item one more groupId 
+	 * @param itemID
+	 * @param groupID */
 	public static void addGroupToItem(String itemID, String groupID){
 		BasicDBObject updateQuery = new BasicDBObject();
 		updateQuery.put("_id", new ObjectId(itemID));
@@ -223,6 +223,10 @@ public class ItemsDB {
 	}
 
 
+	/**
+	 * remove from an item the specified groupId
+	 * @param itemID
+	 * @param groupID */
 	public static void removeGroupFromItem(String itemID, String groupID){
 		BasicDBObject updateQuery = new BasicDBObject();
 		updateQuery.put("_id", new ObjectId(itemID));
@@ -232,6 +236,10 @@ public class ItemsDB {
 	}
 
 
+	/**
+	 * return the list of groupIDs of an item 
+	 * @param itemID
+	 * @return */
 	public static BasicDBList getGroupsFromItem(String itemID){
 		DBObject item = getItem(itemID);
 		BasicDBList groups = (BasicDBList) item.get("groups");

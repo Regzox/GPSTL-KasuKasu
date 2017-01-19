@@ -18,26 +18,21 @@
 <script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 </head>
 
-<body onload = 'trans();fillMyProfile();$("#modif").attr("href", modifyUser_jsp);$("#photo").attr("href", upload_jsp);'>
+<body onload = 'trans();fillMyProfile();getUserVacationStatus();$("#modif").attr("href", modifyUser_jsp);$("#photo").attr("href", upload_jsp);'>
 
 	<%@ include file="/fragments/sidebar.jspf"%>
 
 	<div id="page">
-
 <!-- 	<button id='btn_en' type="button" >English</button> -->
 <!-- 	<button id='btn_fr' type="button">Français</button>	 -->
-
 
 		<%@ include file="/fragments/profile.jspf"%>
 		<br /> 
 		<a id='modif' > Modifier mes informations</a> 
 		<br /> 
 		<a id='photo' > 	Changer de photo</a>
-
+		<br><br>
+		<div id="vacation_control"></div>
 	</div>
-
-
-
-
 </body>
 </html>

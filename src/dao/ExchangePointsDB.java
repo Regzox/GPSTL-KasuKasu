@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -187,7 +186,7 @@ public class ExchangePointsDB {
 	}
 
 
-	/** 
+	/**  TODO pas optimal boucle d'acces a la base
 	 * Add an item to the <i>useritems</i> array of the given user for every
 	 * exchange point in the given list.
 	 * 
@@ -199,7 +198,7 @@ public class ExchangePointsDB {
 			String itemID, 
 			String userID, 
 			ArrayList<String> exPoints){
-		for (String exPoint : exPoints) {
+		for (String exPoint : exPoints) { //TODO Il faut eviter les boucles 
 			collection.update(
 					new BasicDBObject()
 					.append("_id", new ObjectId(exPoint))

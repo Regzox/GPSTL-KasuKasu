@@ -570,4 +570,14 @@
     <servlet-name>SetUserVacationStatusServlet</servlet-name>
     <url-pattern>/setuservacationstatus</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <description></description>
+    <display-name>GetUserVacationStatusServlet</display-name>
+    <servlet-name>GetUserVacationStatusServlet</servlet-name>
+    <servlet-class>servlets.GetUserVacationStatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserVacationStatusServlet</servlet-name>
+    <url-pattern>/getuservacationstatus</url-pattern>
+  </servlet-mapping>
 </web-app>
