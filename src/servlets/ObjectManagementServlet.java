@@ -21,13 +21,13 @@ public class ObjectManagementServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
 	private Resource resource;
-	
+
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		resource = ((Resource) this.getServletContext().getAttribute("resource"));
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session=request.getSession();
@@ -58,38 +58,62 @@ public class ObjectManagementServlet extends HttpServlet{
 
 				JSONObject groups = Groups.userGroups(userId);
 				JSONObject userExPoints = ExchangePoints.userPoints(userId);
-				
+
 				/*Array à parcourir pour récupérer les noms */
 				JSONArray iexpts=userExPoints.getJSONArray("expts");
 				JSONArray igrps=groups.getJSONArray("groups");
-				
-				/*Array avec seulement les ids */
+
+				/*Array avec ids et noms */
 				JSONArray itemExPoints = ExchangePoints.getItemExchangePoints(objectId,userId);
 				JSONArray itemgroups = Items.getGroupsFromItem(objectId,userId);
-				
-				/*Array Résultats*/
-				JSONArray itemGroupsWithNames=new JSONArray();
-				JSONArray itemExPointsWithNames=new JSONArray();
-				for(int i=0;i<itemgroups.length();i++){
-					for(int j=0;j<igrps.length();j++){
-						JSONObject a=(JSONObject) igrps.get(j);
-						String b=(String)itemgroups.get(j);
-						if((a.get("id").toString()).compareTo(b)==0)
-							itemGroupsWithNames.put(a);
-					}
+
+				System.out.println(iexpts.toString());
+				System.out.println("--------");
+				System.out.println(igrps.toString());
+				System.out.println("---------");
+				System.out.println(itemExPoints.toString());
+				System.out.println("----------");
+				System.out.println(itemgroups.toString());
+
+				JSONArray userPoint=new JSONArray();
+				JSONArray userGroup=new JSONArray();
+				JSONArray itemPoint=new JSONArray();
+				JSONArray itemGroup=igrps;
+
+				for(int i =0;i<iexpts.length();i++){
+					JSONObject o = new JSONObject();
+					o.put("nom", ((JSONObject)iexpts.get(i)).get("name"));
+					o.put("id", ((JSONObject)iexpts.get(i)).get("id"));
+					userPoint.put(o);
+
 				}
-				/* TODO - Un point d'échange ne possède pas encore de nom par défaut*/
+
+				for(int i =0;i<igrps.length();i++){
+					JSONObject o = new JSONObject();
+					o.put("nom", ((JSONObject)igrps.get(i)).get("name"));
+					o.put("id", ((JSONObject)igrps.get(i)).get("id"));
+					userGroup.put(o);
+				}
+
 				for(int i=0;i<itemExPoints.length();i++){
-					
+					JSONObject o = new JSONObject();
+					o.put("nom", ((JSONObject)
+							((JSONArray)
+									((JSONObject)itemExPoints.get(i)).get("subscribers")).get(0)).get("name"));
+					o.put("id", ((JSONObject)((JSONObject)itemExPoints.get(i)).get("_id")).get("$oid"));
+					itemPoint.put(o);
 				}
-				
-				
+				System.out.println(userGroup.toString());
+				System.out.println(userPoint.toString());
+				System.out.println(itemGroup.toString());
+				System.out.println(itemPoint.toString());
+
 				JSONObject res=new JSONObject();
 				res.put("item", item);
-				res.put("groups", groups);
-				res.put("userexpoints",userExPoints);
-				res.put("itemexpoints",itemExPoints);
-				res.put("itemsgroups", itemGroupsWithNames);
+				res.put("usergroup", userGroup);
+				res.put("userpoint",userPoint);
+				res.put("itemgroup",itemGroup);
+				res.put("itempoint", itemPoint);
 				response.getWriter().print(res);
 				break;
 			default:

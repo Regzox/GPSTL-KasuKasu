@@ -238,10 +238,15 @@ public class ExchangePointsDB {
 	 * @param itemID
 	 * @return */
 	public static DBCursor itemExchangePoints(String itemID){
-		return collection.find( 
-				new BasicDBObject("subscribers.useritems",itemID)
-						
-				);
+		DBCursor c=collection.find( 
+				new BasicDBObject("subscribers.useritems",itemID));
+		return c;
+	}
+	
+	public static DBCursor itemExchangePointsLight(String itemID){
+		DBCursor c=collection.find(
+				new BasicDBObject("subscribers.useritems",itemID),new BasicDBObject("subscribers.name", "subscribers.useritems"));
+		return c;
 	}
 
 
