@@ -17,7 +17,7 @@ function findUserJS(valuev)
 {
 	$.ajax({
 		type : "GET",
-		url : finduser_jsp,
+		url : FindUserServlet,
 		data : {value : valuev},
 		dataType : "JSON",
 		success : ProcessFindUser,

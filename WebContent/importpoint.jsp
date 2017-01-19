@@ -16,6 +16,15 @@
 	charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/sidebar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/bootstrap.min.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/menu.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/sidebar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/navbar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/footer.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/flex-blocs.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/scroll.css' />
+
 <style type="text/css">
 html, body, #mapdiv {
 	width: 100%;
@@ -29,7 +38,10 @@ html, body, #mapdiv {
 </style>
 </head>
 <body onload="javascript:init()">
-	<%@ include file="/fragments/sidebar.jspf"%>
+	
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
+	
 <!-- 	<div id="mapdiv"></div> -->
 	<div id="page">
 

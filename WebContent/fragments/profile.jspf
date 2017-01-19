@@ -7,9 +7,9 @@
 			</td>
 		</tr>
 		
-		<tr class="row" >
+		<!-- <tr class="row" >
 			<td class ="title">Id</td> <td class="information" id="id"></td>
-		</tr>
+		</tr> -->
 		<tr class="row" >
 			<td id='prenom' name = 'prenom' class ="title">Prénom</td> <td class="information" id="firstname"> </td>
 		</tr>

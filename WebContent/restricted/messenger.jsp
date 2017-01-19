@@ -16,11 +16,20 @@
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
 <body id="gc-search" onload="trans(); interlocutors()">
-	<%@ include file="/fragments/sidebar.jspf"%>
+	
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
-	<h1 id="titre" class="title" align="center">Toutes mes conversations</h1>
-	<br>
-	<div id="found-speakers" align="center" class="result_writable_zone"></div>
-	<br>
+	<div id="page">
+
+		<h1 id="titre" class="title" align="center">Toutes mes
+			conversations</h1>
+		<br>
+		<div id="found-speakers" align="center" class="result_writable_zone"></div>
+		<br>
+
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
+	</div>
 </body>
 </html>

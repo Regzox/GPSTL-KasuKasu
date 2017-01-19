@@ -1,0 +1,18 @@
+<div class="menu">
+	<div class="wrapper">
+		<div 	id="modif" 
+				class="demi clickable"
+				onclick="
+					if ( !(~$(location).attr('href').indexOf(modifyUser_jsp)))
+						$(location).attr('href', modifyUser_jsp);
+				"
+		>Modifier mes informations</div>
+		<div 	id="photo" 
+				class="demi clickable"
+				onclick="
+					if ( !(~$(location).attr('href').indexOf(upload_jsp)))
+						$(location).attr('href', upload_jsp);
+				"
+		>Changer de photo</div>
+	</div>
+</div>

@@ -29,9 +29,13 @@
 </head>
 <body onload="userItems(''); trans();">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id='page'>
+		
+		<%@ include file="/fragments/interface/menus/useritems_menu.jspf"%>
+	
 		<div class='layer-center'>
 			<p id='manage' class='capital'>Gerez vos objets</p>
 
@@ -53,6 +57,9 @@
 			<h2 id='liste'>Liste de vos objets</h2>
 			<div id="found-items" class="abootsraper"></div>
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 </body>
 </html>

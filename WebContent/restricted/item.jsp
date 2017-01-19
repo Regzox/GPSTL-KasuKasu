@@ -19,7 +19,8 @@
 </head>
 <body onload="trans(); getItem('<%=request.getParameter("id")%>')">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id='page'>
 		<div class='layer-center'>
@@ -30,6 +31,9 @@
 			<div id="found-items" class="abootsraper"></div>
 			
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 </body>
 </html>

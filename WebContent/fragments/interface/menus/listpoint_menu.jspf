@@ -1,0 +1,18 @@
+<div class="menu">
+	<div class="wrapper">
+		<div 	id="ajout_expts" 
+				class="demi clickable"
+				onclick="
+					if ( !(~$(location).attr('href').indexOf(addpoint_jsp)))
+						$(location).attr('href', addpoint_jsp);
+				"
+		>Ajouter un point d'échange</div>
+		<div 	id="import_expts" 
+				class="demi clickable"
+				onclick="
+					if ( !(~$(location).attr('href').indexOf(importpoint_jsp)))
+						$(location).attr('href', importpoint_jsp);
+				"
+		>Importer des points d'échange</div>
+	</div>
+</div>

@@ -1,0 +1,22 @@
+.menu {
+	position: relative;
+	width: 100%;
+	margin: 0%;
+	padding: 0%;
+	height: 60px;
+	background: #66ccff;
+	color: darkred;
+	font-size: 1.2em;
+}
+
+.menu .clickable {
+	cursor: pointer;
+	background-color:  rgba(102, 204, 255, 1);
+	transition: background-color 0.33s, color 0.33s, transform 0.2s;
+}
+
+.menu .clickable:hover {
+	background-color: rgba(82, 184, 235, 1);
+	color: rgba(255, 255, 0, 0.66);
+	transition: background-color 0.33s, color 0.33s, transform 0.2s;
+}

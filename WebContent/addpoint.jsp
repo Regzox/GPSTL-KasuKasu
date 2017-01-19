@@ -16,6 +16,14 @@
 <script type="text/javascript" src="js/addpoint.js" charset="utf-8"></script>
 <script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/sidebar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/bootstrap.min.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/menu.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/sidebar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/navbar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/footer.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/flex-blocs.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/scroll.css' />
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
@@ -38,7 +46,8 @@ html, body, #mapdiv {
 <body onload="javascript:init(); trans();">
 
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
 

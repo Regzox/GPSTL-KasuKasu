@@ -30,7 +30,9 @@
 <body
 	onload="groupMembers('<%=request.getParameter("gid")%>'); trans();">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
+
 	<div id='page'>
 		<div class='layer-center'>
 			<div class='capital'>
@@ -69,6 +71,9 @@
 
 			<div id="found-members" class="abootsraper"></div>
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 </body>
 </html>

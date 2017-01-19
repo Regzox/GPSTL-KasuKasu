@@ -27,15 +27,17 @@
 		});
 	});
 </script>
-<link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
+
 <title id='titre'>Recherche d'objets</title>
 </head>
 
 <body onload="searchMRItems(''); trans();">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
+	
 		<div class='layer-center'>
 
 			<p id='p' class='capital'>Trouvez des Objets à proximité de vos points
@@ -58,6 +60,9 @@
 
 			<div id="found-items" class="abootsraper"></div>
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 </body>
 </html>

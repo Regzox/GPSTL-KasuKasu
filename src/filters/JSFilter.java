@@ -13,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
@@ -28,8 +27,6 @@ import fr.upmc.file.Resource;
 
 public class JSFilter implements Filter
 {
-    private FilterConfig filterConfig = null;	
-
 	private List<String> imports;
 	
 	class CharResponseWrapper extends HttpServletResponseWrapper {
@@ -80,7 +77,6 @@ public class JSFilter implements Filter
 
     public void init(FilterConfig filterConfig) throws ServletException
     {    	
-        this.filterConfig = filterConfig;
         imports = new ArrayList<>();
         
         /**
@@ -95,7 +91,6 @@ public class JSFilter implements Filter
 
     public void destroy()
     {
-        filterConfig = null;
     }
 
     public void doFilter(

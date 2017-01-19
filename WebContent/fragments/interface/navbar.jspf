@@ -1,0 +1,61 @@
+<div class="kasukasu-nav-area">
+    <nav class="kasukasu-navbar">
+        <div class="wrapper">
+            <div class="tier">
+                <div class="wrapper">
+                    <div	class="tier because"
+                    		onclick="
+                                if ( !(~$(location).attr(&#39;href&#39;).indexOf(dashboard_jsp)) )
+                                    $(location).attr(&#39;href&#39;, dashboard_jsp);
+                            ">
+                        <div class="demi clickable">
+                            <img src="/KasuKasu/data/KasuKasu.png" 
+                                 class="kasukasu-navbar-image" draggable="false" 
+                                 alt="KasuKasu portal" 
+                                 title="KasuKasu portal">
+                        </div>
+                        <div class="demi clickable">
+                            <b>KasuKasu</b>
+                        </div>
+                    </div>
+                    <div class="tier">
+
+                    </div>
+                    <div class="tier">
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="tier">
+
+            </div>
+            <div class="tier">
+                <div class="wrapper">
+
+                    <div class="tier">
+
+                    </div>
+
+                    <div 
+                    	class="tier actionable"
+                    	onclick="
+                           if ( !(~$(location).attr(&#39;href&#39;).indexOf(profile_jsp)) )
+                              $(location).attr(&#39;href&#39;, profile_jsp);"
+                    >
+                        Préférences
+                    </div>
+
+                    <div class="tier actionable" id= "disc" onclick="
+						if ( !(~$(location).attr('href').indexOf(DisconnectionServlet))) {
+							$(location).attr('href', DisconnectionServlet);
+						}
+					">
+                        Déconnexion
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>    

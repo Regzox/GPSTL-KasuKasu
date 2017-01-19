@@ -26,7 +26,8 @@
 
 	<%String itemid = (String)request.getParameter("objectId");%>
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
 		<div id="profile">
@@ -141,6 +142,9 @@
 				</div>
 			</div>
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 </body>
 <script language="javascript">

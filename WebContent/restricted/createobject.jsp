@@ -21,7 +21,8 @@
 
 <body onload="javascript:init(); trans();">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
 
@@ -120,6 +121,7 @@
 
 		</div>
 
+		<%@ include file="/fragments/interface/footer.jspf"%>
 
 	</div>
 

@@ -1,0 +1,13 @@
+<div class="menu">
+	<div class="wrapper">
+		<div	id="ajout_obj"
+				class="demi clickable"
+				onclick="
+						if ( !(~$(location).attr('href').indexOf(createobject_jsp)))
+						$(location).attr('href', createobject_jsp);
+				"
+		>
+		Ajouter un objet
+		</div>
+	</div>
+</div>
