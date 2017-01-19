@@ -210,7 +210,7 @@ public class ItemsDB {
 	/***************** ITEMS GROUPS (VISIBILITY ) MANAGEMENT *****************/
 
 
-	/**
+	/** TODO VERIFIER QUE TOUT MARCHE BIEN LORS 
 	 * Add to an item one more groupId 
 	 * @param itemID
 	 * @param groupID */
@@ -218,7 +218,9 @@ public class ItemsDB {
 		BasicDBObject updateQuery = new BasicDBObject();
 		updateQuery.put("_id", new ObjectId(itemID));
 		BasicDBObject updateCommand = new BasicDBObject();
-		updateCommand.put("$addToSet", new BasicDBObject("groups",groupID));
+		updateCommand.put("$addToSet", 
+				new BasicDBObject("groups",groupID)
+				.append("nom", GroupsDB.getGroup(groupID).get("name")));
 		collection.update(updateQuery,updateCommand);
 	}
 

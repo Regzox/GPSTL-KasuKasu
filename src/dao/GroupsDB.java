@@ -64,6 +64,32 @@ public class GroupsDB{
 				.append("_id",new ObjectId(gid))
 				,new BasicDBObject()
 				.append("name",gname));}
+	
+	
+	/**
+	 * Return the group's name
+	 * @param id */
+	public static DBObject getGroup(String id){
+		System.out.println(id);
+		return collection.findOne(new BasicDBObject("_id",new ObjectId(id)));
+	}
+	
+	
+	public static void main(String[] args) throws DatabaseException, JSONException, GroupExistsException{
+		collection.drop();//reset : determinism required for the tests
+		createGroup("amis", "1");
+		createGroup("maison", "2");
+		createGroup("bureau", "3");
+		String id="58809f2d6d26aa03d268b50b"; 
+		System.out.println("gname "+id+" : "+getGroup(id).get("name"));
+		System.out.println(userGroups("1"));
+		System.out.println(groupMembers(id));
+		addMember(id,"12");
+		System.out.println(userGroups("2"));
+		System.out.println(groupMembers(id));
+
+	}
+	
 
 	/**
 	 * Delete the group
@@ -151,18 +177,6 @@ public class GroupsDB{
 				.append("members",userID));}
 	
 
-	public static void main(String[] args) throws DatabaseException, JSONException, GroupExistsException{
-		collection.drop();//reset : determinism required for the tests
-		createGroup("amis", "1");
-		createGroup("maison", "2");
-		createGroup("bureau", "3");
-		String id="580a89f174a4f912f56a7568";
-		System.out.println(userGroups("1"));
-		System.out.println(groupMembers(id));
-		addMember(id,"12");
-		System.out.println(userGroups("2"));
-		System.out.println(groupMembers(id));
-
-	}
+	
 
 }
