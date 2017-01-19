@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title id='titre'>Lieux d'échange</title>
+
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
@@ -12,18 +13,12 @@
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/importpoint.js"
-	charset="utf-8"></script>
-<link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
+<script type="text/javascript" src="/KasuKasu/js/importpoint.js"></script>
 
-			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/sidebar.css' />
-			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/bootstrap.min.css' />
-			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/menu.css' />
-			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/sidebar.css' />
-			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/navbar.css' />
-			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/footer.css' />
-			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/flex-blocs.css' />
-			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/scroll.css' />
+	
+<link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
+	
+
 
 <style type="text/css">
 html, body, #mapdiv {
@@ -37,7 +32,7 @@ html, body, #mapdiv {
 }
 </style>
 </head>
-<body onload="javascript:init()">
+<body onload="javascript:init();">
 	
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
@@ -53,10 +48,10 @@ html, body, #mapdiv {
 
 			<div class='col-md-6'>
 				<p>
-				<img alt="" src="data/marker-red.png" width="10" height="10">
+				<img alt="" src="/KasuKasu/data/marker-red.png" width="10" height="10">
 				Vos points d'échange
                 <br></br>				
-				<img alt="" src="data/marker.png" width="10" height="10">
+				<img alt="" src="/KasuKasu/data/marker.png" width="10" height="10">
 				Points d'échange de vos amis
 				<br></br>	
 				Double-cliquez sur la carte pour ajouter un lieu
