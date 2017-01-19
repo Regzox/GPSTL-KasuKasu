@@ -263,13 +263,6 @@ public class ItemsDB {
 		while(dbc.hasNext())
 			usergroupsmembership.add(dbc.next().get("_id").toString());
 
-//		return  collection.find(
-//				new BasicDBObject()
-//				.append("groups", 
-//						new BasicDBObject("$elemMatch",new BasicDBObject("id",new BasicDBObject("$in",usergroupsmembership)))
-//						));
-		
-
 		BasicDBList exprs = new BasicDBList();
 		exprs.add(
 				new BasicDBObject()
@@ -279,8 +272,6 @@ public class ItemsDB {
 		
 		exprs.add(new BasicDBObject()
 				.append("groups",new BasicDBObject("$size", 0)));
-//		.append("groups",new BasicDBObject("$eq", new BasicDBObject("$size", 0))));
-
 				
 		return collection.find(new BasicDBObject().append("$or", exprs));
 	}
