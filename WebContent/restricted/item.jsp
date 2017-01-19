@@ -24,7 +24,7 @@
 
 	<div id='page'>
 		<div class='layer-center'>
-			<p id="obj" class='capital'>Objet <div> <%=request.getParameter("title")%></div></p>
+			<p  class='capital'> <div id="obj"> Objet </div> <%=request.getParameter("title")%></p>
 
 			<br><hr><br>
 			

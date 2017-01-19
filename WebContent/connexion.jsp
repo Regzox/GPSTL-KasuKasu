@@ -18,7 +18,7 @@
 
 	<div class='layer-center'>
 
-		<p id='connex' class='capital'>Connexion</p>
+		<p id='connexion' class='capital'>Connexion</p>
 
 		<div id='notifier' class='notifier'></div>
 
