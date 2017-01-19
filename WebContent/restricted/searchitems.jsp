@@ -50,9 +50,9 @@
 				<div class="wrapper">
 					<input	type="text" 
 							class="form-control" 
-							name="query" 
+							name="iquery" 
 							value=""
-							id="query" 
+							id="iquery" 
 							autocomplete="off">
 				</div>
 								
