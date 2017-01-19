@@ -1,10 +1,11 @@
 .menu {
-	position: relative;
-	width: 100%;
+	position: fixed;
+	top: 60px;
+	width: 87.5%;
 	margin: 0%;
 	padding: 0%;
 	height: 60px;
-	background: #66ccff;
+	background: rgba(102, 204, 255, 1);
 	color: darkred;
 	font-size: 1.2em;
 }

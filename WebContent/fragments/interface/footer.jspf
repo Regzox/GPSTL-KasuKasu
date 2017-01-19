@@ -1,7 +1,7 @@
-<footer>
+<div class="footer">
 	<div class="wrapper">
 		<div id="email" class="tier">Contact : kasukasu@gmail.com</div>
 		<div class="tier"></div>
 		<div id="version" class="tier">Version : alpha</div>
 	</div>
-</footer>
+</div>
