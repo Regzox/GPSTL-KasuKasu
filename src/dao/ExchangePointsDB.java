@@ -15,6 +15,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.items.ItemsDB;
 import kasudb.KasuDB;
 
 /**
@@ -234,16 +235,19 @@ public class ExchangePointsDB {
 
 
 	/**
-	 * Retun the list of ExchangePoints where the item is in loan
+	 * Return the list of ExchangePoints where the item
 	 * @param itemID
 	 * @return */
 	public static DBCursor itemExchangePoints(String itemID){
-		return collection.find( 
-				new BasicDBObject("subscribers.useritems",
-						new BasicDBObject("$elemMatch",
-								new BasicDBObject("$eq",itemID))
-						)
-				);
+		DBCursor c=collection.find( 
+				new BasicDBObject("subscribers.useritems",itemID));
+		return c;
+	}
+	
+	public static DBCursor itemExchangePointsLight(String itemID){
+		DBCursor c=collection.find(
+				new BasicDBObject("subscribers.useritems",itemID),new BasicDBObject("subscribers.name", "subscribers.useritems"));
+		return c;
 	}
 
 
@@ -299,6 +303,7 @@ public class ExchangePointsDB {
 		System.out.println("userPoints : "+userPoints("new_user_id").next());
 		try{System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());//Must throw NoSuchElementException
 		}catch(NoSuchElementException nsee){System.out.println("NoSuchElementException");}
+		System.out.println("itemExchangePoints id1: "+itemExchangePoints("LOLitemID1").next());
 		//				System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
 		deleteExchangePoint(excpt_id,"new_user_id3");
 		System.out.println("userPoints : "+userPoints("new_user_id").next());
@@ -338,11 +343,11 @@ public class ExchangePointsDB {
 	 * @return */
 	public static DBCursor friendsLargeExchangePoints(String userID){
 
-		//		BasicDBList useritemsvisible = new BasicDBList();
-		//		DBCursor dbc = ItemsDB.accessibleItems(userID);
-		//
-		//		while(dbc.hasNext())
-		//			useritemsvisible.add(dbc.next().get("_id").toString());
+				BasicDBList useritemsvisible = new BasicDBList();
+				DBCursor dbc = ItemsDB.accessibleItems(userID);
+		
+				while(dbc.hasNext())
+					useritemsvisible.add(dbc.next().get("_id").toString());
 
 		BasicDBList exprs = new BasicDBList();
 		exprs.add(
@@ -352,11 +357,10 @@ public class ExchangePointsDB {
 						.append("$in",FriendsDao.myFriends(userID))
 						.append("$ne", userID)
 						)
-				/*********** A tester ************/
-				//				.append("subscribers.useritems",
-				//						new BasicDBObject()
-				//						.append("$in",useritemsvisible)
-				//						)
+								.append("subscribers.useritems",
+										new BasicDBObject()
+										.append("$in",useritemsvisible)
+										)
 				);
 		return collection.find(new BasicDBObject().append("$or", exprs));	
 	}

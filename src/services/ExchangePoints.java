@@ -169,15 +169,17 @@ public class ExchangePoints {
 	/*TODO REVOIR ENTIEEMENT*/
 	public static JSONArray getItemExchangePoints(String itemID,String userID) throws JSONException{
 		/* o => BasicDBList */
-		if(!ItemsDB.checkAthorization(userID,itemID))
-			return null; //TODO DS KL ESPRIT CA A ETE ECRIT (SEUL LE PROPRIO PE VOIR WHY)
-		//BasicDBList o= (BasicDBList)ExchangePointsDB.getItemExchangePoints(itemID);
-		JSONArray js;
-		//if(o==null)
-		js=new JSONArray();
-		//else
-		//js=new JSONArray(o.toString());
-		return js;
+		if(ItemsDB.checkAthorization(userID,itemID)){
+			DBCursor c=ExchangePointsDB.itemExchangePointsLight(itemID);
+			DBObject o=null;
+			JSONArray js=new JSONArray();
+			while(c.hasNext()){
+				o=c.next();
+				js.put(new JSONObject(o.toString()));
+			}
+			return js;
+		}
+		return new JSONArray();
 	}
 
 
