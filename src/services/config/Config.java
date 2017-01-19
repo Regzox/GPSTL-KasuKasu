@@ -36,7 +36,13 @@ public class Config {
 	}
 	
 	public static String getDomain(){
-		return configDB.getMailConfig().get("domain").toString();
+		String config;
+		try{
+			config=configDB.getMailConfig().get("domain").toString();
+			return config;
+		}catch(Exception e){
+			return "http://localhost:8080";
+		}
 	}
 	
 	public static void main(String[] args) {
