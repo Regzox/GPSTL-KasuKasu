@@ -126,7 +126,7 @@ function addPoint(nom_abo,radius_abo,lat,lon)
 
 	$.ajax({
 		type : "POST",
-		url : "addexchangepoint",
+		url : AddExchangePointServlet,
 		xhrFields: 
 		{
 			withCredentials: true
@@ -165,7 +165,7 @@ function userFriendsPoints(){
 	$.ajax({
 		async : false,
 		type : "GET",
-		url : "PointsUserFriendList",
+		url : PointsUserFriendList,
 		data : "",
 		dataType : "JSON",
 		success : traiteReponse2,
@@ -302,7 +302,7 @@ function getMarkerDetail(lat,lon)
 {
 	$.ajax({
 		type : "GET",
-		url : "GetPointMarkerDetail",
+		url : GetPointMarkerDetail,
 		async: false,
 		data : "lat=" + lat + "&lon=" + lon,
 		dataType : "JSON",
