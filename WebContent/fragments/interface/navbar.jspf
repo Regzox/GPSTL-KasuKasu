@@ -38,6 +38,7 @@
                     </div>
 
                     <div 
+                    	id='preferences'
                     	class="tier actionable"
                     	onclick="
                            if ( !(~$(location).attr(&#39;href&#39;).indexOf(profile_jsp)) )

@@ -48,13 +48,14 @@ html, body, #mapdiv {
 
 			<div class='col-md-6'>
 				<p>
-				<img alt="" src="/KasuKasu/data/marker-red.png" width="10" height="10">
-				Vos points d'échange
-                <br></br>				
-				<img alt="" src="/KasuKasu/data/marker.png" width="10" height="10">
-				Points d'échange de vos amis
-				<br></br>	
-				Double-cliquez sur la carte pour ajouter un lieu
+					<img alt="" src="data/marker-red.png" width="10" height="10">
+					<div id='pts'> Vos lieux d'échange</div>
+                	<br></br>				
+					<img alt="" src="data/marker.png" width="10" height="10">
+					<div id='pts_amis'>Lieux d'échange de mes amis</div>
+					<br></br>	
+					<div id='comment'>Double-cliquez sur la carte pour ajouter un lieu</div>
+
 				</p>
 			</div>
 
@@ -73,7 +74,7 @@ html, body, #mapdiv {
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Ajouter le lieu</h4>
+					<h4 class="modal-title" id="ModalAjout">Ajouter le lieu</h4>
 				</div>
 
 				<!-- Modal Body -->
@@ -81,7 +82,7 @@ html, body, #mapdiv {
 
 					<form class="form-horizontal" role="form">
 						<div class="form-group row">
-							<label for="old_email_input" class="col-xs-3 col-form-label">Nom</label>
+							<label id='noml' for="old_email_input" class="col-xs-3 col-form-label">Nom</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="nom_input"
 									name="nom_input" placeholder="Nom (obligatoire)"
@@ -89,7 +90,7 @@ html, body, #mapdiv {
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
+							<label id='porteel' for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="radius_input"
 									type="number" name="radius_input"
@@ -107,7 +108,7 @@ html, body, #mapdiv {
 
 				<!-- Modal Footer -->
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">	Fermer</button>
+					<button id ='close' type="button" class="btn btn-default" data-dismiss="modal">	Fermer</button>
 					<button type="button" id="save" class="btn btn-primary">Ajouter</button>
 				</div>
 			</div>
@@ -119,9 +120,9 @@ html, body, #mapdiv {
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<!-- dialog body -->
-				<div id='comment' class="modal-body">
+				<div  class="modal-body">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					Le lieu a bien été ajouté
+					<div id='comment2'>Le lieu a bien été ajouté</div>
 				</div>
 			</div>
 		</div>
@@ -131,9 +132,9 @@ html, body, #mapdiv {
   <div class="modal-dialog">
     <div class="modal-content">
       <!-- dialog body -->
-      <div id="comment" class="modal-body">
+      <div  class="modal-body">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        Les changements ont bien été pris en compte
+        <div id="comment3">Les changements ont bien été pris en compte</div>
       </div>
     </div>
   </div>
@@ -149,7 +150,7 @@ html, body, #mapdiv {
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span> <span id="close" class="sr-only">Fermer</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Modifier le lieu</h4>
+					<h4 class="modal-title" id="ModalModif">Modifier le lieu</h4>
 				</div>
 
 				<!-- Modal Body -->

@@ -42,7 +42,7 @@
 				</div>
 
 				<input id="submit" type="submit" class="btn btn-primary btn-block"
-					value="Créer un nouveau groupe"> <br>
+					value="Créer"> <br>
 
 				<div id="found-groups" class="abootsraper"></div>
 

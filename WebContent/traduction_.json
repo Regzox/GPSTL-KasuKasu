@@ -1,1140 +1,793 @@
 [
 	{
-		"id" : "portal.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		"portal.jsp",
+		{
+			"titre" :
 			{
-				"id" : "bienvenue_fr",
-				"expression" : "Bienvenue sur KasuKasu !",
+				"fr" : "Bienvenue sur KasuKasu !",
+				"en" : "Welcome to KasuKasu !"	
 			},
+			"bienvenue" :
 			{
-				"id" : "bienvenue_en",
-				"expression" : "Welcome to KasuKasu !"
+				"fr" : "Bienvenue sur KasuKasu !",
+				"en" : "Welcome to KasuKasu !"	
 			},
+			"site" :
 			{
-				"id" : "bienvenue1_fr",
-				"expression" : "Le site où vous pouvez prêter vos objets à vos amis",				
+				"fr" : "Le site où vous pouvez prêter vos objets à vos amis",	
+				"en" : "The web site where you can lend your items to your friends"			
 			},
+			"btn_insc" :
 			{
-				"id" : "bienvenue1_en",
-				"expression" : "The web site where you can lend your items to your friends"
+				"fr" : "Créer un compte",
+				"en" : "Create an account"
 			},
+			"btn_connex" :
 			{
-				"id" : "creation_compte_fr",
-				"expression" : "Créer un compte"
-			},
-			{
-				"id" : "creation_compte_en",
-				"expression" : "Create an account"
-			},
-			{
-				"id" : "connexion_fr",
-				"expression" : "Se connecter"
-			},
-			{
-				"id" : "connexion_en",
-				"expression" : "Sign in"
+				"fr" : "Se connecter",
+				"en" : "Sign in"
 			}
-		]
+		}
 	},
 	{
-		"id" : "createuser.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		"createuser.jsp",
+		{
+			"titre" :
 			{
-				"id" : "inscription_fr",
-				"expression" : "Inscription"
+				"fr" : "Inscription",
+				"en" : "Register"
 			},
+			"a" :
 			{
-				"id" : "inscription_en",
-				"expression" : "Register"
+				"fr" : "Inscription",
+				"en" : "Register"
 			},
+			"prenoml" :
 			{
-				"id" : "prenom_fr",
-				"expression" : "Prénom"
+				"fr" : "Prénom",
+				"en" : "First name"
 			},
+			"noml" :
 			{
-				"id" : "prenom_en",
-				"expression" : "First name"
+				"fr" : "Nom",
+				"en" : "Last name"
 			},
+			"numl" :
 			{
-				"id" : "nom_fr",
-				"expression" : "Nom"
+				"fr" : "Téléphone",
+				"en" : "Phone number"
 			},
+			"emaill" :
 			{
-				"id" : "nom_en",
-				"expression" : "Last name"
+				"fr" : "Email",
+				"en" : "Email"
 			},
+			"mdpl" :
 			{
-				"id" : "tel_fr",
-				"expression" : "Téléphone"
+				"fr" : "Mot de passe",
+				"en" : "Password"
 			},
+			"confl" :
 			{
-				"id" : "tel_en",
-				"expression" : "Phone number"
+				"fr" : "Confirmer le mot de passe",
+				"en" : "Confirm the password"
 			},
+			"captchal" :
 			{
-				"id" : "email_fr",
-				"expression" : "Email"
+				"fr" : "Veuillez cocher la case correspondante à Albert Einstein",
+				"en" : "Please, check the box corresponding to Albert Einstein"
 			},
+			"submit" :
 			{
-				"id" : "email_en",
-				"expression" : "Email"
-			},
-			{
-				"id" : "mdp_fr",
-				"expression" : "Mot de passe"
-			},
-			{
-				"id" : "mdp_en",
-				"expression" : "Password"
-			},
-			{
-				"id" : "conf_mdp_fr",
-				"expression" : "Confirmer le mot de passe"
-			},
-			{
-				"id" : "conf_mdp_en",
-				"expression" : "Confirm the password"
-			},
-			{
-				"id" : "captcha_fr",
-				"expression" : "Veuillez cocher la case correspondante à Albert Einstein"
-			},
-			{
-				"id" : "captcha_en",
-				"expression" : "Please, check the box corresponding to Albert Einstein"
-			},
-			{
-				"id" : "envoyer_fr",
-				"expression" : "Envoyer"
-			},
-			{
-				"id" : "envoyer_en",
-				"expression" : "Submit"
+				"fr" : "Envoyer",
+				"en" : "Submit"
 			}
-		]
+		}
 	},
 	{
-		"id" : "connexion.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		"connexion.jsp" :
+		{
+			"titre" :
 			{
-				"id" : "connexion_fr",
-				"expression" : "Connexion"
+				"fr" : "Connexion",
+				"en" : "Sign in"
 			},
+			"connexion" :
 			{
-				"id" : "connexion_en",
-				"expression" : "Sign in"
+				"fr" : "Connexion",
+				"en" : "Sign in"
 			},
+			"email" :
 			{
-				"id" : "email_fr",
-				"expression" : "Email"
+				"fr" : "Email",
+				"en" : "Email"
 			},
+			"pass" :
 			{
-				"id" : "email_en",
-				"expression" : "Email"
+				"fr" : "Mot de passe",
+				"en" : "Password"
 			},
+			"connex" :
 			{
-				"id" : "mdp_fr",
-				"expression" : "Mot de passe"
+				"fr" : "Connexion",
+				"en" : "Sign in"
 			},
+			"mdpo" :
 			{
-				"id" : "mdp_en",
-				"expression" : "Password"
-			},
-			{
-				"id" : "mdp_oublie_fr",
-				"expression" : "Mot de passe oublié ?"
-			},
-			{
-				"id" : "mdp_oublie_en",
-				"expression" : "Forgot your password ?"
+				"fr" : "Mot de passe oublié ?",
+				"en" : "Forgot your password ?"
 			}
-		]
+		}
 	},
 	{
-		"id" : "retrievePassword.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		"retrievePassword.jsp" :
+		{
+			"titre" :
 			{
-				"id" : "recup_mdp_fr",
-				"expression" : "Récupération de votre mot de passe"
+				"fr" : "Récupération de votre mot de passe",
+				"en" : "Retrieve your password"
 			},
+			"ret" :
 			{
-				"id" : "recup_mdp_en",
-				"expression" : "Retrieve your password"
+				"fr" : "Récupération de votre mot de passe",
+				"en" : "Retrieve your password"
 			},
+			"email" :
 			{
-				"id" : "email_fr",
-				"expression" : "Email"
+				"fr" : "Email",
+				"en" : "Email"
 			},
+			"submit" :
 			{
-				"id" : "email_en",
-				"expression" : "Email"
-			},
-			{
-				"id" : "envoyer_fr",
-				"expression" : "Envoyer"
-			},
-			{
-				"id" : "email_en",
-				"expression" : "Submit"
+				"fr" : "Envoyer",
+				"en" : "Submit"
 			}
-		]
+		}
 	},
 	{
-		"id" : "profile.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		"profile.jsp" :
+		{
+			"titre" :
 			{
-				"id" : "profil_fr",
-				"expression" : "Mon profil"
-			},
-			{
-				"id" : "profil_en",
-				"expression" : "My profile"
-			},
-			{
-				"id" : "modif_info_fr",
-				"expression" : "Modifier mes informations"
-			},
-			{
-				"id" : "modif_info_en",
-				"expression" : "Update my information"
-			},
-			{
-				"id" : "change_photo_fr",
-				"expression" : "Changer de photo"
-			},
-			{
-				"id" : "change_photo_en",
-				"expression" : "Change the photo"
-			}			
-		]
+				"fr" : "Mon profil",
+				"en" : "My profile"
+			}	
+		}
 	},
 	{
-		"id" : "profile.jspf",
-		"type" : "traduction",
-		"traductions" : 
-		[
-	
+		"profile.jspf" :
+		{
+			"prenom" :
 			{
-				"id" : "prenom_fr",
-				"expression" : "Prénom"
+				"fr" : "Prénom",
+				"en" : "First name"
 			},
+			"nom" :
 			{
-				"id" : "prenom_en",
-				"expression" : "First name"
+				"fr" : "Nom",
+				"en" : "Last name"
 			},
+			"mail" :
 			{
-				"id" : "nom_fr",
-				"expression" : "Nom"
+				"fr" : "Email",
+				"en" : "Email"
 			},
+			"tel" :
 			{
-				"id" : "nom_en",
-				"expression" : "Last name"
-			},
-			{
-				"id" : "email_fr",
-				"expression" : "Email"
-			},
-			{
-				"id" : "email_en",
-				"expression" : "Email"
-			},
-			{
-				"id" : "tel_fr",
-				"expression" : "Téléphone"
-			},
-			{
-				"id" : "tel_en",
-				"expression" : "Phone number"
+				"fr" : "Téléphone",
+				"en" : "Phone number"
 			}
-			]
+		}
 	},
 	{
-		"id" : "modifyUser.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		"modifyUser.jsp" :
+		{
+			"titre" :
 			{
-				"id" : "modif_compte_fr",
-				"expression" : "Modifier mon compte"
+				"fr" : "Modifier mon compte",
+				"en" : "Update my account"
 			},
+			"titre2" :
 			{
-				"id" : "modif_compte_en",
-				"expression" : "Update my account"
+				"fr" : "Modifier mon compte",
+				"en" : "Update my account"
 			},
+			"modif" :
 			{
-				"id" : "saisie_modif_fr",
-				"expression" : "Saisir mes modifications"
+				"fr" : "Saisir mes modifications",
+				"en" : "Enter my changes"
 			},
+			"emaill" :
 			{
-				"id" : "saisie_modif_en",
-				"expression" : "Enter my changes"
+				"fr" : "Nouvel email",
+				"en" : "New email"
 			},
+			"mdpl" :
 			{
-				"id" : "new_email_fr",
-				"expression" : "Nouvel email"
+				"fr" : "Nouveau mot de passe",
+				"en" : "New password"
 			},
+			"noml" :
 			{
-				"id" : "new_email_en",
-				"expression" : "New email"
+				"fr" : "Nouveau nom",
+				"en" : "New last name"
 			},
+			"prenoml" :
 			{
-				"id" : "new_mdp_fr",
-				"expression" : "Nouveau mot de passe"
+				"fr" : "Nouveau prénom",
+				"en" : "New first name"
 			},
+			"numl" :
 			{
-				"id" : "new_mdp_en",
-				"expression" : "New password"
+				"fr" : "Nouveau téléphone",
+				"en" : "New phone number"
 			},
+			"myModalLabel":
 			{
-				"id" : "new_nom_fr",
-				"expression" : "Nouveau nom"
+				"fr" : "Valider",
+				"en" : "Validate"
 			},
+			"verif" :
 			{
-				"id" : "new_nom_en",
-				"expression" : "New last name"
+				"fr" : "Veuillez saisir votre mot de passe pour appliquer les changements",
+				"en" : "Please, enter your password to apply the changes"
 			},
+			"psw" :
 			{
-				"id" : "new_prenom_fr",
-				"expression" : "Nouveau prénom"
+				"fr" : "Mot de passe *",
+				"en" : "Password *"
 			},
+			"enreg" :
 			{
-				"id" : "new_prenom_en",
-				"expression" : "New first name"
+				"fr" : "Sauvegarder les changements",
+				"en" : "Save the changes"
 			},
+			"old_password_input" :
 			{
-				"id" : "new_tel_fr",
-				"expression" : "Nouveau téléphone"
-			},
-			{
-				"id" : "new_tel_en",
-				"expression" : "New phone number"
-			},
-			{
-				"id" : "valider_fr",
-				"expression" : "Valider"
-			},
-			{
-				"id" : "valider_en",
-				"expression" : "Validate"
-			},
-			{
-				"id" : "saisie_mdp_fr",
-				"expression" : "Veuillez saisir votre mot de passe pour appliquer les changements"
-			},
-			{
-				"id" : "saisie_mdp_en",
-				"expression" : "Please, enter your password to apply the changes"
-			},
-			{
-				"id" : "mdp*_fr",
-				"expression" : "Mot de passe *"
-			},
-			{
-				"id" : "mdp*_en",
-				"expression" : "Password *"
-			},
-			{
-				"id" : "save_modif_fr",
-				"expression" : "Sauvegarder les changements"
-			},
-			{
-				"id" : "save_modif_en",
-				"expression" : "Save the changes"
+				"fr" : "Mot de passe actuel (obligatoire)",
+				"en" : "Password required"
 			}
+		}
+	},
+	{
+		"finduser.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Rechercher un utilisateur",
+				"en" : "Find a user"
+			},
+			"rech" :
+			{
+				"fr" : "Rechercher un utilisateur",
+				"en" : "Find a user"
+			},
+			"submit" :
+			{
+				"fr" : "Chercher",
+				"en" : "Search"
+			}
+		}
+	},
+	{
+		"myfriends.jsp" :
+		{
+			"titre" : 
+			{		
+				"fr" : "Mes amis",
+				"en" : "My friends"
+			}
+		}
+	},
+	{
+		"pendingrequests.jsp" :
+		{
+			"titre" : 
+			{
+				"fr" : "Requêtes d'amis",
+				"en" : "Friends requests"
+			}
+		}
+	},
+	{
+		"groups.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Mes groupes",
+				"en" : "My groups"
+			},
+			"create" :
+			{
+				"fr" : "Créer un nouveau groupe",
+				"en" : "Create a new group"
+			},
+			"submit" :
+			{
+				"fr" : "Créer",
+				"en" : "Create"
+			}
+		}
+	},
+	{
+		"groupmembers.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Groupe",
+				"en" : "Group"
+			},
+			"gest" :
+			{
+				"fr" : "Gérer le groupe",
+				"en" : "Manage the group"
+			},
+			"comment" :
+			{
+				"fr" : "en ajoutant des membres",
+				"en" : "by adding members"
+			},
+			"submit" :
+			{
+				"fr" : "Chercher",
+				"en" : "Search"
+			},
+			"liste" :
+			{
+				"fr" : "Liste des membres du groupe",
+				"en" : "List of the group's members"
+			}
+		}
+	},
+	{
+		"createobject.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Ajout d'un objet",
+				"en" : "Add an item"
+			},
+			"ajout1" :
+			{
+				"fr" : "Ajout d'un objet",
+				"en" : "Add an item"
+			},
+			"noml" :
+			{
+				"fr" : "Nom",
+				"en" : "Name"
+			},
+			"descl" :
+			{
+				"fr" : "Description",
+				"en" : "Description"
+			},
+			"pts" :
+			{
+				"fr" : "Points d'échanges",
+				"en" : "Exchange points"
+			},
+			"ajout" :
+			{
+				"fr" : "Ajouter un point d'échange",
+				"en" : "Add an exchange point"
+			},
+			"vis" :
+			{
+				"fr" : "Visibilité",
+				"en" : "Visibility"
+			},
+			"submit" :
+			{
+				"fr" : "Envoyer",
+				"en" : "Submit"
+			},
+			"comment" :
+			{
+				"fr" : "L'objet a bien été ajouté",
+				"en" : "The item has successfully been added"
+			}
+		}
+	},
+	{
+		"useritems.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Mes objets",
+				"en" : "My items"
+			},
+			"manage" :
+			{
+				"fr" : "Gérer mes objets",
+				"en" : "Manage my items"
+			},
+			"submit" :
+			{
+				"fr" : "Filtrer",
+				"en" : "Filter"
+			},
+			"liste" :
+			{
+				"fr" : "Liste de mes objets",
+				"en" : "My items list"
+			}
+		}
+	},
+	{
+		"userLoans.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Ma liste d'objets empruntés",
+				"en" : "My loans list"
+			},
+			"liste" :
+			{
+				"fr" : "Ma liste d'objets empruntés",
+				"en" : "My loans list"
+			}
+		}
+	},
+	{
+		"item.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Objet",
+				"en" : "Object"
+			},
+			"obj" :
+			{
+				"fr" : "Objet",
+				"en" : "Object"
+			}
+		}
+	},
+	{
+		"searchitems.jsp" :
+		{
+			"rech" :
+			{
+				"fr" : "Recherche d'objets",
+				"en" : "Items search"
+			},
+			"comment" :
+			{
+				"fr" : "Trouvez des objets à proximité de vos points d'échange",
+				"en" : "Find objects near your exchange points"
+			},
+			"submit" :
+			{
+				"fr" : "Rechercher",
+				"en" : "Search"
+			}
+		}
+	},
+	{
+		"sidebar.jspf" :
+		{
+			"search_item" :
+			{
+				"fr" : "Rechercher un objet",
+				"en" : "Search for an item"
+			},
+			"search_user" :
+			{
+				"fr" : "Rechercher un(e) ami(e)",
+				"en" : "Find a friend"
+			},
+			"my_loans" :
+			{
+				"fr" : "Mes emprunts"
+				"en" : "My loans"
+			},
+			"my_items" :
+				{
+					"fr" : "Mes objets",
+					"en" : "My items"
+				},
+			"my_friend" :
+			{
+				"fr" : "Mes amis",
+				"en" : "My friends"
+			},
+			"my_places" :
+			{
+				"fr" : "Mes lieux",
+				"en" : "My exchange points"
+			},		
+			"messaging" :
+			{
+				"fr" : "Messagerie",
+				"en" : "Messenger"
+			},
+			"help" :
+			{
+				"fr" : "Aide",
+				"en" : "Help"
+			}
+		}
+	},
+	{
+		"importpoint.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Lieux d'échange",
+				"en" : "Exchange points"
+			},
+			"pts" :
+			{
+				"fr" : "Vos Lieux d'échange",
+				"en" : "Your exchange points"
+			},
+			"pts_amis" :
+			{
+				"fr" : "Lieux d'échange de mes amis",
+				"en" : "My friends exchange pointx"
+			},
+			"comment" :
+			{
+				"fr" : "Double-cliquez sur la carte pour ajouter un lieu",
+				"en" : "Double click on the map to add an exchange point"
+			},
+			"ModalAjout" :
+			{
+				"fr" : "Ajouter le lieu",
+				"en" : "Add the exchange point"
+			},
+			"noml" :
+			{
+				"fr" : "Nom",
+				"en" : "Name"
+			},
+			"porteel" :
+			{
+				"fr" : "Portée",
+				"en" : "Range"
+			},
+			"radius_input" :
+			{
+				"fr" : "Portée (obligatoire)",
+				"en" : "Range (required)"
+			},
+			"close" :
+			{
+				"fr" : "Fermer",
+				"en" : "Close"
+			},
+			"save" :
+			{
+				"fr" : "Ajouter",
+				"en" : "Add"
+			},
+			"comment2" :
+			{
+				"fr" : "Le lieu a bien été ajouté",
+				"en" : "The place has been successfully added"
+			},
+			"comment3" :
+			{
+				"fr" : "Les changements ont bien été pris en compte",
+				"en" : "Changes have succefully been taken into account"
+			},
+			"ModalModif" :
+			{
+				"fr" : "Modifier le lieu",
+				"en" : "Modify the exchange point"
+			},
+			"nom" :
+			{
+				"fr" : "Nom",
+				"en" : "Name"
+			},
+			"range" :
+			{
+				"fr" : "Portée",
+				"en" : "Range"
+			},
+			"ferm" :
+			{
+				"fr" : "Fermer",
+				"en" : "Close"
+			},
+			"enreg" :
+			{
+				"fr" : "Enregistrer",
+				"en" : "Save"
+			}
+		}
+	},
+	{
+		"pendingrequests.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Requêtes d'amis",
+				"en" : "Friends requests"
+			}
+		}
+	},
+	{
+		"memberprofile.jsp" :
+		{
+			"titre" :
+			{
+				"fr" : "Profil",
+				"en" : "Profile"
+			},
+			"prenom" :
+			{
+				"fr" : "Prénom",
+				"en" : "First name"
+			},
+			"nom" :
+			{
+				"fr" : "Nom",
+				"en" : "Last name"
+			},
+			"mail" :
+			{
+				"fr" : "Email",
+				"en" : "Email"
+			},
+			"tel" :
+			{
+				"fr" : "Téléphone",
+				"en" : "Phone number"
+			},
+			"status" :
+			{
+				"fr" : "Status",
+				"en" : "Status"
+			},
 			
-		]
-	},
-	{
-		"id" : "finduser.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+			"contact" :
 			{
-				"id" : "rech_fr",
-				"expression" : "Rechercher un utilisateur"
-			},
-			{
-				"id" : "rech_en",
-				"expression" : "Find a user"
-			},
-			{
-				"id" : "rech1_fr",
-				"expression" : "Chercher"
-			},
-			{
-				"id" : "rech1_en",
-				"expression" : "Search"
+				"fr" : "Contacter",
+				"en" : "Contact"
 			}
-		]
-	},
-	{
-		"id" : "myfriends.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "amis_fr",
-				"expression" : "Mes amis"
-			},
-			{
-				"id" : "amis_en",
-				"expression" : "My friends"
-			},
-			{
-				"id" : "nom_fr",
-				"expression" : "Nom"
-			},
-			{
-				"id" : "nom_en",
-				"expression" : "Last name"
-			},
-			{
-				"id" : "prenom_fr",
-				"expression" : "Prenom"
-			},
-			{
-				"id" : "prenom_en",
-				"expression" : "First name"
-			},
-			{
-				"id" : "profil_fr",
-				"expression" : "Profil"
-			},
-			{
-				"id" : "profil_en",
-				"expression" : "Profile"
-			}
-		]
-	},
-	{
-		"id" : "pendingrequests.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "nom_fr",
-				"expression" : "Nom"
-			},
-			{
-				"id" : "nom_en",
-				"expression" : "Last name"
-			},
-			{
-				"id" : "prenom_fr",
-				"expression" : "Prenom"
-			},
-			{
-				"id" : "prenom_en",
-				"expression" : "First name"
-			},
-			{
-				"id" : "profil_fr",
-				"expression" : "Profil"
-			},
-			{
-				"id" : "profil_en",
-				"expression" : "Profile"
-			},
-			{
-				"id" : "accepter_fr",
-				"expression" : "Accepter"
-			},
-			{
-				"id" : "accepter_en",
-				"expression" : "Accept"
-			},
-			{
-				"id" : "refuser_fr",
-				"expression" : "Refuser"
-			},
-			{
-				"id" : "refuser_en",
-				"expression" : "Decline"
-			}
-		]
-	},
-	{
-		"id" : "groups.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "grps_fr",
-				"expression" : "Mes groupes"
-			},
-			{
-				"id" : "grps_en",
-				"expression" : "My groups"
-			},
-			{
-				"id" : "new_grp_fr",
-				"expression" : "Créer un nouveau groupe"
-			},
-			{
-				"id" : "new_grp_en",
-				"expression" : "Create a new group"
-			},
-			{
-				"id" : "creer_fr",
-				"expression" : "Créer"
-			},
-			{
-				"id" : "creer_en",
-				"expression" : "Create"
-			}
-		]
-	},
-	{
-		"id" : "groupmembers.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "grp_fr",
-				"expression" : "Groupe"
-			},
-			{
-				"id" : "grp_en",
-				"expression" : "Group"
-			},
-			{
-				"id" : "gestion_fr",
-				"expression" : "Gérer le groupe"
-			},
-			{
-				"id" : "gestion_en",
-				"expression" : "Manage the group"
-			},
-			{
-				"id" : "rech_fr",
-				"expression" : "Chercher"
-			},
-			{
-				"id" : "rech_en",
-				"expression" : "Search"
-			},
-			{
-				"id" : "ajout_fr",
-				"expression" : "en ajoutant des membres"
-			},
-			{
-				"id" : "ajout_en",
-				"expression" : "by adding members"
-			},
-			{
-				"id" : "liste_fr",
-				"expression" : "Liste des membres du groupe"
-			},
-			{
-				"id" : "liste_en",
-				"expression" : "List of the group's members"
-			}
-		]
-	},
-	{
-		"id" : "createobject.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "ajout_objet_fr",
-				"expression" : "Ajouter un objet"
-			},
-			{
-				"id" : "ajout_objet_en",
-				"expression" : "Add an item"
-			},
-			{
-				"id" : "nom_fr",
-				"expression" : "Nom"
-			},
-			{
-				"id" : "nom_en",
-				"expression" : "Name"
-			},
-			{
-				"id" : "desc_fr",
-				"expression" : "Description"
-			},
-			{
-				"id" : "desc_en",
-				"expression" : "Description"
-			},
-			{
-				"id" : "expts_fr",
-				"expression" : "Points d'échanges"
-			},
-			{
-				"id" : "expts_en",
-				"expression" : "Exchange points"
-			},
-			{
-				"id" : "ajout_expt_fr",
-				"expression" : "Ajouter un point d'échange"
-			},
-			{
-				"id" : "ajout_expt_en",
-				"expression" : "Add an exchange point"
-			},
-			{
-				"id" : "vis_fr",
-				"expression" : "Visibilité"
-			},
-			{
-				"id" : "vis_en",
-				"expression" : "Visibility"
-			},
-			{
-				"id" : "envoyer_fr",
-				"expression" : "Envoyer"
-			},
-			{
-				"id" : "envoyer_en",
-				"expression" : "Submit"
-			},
-			{
-				"id" : "comment_obj_fr",
-				"expression" : "L'objet a bien été ajouté"
-			},
-			{
-				"id" : "comment_obj_en",
-				"expression" : "The item has successfully been added"
-			}
-		]
-	},
-	{
-		"id" : "useritems.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "mes_objets_fr",
-				"expression" : "Mes objets"
-			},
-			{
-				"id" : "mes_objets_en",
-				"expression" : "My items"
-			},
-			{
-				"id" : "gestion_obj_fr",
-				"expression" : "Gérer mes objets"
-			},
-			{
-				"id" : "gestion_obj_en",
-				"expression" : "Manage my items"
-			},
-			{
-				"id" : "filtrer_fr",
-				"expression" : "Filtrer"
-			},
-			{
-				"id" : "filtrer_en",
-				"expression" : "Filter"
-			},
-			{
-				"id" : "list_obj_fr",
-				"expression" : "Liste de mes objets"
-			},
-			{
-				"id" : "list_obj_en",
-				"expression" : "My items list"
-			}
-		]
-	},
-	{
-		"id" : "addpoint.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "ajout_expts_fr",
-				"expression" : "Ajouter un lieu d'échange"
-			},
-			{
-				"id" : "ajout_expts_en",
-				"expression" : "Add an exchange point"
-			},
-			{
-				"id" : "choix_expt_fr",
-				"expression" : "Choisissez des points d'échanges sur la carte"
-			},
-			{
-				"id" : "choix_expt_en",
-				"expression" : "Choose exchange points on the map"
-			},
-			{
-				"id" : "envoyer_fr",
-				"expression" : "Envoyer"
-			},
-			{
-				"id" : "envoyer_en",
-				"expression" : "Submit"
-			}
-			,
-			{
-				"id" : "comment_ajout_fr",
-				"expression" : "Les lieux ont bien été ajoutés"
-			},
-			{
-				"id" : "comment_ajout_en",
-				"expression" : "The places have been successfully added"
-			}
-		]
-	},
-	{
-		"id" : "userLoans.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "liste_obj_fr",
-				"expression" : "Ma liste d'objets empruntés"
-			},
-			{
-				"id" : "liste_obj_en",
-				"expression" : "My loans list"
-			}
-		]
-	},
-	{
-		"id" : "item.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "obj_fr",
-				"expression" : "Objet"
-			},
-			{
-				"id" : "obj_en",
-				"expression" : "Object"
-			}
-		]
-	},
-	{
-		"id" : "listpoint.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "liste_expts_fr",
-				"expression" : "Liste des points d'échange"
-			},
-			{
-				"id" : "liste_expts_en",
-				"expression" : "Exchange points list"
-			},
-			{
-				"id" : "comment_chang_fr",
-				"expression" : "Les changements ont bien été enregistrés"
-			},
-			{
-				"id" : "comment_chang_en",
-				"expression" : "Changes have been successfully saved"
-			},
-			{
-				"id" : "fermer_fr",
-				"expression" : "Fermer"
-			},
-			{
-				"id" : "fermer_en",
-				"expression" : "Close"
-			},
-			{
-				"id" : "modif_lieu_fr",
-				"expression" : "Modifier le lieu"
-			},
-			{
-				"id" : "modif_lieu_en",
-				"expression" : "Modify the place"
-			},
-			{
-				"id" : "nom_fr",
-				"expression" : "Nom"
-			},
-			{
-				"id" : "nom_en",
-				"expression" : "Name"
-			},
-			{
-				"id" : "portee_fr",
-				"expression" : "Portée"
-			},
-			{
-				"id" : "portee_en",
-				"expression" : "Range"
-			},
-			{
-				"id" : "fermer_fr",
-				"expression" : "Fermer"
-			},
-			{
-				"id" : "fermer_en",
-				"expression" : "Close"
-			},
-			{
-				"id" : "enreg_fr",
-				"expression" : "Enregistrer"
-			},
-			{
-				"id" : "ennreg_en",
-				"expression" : "Save"
-			}
-		]
-	},
-	{
-		"id" : "searchitems.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "rech_fr",
-				"expression" : "Recherche d'objets"
-			},
-			{
-				"id" : "rech_en",
-				"expression" : "Items search"
-			},
-			{
-				"id" : "trouver_obj_fr",
-				"expression" : "Trouvez des objets à proximité de vos points d'échange"
-			},
-			{
-				"id" : "trouver_obj_en",
-				"expression" : "Find objects near your exchange points"
-			},
-			{
-				"id" : "rech2_FR",
-				"expression" : "Rechercher"
-			},
-			{
-				"id" : "rech2_en",
-				"expression" : "Search"
-			}
-		]
-	},
-	{
-		"id" : "sidebar.jspf",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "deco_fr",
-				"expression" : "Déconnexion"
-			},
-			{
-				"id" : "deco_en",
-				"expression" : "Sign out"
-			},
-			{
-				"id" : "profil_fr",
-				"expression" : "Mon profil"
-			},
-			{
-				"id" : "profil_en",
-				"expression" : "My profile"
-			},
-			{
-				"id" : "eval_fr",
-				"expression" : "Évaluations"
-			},
-			{
-				"id" : "eval_en",
-				"expression" : "Evaluations"
-			},
-			{
-				"id" : "amis_fr",
-				"expression" : "Mes amis"
-			},
-			{
-				"id" : "amis_en",
-				"expression" : "My friends"
-			},
-			{
-				"id" : "rech_user_fr",
-				"expression" : "Rechercher un utilisateur"
-			},
-			{
-				"id" : "rech_user_en",
-				"expression" : "Find a user"
-			},
-			{
-				"id" : "liste_amis_fr",
-				"expression" : "Liste de mes amis"
-			},
-			{
-				"id" : "liste_amis_en",
-				"expression" : "List of my friends"
-			},
-			{
-				"id" : "req_amis_fr",
-				"expression" : "Requêtes d'amis"
-			},
-			{
-				"id" : "req_amis_en",
-				"expression" : "Friends requests"
-			},
-			{
-				"id" : "grp_fr",
-				"expression" : "Mes groupes"
-			},
-			{
-				"id" : "grp_en",
-				"expression" : "My groups"
-			},
-			{
-				"id" : "obj_fr",
-				"expression" : "Mes objets"
-			},
-			{
-				"id" : "obj_en",
-				"expression" : "My items"
-			},
-			{
-				"id" : "ajout_obj_fr",
-				"expression" : "Aouter un objet"
-			},
-			{
-				"id" : "ajout_obj_en",
-				"expression" : "Add an item"
-			},
-			{
-				"id" : "liste_obj_fr",
-				"expression" : "Ma liste d'objets"
-			},
-			{
-				"id" : "liste_obj_en",
-				"expression" : "My items list"
-			},
-			{
-				"id" : "lieux_fr",
-				"expression" : "Mes lieux d'échange"
-			},
-			{
-				"id" : "lieux_en",
-				"expression" : "My exchange points"
-			},
-			{
-				"id" : "ajout_expt_fr",
-				"expression" : "Ajouter un lieu d'échange"
-			},
-			{
-				"id" : "ajout_expt_en",
-				"expression" : "Add an exchange point"
-			},
-			{
-				"id" : "import_fr",
-				"expression" : "Importer un lieu"
-			},
-			{
-				"id" : "import_en",
-				"expression" : "Import a place"
-			},
-			{
-				"id" : "mes_lieux_fr",
-				"expression" : "Mes lieux"
-			},
-			{
-				"id" : "mes_lieux_en",
-				"expression" : "My places"
-			},
-			{
-				"id" : "emprunts_fr",
-				"expression" : "Mes emprunts"
-			},
-			{
-				"id" : "emprunts_en",
-				"expression" : "My loans"
-			},
-			{
-				"id" : "rech_obj_fr",
-				"expression" : "Rechercher un objet"
-			},
-			{
-				"id" : "rech_obj_en",
-				"expression" : "Search for an item"
-			},
-			{
-				"id" : "liste_obj_emp_fr",
-				"expression" : "Ma liste d'objets empruntés"
-			},
-			{
-				"id" : "liste_obj_emp_en",
-				"expression" : "List of my loans"
-			}
-			
-		]
-	},
-	{
-		"id" : "importpoint.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "import_fr",
-				"expression" : "Importer un lieu d'échange"
-			},
-			{
-				"id" : "import_en",
-				"expression" : "Import an exchange point"
-			},
-			{
-				"id" : "comment_lieu_fr",
-				"expression" : "Le lieu a bien été ajouté"
-			},
-			{
-				"id" : "comment_lieu_en",
-				"expression" : "The place has been successfully added"
-			}
-		]
-	},
-	{
-		"id" : "pendingrequests.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "req_fr",
-				"expression" : "Requêtes d'amis"
-			},
-			{
-				"id" : "req_en",
-				"expression" : "Friends requests"
-			}
-		]
-	},
-	{
-		"id" : "memberprofile.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
-			{
-				"id" : "profil_fr",
-				"expression" : "Profil"
-			},
-			{
-				"id" : "profil_en",
-				"expression" : "Profile"
-			},
-			{
-				"id" : "prenom_fr",
-				"expression" : "Prénom"
-			},
-			{
-				"id" : "prenom_en",
-				"expression" : "First name"
-			},
-			{
-				"id" : "nom_fr",
-				"expression" : "Nom"
-			},
-			{
-				"id" : "nom_en",
-				"expression" : "Last name"
-			},
-			{
-				"id" : "email_fr",
-				"expression" : "Email"
-			},
-			{
-				"id" : "email_en",
-				"expression" : "Email"
-			},
-			{
-				"id" : "tel_fr",
-				"expression" : "Téléphone"
-			},
-			{
-				"id" : "tel_en",
-				"expression" : "Phone number"
-			},
-			{
-				"id" : "contact_fr",
-				"expression" : "Contacter"
-			},
-			{
-				"id" : "contact_en",
-				"expression" : "Contact"
-			}
-		]
+		}
 	},
 	{
 		"id" : "upload.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		{	
+			"titre" :
 			{
-				"id" : "upload_image_fr",
-				"expression" : "Télécharger une image"
+				"fr" : "Télécharger une image",
+				"en" : "Upload an image"
 			},
+			"upload" :
 			{
-				"id" : "upload_en",
-				"expression" : "Upload an image"
+				"fr" : "Sélectionner une image à télécharger",
+				"en" : "Select an image to upload"
 			},
+			"submit" : 
 			{
-				"id" : "select_imahe_fr",
-				"expression" : "Sélectionner une image à télécharger"
-			},
-			{
-				"id" : "select_imahe_en",
-				"expression" : "Select an image to upload"
-			},
-			{
-				"id" : "upload_fr",
-				"expression" : "Télécharger"
-			},
-			{
-				"id" : "upload_en",
-				"expression" : "Upload"
+				"fr" : "Télécharger",
+				"en" : "Upload"
 			}
-		]
+		}
 	},
 	{
-		"id" : "messenger.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		"messenger.jsp" :
+		{	
+			"titre1" :
 			{
-				"id" : "conv_fr",
-				"expression" : "Toutes mes conversations"
-			},
+				"fr" : "Conversation",
+				"en" : "Conversation"
+			}	
+			"titre" :
 			{
-				"id" : "conv_en",
-				"expression" : "All my conversations"
+				"fr" : "Toutes mes conversations",
+				"en" : "All my conversations"
 			}
-		]
+		}
 	},
 	{
-		"id" : "conversation.jsp",
-		"type" : "traduction",
-		"traductions" : 
-		[
+		"conversation.jsp" :
+		{
+			"titre1" :
 			{
-				"id" : "conv_fr",
-				"expression" : "Conversation avec"
+				"fr" : "Conversation avec",
+				"en" : "Conversation with"
 			},
+			"titre" :
 			{
-				"id" : "conv_en",
-				"expression" : "Conversation with"
-			},
-			{
-				"id" : "msg_fr",
-				"expression" : "Ecrivez un nouveau message"
-			},
-			{
-				"id" : "msg_en",
-				"expression" : "Write a new message"
+				"fr" : "Ecrivez un nouveau message",
+				"en" : "Write a new message"
 			}
-		]
+		}
+	},
+	{
+		"listpoint.jspf" :
+		{
+			"ajout_expts" :
+			{
+				"fr" : "Ajouter un point d'échange",
+				"en" : "Add an exchange point"
+			},
+			"import_expts" :
+			{
+				"fr" : "Importer des points d'échange",
+				"en" : "Import exchange points"
+			}
+		}
+	},
+	{
+		"myfriends_menu.jspf" :
+		{
+			"my_groups" :
+			{
+				"fr" : "Mes groupes",
+				"en" : "My groups"
+			},
+			"my_pending_friends_requests" :
+			{
+				"fr" : "Mes demandes d'amis",
+				"en" : "My friends requests"
+			},
+			"my_evaluations" :
+			{
+				"fr" : "Mes évaluations",
+				"en" : "My evaluations"
+			}
+		}
+	},
+	{
+		"profile_menu.jspf" :
+		{
+			"modif" :
+			{
+				"fr" : "Modifier mes informations",
+				"en" : "Update my information"
+			},
+			"photo" :
+			{
+				"fr" : "Changer de photo",
+				"en" : "Change the photo"
+			}
+		}
+	},
+	{
+		"useritems_menu.jspf" :
+		{
+			"ajout_obj" :
+			{
+				"fr" : "Ajouter un objet",
+				"en" : "Add an item"
+			}
+		}
+	},
+	{
+		"footer.jspf" :
+		{
+			"email" :
+			{
+				"fr" : "Contact : kasukasu@gmail.com",
+				"en" : "Contact : kasukasu@gmail.com"
+			},
+			"version" :
+			{
+				"fr" : "Version : alpha",
+				"en" : "Version : alpha"
+			}
+		}
+	},
+	{
+		"navbar.jspf" :
+		{
+			"preferences" :
+			{
+				"fr" : "Préférences",
+				"en" : "Preferences"
+			},
+			"disc" :
+			{
+				"fr" : "Déconnexion",
+				"en" : "Disconnection"
+			}
+		}
 	}
 ]

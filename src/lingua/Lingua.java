@@ -99,7 +99,7 @@ public class Lingua {
 			else if(dialect.equals("en"))
 				return latin.get(field).get(1);
 			else
-				throw new StringNotFoundException("Dictionary : unknown dialect");
+				return latin.get(field).get(0);
 		else 
 			throw new StringNotFoundException("Dictionary : unknown field");
 	}

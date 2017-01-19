@@ -830,27 +830,19 @@
 		[
 			{
 				"langue" : "fr-FR",
-				"expression" : "Déconnexion"
+				"expression" : "Rechercher un objet"
 			},
 			{
 				"langue" : "en-GB",
-				"expression" : "Sign out"
+				"expression" : "Search for an item"
 			},
 			{
 				"langue" : "fr-FR",
-				"expression" : "Mon profil"
+				"expression" : "Rechercher un(e) ami(e)"
 			},
 			{
 				"langue" : "en-GB",
-				"expression" : "My profile"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Évaluations"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "Evaluations"
+				"expression" : "Find a friend"
 			},
 			{
 				"langue" : "fr-FR",
@@ -862,35 +854,11 @@
 			},
 			{
 				"langue" : "fr-FR",
-				"expression" : "Rechercher un utilisateur"
+				"expression" : "Mes emprunts"
 			},
 			{
 				"langue" : "en-GB",
-				"expression" : "Find a user"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Liste de mes amis"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "List of my friends"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Requêtes d'amis"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "Friends requests"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Mes groupes"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "My groups"
+				"expression" : "My loans"
 			},
 			{
 				"langue" : "fr-FR",
@@ -902,43 +870,11 @@
 			},
 			{
 				"langue" : "fr-FR",
-				"expression" : "Aouter un objet"
+				"expression" : "Mes amis"
 			},
 			{
 				"langue" : "en-GB",
-				"expression" : "Add an item"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Ma liste d'objets"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "My items list"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Mes lieux d'échange"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "My exchange points"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Ajouter un lieu d'échange"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "Add an exchange point"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Importer un lieu"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "Import a place"
+				"expression" : "My friends"
 			},
 			{
 				"langue" : "fr-FR",
@@ -946,33 +882,24 @@
 			},
 			{
 				"langue" : "en-GB",
-				"expression" : "My places"
-			},
+				"expression" : "My exchange points"
+			},		
 			{
 				"langue" : "fr-FR",
-				"expression" : "Mes emprunts"
+				"expression" : "Messagerie"
 			},
 			{
 				"langue" : "en-GB",
-				"expression" : "My loans"
+				"expression" : "Messenger"
 			},
 			{
 				"langue" : "fr-FR",
-				"expression" : "Rechercher un objet"
+				"expression" : "Aide"
 			},
 			{
 				"langue" : "en-GB",
-				"expression" : "Search for an item"
-			},
-			{
-				"langue" : "fr-FR",
-				"expression" : "Ma liste d'objets empruntés"
-			},
-			{
-				"langue" : "en-GB",
-				"expression" : "List of my loans"
+				"expression" : "Help"
 			}
-			
 		]
 	},
 	{

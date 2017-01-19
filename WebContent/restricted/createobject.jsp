@@ -26,7 +26,7 @@
 
 	<div id="page">
 
-		<p id='ajout' class='capital' style='text-align: center'>Ajout
+		<p id='ajout1' class='capital' style='text-align: center'>Ajout
 			d'un objet</p>
 
 		<div>
