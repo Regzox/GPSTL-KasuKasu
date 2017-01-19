@@ -262,9 +262,11 @@
 		};
 		
 		</script>
+	
+		<%@ include file="/fragments/interface/footer.jspf"%>
 
 	</div>
 
-	<%@ include file="/fragments/interface/footer.jspf"%>
+	
 </body>
 </html>
