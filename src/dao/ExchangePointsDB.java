@@ -312,29 +312,29 @@ public class ExchangePointsDB {
 
 
 	public static void main(String[] args) {
-//		collection.remove(new BasicDBObject());
-//		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","fac");
-//		String excpt_id=accessibleExchangePoints("5jhjy62hghfj5874gtg5").next().get("_id").toString();
-//		subscribeToExchangePoint(excpt_id, "new_user_id", "la prison",2);
-//		subscribeToExchangePoint(excpt_id, "new_user_id2", "upmc",50);
-//		subscribeToExchangePoint(excpt_id, "new_user_id3", "l'enfer",1000);
-//		updateExchangePoint(excpt_id, "5jhjy62hghfj5874gtg5", 10, "UPMC");
-//		addItemsToExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
-//				new HashSet<String>(Arrays.asList(new String[]
-//						{"LOLitemID0","LOLitemID1","LOLitemID2","LOLitemID1","LOLitemID7"}
-//						)));
-//		System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());
-//		removeItemsFromExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
-//				new HashSet<String>(Arrays.asList(new String[]
-//						{"LOLitemID7","LOLitemID8","LOLitemID0"}
-//						)));
-//		System.out.println("userPoints : "+userPoints("new_user_id").next());
-//		try{System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());//Must throw NoSuchElementException
-//		}catch(NoSuchElementException nsee){System.out.println("NoSuchElementException");}
-//		System.out.println("itemExchangePoints id1: "+itemExchangePoints("LOLitemID1").next());
-//		//				System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
-//		deleteExchangePoint(excpt_id,"new_user_id3");
-//		System.out.println("userPoints : "+userPoints("new_user_id").next());
+		collection.remove(new BasicDBObject());
+		addExchangePoint(2.0,3.0,200,"5jhjy62hghfj5874gtg5","fac");
+		String excpt_id="588093bb6d267fff5d8444f3";
+		subscribeToExchangePoint(excpt_id, "new_user_id", "la prison",2);
+		subscribeToExchangePoint(excpt_id, "new_user_id2", "upmc",50);
+		subscribeToExchangePoint(excpt_id, "new_user_id3", "l'enfer",1000);
+		updateExchangePoint(excpt_id, "5jhjy62hghfj5874gtg5", 10, "UPMC");
+		addItemsToExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
+				new HashSet<String>(Arrays.asList(new String[]
+						{"LOLitemID0","LOLitemID1","LOLitemID2","LOLitemID1","LOLitemID7"}
+						)));
+		System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());
+		removeItemsFromExPoint(excpt_id,"5jhjy62hghfj5874gtg5",
+				new HashSet<String>(Arrays.asList(new String[]
+						{"LOLitemID7","LOLitemID8","LOLitemID0"}
+						)));
+		System.out.println("userPoints : "+userPoints("new_user_id").next());
+		try{System.out.println("itemExchangePoints : "+itemExchangePoints("LOLitemID0").next());//Must throw NoSuchElementException
+		}catch(NoSuchElementException nsee){System.out.println("NoSuchElementException");}
+		System.out.println("itemExchangePoints id1: "+itemExchangePoints("LOLitemID1").next());
+		//				System.out.println(friendsLargeExchangePoints("58496e19273633e062a41acc").next());
+		deleteExchangePoint(excpt_id,"new_user_id3");
+		System.out.println("userPoints : "+userPoints("new_user_id").next());
 	}
 
 

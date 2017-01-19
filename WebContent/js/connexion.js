@@ -66,7 +66,11 @@ function checkConnexion(mailv, passv)
 		dataType : "json",
 		success : ProcessLoginRequest,
 		error : function(xhr,status,errorthrown){
-			alert(xhr.responseText);
+			if(xhr.warning!= undefined)
+			alert(xhr.warning);
+			if(xhr.error!= undefined)
+				alert(xhr.error);
+			else alert(JSON.stringify(xhr))
 		}
 	});
 }
