@@ -18,6 +18,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.ExchangePointsDB;
+import dao.FriendsDao;
 import dao.GroupsDB;
 import dao.search.FuzzyFinder;
 import dao.search.PatternsHolder;
@@ -262,18 +263,33 @@ public class ItemsDB {
 		while(dbc.hasNext())
 			usergroupsmembership.add(dbc.next().get("_id").toString());
 
-		return  collection.find(
+//		return  collection.find(
+//				new BasicDBObject()
+//				.append("groups", 
+//						new BasicDBObject("$elemMatch",new BasicDBObject("id",new BasicDBObject("$in",usergroupsmembership)))
+//						));
+		
+
+		BasicDBList exprs = new BasicDBList();
+		exprs.add(
 				new BasicDBObject()
 				.append("groups", 
 						new BasicDBObject("$elemMatch",new BasicDBObject("id",new BasicDBObject("$in",usergroupsmembership)))
 						));
+		
+		exprs.add(new BasicDBObject()
+				.append("groups",new BasicDBObject("$size", 0)));
+//		.append("groups",new BasicDBObject("$eq", new BasicDBObject("$size", 0))));
+
+				
+		return collection.find(new BasicDBObject().append("$or", exprs));
 	}
 
 
 
 	public static void main(String[] args) {
 		System.out.println("Results...\n%");
-		System.out.println(accessibleItems("586e8cd92736d4e126b99c07"));
+//		System.out.println(accessibleItems("586e8cd92736d4e126b99c07"));
 		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
 		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
 		//		Iterable<DBObject> res =utherItems("1","");
