@@ -15,11 +15,20 @@
 
 </head>
 <body onload="trans(); userPoints()">
-	<%@ include file="/fragments/sidebar.jspf"%>
+	
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
+	
 	<div id='page'>
+	
+		<%@ include file="/fragments/interface/menus/listpoint_menu.jspf"%>
+	
 		<div class='layer-center'>
 			<div id='notifier'></div>
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 	
 	<div id="myModal" class="modal fade">
@@ -84,7 +93,7 @@
 					<button id="enreg" type="button" id="save" class="btn btn-primary">Enregistrer</button>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 
 </body>

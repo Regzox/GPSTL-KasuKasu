@@ -15,11 +15,20 @@
 <title id='titre'>Mes Amis</title>
 </head>
 <body onload="retrieveFriendsFunc(); trans()">
-	<%@ include file="/fragments/sidebar.jspf"%>
+	
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
+
 	<div id='page'>
+	
+	<%@ include file="/fragments/interface/menus/myfriends_menu.jspf"%>
+	
 		<div class='layer-center'>
 			<div id='notifier'></div>
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 </body>
 </html>

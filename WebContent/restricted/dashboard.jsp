@@ -16,16 +16,17 @@
 	
 	<body>
 		
-		<%@ include file="/fragments/sidebar.jspf" %>
+		<%@ include file="/fragments/interface/navbar.jspf"%>
+		<%@ include file="/fragments/interface/sidebar.jspf"%>
 	
 		<div id='page'>
 			<div class='layer-center'>
-<!-- 			<p class='capital'>Dashboard</p> -->
 			<p class='capital'>Accueil</p>
-						
-<!-- 			<button type="button" class="btn btn-primary btn-block" onclick="window.location.href = ('/KasuKasu/modifyUser.jsp')">Modify your account</button> -->
-<!-- 			<button type="button" class="btn btn-primary btn-block" onclick="window.location.href = ('/KasuKasu/portal.jsp')">Back to portal</button> -->
+			<p>Blablabla ... Aide + FAQ + ... </p>
 			</div>
+			
+			<%@ include file="/fragments/interface/footer.jspf"%>
+			
 		</div>
 	</body>
 </html>

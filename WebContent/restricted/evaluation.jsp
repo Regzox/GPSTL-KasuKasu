@@ -35,7 +35,9 @@
 
 </head>
 <body>
-	<%@ include file="/fragments/sidebar.jspf"%>
+	
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
 
@@ -263,6 +265,6 @@
 
 	</div>
 
-	<%@ include file="/fragments/footer.jspf"%>
+	<%@ include file="/fragments/interface/footer.jspf"%>
 </body>
 </html>

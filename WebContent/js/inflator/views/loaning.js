@@ -180,7 +180,7 @@ function makeReturnItemButton(loan) {
 	if(bool==1)	
 		$(button).html("Return");
 	$(button).click( function () {
-		$.post("ReturnItemServlet", {
+		$.post(ReturnItemServlet, {
 			loan_id : loan.loan_id
 		})
 		.done( function () {

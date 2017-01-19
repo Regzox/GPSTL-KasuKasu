@@ -17,7 +17,8 @@
 <body id="gc-search"
 	onload="trans(); conversation('<%=request.getParameter("uther")%>')">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<h1  align="center" class="title">
 		<p id="titre">
@@ -43,5 +44,8 @@
 			</form>
 		</div>
 	</div>
+	
+	<%@ include file="/fragments/interface/footer.jspf"%>
+	
 </body>
 </html>

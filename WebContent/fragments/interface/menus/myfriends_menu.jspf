@@ -1,0 +1,31 @@
+<div class="menu">
+	<div class="wrapper">
+		<div	id="my_groups"
+				class="demi clickable"
+				onclick="
+						if ( !(~$(location).attr('href').indexOf(groups_jsp)))
+						$(location).attr('href', groups_jsp);
+				"
+		>
+		Mes groupes
+		</div>
+		<div	id="my_pending_friends_requests"
+				class="demi clickable"
+				onclick="
+						if ( !(~$(location).attr('href').indexOf(pendingrequests_jsp)))
+						$(location).attr('href', pendingrequests_jsp);
+				"
+		>
+		Mes demandes d'amis
+		</div>
+		<div	id="my_evaluations"
+				class="demi clickable"
+				onclick="
+						if ( !(~$(location).attr('href').indexOf(evaluation_jsp)))
+						$(location).attr('href', evaluation_jsp);
+				"
+		>
+		Mes évaluations
+		</div>
+	</div>
+</div>

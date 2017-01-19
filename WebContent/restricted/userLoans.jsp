@@ -18,12 +18,16 @@
 <title id='titre'>Ma liste d'objets empruntés</title>
 </head>
 <body onload="javascript:find_user_loans(); trans();">
-	<%@ include file="/fragments/sidebar.jspf"%>
+	
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
+	
 	<div id='page'>
 		<div class='layer-center'>
 			<h2 id='liste'>Ma liste d'objets empruntés</h2>
 			<div id="found-loans" class="abootsraper"></div>
 		</div>
+		<%@ include file="/fragments/interface/footer.jspf"%>
 	</div>
 </body>
 </html>

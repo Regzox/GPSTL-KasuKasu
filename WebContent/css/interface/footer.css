@@ -1,0 +1,11 @@
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 87.5%;
+	margin: 0%;
+	padding: 0%;
+	height: 60px;
+	background: #6cf;
+	color: darkred;
+	font-size: 1.2em;
+}
