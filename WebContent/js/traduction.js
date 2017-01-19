@@ -1,4 +1,4 @@
-//recuperation de l'objet xhr
+//récupération de l'objet xhr
 function getXMLHttpRequest() {
 	var xhr = null;
 	if (window.XMLHttpRequest || window.ActiveXObject) {
@@ -24,19 +24,16 @@ function trans()
 	var dico;
 	//get the file name
 	var href = document.location.href;
-	//recupere le nom de la jsp actuelle
 	var fileName = href.substr(href.lastIndexOf('/') + 1);
 	
-	xhr.open("GET","/KasuKasu/traduction_.json",false);
+	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
 	//xhr.onreadystatechange = function() {
 
 	if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) 
 	{
 		dico = JSON.parse(xhr.responseText);
+		console.log(dico);
 		
-		console.log(JSON.stringify(dico));
-	
 	}
-	
 }

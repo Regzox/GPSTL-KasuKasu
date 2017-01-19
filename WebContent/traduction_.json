@@ -1,0 +1,650 @@
+[{
+	"portal.jsp": {
+		"titre": {
+			"fr": "Bienvenue sur KasuKasu !",
+			"en": "Welcome to KasuKasu !"
+		},
+		"bienvenue": {
+			"fr": "Bienvenue sur KasuKasu !",
+			"en": "Welcome to KasuKasu !"
+		},
+		"site": {
+			"fr": "Le site où vous pouvez prêter vos objets à vos amis",
+			"en": "The web site where you can lend your items to your friends"
+		},
+		"btn_insc": {
+			"fr": "Créer un compte",
+			"en": "Create an account"
+		},
+		"btn_connex": {
+			"fr": "Se connecter",
+			"en": "Sign in"
+		}
+	}
+}, {
+	"createuser.jsp": {
+		"titre": {
+			"fr": "Inscription",
+			"en": "Register"
+		},
+		"a": {
+			"fr": "Inscription",
+			"en": "Register"
+		},
+		"prenoml": {
+			"fr": "Prénom",
+			"en": "First name"
+		},
+		"noml": {
+			"fr": "Nom",
+			"en": "Last name"
+		},
+		"numl": {
+			"fr": "Téléphone",
+			"en": "Phone number"
+		},
+		"emaill": {
+			"fr": "Email",
+			"en": "Email"
+		},
+		"mdpl": {
+			"fr": "Mot de passe",
+			"en": "Password"
+		},
+		"confl": {
+			"fr": "Confirmer le mot de passe",
+			"en": "Confirm the password"
+		},
+		"captchal": {
+			"fr": "Veuillez cocher la case correspondante à Albert Einstein",
+			"en": "Please, check the box corresponding to Albert Einstein"
+		},
+		"submit": {
+			"fr": "Envoyer",
+			"en": "Submit"
+		}
+	}
+}, {
+	"connexion.jsp": {
+		"titre": {
+			"fr": "Connexion",
+			"en": "Sign in"
+		},
+		"connexion": {
+			"fr": "Connexion",
+			"en": "Sign in"
+		},
+		"email": {
+			"fr": "Email",
+			"en": "Email"
+		},
+		"pass": {
+			"fr": "Mot de passe",
+			"en": "Password"
+		},
+		"connex": {
+			"fr": "Connexion",
+			"en": "Sign in"
+		},
+		"mdpo": {
+			"fr": "Mot de passe oublié ?",
+			"en": "Forgot your password ?"
+		}
+	}
+}, {
+	"retrievePassword.jsp": {
+		"titre": {
+			"fr": "Récupération de votre mot de passe",
+			"en": "Retrieve your password"
+		},
+		"ret": {
+			"fr": "Récupération de votre mot de passe",
+			"en": "Retrieve your password"
+		},
+		"email": {
+			"fr": "Email",
+			"en": "Email"
+		},
+		"submit": {
+			"fr": "Envoyer",
+			"en": "Submit"
+		}
+	}
+}, {
+	"profile.jsp": {
+		"titre": {
+			"fr": "Mon profil",
+			"en": "My profile"
+		}
+	}
+}, {
+	"profile.jspf": {
+		"prenom": {
+			"fr": "Prénom",
+			"en": "First name"
+		},
+		"nom": {
+			"fr": "Nom",
+			"en": "Last name"
+		},
+		"mail": {
+			"fr": "Email",
+			"en": "Email"
+		},
+		"tel": {
+			"fr": "Téléphone",
+			"en": "Phone number"
+		}
+	}
+}, {
+	"modifyUser.jsp": {
+		"titre": {
+			"fr": "Modifier mon compte",
+			"en": "Update my account"
+		},
+		"titre2": {
+			"fr": "Modifier mon compte",
+			"en": "Update my account"
+		},
+		"modif": {
+			"fr": "Saisir mes modifications",
+			"en": "Enter my changes"
+		},
+		"emaill": {
+			"fr": "Nouvel email",
+			"en": "New email"
+		},
+		"mdpl": {
+			"fr": "Nouveau mot de passe",
+			"en": "New password"
+		},
+		"noml": {
+			"fr": "Nouveau nom",
+			"en": "New last name"
+		},
+		"prenoml": {
+			"fr": "Nouveau prénom",
+			"en": "New first name"
+		},
+		"numl": {
+			"fr": "Nouveau téléphone",
+			"en": "New phone number"
+		},
+		"myModalLabel": {
+			"fr": "Valider",
+			"en": "Validate"
+		},
+		"verif": {
+			"fr": "Veuillez saisir votre mot de passe pour appliquer les changements",
+			"en": "Please, enter your password to apply the changes"
+		},
+		"psw": {
+			"fr": "Mot de passe *",
+			"en": "Password *"
+		},
+		"enreg": {
+			"fr": "Sauvegarder les changements",
+			"en": "Save the changes"
+		},
+		"old_password_input": {
+			"fr": "Mot de passe actuel (obligatoire)",
+			"en": "Password required"
+		}
+	}
+}, {
+	"finduser.jsp": {
+		"titre": {
+			"fr": "Rechercher un utilisateur",
+			"en": "Find a user"
+		},
+		"rech": {
+			"fr": "Rechercher un utilisateur",
+			"en": "Find a user"
+		},
+		"submit": {
+			"fr": "Chercher",
+			"en": "Search"
+		}
+	}
+}, {
+	"myfriends.jsp": {
+		"titre": {
+			"fr": "Mes amis",
+			"en": "My friends"
+		}
+	}
+}, {
+	"pendingrequests.jsp": {
+		"titre": {
+			"fr": "Requêtes d'amis",
+			"en": "Friends requests"
+		}
+	}
+}, {
+	"groups.jsp": {
+		"titre": {
+			"fr": "Mes groupes",
+			"en": "My groups"
+		},
+		"create": {
+			"fr": "Créer un nouveau groupe",
+			"en": "Create a new group"
+		},
+		"submit": {
+			"fr": "Créer",
+			"en": "Create"
+		}
+	}
+}, {
+	"groupmembers.jsp": {
+		"titre": {
+			"fr": "Groupe",
+			"en": "Group"
+		},
+		"gest": {
+			"fr": "Gérer le groupe",
+			"en": "Manage the group"
+		},
+		"comment": {
+			"fr": "en ajoutant des membres",
+			"en": "by adding members"
+		},
+		"submit": {
+			"fr": "Chercher",
+			"en": "Search"
+		},
+		"liste": {
+			"fr": "Liste des membres du groupe",
+			"en": "List of the group's members"
+		}
+	}
+}, {
+	"createobject.jsp": {
+		"titre": {
+			"fr": "Ajout d'un objet",
+			"en": "Add an item"
+		},
+		"ajout1": {
+			"fr": "Ajout d'un objet",
+			"en": "Add an item"
+		},
+		"noml": {
+			"fr": "Nom",
+			"en": "Name"
+		},
+		"descl": {
+			"fr": "Description",
+			"en": "Description"
+		},
+		"pts": {
+			"fr": "Points d'échanges",
+			"en": "Exchange points"
+		},
+		"ajout": {
+			"fr": "Ajouter un point d'échange",
+			"en": "Add an exchange point"
+		},
+		"vis": {
+			"fr": "Visibilité",
+			"en": "Visibility"
+		},
+		"submit": {
+			"fr": "Envoyer",
+			"en": "Submit"
+		},
+		"comment": {
+			"fr": "L'objet a bien été ajouté",
+			"en": "The item has successfully been added"
+		}
+	}
+}, {
+	"useritems.jsp": {
+		"titre": {
+			"fr": "Mes objets",
+			"en": "My items"
+		},
+		"manage": {
+			"fr": "Gérer mes objets",
+			"en": "Manage my items"
+		},
+		"submit": {
+			"fr": "Filtrer",
+			"en": "Filter"
+		},
+		"liste": {
+			"fr": "Liste de mes objets",
+			"en": "My items list"
+		}
+	}
+}, {
+	"userLoans.jsp": {
+		"titre": {
+			"fr": "Ma liste d'objets empruntés",
+			"en": "My loans list"
+		},
+		"liste": {
+			"fr": "Ma liste d'objets empruntés",
+			"en": "My loans list"
+		}
+	}
+}, {
+	"item.jsp": {
+		"titre": {
+			"fr": "Objet",
+			"en": "Object"
+		},
+		"obj": {
+			"fr": "Objet",
+			"en": "Object"
+		}
+	}
+}, {
+	"searchitems.jsp": {
+		"rech": {
+			"fr": "Recherche d'objets",
+			"en": "Items search"
+		},
+		"comment": {
+			"fr": "Trouvez des objets à proximité de vos points d'échange",
+			"en": "Find objects near your exchange points"
+		},
+		"submit": {
+			"fr": "Rechercher",
+			"en": "Search"
+		}
+	}
+}, {
+	"sidebar.jspf": {
+		"search_item": {
+			"fr": "Rechercher un objet",
+			"en": "Search for an item"
+		},
+		"search_user": {
+			"fr": "Rechercher un(e) ami(e)",
+			"en": "Find a friend"
+		},
+		"my_loans": {
+			"fr": "Mes emprunts",
+			"en": "My loans"
+		},
+		"my_items": {
+			"fr": "Mes objets",
+			"en": "My items"
+		},
+		"my_friend": {
+			"fr": "Mes amis",
+			"en": "My friends"
+		},
+		"my_places": {
+			"fr": "Mes lieux",
+			"en": "My exchange points"
+		},
+		"messaging": {
+			"fr": "Messagerie",
+			"en": "Messenger"
+		},
+		"help": {
+			"fr": "Aide",
+			"en": "Help"
+		}
+	}
+}, {
+	"importpoint.jsp": {
+		"titre": {
+			"fr": "Lieux d'échange",
+			"en": "Exchange points"
+		},
+		"pts": {
+			"fr": "Vos Lieux d'échange",
+			"en": "Your exchange points"
+		},
+		"pts_amis": {
+			"fr": "Lieux d'échange de mes amis",
+			"en": "My friends exchange pointx"
+		},
+		"comment": {
+			"fr": "Double-cliquez sur la carte pour ajouter un lieu",
+			"en": "Double click on the map to add an exchange point"
+		},
+		"ModalAjout": {
+			"fr": "Ajouter le lieu",
+			"en": "Add the exchange point"
+		},
+		"noml": {
+			"fr": "Nom",
+			"en": "Name"
+		},
+		"porteel": {
+			"fr": "Portée",
+			"en": "Range"
+		},
+		"radius_input": {
+			"fr": "Portée (obligatoire)",
+			"en": "Range (required)"
+		},
+		"close": {
+			"fr": "Fermer",
+			"en": "Close"
+		},
+		"save": {
+			"fr": "Ajouter",
+			"en": "Add"
+		},
+		"comment2": {
+			"fr": "Le lieu a bien été ajouté",
+			"en": "The place has been successfully added"
+		},
+		"comment3": {
+			"fr": "Les changements ont bien été pris en compte",
+			"en": "Changes have succefully been taken into account"
+		},
+		"ModalModif": {
+			"fr": "Modifier le lieu",
+			"en": "Modify the exchange point"
+		},
+		"nom": {
+			"fr": "Nom",
+			"en": "Name"
+		},
+		"range": {
+			"fr": "Portée",
+			"en": "Range"
+		},
+		"ferm": {
+			"fr": "Fermer",
+			"en": "Close"
+		},
+		"enreg": {
+			"fr": "Enregistrer",
+			"en": "Save"
+		}
+	}
+}, {
+	"pendingrequests.jsp": {
+		"titre": {
+			"fr": "Requêtes d'amis",
+			"en": "Friends requests"
+		}
+	}
+}, {
+	"memberprofile.jsp": {
+		"titre": {
+			"fr": "Profil",
+			"en": "Profile"
+		},
+		"prenom": {
+			"fr": "Prénom",
+			"en": "First name"
+		},
+		"nom": {
+			"fr": "Nom",
+			"en": "Last name"
+		},
+		"mail": {
+			"fr": "Email",
+			"en": "Email"
+		},
+		"tel": {
+			"fr": "Téléphone",
+			"en": "Phone number"
+		},
+		"status": {
+			"fr": "Status",
+			"en": "Status"
+		},
+		"contact": {
+			"fr": "Contacter",
+			"en": "Contact"
+		}
+	}
+}, {
+	"upload.jsp": {
+		"titre": {
+			"fr": "Télécharger une image",
+			"en": "Upload an image"
+		},
+		"upload": {
+			"fr": "Sélectionner une image à télécharger",
+			"en": "Select an image to upload"
+		},
+		"submit": {
+			"fr": "Télécharger",
+			"en": "Upload"
+		}
+	}
+}, {
+	"messenger.jsp": {
+		"titre1": {
+			"fr": "Conversation",
+			"en": "Conversation"
+		},
+		"titre": {
+			"fr": "Toutes mes conversations",
+			"en": "All my conversations"
+		}
+	}
+}, {
+	"conversation.jsp": {
+		"titre1": {
+			"fr": "Conversation avec",
+			"en": "Conversation with"
+		},
+		"titre": {
+			"fr": "Ecrivez un nouveau message",
+			"en": "Write a new message"
+		}
+	}
+}, {
+	"listpoint.jspf": {
+		"ajout_expts": {
+			"fr": "Ajouter un point d'échange",
+			"en": "Add an exchange point"
+		},
+		"import_expts": {
+			"fr": "Importer des points d'échange",
+			"en": "Import exchange points"
+		}
+	}
+}, {
+	"myfriends_menu.jspf": {
+		"my_groups": {
+			"fr": "Mes groupes",
+			"en": "My groups"
+		},
+		"my_pending_friends_requests": {
+			"fr": "Mes demandes d'amis",
+			"en": "My friends requests"
+		},
+		"my_evaluations": {
+			"fr": "Mes évaluations",
+			"en": "My evaluations"
+		}
+	}
+}, {
+	"profile_menu.jspf": {
+		"modif": {
+			"fr": "Modifier mes informations",
+			"en": "Update my information"
+		},
+		"photo": {
+			"fr": "Changer de photo",
+			"en": "Change the photo"
+		}
+	}
+}, {
+	"useritems_menu.jspf": {
+		"ajout_obj": {
+			"fr": "Ajouter un objet",
+			"en": "Add an item"
+		}
+	}
+}, {
+	"footer.jspf": {
+		"email": {
+			"fr": "Contact : kasukasu@gmail.com",
+			"en": "Contact : kasukasu@gmail.com"
+		},
+		"version": {
+			"fr": "Version : alpha",
+			"en": "Version : alpha"
+		}
+	}
+}, {
+	"navbar.jspf": {
+		"preferences": {
+			"fr": "Préférences",
+			"en": "Preferences"
+		},
+		"disc": {
+			"fr": "Déconnexion",
+			"en": "Disconnection"
+		}
+	}
+}, {
+	"itemmanagement.jsp": {
+		"titre": {
+			"fr": "Mon objet",
+			"en": "My object"
+		},
+		"title": {
+			"fr": "Titre",
+			"en": "Title"
+		},
+		"desc": {
+			"fr": "Description",
+			"en": "Description"
+		},
+		"ajout": {
+			"fr": "Ajouter",
+			"en": "Add"
+		},
+		"groupes": {
+			"fr": "Groupes",
+			"en": "Groups"
+		},
+		"ajout1": {
+			"fr": "Ajouter",
+			"en": "Add"
+		},
+		"modify": {
+			"fr": "Appliquer les modifications du Titre et de la description",
+			"en": "Apply the modifications of the title and the description"
+		},
+		"zones": {
+			"fr": "Mes zones",
+			"en": "My zones"
+		},
+		"add_zone": {
+			"fr": "Ajouter",
+			"en": "Add"
+		},
+		"mes_groupes": {
+			"fr": "Mes Groupes",
+			"en": "My groups"
+		},
+		"add_group": {
+			"fr": "Ajouter",
+			"en": "Add"
+		}
+	}
+}]
