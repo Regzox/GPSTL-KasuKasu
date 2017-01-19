@@ -44,8 +44,8 @@
             </div>
 			
             <div id="help" onclick="
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(messenger_jsp)))
-					$(location).attr(&#39;href&#39;, messenger_jsp);
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(dashboard_jsp)))
+					$(location).attr(&#39;href&#39;, dashboard_jsp);
 			">
                 Aide
             </div>    

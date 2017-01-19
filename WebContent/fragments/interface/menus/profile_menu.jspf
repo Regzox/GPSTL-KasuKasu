@@ -1,14 +1,17 @@
 <div class="menu">
 	<div class="wrapper">
 		<div 	id="modif" 
-				class="demi clickable"
+				class="tier clickable"
 				onclick="
 					if ( !(~$(location).attr('href').indexOf(modifyUser_jsp)))
 						$(location).attr('href', modifyUser_jsp);
 				"
 		>Modifier mes informations</div>
+		<div class="tier">
+			<div id="vacation_control"></div>
+		</div>
 		<div 	id="photo" 
-				class="demi clickable"
+				class="tier clickable"
 				onclick="
 					if ( !(~$(location).attr('href').indexOf(upload_jsp)))
 						$(location).attr('href', upload_jsp);
