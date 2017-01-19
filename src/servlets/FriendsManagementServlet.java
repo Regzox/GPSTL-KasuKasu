@@ -11,17 +11,20 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
+import fr.upmc.file.Resource;
 import services.Friends;
 import servlets.tools.templates.online.OnlinePostServlet;
 
 public class FriendsManagementServlet extends OnlinePostServlet{
 	private static final long serialVersionUID = 1L;
-
-
+	private Resource resource;
+	
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"id","typeOfRequest"}));}
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"id","typeOfRequest"}));
+		resource = ((Resource) this.getServletContext().getAttribute("resource"));
+	}
 	
 		@Override
 		public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
@@ -46,30 +49,30 @@ public class FriendsManagementServlet extends OnlinePostServlet{
 							Friends.removeRequest(otherId, userId);
 							Friends.removeRequest(userId, otherId);
 							jsResponse.put("success", "Friend added");
-							response.sendRedirect("/KasuKasu/restricted/pendingrequests.jsp");
+							response.sendRedirect(resource.absolutePath("pendingrequests_jsp"));
 						}else{
 							jsResponse.put("success", "You don't have any request from this user");
-							response.sendRedirect("/KasuKasu/restricted/pendingrequests.jsp");
+							response.sendRedirect(resource.absolutePath("pendingrequests_jsp"));
 						}
 					}else{
 						jsResponse.put("success", "Already Friend");
-						response.sendRedirect("/KasuKasu/restricted/pendingrequests.jsp");
+						response.sendRedirect(resource.absolutePath("pendingrequests_jsp"));
 					}
 					break;
 				case 2 : // removeFriend
 					Friends.removeFriend(userId,otherId);
 					jsResponse.put("success", "Friend removed");
-					response.sendRedirect("/KasuKasu/restricted/myfriends.jsp");
+					response.sendRedirect(resource.absolutePath("myfriends_jsp"));
 					break;
 				case 3 : // addRequest
 					// From -> To
 					if(!Friends.areFriends(userId, otherId)){
 						Friends.addRequest(userId,otherId);
 						jsResponse.put("success", "Friend request sent");
-						response.sendRedirect("/KasuKasu/restricted/finduser.jsp");
+						response.sendRedirect(resource.absolutePath("finduser_jsp"));
 					}else{
 						jsResponse.put("success", "Already Friend");
-						response.sendRedirect("/KasuKasu/restricted/finduser.jsp");
+						response.sendRedirect(resource.absolutePath("finduser_jsp"));
 						
 					}
 					break;
@@ -77,7 +80,7 @@ public class FriendsManagementServlet extends OnlinePostServlet{
 					//From -> To
 					Friends.removeRequest(otherId, userId);
 					jsResponse.put("success","Request removed");
-					response.sendRedirect("/KasuKasu/restricted/pendingrequests.jsp");
+					response.sendRedirect(resource.absolutePath("pendingrequests_jsp"));
 					break ;
 				default:
 					jsResponse.put("error", "type of request unknown");

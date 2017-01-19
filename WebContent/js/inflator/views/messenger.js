@@ -47,7 +47,7 @@ function new_private_message(uther,msg){
 	if(msg.length>0)
 		$.ajax({
 			type : "POST",
-			url : "/KasuKasu/newprivatemessage",
+			url : NewPrivateMessageServlet,
 			data : "uther="+uther+"&msg="+msg,
 			dataType : "JSON",
 			success : refreshMSG,
@@ -70,7 +70,7 @@ function conversation(uther){
 	else
 		$.ajax({
 			type : "GET",
-			url : "/KasuKasu/conversation",
+			url : ConversationServlet,
 			data : "uther="+uther,
 			dataType : "JSON",
 			success : Message.TraiteReponse,
@@ -132,7 +132,7 @@ Speaker.prototype.getHTML=function(){
 function interlocutors(){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/interlocutors",
+		url : InterlocutorsServlet,
 		data : "",
 		dataType : "JSON",
 		success : Speaker.traiteReponse,

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import enumerations.Url;
+import fr.upmc.file.Resource;
 import services.User;
 import servlets.tools.templates.offline.OfflinePostServlet;
 
@@ -18,6 +18,7 @@ import servlets.tools.templates.offline.OfflinePostServlet;
  * * @author Anagbla Jean */
 public class ConfirmAccountServlet extends OfflinePostServlet {
 	private static final long serialVersionUID = 1L;
+	private Resource resource = ((Resource) this.getServletContext().getAttribute("resource"));
 
 	@Override
 	public void init() throws ServletException {
@@ -37,6 +38,6 @@ public class ConfirmAccountServlet extends OfflinePostServlet {
 		Cookie cookieId = new Cookie("userId", uid);
 		response.addCookie(cookieId);
 		//redirect to dashboard
-		response.sendRedirect(Url.DASHBOARD.value());		
+		response.sendRedirect(resource.absolutePath("searchitems_jsp"));		
 	}
 }

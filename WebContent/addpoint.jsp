@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title id='titre' >Ajouter un lieu d'échange</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title id='titre' >Ajouter un lieu d'Ã©change</title>
 
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
@@ -17,6 +16,14 @@
 <script type="text/javascript" src="js/addpoint.js" charset="utf-8"></script>
 <script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/sidebar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/bootstrap.min.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/menu.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/sidebar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/navbar.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/footer.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/flex-blocs.css' />
+			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/scroll.css' />
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
@@ -39,14 +46,15 @@ html, body, #mapdiv {
 <body onload="javascript:init(); trans();">
 
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
 
 		<div class='col-md-6'>
 			
 			<div class="form-group row">
-				<div id='choix' class="col-xs-10">Choisissez des points d'échange sur la carte</div>
+				<div id='choix' class="col-xs-10">Choisissez des points d'Ã©change sur la carte</div>
 			</div>
 
 			<div id="mapdiv" style="width: 400px; height: 400px"></div>
@@ -74,7 +82,7 @@ html, body, #mapdiv {
       <!-- dialog body -->
       <div id='comment' class="modal-body">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        Les lieux ont bien été ajoutés
+        Les lieux ont bien Ã©tÃ© ajoutÃ©s
       </div>
     </div>
   </div>

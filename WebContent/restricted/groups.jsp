@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet"
@@ -21,12 +21,14 @@
 </head>
 <body onload="userGroups(); trans();">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
+	
 	<div id="page">
 
 		<div class='layer-center'>
 
-			<p id="create" class='capital'>Créer un nouveau groupe</p>
+			<p id="create" class='capital'>CrÃ©er un nouveau groupe</p>
 
 			<div id='notifier'></div>
 			<br>
@@ -40,12 +42,14 @@
 				</div>
 
 				<input id="submit" type="submit" class="btn btn-primary btn-block"
-					value="Créer un nouveau groupe"> <br>
+					value="CrÃ©er un nouveau groupe"> <br>
 
 				<div id="found-groups" class="abootsraper"></div>
 
 			</form>
 		</div>
+
+		<%@ include file="/fragments/interface/footer.jspf"%>
 
 	</div>
 </body>

@@ -1,0 +1,58 @@
+<div class="sidebar-wrapper">
+
+	<div class="sidebar-nav">
+		<div class="navigable">            		
+			<div id="search_item" onclick="
+				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(searchitems_jsp)))
+					$(location).attr(&#39;href&#39;, searchitems_jsp);
+			">Rechercher un objet</div>
+			
+			<div id="search_user" onclick="
+				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(finduser_jsp)))
+					$(location).attr(&#39;href&#39;, finduser_jsp);
+			">Rechercher un(e) ami(e)</div>
+			
+			<div id="my_loans" onclick="
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(userLoans_jsp)))
+					$(location).attr(&#39;href&#39;, userLoans_jsp);
+			"> Mes emprunts </div>
+			
+			<div id="my_items" onclick="
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(useritems_jsp)))
+					$(location).attr(&#39;href&#39;, useritems_jsp);
+			"> Mes objets </div>
+            
+            <div id="my_friend" onclick="
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(myfriends_jsp)))
+					$(location).attr(&#39;href&#39;, myfriends_jsp);
+			"> Mes amis </div>
+			
+			<div id="my_places" onclick="
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(listpoint_jsp)))
+					$(location).attr(&#39;href&#39;, listpoint_jsp);
+			"> Mes lieux </div> 
+			
+			<br><br><br><br>
+			
+			<div id="messaging" onclick="
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(messenger_jsp)))
+					$(location).attr(&#39;href&#39;, messenger_jsp);
+			">
+                Messagerie
+            </div>
+			
+            <div id="help" onclick="
+				if ( !(~$(location).attr(&#39;href&#39;).indexOf(dashboard_jsp)))
+					$(location).attr(&#39;href&#39;, dashboard_jsp);
+			">
+                Aide
+            </div>    
+            
+
+			
+			
+		</div>
+	</div>
+</div>

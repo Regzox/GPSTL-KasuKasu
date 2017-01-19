@@ -1,11 +1,14 @@
 package dao.items;
 
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
+
 import org.bson.types.ObjectId;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
@@ -13,8 +16,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.MongoException;
 
+import dao.ExchangePointsDB;
 import dao.GroupsDB;
 import dao.search.FuzzyFinder;
 import dao.search.PatternsHolder;
@@ -30,13 +33,10 @@ public class ItemsDB {
 	private static int fuzzyness = 2; 
 
 	/**
-	 * Ajoute un objet a la base mongo
-	 * @param authorid
-	 * @param text
-	 * @throws UnknownHostException
-	 * @throws MongoException
+	 * Ajoute un objet à la base mongo.
+	 * @param object
 	 */
-	public static void addItem(JSONObject object) {
+	public static void addItem(JSONObject object, JSONArray exPoints) {
 		// Parsing de l'objet
 		DBObject dbObj = (DBObject) com.mongodb.util.JSON.parse(object.toString());
 
@@ -45,8 +45,25 @@ public class ItemsDB {
 		Date today = new Date();
 		dbObj .put("date", dateFormat.format(today));
 
-		// Ajout dans la base de donnees
-		collection.insert( dbObj ).toString();		
+		// Ajout dans la base de donnees des objets
+		collection.insert( dbObj ).toString();	
+		
+		// Récupère l'id et l'utilisateur de l'objet qui vient d'être ajouté
+		String itemID = ((ObjectId)dbObj.get( "_id" )).toString();
+		String userID = (String) dbObj.get( "owner" );
+		
+		// Conversion JSONArray to ArrayList
+		ArrayList<String> exPointsList = new ArrayList<String>();     
+		JSONArray jsonArray = exPoints; 
+		for (int i=0; i<jsonArray.length(); i++)
+			try {
+				exPointsList.add(jsonArray.get(i).toString());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		   
+		// Ajout l'objet dans les points d'échange de l'utilisateur
+		ExchangePointsDB.addItemToUserExPoints(itemID, userID, exPointsList);
 	}
 
 
@@ -193,6 +210,10 @@ public class ItemsDB {
 	/***************** ITEMS GROUPS (VISIBILITY ) MANAGEMENT *****************/
 
 
+	/**
+	 * Add to an item one more groupId 
+	 * @param itemID
+	 * @param groupID */
 	public static void addGroupToItem(String itemID, String groupID){
 		BasicDBObject updateQuery = new BasicDBObject();
 		updateQuery.put("_id", new ObjectId(itemID));
@@ -202,6 +223,10 @@ public class ItemsDB {
 	}
 
 
+	/**
+	 * remove from an item the specified groupId
+	 * @param itemID
+	 * @param groupID */
 	public static void removeGroupFromItem(String itemID, String groupID){
 		BasicDBObject updateQuery = new BasicDBObject();
 		updateQuery.put("_id", new ObjectId(itemID));
@@ -211,6 +236,10 @@ public class ItemsDB {
 	}
 
 
+	/**
+	 * return the list of groupIDs of an item 
+	 * @param itemID
+	 * @return */
 	public static BasicDBList getGroupsFromItem(String itemID){
 		DBObject item = getItem(itemID);
 		BasicDBList groups = (BasicDBList) item.get("groups");
@@ -243,7 +272,7 @@ public class ItemsDB {
 //		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
 //		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
 //		Iterable<DBObject> res =utherItems("1","");
-//		Iterable<DBObject> res =utherItems("6","    V�lo   noir  ");
+//		Iterable<DBObject> res =utherItems("6","    V�lo   noir  ");
 //		for(DBObject o : res)System.out.println(o);
 //		System.out.println("%\n");
 //		System.out.print("Permission : ");

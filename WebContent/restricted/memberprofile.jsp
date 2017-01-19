@@ -1,12 +1,13 @@
+<%@page import="json.Success"%>
 <%@page import="json.Error"%>
 <%@page import="json.Warning"%>
 <%@page import="org.json.JSONException"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title id='titre'>Profil</title>
 
 <link type="text/css" rel="stylesheet"
@@ -22,13 +23,16 @@
 </head>
 <body onload="trans()">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<%@ page import="services.User"%>
 	<%@ page import="org.json.JSONObject"%>
 	<%@ page import="enumerations.Status"%>
+	<%@ page import="fr.upmc.file.Resource"%>
 
 	<%
+		Resource resource = ((Resource) this.getServletContext().getAttribute("resource"));
 		boolean isAdmin = false;
 		try {
 			isAdmin = ((String) session.getAttribute("isAdmin")).compareTo("true") == 0;
@@ -37,15 +41,20 @@
 		}
 
 		String id = request.getParameter("id");
-		entities.User user = User.getUserById(id);
-		JSONObject json = User.getUserImage(user);
+		entities.User user = null;
+		user = User.getUserById(id);
+		JSONObject json = null; 
+		if (user !=null )
+			User.getUserImage(user);
 		String url = null;
 		if (json instanceof Warning)
 			System.out.println("WARNING : " + json.getString("warning"));
 		else if (json instanceof Error)
 			System.out.println("ERROR : " + json.getString("error"));
-		else
+		else if (json instanceof Success)
 			url = json.getString("success");
+		else
+			url = "/KasuKasu/data/profile-icon.png";
 	%>
 
 	<div id="page">
@@ -61,7 +70,7 @@
 				<%-- 					<td class="information" id="id"><%= user.getId() %></td> --%>
 				<!-- 				</tr> -->
 				<tr class="row">
-					<td id="prenom" class="title">Prénom</td>
+					<td id="prenom" class="title">PrÃ©nom</td>
 					<td class="information" id="firstname"><%=user.getFirstname()%></td>
 				</tr>
 				<tr class="row">
@@ -73,7 +82,7 @@
 					<td class="information" id="email"><%=user.getEmail()%></td>
 				</tr>
 				<tr class="row">
-					<td id="tel" class="title">Téléphone</td>
+					<td id="tel" class="title">TÃ©lÃ©phone</td>
 					<td class="information" id="phone"><%=user.getPhone()%></td>
 				</tr>
 				<%
@@ -93,8 +102,8 @@
 							case "FROZEN":
 					%>
 					<td class="information" id="admin-action"><a class="btn btn-success btn-block btn-sm"
-						href="/KasuKasu/admin/user?action=2&userId=<%=id%>"> Unfreeze
-					</a> <a class="btn btn-danger btn-block btn-sm" href="/KasuKasu/admin/user?action=3&userId=<%=id%>"> Ban /!\
+						href="<%= resource.absolutePath("AdminUserManagementServlet") %>?action=2&userId=<%=id%>"> Unfreeze
+					</a> <a class="btn btn-danger btn-block btn-sm" href="<%= resource.absolutePath("AdminUserManagementServlet") %>?action=3&userId=<%=id%>"> Ban /!\
 							REVERT IMPOSSIBLE /!\ </a></td>
 
 					<%
@@ -102,8 +111,8 @@
 							default:
 					%>
 					<td class="information" id="admin-action"><a class="btn btn-danger btn-block btn-sm"
-						href="/KasuKasu/admin/user?action=1&userId=<%=id%>"> Freeze </a> <a class="btn btn-danger btn-block btn-sm"
-						href="/KasuKasu/admin/user?action=3&userId=<%=id%>"> Ban /!\
+						href="<%= resource.absolutePath("AdminUserManagementServlet") %>?action=1&userId=<%=id%>"> Freeze </a> <a class="btn btn-danger btn-block btn-sm"
+						href="<%= resource.absolutePath("AdminUserManagementServlet") %>?action=3&userId=<%=id%>"> Ban /!\
 							REVERT IMPOSSIBLE /!\ </a></td>
 					<%
 						break;
@@ -121,10 +130,13 @@
 		<br> <br>
 		<div id="profile-action">
 			<a id="contact" class="contact-user"
-				href="http://localhost:8080/KasuKasu/conversation.jsp?uther=<%=user.getId()%>
+				href="<%= resource.absolutePath("conversation_jsp") %>?uther=<%=user.getId()%>
 				&interlocutor=<%=user.getName()%> <%=user.getFirstname()%>">
 				Contacter</a>
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 
 </body>

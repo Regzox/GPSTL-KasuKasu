@@ -1,8 +1,7 @@
 package enumerations;
 
-public class Status {
-
-	public static enum STATUS {
-		FROZEN,BANNED,NORMAL
-	}
+public enum Status {
+	FROZEN,
+	BANNED,
+	NORMAL
 }

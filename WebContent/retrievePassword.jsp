@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet"
@@ -13,13 +13,13 @@
 <script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<title id='titre'>Récupération de mot de passe</title>
+<title id='titre'>RÃ©cupÃ©ration de mot de passe</title>
 </head>
 <body onload="trans()">
 
 	<div class='layer-center'>
 
-		<p id='ret' class='capital'>Récupération de votre mot de passe</p>
+		<p id='ret' class='capital'>RÃ©cupÃ©ration de votre mot de passe</p>
 
 
 		<form action="/KasuKasu/retrievepassword">

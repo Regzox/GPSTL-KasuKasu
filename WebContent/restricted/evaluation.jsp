@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Evaluations</title>
 
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
@@ -35,7 +35,9 @@
 
 </head>
 <body>
-	<%@ include file="/fragments/sidebar.jspf"%>
+	
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
 
@@ -100,7 +102,7 @@
 										mark : erqn.evaluation.evaluationWrapper.mark
 				                  	};
 									
-									$	.post("/KasuKasu/evaluation", evaluation) // Insertion de l'évaluation
+									$	.post("/KasuKasu/evaluation", evaluation) // Insertion de l'Ã©valuation
 										.done(function (data) {
 											var response = {
 						                    	resource : "response",
@@ -111,7 +113,7 @@
 												loan_id : erqn.data.loanId,
 						                  	};
 											
-											$	.post("/KasuKasu/evaluation", response) // Insertion de la réponse
+											$	.post("/KasuKasu/evaluation", response) // Insertion de la rÃ©ponse
 												.done(function (data) {
 													var request = {
 								                    	resource : "request",
@@ -120,7 +122,7 @@
 								                  	};
 													
 													console.log(request);
-													$	.post("/KasuKasu/evaluation", request) // Suppression de la requête
+													$	.post("/KasuKasu/evaluation", request) // Suppression de la requÃªte
 														.done(function (data) {
 															(function () {$(erqn.dom).remove();});
 														});
@@ -129,7 +131,7 @@
 								});
 					
 								/**
-									Paramétrage du rendu la requête notification
+									ParamÃ©trage du rendu la requÃªte notification
 								**/
 													
 								erqn.profile.image(array[i].senderImage);
@@ -137,7 +139,7 @@
 						        erqn.profile.idLabel("Id");
 						        erqn.profile.id(array[i].senderId);
 						        if(bool==0)
-									erqn.profile.firstnameLabel("Prénom");
+									erqn.profile.firstnameLabel("PrÃ©nom");
 						        if(bool==1)
 									erqn.profile.firstnameLabel("First name");
 								erqn.profile.firstname(array[i].senderFirstname);
@@ -209,7 +211,7 @@
 								ersn.profile.idLabel("Id");
 								ersn.profile.id(ersn_data.senderId);
 								if(bool==0)
-									ersn.profile.firstnameLabel("Prénom");
+									ersn.profile.firstnameLabel("PrÃ©nom");
 								if(bool==1)
 									ersn.profile.firstnameLabel("First name");
 									
@@ -260,9 +262,11 @@
 		};
 		
 		</script>
+	
+		<%@ include file="/fragments/interface/footer.jspf"%>
 
 	</div>
 
-	<%@ include file="/fragments/footer.jspf"%>
+	
 </body>
 </html>

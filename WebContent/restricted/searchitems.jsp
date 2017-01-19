@@ -1,13 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/popup.css" />
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
+	
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript"
@@ -27,19 +28,21 @@
 		});
 	});
 </script>
-<link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
+
 <title id='titre'>Recherche d'objets</title>
 </head>
 
 <body onload="searchMRItems(''); trans();">
 
-	<%@ include file="/fragments/sidebar.jspf"%>
+	<%@ include file="/fragments/interface/navbar.jspf"%>
+	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
+	
 		<div class='layer-center'>
 
-			<p id='p' class='capital'>Trouvez des Objets à proximité de vos points
-				d'échanges</p>
+			<p id='p' class='capital'>Trouvez des Objets Ã  proximitÃ© de vos points
+				d'Ã©changes</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:searchItems(this.iquery.value)">
@@ -58,6 +61,9 @@
 
 			<div id="found-items" class="abootsraper"></div>
 		</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
+		
 	</div>
 </body>
 </html>

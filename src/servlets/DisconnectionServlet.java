@@ -2,10 +2,11 @@ package servlets;
 
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import enumerations.Url;
+import fr.upmc.file.Resource;
 import servlets.tools.templates.online.OnlineGetServlet;
 
 /**
@@ -20,12 +21,19 @@ import servlets.tools.templates.online.OnlineGetServlet;
 
 public class DisconnectionServlet extends OnlineGetServlet {
 	private static final long serialVersionUID = -3545293914840448417L;
- 
+	private Resource resource;
+	
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		resource = ((Resource) this.getServletContext().getAttribute("resource"));
+	}
+	
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
 		request.getSession().removeAttribute("userId");
-		response.sendRedirect(Url.PORTAL.value());		
+		response.sendRedirect(resource.absolutePath("portal_jsp"));
 	}
 	
 }

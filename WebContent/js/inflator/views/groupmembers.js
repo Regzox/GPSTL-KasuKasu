@@ -8,7 +8,7 @@ function finduseramongfriends(query) {
 	if (query.length==0) return;
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/findamongfriends",
+		url : FindAmongFriendsServlet,
 		data : {query : query},
 		dataType : "JSON",
 		success : ProcessFindUser,
@@ -50,10 +50,10 @@ function ProcessFindUser(rep) {
 			});
 			if(bool==0)
 				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
-				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Afficher profil </a></td>";
+				"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher profil </a></td>";
 			if(bool==1)
 				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
-				"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Show profile </a></td>";
+				"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>";
 			//alert("z="+z+" "+MEM[z]);
 			if(!(MEM[z]!= undefined && MEM[z]!= null))
 				if(bool==0)
@@ -141,7 +141,7 @@ Member.prototype.getHTML=function(){
 	var s;
 	s="<div class=\"MemberBox\" id=\"MemberBox"+this.id+"\">";
 	s+="<div class=\"Member-name\" id=\"Member-name"+this.id+"\">"
-	s+="<a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+this.id+"\"><b>"+this.name+"</b></a></div>\n";	
+	s+="<a href=\"" + memberprofile_jsp + "?id="+this.id+"\"><b>"+this.name+"</b></a></div>\n";	
 	s+="<div class=\"Member-infos\">";
 	s+="<span style=\"display:none;\" class=\"hiden-Member-info\" id=\"Member-Member-info"+this.id+"\">"+this.Member+"</span>";
 	s+="</div> ";
@@ -153,7 +153,7 @@ function groupMembers(gid){
 	GID=gid; //Globalise gid
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/groupmembers",
+		url : GroupMembersServlet,
 		data : "gid="+gid,
 		dataType : "JSON",
 		success : Member.traiteReponseJSON,
@@ -165,7 +165,7 @@ function groupMembers(gid){
 function addMember(gid,member){
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/addmember",
+		url : AddMemberServlet,
 		data :  "gid="+gid+"&member="+member,
 		dataType : "JSON",
 		success : refresh,
@@ -178,7 +178,7 @@ function addMember(gid,member){
 function removeMember(gid,member){
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/removemember",
+		url : RemoveMemberServlet,
 		data :  "gid="+gid+"&member="+member,
 		dataType : "JSON",
 		success : refresh,

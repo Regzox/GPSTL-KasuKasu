@@ -49,7 +49,7 @@ Group.prototype.getHTML=function(){
 	var s;
 	s="<div class=\"groupBox\" id=\"groupBox"+this.id+"\">";
 	s+="<div class=\"group-name\" id=\"group-name"+this.id+"\">" +
-	"<a href=\"/KasuKasu/restricted/groupmembers.jsp?gid="+this.id+"&gname="+this.name+" \"><b>"+this.name+"</b></a>" +
+	"<a href=\"" + groupmembers_jsp + "?gid="+this.id+"&gname="+this.name+" \"><b>"+this.name+"</b></a>" +
 	"</div>\n";	
 	s+="<div class=\"group-infos\">";
 	s+="<span style=\"display:none;\" class=\"hiden-group-info\" id=\"group-group-info"+this.id+"\">"+this.group+"</span>";
@@ -63,7 +63,7 @@ Group.prototype.getHTML=function(){
 function userGroups(){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/usergroups",
+		url : UserGroupsServlet,
 		data : "",
 		dataType : "JSON",
 		success : Group.traiteReponseJSON,
@@ -79,7 +79,7 @@ function createGroup(name){
 		return;
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/creategroup",
+		url : CreateGroupServlet,
 		data : "name="+name.value,
 		dataType : "JSON",
 		success : refresh,
@@ -94,7 +94,7 @@ function refresh(result){
 		fillNOTIFIER(result.error);
 	else
 		//window.location.reload();//n'efface pas les inputs! why?
-		window.location.href="/KasuKasu/restricted/groups.jsp";
+		window.location.href = groups_jsp;
 }
 
 

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import exceptions.UserNotFoundException;
+import fr.upmc.file.Resource;
 import lingua.Lingua;
 import services.User;
 import servlets.tools.templates.online.OnlineGetServlet;
@@ -24,11 +25,14 @@ import utils.SendEmail;
 public class RetrievePasswordServlet extends OnlineGetServlet {
 	private static final long serialVersionUID = 1L;
 	
-
+	private Resource resource;
+	
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"mail"}));}
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"mail"}));
+		resource = ((Resource) this.getServletContext().getAttribute("resource"));
+	}
 
 	
 	@Override
@@ -56,7 +60,7 @@ public class RetrievePasswordServlet extends OnlineGetServlet {
 				} catch(UserNotFoundException e){
 					JSONObject error = new JSONObject();
 					error.put("error", "unknown email");
-					request.getRequestDispatcher("error.jsp").forward(request, response);
+					request.getRequestDispatcher(resource.relativePath("error_jsp")).forward(request, response);
 					return;
 				}
 			 
@@ -69,7 +73,7 @@ public class RetrievePasswordServlet extends OnlineGetServlet {
 							Lingua.get("retMailSubject", value), 
 							Lingua.get("retMailMessage", value) + mdp);
 
-		request.getRequestDispatcher("portal.jsp").forward(request, response);
+		request.getRequestDispatcher(resource.relativePath("portal_jsp")).forward(request, response);
 		
 		out.flush();
 		out.close();

@@ -31,7 +31,13 @@ public class CSSFilter implements Filter {
 	
 	private String[] includes = {
 			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/sidebar.css' />",
-			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/bootstrap.min.css' />"
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/bootstrap.min.css' />",
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/menu.css' />",
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/sidebar.css' />",
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/navbar.css' />",
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/footer.css' />",
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/flex-blocs.css' />",
+			"<link rel='stylesheet' type='text/css' href='/KasuKasu/css/interface/scroll.css' />"
 	};
 
 	class CharResponseWrapper extends HttpServletResponseWrapper {

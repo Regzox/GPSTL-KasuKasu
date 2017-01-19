@@ -17,7 +17,7 @@ function findUserJS(valuev)
 {
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/finduser",
+		url : FindUserServlet,
 		data : {value : valuev},
 		dataType : "JSON",
 		success : ProcessFindUser,
@@ -69,16 +69,16 @@ function ProcessFindUser(rep)
 					"<tr>" +
 					"<td>"+x+"</td>" +
 					"<td>"+y+"</td>"+
-					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Voir Profil </a></td>"+
-					"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=3&id="+z+"\"> Ajouter amis </a></td>"+
+					"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Voir Profil </a></td>"+
+					"<td><a href=\"" + FriendsManagementServlet + "?typeOfRequest=3&id="+z+"\"> Ajouter amis </a></td>"+
 					"</tr>";
 				if(bool==1)
 					bodymessage = bodymessage+
 					"<tr>" +
 					"<td>"+x+"</td>" +
 					"<td>"+y+"</td>"+
-					"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Show Profile </a></td>"+
-					"<td><a href=\"/KasuKasu/friendsmanagement?typeOfRequest=3&id="+z+"\"> Add friend </a></td>"+
+					"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show Profile </a></td>"+
+					"<td><a href=\"" + FriendsManagementServlet + "?typeOfRequest=3&id="+z+"\"> Add friend </a></td>"+
 					"</tr>";
 			}else{
 				if(bool==0)

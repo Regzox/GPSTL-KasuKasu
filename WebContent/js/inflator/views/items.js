@@ -20,11 +20,11 @@ function Item(id,owner,group,date,longitude,latitude,title,description,permissio
 } 
 
 
-Item.traiteReponseJSON=function(json){	
-	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
+Item.getItemTraiteReponseJSON=function(json){	
+	//alert("Item.getItemTraiteReponseJSON raw json -> "+JSON.stringify(json));	
 	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
 	items = jsob.items;
-//	alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
+//	alert("Item.getItemTraiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"itemsBox\">";	
@@ -55,12 +55,69 @@ Item.traiteReponseJSON=function(json){
 };
 
 
+Item.listItemTraiteReponseJSON=function(json){	
+	//alert("Item.getItemTraiteReponseJSON raw json -> "+JSON.stringify(json));	
+	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
+	items = jsob.items;
+//	alert("Item.getItemTraiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
+
+	if(jsob.error==undefined){
+		var fhtm="<br><div id=\"itemsBox\">";	
+
+		if(items.length==0 && bool==0)
+			fhtm+="<h3>Il n'y a rien à afficher.</h3>";
+		if(items.length==0 && bool==1)
+			fhtm+="<h3>Nothing to display.</h3>";
+		for(var i in items){
+			//alert(JSON.stringify(items[i]));
+			if(items[i].permission==1){
+				fhtm+=(items[i]).getHTML0();
+				//alert("JSOB.htmling : "+items[i].getHTML2());
+			}
+			else if(items[i].permission === 0){
+				fhtm+=(items[i]).getHTML();
+				//alert("JSOB.htmling : "+items[i].getHTML());
+			}
+		}		
+		
+		// DatePickerDialog
+		fhtm+="<div id='datePickerDialog'></div>"; 
+		fhtm+="</div>\n"; 
+		//alert("items.html = "+fhtm);  
+		printHTML("#found-items",fhtm); 
+		
+	}else
+		console.log("server error ! : " +jsob.error+"\n");
+};
+
+Item.prototype.getHTML0=function(){  
+	//alert("Item ->getHtml ");
+	var s;
+	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
+	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
+	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
+	s+="<b>"+this.title+"</b>";
+	s+="</a>";
+	s+="</div>\n";	
+	s+="<div class=\"item-infos\">";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
+	s+="</div> ";
+	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
+	s+="<div class=\"item-more\">";
+	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
+	s+="</div>";
+	s+="</div><hr><br>\n";
+	return s;
+};
+
+
 Item.prototype.getHTML=function(){  
 	//alert("Item ->getHtml ");
 	var s;
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
-	s+="<a href=/KasuKasu/item.jsp?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
+	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
 	s+="<b>"+this.title+"</b>";
 	s+="</a>";
 	s+="</div>\n";	
@@ -72,10 +129,10 @@ Item.prototype.getHTML=function(){
 	s+="<div class=\"item-more\">";
 	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	if(bool==0)
-		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"iwantit_btn\" " +
+		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"Je le veux\" class=\"btn btn-primary btn-xs\" " +
 		"id=\"iwantit_btn"+this.id+"\" OnClick=\"request_item('"+this.id+"');\"/>\n";
 	if(bool==1)
-		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"I want it\" class=\"iwantit_btn\" " +
+		s+=" <input style=\"margin-left:50%;\" type=\"button\" value=\"I want it\" class=\"btn btn-primary btn-xs\" " +
 		"id=\"iwantit_btn"+this.id+"\" OnClick=\"request_item('"+this.id+"');\"/>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
@@ -88,7 +145,7 @@ Item.prototype.getHTML2=function(){
 	var s;
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
-	s+="<a href=/KasuKasu/item.jsp?id="+this.id+"&title="+this.title+">";
+	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">";
 	s+="<b>"+this.title+"</b>";
 	s+="</a>";
 	s+="</div>\n";		
@@ -106,9 +163,13 @@ Item.prototype.getHTML2=function(){
 	" src=\"icons/Empty_Trash_Filled-50.png\" class=\"iwantit_btn\" " +
 	"id=\"remove_item_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
 	if(bool==0)
-		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='/KasuKasu/objectmanagement?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modifier</button>";
+		s+="<input style=\"float:left;\" " +
+				"onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
+						" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modifier\">";
 	if(bool==1)
-		s+="<button <input style=\"float:left;margin-right:75%;\" onclick=\"window.location.href='/KasuKasu/objectmanagement?objectId="+this.id+"&data=null'\" type=\"button\"class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">Modify</button>";
+		s+="<input style=\"float:left;\"" +
+				" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
+						" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">";
 	
 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+="</div>";
@@ -120,10 +181,10 @@ Item.prototype.getHTML2=function(){
 function searchMRItems(query){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/searchitems",
+		url : SearchItemsServlet,
 		data : "query=" +query,
 		dataType : "JSON",
-		success : Item.traiteReponseJSON,
+		success : Item.listItemTraiteReponseJSON,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
@@ -143,10 +204,10 @@ function filterUserItems(query){
 function userItems(query){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/useritems",
+		url : UserItemsServlet,
 		data : "query=" +query,
 		dataType : "JSON",
-		success : Item.traiteReponseJSON,
+		success : Item.listItemTraiteReponseJSON,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
@@ -158,7 +219,7 @@ function item_applicants(id) {
 
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/itemapplicantslist",
+		url : ItemApplicantsListServlet,
 		data : "id=" +id,
 		dataType : "JSON",
 		success : ProcessFindApplicants,
@@ -173,7 +234,7 @@ function removeItem(id) {
 
 	$.ajax({
 		type : "POST",
-		url : "/KasuKasu/removeitem",
+		url : RemoveItemServlet,
 		data : "id=" +id,
 		dataType : "JSON",
 		success : refresh,
@@ -205,10 +266,10 @@ function reset_applicants_shared_div(id){
 function getItem(id){
 	$.ajax({
 		type : "GET",
-		url : "/KasuKasu/getitem",
+		url : GetItemServlet,
 		data : "id=" +id,
 		dataType : "JSON",
-		success : Item.traiteReponseJSON,
+		success : Item.getItemTraiteReponseJSON,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
@@ -259,7 +320,7 @@ function ProcessFindApplicants(rep) {
 						"<tr>" +
 						"<td>"+x+"</td>" +
 						"<td>"+y+"</td>"+
-						"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Afficher le profil </a></td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher le profil </a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
@@ -271,7 +332,7 @@ function ProcessFindApplicants(rep) {
 						"<tr>" +
 						"<td>"+x+"</td>" +
 						"<td>"+y+"</td>"+
-						"<td><a href=\"/KasuKasu/restricted/memberprofile.jsp?id="+z+"\"> Show profile </a></td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+

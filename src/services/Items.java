@@ -12,6 +12,7 @@ import dao.items.ItemsDB;
 import dao.items.ItemsMR;
 import dao.search.ObjetRSV;
 import dao.search.PatternsHolder;
+import dao.users.UserDao;
 import exceptions.DatabaseException;
 import utils.Tools;
 
@@ -114,6 +115,8 @@ public class Items {
 		for(ObjetRSV orsv : ItemsMR.pertinence(query,ItemsDB.utherItems(userID,query)))
 			if(LoaningDB.requestExists(userID,orsv.getDbo().get("_id").toString()))
 				continue;
+			else if (UserDao.getVacationStatus((String) orsv.getDbo().get("owner")))
+				continue;
 			else
 				jar.put(new JSONObject()
 						.put("id",orsv.getDbo().get("_id"))
@@ -126,6 +129,10 @@ public class Items {
 		return new JSONObject().put("items",jar);
 	}
 
+	
+	
+	
+	
 	public static void main(String[] args) throws JSONException, DatabaseException {
 		searchItems("Vélo RoûGe","1");
 	}

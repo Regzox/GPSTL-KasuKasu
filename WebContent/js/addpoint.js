@@ -340,7 +340,7 @@ function send(result2)
 	   }	    
 	       
 	       $("#myModal").on('hidden.bs.modal', function () {
-	           window.location.href = "/KasuKasu/restricted/listpoint.jsp";
+	           window.location.href = listpoint_jsp;
 	       });	 
 	 },
 	error : function(XHR, testStatus, errorThrown) {
