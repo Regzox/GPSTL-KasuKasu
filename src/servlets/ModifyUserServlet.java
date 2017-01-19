@@ -40,6 +40,8 @@ public class ModifyUserServlet extends OnlinePostServlet {
 					  value = cookies[i].getValue();
 				  }
 		}
+		if(value.equals(""))
+			value="fr";
 
 		for (String parameter : map.keySet()) {
 			System.out.println(parameter + " : " + req.getParameter(parameter));

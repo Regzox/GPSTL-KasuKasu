@@ -46,6 +46,10 @@ public class RetrievePasswordServlet extends OnlineGetServlet {
 					  value = cookies[i].getValue();
 				  }
 		}
+		if(value.equals(""))
+		{
+			value="fr";
+		}
 		 
 				try{
 					User.getUser(mail); // Retrait de d�claration de entities.User user inutile 
