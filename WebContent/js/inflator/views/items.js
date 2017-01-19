@@ -20,11 +20,11 @@ function Item(id,owner,group,date,longitude,latitude,title,description,permissio
 } 
 
 
-Item.traiteReponseJSON=function(json){	
-	//alert("Item.traiteReponseJSON raw json -> "+JSON.stringify(json));	
+Item.getItemTraiteReponseJSON=function(json){	
+	//alert("Item.getItemTraiteReponseJSON raw json -> "+JSON.stringify(json));	
 	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
 	items = jsob.items;
-//	alert("Item.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
+//	alert("Item.getItemTraiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
 	if(jsob.error==undefined){
 		var fhtm="<br><div id=\"itemsBox\">";	
@@ -52,6 +52,62 @@ Item.traiteReponseJSON=function(json){
 		printHTML("#found-items",fhtm); 
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
+};
+
+
+Item.listItemTraiteReponseJSON=function(json){	
+	//alert("Item.getItemTraiteReponseJSON raw json -> "+JSON.stringify(json));	
+	var jsob =JSON.parse(JSON.stringify(json),/*Item.revival*/mirror);
+	items = jsob.items;
+//	alert("Item.getItemTraiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
+
+	if(jsob.error==undefined){
+		var fhtm="<br><div id=\"itemsBox\">";	
+
+		if(items.length==0 && bool==0)
+			fhtm+="<h3>Il n'y a rien à afficher.</h3>";
+		if(items.length==0 && bool==1)
+			fhtm+="<h3>Nothing to display.</h3>";
+		for(var i in items){
+			//alert(JSON.stringify(items[i]));
+			if(items[i].permission==1){
+				fhtm+=(items[i]).getHTML0();
+				//alert("JSOB.htmling : "+items[i].getHTML2());
+			}
+			else if(items[i].permission === 0){
+				fhtm+=(items[i]).getHTML();
+				//alert("JSOB.htmling : "+items[i].getHTML());
+			}
+		}		
+		
+		// DatePickerDialog
+		fhtm+="<div id='datePickerDialog'></div>"; 
+		fhtm+="</div>\n"; 
+		//alert("items.html = "+fhtm);  
+		printHTML("#found-items",fhtm); 
+	}else
+		console.log("server error ! : " +jsob.error+"\n");
+};
+
+Item.prototype.getHTML0=function(){  
+	//alert("Item ->getHtml ");
+	var s;
+	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
+	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
+	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
+	s+="<b>"+this.title+"</b>";
+	s+="</a>";
+	s+="</div>\n";	
+	s+="<div class=\"item-infos\">";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";
+	s+="<span style=\"display:none;\" class=\"hiden-item-info\" id=\"item-group-info"+this.id+"\">"+this.group+"</span>";
+	s+="</div> ";
+	s+="<div class=\"item-desc\" id=\"item-desc"+this.id+"\">"+this.description+"</div><br>\n";
+	s+="<div class=\"item-more\">";
+	s+="<span class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
+	s+="</div>";
+	s+="</div><hr><br>\n";
+	return s;
 };
 
 
@@ -123,7 +179,7 @@ function searchMRItems(query){
 		url : SearchItemsServlet,
 		data : "query=" +query,
 		dataType : "JSON",
-		success : Item.traiteReponseJSON,
+		success : Item.listItemTraiteReponseJSON,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
@@ -146,7 +202,7 @@ function userItems(query){
 		url : UserItemsServlet,
 		data : "query=" +query,
 		dataType : "JSON",
-		success : Item.traiteReponseJSON,
+		success : Item.listItemTraiteReponseJSON,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
@@ -208,7 +264,7 @@ function getItem(id){
 		url : GetItemServlet,
 		data : "id=" +id,
 		dataType : "JSON",
-		success : Item.traiteReponseJSON,
+		success : Item.getItemTraiteReponseJSON,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
