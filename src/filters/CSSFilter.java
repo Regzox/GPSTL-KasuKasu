@@ -101,8 +101,8 @@ public class CSSFilter implements Filter {
             throws IOException, ServletException
     {    	
         CharResponseWrapper responseWrapper = new CharResponseWrapper(
-                (HttpServletResponse)response);
-                
+                (HttpServletResponse)response);        
+        
         chain.doFilter(request, responseWrapper);
         
         if (responseWrapper.getContentType() != null) {

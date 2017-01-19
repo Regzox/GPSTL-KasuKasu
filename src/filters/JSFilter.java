@@ -99,7 +99,7 @@ public class JSFilter implements Filter
     {       	
         CharResponseWrapper wrappedResponse = new CharResponseWrapper(
                 (HttpServletResponse)response);
-                
+        
         chain.doFilter(request, wrappedResponse);
         
         if (wrappedResponse.getContentType() != null) {
