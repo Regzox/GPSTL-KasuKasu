@@ -47,11 +47,11 @@ public class ItemsDB {
 
 		// Ajout dans la base de donnees des objets
 		collection.insert( dbObj ).toString();	
-		
+
 		// Récupère l'id et l'utilisateur de l'objet qui vient d'être ajouté
 		String itemID = ((ObjectId)dbObj.get( "_id" )).toString();
 		String userID = (String) dbObj.get( "owner" );
-		
+
 		// Conversion JSONArray to ArrayList
 		ArrayList<String> exPointsList = new ArrayList<String>();     
 		JSONArray jsonArray = exPoints; 
@@ -61,7 +61,7 @@ public class ItemsDB {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		   
+
 		// Ajout l'objet dans les points d'échange de l'utilisateur
 		ExchangePointsDB.addItemToUserExPoints(itemID, userID, exPointsList);
 	}
@@ -168,7 +168,7 @@ public class ItemsDB {
 				PatternsHolder.wordSet(query,PatternsHolder.blank),
 				fuzzyness,
 				Arrays.asList("title","description"),constraints,"");
-		
+
 	}
 
 
@@ -206,7 +206,7 @@ public class ItemsDB {
 
 
 
-	
+
 	/***************** ITEMS GROUPS (VISIBILITY ) MANAGEMENT *****************/
 
 
@@ -252,35 +252,38 @@ public class ItemsDB {
 	 * @param userID
 	 * @return
 	 */
-		public static DBCursor accessibleItems(String userID) {
-			
-			BasicDBList usergroupsmembership = new BasicDBList();
-			DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-			
-			while(dbc.hasNext())
-				usergroupsmembership.add(dbc.next().get("_id").toString());
-			
-			return  collection.find(
-					new BasicDBObject()//TODO attention  groups.$ ou $elemMatch au lieu de groups.id(ne marchera pas)
-					.append("groups.id", new BasicDBObject().append("$in",usergroupsmembership)));
-		}
+	public static DBCursor accessibleItems(String userID) {
 
-		
+		BasicDBList usergroupsmembership = new BasicDBList();
+		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
+
+		while(dbc.hasNext())
+			usergroupsmembership.add(dbc.next().get("_id").toString());
+
+		return  collection.find(
+				new BasicDBObject()
+				.append("groups", 
+						new BasicDBObject("$elemMatch",new BasicDBObject("id",new BasicDBObject("$in",usergroupsmembership)))
+						));
+	}
+
+
 
 	public static void main(String[] args) {
 		System.out.println("Results...\n%");
-//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
-//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
-//		Iterable<DBObject> res =utherItems("1","");
-//		Iterable<DBObject> res =utherItems("6","    V�lo   noir  ");
-//		for(DBObject o : res)System.out.println(o);
-//		System.out.println("%\n");
-//		System.out.print("Permission : ");
-//		if(checkAthorization("6","581c70b04c1471dd003afb61")){
-//			System.out.println("Granted");
-//			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
-//					"galaxy S5 noir neuf, tres peu servi");
-//		}else System.out.println("Denied");
+		System.out.println(accessibleItems("586e8cd92736d4e126b99c07"));
+		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
+		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
+		//		Iterable<DBObject> res =utherItems("1","");
+		//		Iterable<DBObject> res =utherItems("6","    V�lo   noir  ");
+		//		for(DBObject o : res)System.out.println(o);
+		//		System.out.println("%\n");
+		//		System.out.print("Permission : ");
+		//		if(checkAthorization("6","581c70b04c1471dd003afb61")){
+		//			System.out.println("Granted");
+		//			updateItem("581c70b04c1471dd003afb61","galaxy S5 neuf",
+		//					"galaxy S5 noir neuf, tres peu servi");
+		//		}else System.out.println("Denied");
 	}
 
 }
