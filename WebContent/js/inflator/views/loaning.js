@@ -31,42 +31,105 @@ function request_item_query(id){
 //1) Show date/time dialog
 //2) Send query
 function request_item(id){	
-// TODO: Uncomment for date begin end dialog
-//	// Add DataPickerHTML
-//	$( "#datePickerDialog" ).html(
-//			"<div id='myModal' class='modal'>\n" +
-//				"<div class='modal-content'>\n"+
-//				 "<span class='close'>&times;</span>"+
-//				 "<table>"+
-//				 "<tr>"+
-//				 	"<td>"+
-//					"<div class='begin_section'>\n" +
-//						"<div id='date_begin'></div>\n" +
-//						"</div>\n" +
-//						"</td>"+
-//						"<td>"+
-//						"<div class='end_section'>\n" +
-//						"<div id='date_end'></div>\n" +
-//						"</div>\n" +
-//						"</td>"+
-//					"</div>\n"+
-//				"</tr>"+
-//				"</table>"+
-//			"</div>\n"
-//	);
-//
-//	
-//	 
-//	// Show jquery data pickers 
-//	$('#date_begin').datepicker();
-//	$('#date_end').datepicker();
-//	
-//	// Show popUp
-//	$("#myModal").css("display", "block");
-//	$(".close").click( 
-//			function() {$("#myModal").css("display", "none");}
-//			
-//	);
+/*
+	// Add DataPickerHTML
+	$( "#datePickerDialog" ).html(
+			"<div id='myModal' class='modal'>\n" +
+			"<div class='modal-content'>\n"+
+			"<span class='close'>&times;</span>\n"+
+			"<h1>Date de début et fin du prêt souhaités</h1>\n"+
+			"<strong id='date_error'></strong>\n" +
+			"<table style='margin: auto;'>\n"+
+			"<tr>\n"+
+			"<td>\n"+
+			"<div class='begin_section'>\n" +
+			"<span>Date du début du prêt</span>\n" +
+			"<div id='date_begin'></div>\n" +
+			"</div>\n" +
+			"</td>\n"+
+			"<td>\n"+
+			
+			"<div class='end_section'>\n" +
+			"<span>Date de fin du prêt</span>\n" +
+			"<div id='date_end'></div>\n" +
+			"</div>\n" +
+			"</td>"+
+			"</div>\n"+
+			"</tr>"+
+			"</table>"+
+			"<div class='btn btn-primary btn-xs' id='validate_dates_button'>Ok</div>" +
+			"</div>\n"
+			
+
+
+
+	);
+
+
+
+
+	var str_date_begin = null;
+	var str_date_end = null;
+
+	// Define jquery data pickers
+	$('#date_begin').datepicker({
+		
+		dateFormat:'mm/dd/yy', minDate: new Date(),	
+		
+		// Update brother's minDate
+		onSelect: function(dateText, inst) {
+			// Destroy old brother
+			jQuery("#date_end").datepicker("destroy");
+			str_date_end = null;
+			 
+			// Restrict end date range
+			$('#date_end').datepicker(
+					{dateFormat:'mm/dd/yy', minDate: new Date(dateText),
+						onSelect: function(dateText, inst) {
+							str_date_end=new Date(dateText);
+							
+						}
+					
+					}
+
+			);
+
+			// Update end and begin dates
+			if ( new Date(dateText) > str_date_end )
+				str_date_end=  new Date(dateText);
+			str_date_begin=new Date(dateText);  
+		}
+	});
+
+	// Init date of end with today's date.
+	$('#date_end').datepicker({
+		dateFormat:'mm/dd/yy', minDate: new Date(),	
+		onSelect: function(dateText, inst) {
+			str_date_end=new Date(str_date_end); 
+			
+		}
+	
+	});
+
+	// Show popUp
+	$("#myModal").css("display", "block");
+	$(".close").click( 
+			function() {$("#myModal").css("display", "none");}
+
+	);
+
+
+	$("#validate_dates_button").click(function() {
+		if( str_date_begin != null && str_date_end != null ){
+			alert("good " +str_date_begin+ " " + str_date_end);
+		}
+		else{
+			// Show popUp
+			$("#date_error").html("Veuillez sélectionner des dates de début et fin SVP.");
+			
+		}
+	});*/
+
 
 	request_item_query(id);
 
