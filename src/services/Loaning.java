@@ -1,6 +1,7 @@
 package services;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.json.JSONArray;
@@ -24,42 +25,66 @@ import utils.SendEmail;
 import utils.Tools;
 
 /**
- * @author Anagbla Joan, Ouiza Bouyahiaoui*/
+ * @author Anagbla Joan, Giuseppe Federico, Ouiza Bouyahiaoui*/
 public class Loaning {
 
 	/**
 	 * Add an applicant's request for an item 
+	 * 
 	 * @param idApplicant
 	 * @param idItem 
+	 * @param debut - Start date of the desired loaning.
+	 * @param fin  - End date of the desired loaning.
 	 * @throws Exception 
 	 * @throws SQLException */
-	public static JSONObject requestItem(String value, String idApplicant,String idItem) throws SQLException, Exception{
+	public static JSONObject requestItem(	String value, 
+											String idApplicant,
+											String idItem, 
+											Date debut, 
+											Date fin) 
+			throws SQLException, Exception{
+		
+		// Test if the request already exists
 		if(LoaningDB.requestExists(idApplicant, idItem))
 			return Tools.serviceRefused
 					("Vous avez deja une demande en cours pour cet objet!", -1);
-		LoaningDB.requestItem(idApplicant, idItem);	
+		
+		// Save request
+		LoaningDB.requestItem(idApplicant, idItem, debut, fin);	
+		
 		DBObject item = ItemsDB.getItem(idItem);
-		entities.User applicant =User.getUserById(idApplicant);
+		
+		// The applicant User
+		entities.User applicant = User.getUserById(idApplicant);
+		
+		// The recipient user
 		String to = User.getUserById(
 				item.get("owner").toString())
 				.getEmail();
 		
+		
+		// Treduction stuff
 		if(value.equals("fr"))
 			SendEmail.sendMail(to, 
 							"[kasukasu] Demande d'emprunt pour l'objet : "+item.get("title"),
 							"Vous avez une demande d'emprunt pour "
 							+ "l'objet "+item.get("title")+" "
-							+"venant de "+applicant.getFirstname()+" "+applicant.getName()+"."
+							+"venant de "+applicant.getFirstname()+" "+applicant.getName()+".\n"
+							+ applicant.getFirstname() + " voudrait l'objet du "+ debut +" jusqu'au "+ fin +".\n"
 							+ "\nMerci de consulter votre compte."
 							+ "L'équipe KasuKasu");
+		
 		if(value.equals("en"))
 			SendEmail.sendMail(to, 
 					"[kasukasu] Loan request for the item : "+item.get("title"),
 					"You have got a loan request  "
 					+ "for the item : "+item.get("title")+" "
 					+"coming from "+applicant.getFirstname()+" "+applicant.getName()+"."
+					+ applicant.getFirstname() + " would like the object from the "+ debut +" to the"+ fin +".\n"
 					+ "\nPlease, check your account."
 					+ "Team KasuKasu");
+		
+		//Response
 		return Tools.serviceMessage(1);
 	}
 	
@@ -102,8 +127,8 @@ public class Loaning {
 					.put("applicant", dbc.next().get("id_applicant"))
 					.put("item",  dbc.next().get("id_item"))
 					.put("when",dbc.next().get("when"))
-					.put("debut", dbc.next().get("debut")) //TODO
-					.put("fin", dbc.next().get("fin"))//TODO
+					.put("debut", dbc.next().get("debut"))
+					.put("fin", dbc.next().get("fin"))
 					);
 		return new JSONObject().put("requests",jar);
 	}
@@ -127,8 +152,8 @@ public class Loaning {
 					.put("type", "loan")
 					.put("title", ItemsDB.getItem(dbo.get("id_item").toString())
 							.get("title"))
-					//.put("debut", dbo.get("debut")) //TODO 
-					//.put("fin", dbo.get("fin")) //TODO
+					.put("debut", dbo.get("debut")) 
+					.put("fin", dbo.get("fin")) 
 					);
 			}
 		return new JSONObject().put("loans",jar);

@@ -13,12 +13,19 @@ function Loan(loan_id,item,title,debut,fin){
 	this.fin=fin;
 } 
 
-
-function request_item_query(id){	
+/**
+ * Query to request an object for loaning.
+ * 
+ * @param id - id of the object requested
+ * @param begin - Begin date of the request
+ * @param end - End date of the request
+ * @returns
+ */
+function request_item_query(id, begin, end){	
 	$.ajax({
 		type : "POST",
 		url : RequestItemServlet,
-		data : "id=" +id,
+		data : "id=" +id +"&debut="+ begin + "&fin=" + end,
 		dataType : "JSON",
 		success : loaning_request_response,
 		error : function(xhr,status,errorthrown){
@@ -29,9 +36,9 @@ function request_item_query(id){
 
 //Request item process
 //1) Show date/time dialog
-//2) Send query
+//2) Call request_item_query
 function request_item(id){	
-/*
+
 	// Add DataPickerHTML
 	$( "#datePickerDialog" ).html(
 			"<div id='myModal' class='modal'>\n" +
@@ -59,14 +66,8 @@ function request_item(id){
 			"</table>"+
 			"<div class='btn btn-primary btn-xs' id='validate_dates_button'>Ok</div>" +
 			"</div>\n"
-			
-
-
 
 	);
-
-
-
 
 	var str_date_begin = null;
 	var str_date_end = null;
@@ -80,6 +81,7 @@ function request_item(id){
 		onSelect: function(dateText, inst) {
 			// Destroy old brother
 			jQuery("#date_end").datepicker("destroy");
+			
 			str_date_end = null;
 			 
 			// Restrict end date range
@@ -121,17 +123,35 @@ function request_item(id){
 
 	$("#validate_dates_button").click(function() {
 		if( str_date_begin != null && str_date_end != null ){
-			alert("good " +str_date_begin+ " " + str_date_end);
+			// Reformat begin
+			var format_date_begin ="";
+			format_date_begin += str_date_begin.getDate();
+			format_date_begin += "-";
+			var month_index =  str_date_begin.getMonth() +1;
+			if ( month_index < 10 ) format_date_begin  += "0";
+			format_date_begin += month_index;  
+			format_date_begin += "-";
+			format_date_begin += str_date_begin.getFullYear();
+			
+			// Reformat end
+			var format_date_end ="";
+			format_date_end  += str_date_end.getDate();    
+			format_date_end  += "-";
+			var month_index =  str_date_end.getMonth()+1;
+			if ( (month_index) < 10 ) format_date_end  += "0";
+			format_date_end  += month_index;       
+			format_date_end  += "-";                      
+			format_date_end  += str_date_end.getFullYear();     
+			
+			request_item_query(id, format_date_begin, format_date_end);
 		}
 		else{
 			// Show popUp
 			$("#date_error").html("Veuillez sélectionner des dates de début et fin SVP.");
 			
 		}
-	});*/
-
-
-	request_item_query(id);
+		
+	});
 
 }
 
