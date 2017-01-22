@@ -14,7 +14,7 @@ import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan, Celien Creminon, Wafae Cheglal, Ouiza Bouyahiaoui */
+ * @author ANAGBLA Joan, Celien Creminon, Giuseppe Federico, Wafae Cheglal, Ouiza Bouyahiaoui */
 public class LoaningDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("loaning");//LOANING_REQUESTS
@@ -24,16 +24,23 @@ public class LoaningDB {
 	/**
 	 * Add an applicant's request for an item 
 	 * @param idApplicant
-	 * @param idItem */
-	public static void requestItem(String idApplicant,String idItem){
+	 * @param idItem
+	 * @param debut - Start date of the desired loaning.
+	 * @param fin  - End date of the desired loaning.
+	 *  */
+	public static void requestItem(	String idApplicant,
+									String idItem, 
+									Date debut,
+									Date fin){
 		requests.insert(
 				new BasicDBObject()
 				.append("id_applicant", idApplicant)
 				.append("id_item", idItem)
 				.append("when", new Date())
-				.append("debut", "") //TODO
-				.append("fin", "")//TODO
+				.append("debut", debut)
+				.append("fin", fin)
 				);
+		
 	}
 
 
@@ -42,11 +49,13 @@ public class LoaningDB {
 	 * Check if a request is already sent for an item by the same applicant 
 	 * @param idApplicant
 	 * @param idItem */
-	public static boolean requestExists(String idApplicant,String idItem){
+	public static boolean requestExists(	String idApplicant,
+											String idItem
+										){
 		return requests.find(
 				new BasicDBObject()
 				.append("id_applicant", idApplicant)
-				.append("id_item", idItem)			
+				.append("id_item", idItem)
 				).hasNext();
 	}
 
@@ -147,7 +156,8 @@ public class LoaningDB {
 	}
 
 	public static void main(String[] args) {
-		requestItem("1","idObject");
+		// Test object request
+		requestItem("1","idObject", new Date(), new Date("01/26/2017"));
 		System.out.println(applicantRequests("5849a585641a80878d717279").next());
 		System.out.println(applicantLoanings("5849a585641a80878d717279").next());
 	}
