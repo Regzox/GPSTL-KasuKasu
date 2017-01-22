@@ -78,3 +78,37 @@ function printHTML(dom,htm)
 { 
 	$(dom).html(htm);
 }
+
+/************************************* Affichage des langues ************************************/
+
+function editLang(lang="fr")
+{
+	
+	var xhr = getXMLHttpRequest();
+	xhr.open("GET","/KasuKasu/traduction.json",false);
+	xhr.send();
+
+		var dico = JSON.parse(xhr.responseText);
+		var bodymessage="";
+		var endmessage ="</table>";
+		var message = "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Page</th><th>Element</th><th>Expression</th>"+
+		"</tr>";
+		for(var i in dico)
+		{
+			for(var page in dico[i])
+				{
+					for(var element in dico[i][page])
+					{	
+						//for(var l in dico)
+						bodymessage = bodymessage+
+						"<tr style='text-align: left'>" +
+						"<td> "+page+"</td>"+"<td> "+element+"</td>" ;
+						bodymessage = bodymessage +"<td> <input type='text' value='"+dico[i][page][element][lang]+"'></input></td>"+"<td> "+"</tr>";
+					}
+				}	
+		}
+		var elt =message + bodymessage + endmessage;	
+		printHTML(document.getElementById("elt"),elt);
+}

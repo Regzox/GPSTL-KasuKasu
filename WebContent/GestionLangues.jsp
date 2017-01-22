@@ -7,7 +7,7 @@
 
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
-<script	type="text/javascript" src="/KasuKasu/js/translation_.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <style>
 
@@ -22,15 +22,16 @@
     margin-auto: 0;
 }
 </style>
-<title>Languages</title>
+<title>Gestion des langues</title>
 </head>
 
-<body onload="editLang();">
+<body>
 <div id='main'>
 	<div id='elt'></div>
-	<div id='add'></div>
 </div>
-	<button id='ajout' onclick="addLanguage();">Ajouter une nouvelle langue</button>
-	<button id='save' onclick="saveLang()">Enregistrer</button>
+	<button id='fr' onclick="editLang('fr');">Français</button>
+	<button id='en' onclick="editLang('en')">Anglais</button>
+	<button id='ajout' onclick="">Ajouter une nouvelle langue</button>
+	<button id='save' onclick="">Enregistrer</button>
 </body>
 </html>
