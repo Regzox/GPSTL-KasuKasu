@@ -15,7 +15,14 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/check-connection.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/profile.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('profile.jsp','titre');
+});
+</script>
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/interface/sidebar.css" />
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/interface/navbar.css" />
@@ -23,7 +30,7 @@
 
 </head>
 
-<body onload = 'trans();fillMyProfile();getUserVacationStatus();'>
+<body onload = 'fillMyProfile();getUserVacationStatus();'>
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

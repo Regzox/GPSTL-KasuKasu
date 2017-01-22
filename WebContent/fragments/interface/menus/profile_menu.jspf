@@ -1,4 +1,12 @@
-<div class="menu">
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('profile_menu.jspf','modif');
+	trans('profile_menu.jspf','photo');
+});
+</script><div class="menu">
 	<div class="wrapper">
 		<div 	id="modif" 
 				class="tier clickable"

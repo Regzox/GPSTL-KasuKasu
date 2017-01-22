@@ -9,7 +9,8 @@
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -19,11 +20,17 @@
 	});
 </script>
 <script type="text/javascript" src="/KasuKasu/js/finduser.js"></script>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('finduser.jsp','titre');
+	trans('finduser.jsp','rech');
+	trans('finduser.jsp','submit');
+});
+</script>
 <title id='titre'>Rechercher un utilisateur</title>
 
 </head>
-<body onload="trans()">
+<body>
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

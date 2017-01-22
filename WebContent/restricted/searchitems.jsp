@@ -18,7 +18,8 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-ui.js"></script>
 <link type="text/css" href="/KasuKasu/css/jquery-ui.css" rel="stylesheet" />
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 
 <script>
@@ -29,10 +30,18 @@
 	});
 </script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('searchitems.jsp','titre');
+	trans('searchitems.jsp','comment');
+	trans('searchitems.jsp','submit');
+});
+</script>
+
 <title id='titre'>Recherche d'objets</title>
 </head>
 
-<body onload="searchMRItems(''); trans();">
+<body onload="searchMRItems('');">
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

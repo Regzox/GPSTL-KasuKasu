@@ -13,13 +13,27 @@
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/createobject.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('createobject.jsp','titre');
+	trans('createobject.jsp','ajout1');
+	trans('createobject.jsp','noml');
+	trans('createobject.jsp','descl');
+	trans('createobject.jsp','pts');
+	trans('createobject.jsp','ajout');
+	trans('createobject.jsp','vis');
+	trans('createobject.jsp','submit');
+	trans('createobject.jsp','comment');
+});
+</script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 </head>
 
-<body onload="javascript:init(); trans();">
+<body onload="javascript:init();">
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

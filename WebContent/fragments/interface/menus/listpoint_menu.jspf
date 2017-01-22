@@ -1,3 +1,13 @@
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('listpoint_menu.jspf','ajout_expts');
+	trans('listpoint_menu.jspf','import_expts');
+
+});
+</script>
 <div class="menu">
 	<div class="wrapper">
 		<div 	id="ajout_expts" 

@@ -9,14 +9,30 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 
 <script type="text/javascript" src="/KasuKasu/js/enregistrement.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
+<script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('createuser.jsp','titre');
+	trans('createuser.jsp','a');
+	trans('createuser.jsp','prenoml');
+	trans('createuser.jsp','noml');
+	trans('createuser.jsp','numl');
+	trans('createuser.jsp','emaill');
+	trans('createuser.jsp','mdpl');
+	trans('createuser.jsp','confl');
+	trans('createuser.jsp','captchal');
+	trans('createuser.jsp','submit');
+	trans('createuser.jsp','placeholderElem');
+});
+</script>
 
 
 <title id='titre'>Inscription</title>
 </head>
-    <body onload="trans()">
+    <body>
     
     	<div class='layer-center'>
     	

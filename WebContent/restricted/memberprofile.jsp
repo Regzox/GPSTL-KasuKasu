@@ -18,10 +18,22 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/check-connection.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/profile.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('memberprofile.jsp','titre');
+	trans('memberprofile.jsp','prenom');
+	trans('memberprofile.jsp','nom');
+	trans('memberprofile.jsp','mail');
+	trans('memberprofile.jsp','tel');
+	trans('memberprofile.jsp','status');
+	trans('memberprofile.jsp','contact');
+});
+</script>
 </head>
-<body onload="trans()">
+<body>
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

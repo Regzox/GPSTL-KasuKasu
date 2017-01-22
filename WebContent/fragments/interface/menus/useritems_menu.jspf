@@ -1,3 +1,11 @@
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('useritems_menu.jspf','ajout_obj');
+});
+</script>
 <div class="menu">
 	<div class="wrapper">
 		<div	id="ajout_obj"

@@ -11,13 +11,20 @@
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('item.jsp','titre');
+	trans('item.jsp','obj');
+});
+</script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 <title id="titre">Objet <%=request.getParameter("title")%></title>
 </head>
-<body onload="trans(); getItem('<%=request.getParameter("id")%>')">
+<body onload="getItem('<%=request.getParameter("id")%>')">
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

@@ -25,16 +25,45 @@ function trans(page,element){
 	var href = document.location.href;
 	var fileName = href.substr(href.lastIndexOf('/') + 1);
 
-	xhr.open("GET","/KasuKasu/traduction_.json",false);
+	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
+	if(fileName == "portal.jsp" || fileName == "")
+	{
+		document.getElementById('btn_fr').onclick = function() {
+			createCookie("fr");
+			location.reload();
+			}
+		document.getElementById('btn_en').onclick = function() {
+			createCookie("en");
+			location.reload();
+			}           	
+	}
 	//xhr.onreadystatechange = function() {
 
 	/*if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) 
 	{*/
 	var dico = JSON.parse(xhr.responseText);
+	
 	for(var i in dico)
 		if(dico[i].hasOwnProperty(page))
-			printHTML("#"+element, walk_through(dico[i][page],element,"fr"));
+			{
+				if(document.getElementById(element).tagName == "text" || document.getElementById(element).tagName == "password")
+					{
+					//TODO dosn't really work :/
+						if(document.getElementById(element).placeholder !="")
+						{
+							document.getElementById(element).placeholder = walk_through(dico[i][page],element,readCookie("lang"));
+						}
+					}
+				if(document.getElementById(element).type == "submit")
+				{
+					document.getElementById(element).value = walk_through(dico[i][page],element,readCookie("lang"));
+				}
+				else
+					{
+						printHTML("#"+element, walk_through(dico[i][page],element,readCookie("lang")));
+					}
+			}
 	//}
 
 }
@@ -45,4 +74,7 @@ function walk_through(json,element,langue) {
 			return json[element][langue];
 }
 
-
+function printHTML(dom,htm)
+{ 
+	$(dom).html(htm);
+}

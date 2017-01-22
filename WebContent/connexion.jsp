@@ -10,11 +10,23 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 
 <script type="text/javascript" src="/KasuKasu/js/connexion.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('connexion.jsp','titre');
+	trans('connexion.jsp','connexion');
+	trans('connexion.jsp','email');
+	trans('connexion.jsp','mdp');
+	trans('connexion.jsp','connex');
+	trans('connexion.jsp','mdpo');	
+});
+</script>
 
 <title id='titre'>Connexion</title>
 </head>
-<body onload = "trans()">
+<body>
 
 	<div class='layer-center'>
 

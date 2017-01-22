@@ -13,6 +13,7 @@
 	src="/KasuKasu/js/inflator/views/groupmembers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 
 <script>
@@ -23,6 +24,15 @@
 	});
 </script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('groupmembers.jsp','titre');
+	trans('groupmembers.jsp','gest');
+	trans('groupmembers.jsp','comment');
+	trans('groupmembers.jsp','liste');
+	trans('groupmembers.jsp','submit');
+});
+</script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 <title id="titre">Groupe <%=request.getParameter("gname")%></title>

@@ -31,7 +31,9 @@
 <script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationRequestNotification.js"></script>
 <script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationResponseNotification.js"></script>
 <script type="text/ecmascript" src="/KasuKasu/js/classes/Notifier.js"></script>
-<script type="text/ecmascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/ecmascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 
 </head>
 <body>
