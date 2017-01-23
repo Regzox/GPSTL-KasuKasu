@@ -23,9 +23,11 @@ import dao.search.FuzzyFinder;
 import dao.search.PatternsHolder;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
+import services.Items;
+import services.Loaning;
 
 /**
- * @author ANAGBLA Joan, Giuseppe FEDERICO, Cedric Ribeiro*/
+ * @author ANAGBLA Joan, Giuseppe FEDERICO, Cedric Ribeiro, Lina YAHI*/
 public class ItemsDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("items");
@@ -224,7 +226,7 @@ public class ItemsDB {
 				);
 	}
 
-	
+
 
 
 	/**
@@ -241,8 +243,10 @@ public class ItemsDB {
 		System.out.println("Results...\n%");
 
 		//addGroupToItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+
+		//removeGroupFromItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
 		
-		removeGroupFromItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+		System.out.println(userItemsLoaned("586e8cd92736d4e126b99c07"));
 
 		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
 		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
@@ -257,7 +261,7 @@ public class ItemsDB {
 		//					"galaxy S5 noir neuf, tres peu servi");
 		//		}else System.out.println("Denied");
 	}
-	
+
 
 	/**
 	 * return the list of groupIDs of an item 
@@ -279,7 +283,7 @@ public class ItemsDB {
 
 		BasicDBList usergroupsmembership = new BasicDBList();
 		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
- 
+
 		while(dbc.hasNext())
 			usergroupsmembership.add(dbc.next().get("_id").toString());
 
@@ -289,11 +293,34 @@ public class ItemsDB {
 				.append("groups", 
 						new BasicDBObject("$elemMatch",new BasicDBObject("id",new BasicDBObject("$in",usergroupsmembership)))
 						));
-		
+
 		exprs.add(new BasicDBObject()
 				.append("groups",new BasicDBObject("$size", 0)));
-				
+
 		return collection.find(new BasicDBObject().append("$or", exprs));
 	}
+
+
+	/**
+	 * List of items loaned by a user
+	 * @param userID
+	 * @return
+	 */
+	public static DBCursor userItemsLoaned(String userID){
+		return collection.find(
+				new BasicDBObject()
+				.append("owner", userID)
+				.append("status", "borrowed"));
+	}
+	
+	public static DBCursor userItems2(String userID){
+		return collection.find(
+				new BasicDBObject()
+				.append("owner", userID));
+	}
+	
+
+	
+
 
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.bson.types.ObjectId;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -14,7 +15,7 @@ import exceptions.DatabaseException;
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan, Celien Creminon, Giuseppe Federico, Wafae Cheglal, Ouiza Bouyahiaoui */
+ * @author ANAGBLA Joan, Celien Creminon, Giuseppe Federico, Wafae Cheglal, Ouiza Bouyahiaoui, Lina YAHI*/
 public class LoaningDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("loaning");//LOANING_REQUESTS
@@ -153,6 +154,23 @@ public class LoaningDB {
 			items.update(new BasicDBObject().append("_id", new ObjectId(item.getString("_id"))), item);	
 			KasuDB.getMongoCollection("lhistory").save(loan);
 		}
+	}
+	
+	/**
+	 * Liste des demandes de prêt en attente
+	 * @param userID
+	 * @return */
+	public static DBCursor pendingRequests(String userID){
+		
+		BasicDBList useritems = new BasicDBList();
+		DBCursor dbc = ItemsDB.userItems2(userID);
+
+		while(dbc.hasNext())
+			useritems.add(dbc.next().get("_id").toString());
+
+		return requests.find(
+				new BasicDBObject()
+				.append("id_item", new BasicDBObject("$in",useritems)));
 	}
 
 	public static void main(String[] args) {

@@ -19,7 +19,7 @@ import dao.items.ItemsDB;
 import kasudb.KasuDB;
 
 /**
- * @author ANAGBLA Joan, YAHI Lina, Giuseppe FEDERICO, Cedric Ribeiro */
+ * @author ANAGBLA Joan, Lina YAHI, Giuseppe FEDERICO, Cedric Ribeiro */
 public class ExchangePointsDB {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("expts");
