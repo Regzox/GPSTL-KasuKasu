@@ -44,5 +44,3 @@ function walk_through(json,element,langue) {
 	 if (json.hasOwnProperty(element))
 			return json[element][langue];
 }
-
-
