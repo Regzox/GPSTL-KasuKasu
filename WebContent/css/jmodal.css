@@ -22,18 +22,3 @@
     border: 1px solid #888;
     width: 50%;
 }
-
-/* The Close Button */
-.jclose {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.jclose:hover,
-.jclose:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}

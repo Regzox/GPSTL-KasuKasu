@@ -143,7 +143,9 @@ function request_item(id){
 			format_date_end  += "-";                      
 			format_date_end  += str_date_end.getFullYear();     
 			
+			$("#myModal").css("display", "none");
 			request_item_query(id, format_date_begin, format_date_end);
+
 		}
 		else{
 			// Show popUp
@@ -156,12 +158,15 @@ function request_item(id){
 }
 
 
+function goToSearcItem(){
+	gotoURL(searchitems_jsp);
+}
+
 function loaning_request_response(rep){
-	setTimeout(function(){
-		gotoURL(searchitems_jsp);
-	}, 2000);
-	printHTML("#JMODALMESSAGE","Une demande sur cet objet a &eacute;t&eacutee; envoy&eacute;! ")
-	modal.style.display = "block";
+	openJModal(2000,
+			"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e! "
+			,goToSearcItem
+			);
 	
 }
 

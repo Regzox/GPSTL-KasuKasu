@@ -74,8 +74,6 @@ $(document).ready(function() {
 			<br>
 
 			<div id="found-items" class="abootsraper"></div>
-			<%@ include file="/fragments/simplemodal.jspf"%>
-			<script type="text/javascript" src="/KasuKasu/js/jmodal.js"></script>
 		</div>
 
 		<%@ include file="/fragments/interface/footer.jspf"%>
