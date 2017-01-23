@@ -12,14 +12,21 @@
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/groups.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
-
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('groups.jsp','titre');
+	trans('groups.jsp','create');
+	trans('groups.jsp','submit');
+});
+</script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 <title id="titre">Mes Groupes</title>
 </head>
-<body onload="userGroups(); trans();">
+<body onload="userGroups();">
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

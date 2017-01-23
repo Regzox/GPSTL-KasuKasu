@@ -14,7 +14,30 @@
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/importpoint.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('importpoint.jsp','titre');
+	trans('importpoint.jsp','pts');
+	trans('importpoint.jsp','pts_amis');
+	trans('importpoint.jsp','comment');
+	trans('importpoint.jsp','ModalAjout');
+	trans('importpoint.jsp','noml');
+	trans('importpoint.jsp','porteel');
+	trans('importpoint.jsp','radius_input');
+	trans('importpoint.jsp','close');
+	trans('importpoint.jsp','save');
+	trans('importpoint.jsp','comment2');
+	trans('importpoint.jsp','comment3');
+	trans('importpoint.jsp','ModalModif');
+	trans('importpoint.jsp','nom');
+	trans('importpoint.jsp','range');
+	trans('importpoint.jsp','ferm');
+	trans('importpoint.jsp','enreg');
+});
+</script>
 	
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 	
@@ -48,11 +71,11 @@ html, body, #mapdiv {
 
 			<div class='col-md-6'>
 				<p>
-					<img alt="" src="data/marker-red.png" width="10" height="10">
+					<img alt="" src="/KasuKasu/data/marker-red.png" width="10" height="10">
 					<div id='pts'> Vos lieux d'échange</div>
                 	<br></br>				
-					<img alt="" src="data/marker.png" width="10" height="10">
-					<div id='pts_amis'>Lieux d'échange de mes amis</div>
+					<img alt="" src="/KasuKasu/data/marker.png" width="10" height="10">
+					<div id='pts_amis'>Lieux d'échange de vos amis</div>
 					<br></br>	
 					<div id='comment'>Double-cliquez sur la carte pour ajouter un lieu</div>
 

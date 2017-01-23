@@ -1,3 +1,14 @@
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('myfriends_menu.jspf','my_groups');
+	trans('myfriends_menu.jspf','my_pending_friends_requests');
+	trans('myfriends_menu.jspf','my_evaluations');
+
+});
+</script>
 <div class="menu">
 	<div class="wrapper">
 		<div	id="my_groups"

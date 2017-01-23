@@ -11,11 +11,18 @@
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('messenger.jsp','titre1');
+	trans('messenger.jsp','titre');
+});
+</script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
-<body id="gc-search" onload="trans(); interlocutors()">
+<body id="gc-search" onload="interlocutors()">
 	
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

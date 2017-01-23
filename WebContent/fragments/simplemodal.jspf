@@ -1,5 +1,6 @@
 <!-- Trigger/Open The Modal -->
-<button id="jBtn">Open Modal</button>
+<!-- <button id="jBtn">Open Modal</button> --> 
+<!-- debug -->
 
 <!-- The Modal -->
 <div id="jModal" class="jmodal">
@@ -7,9 +8,7 @@
   <!-- Modal content -->
   <div class="jmodal-content">
     <span class="jclose">&times;</span>
-    <p>
-    <script>document.write(JMESSAGE1210);</script>
-    </p>
+    <p id="JMODALMESSAGE"></p>
   </div>
 
 </div>

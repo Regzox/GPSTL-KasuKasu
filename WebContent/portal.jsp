@@ -15,9 +15,19 @@
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('portal.jsp','titre');
+	trans('portal.jsp','bienvenue');
+	trans('portal.jsp','site');
+	trans('portal.jsp','btn_insc');
+	trans('portal.jsp','btn_connex');
+});
+</script>
 </head>
-<body onload="trans()">
+<body>
 
 	<%@ include file="/fragments/header.jspf"%>
 

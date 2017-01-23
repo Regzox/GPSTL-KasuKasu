@@ -12,12 +12,21 @@
 	src="/KasuKasu/js/inflator/views/loaning.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('userLoans.jsp','titre');
+	trans('userLoans.jsp','liste');
+});
+</script>
 
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 <title id='titre'>Ma liste d'objets empruntés</title>
 </head>
-<body onload="javascript:find_user_loans(); trans();">
+<body onload="javascript:find_user_loans();">
 	
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

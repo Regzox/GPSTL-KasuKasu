@@ -14,7 +14,8 @@
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -23,11 +24,19 @@
 		});
 	});
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('useritems.jsp','titre');
+	trans('useritems.jsp','manage');
+	trans('useritems.jsp','submit');
+	trans('useritems.jsp','liste');
+});
+</script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 <title id='titre'>Mes Objets</title>
 </head>
-<body onload="userItems(''); trans();">
+<body onload="userItems('');">
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

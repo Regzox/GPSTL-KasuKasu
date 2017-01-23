@@ -1,51 +1,66 @@
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('sidebar.jspf','search_item');
+	trans('sidebar.jspf','search_user');
+	trans('sidebar.jspf','my_loans');
+	trans('sidebar.jspf','my_items');
+	trans('sidebar.jspf','my_friend');
+	trans('sidebar.jspf','my_places');
+	trans('sidebar.jspf','messaging');
+	trans('sidebar.jspf','help');
+});
+</script>
 <div class="sidebar-wrapper">
 
 	<div class="sidebar-nav">
 		<div class="navigable">            		
 			<div id="search_item" onclick="
 				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(searchitems_jsp)))
-					$(location).attr(&#39;href&#39;, searchitems_jsp);
+				if ( !(~$(location).attr('href').indexOf(searchitems_jsp)))
+					$(location).attr('href', searchitems_jsp);
 			">Rechercher un objet</div>
 			
 			<div id="search_user" onclick="
 				// Pour empêcher de reload la page du profil utilisateur si on y est déjà
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(finduser_jsp)))
-					$(location).attr(&#39;href&#39;, finduser_jsp);
+				if ( !(~$(location).attr('href').indexOf(finduser_jsp)))
+					$(location).attr('href', finduser_jsp);
 			">Rechercher un(e) ami(e)</div>
 			
 			<div id="my_loans" onclick="
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(userLoans_jsp)))
-					$(location).attr(&#39;href&#39;, userLoans_jsp);
+				if ( !(~$(location).attr('href').indexOf(userLoans_jsp)))
+					$(location).attr('href', userLoans_jsp);
 			"> Mes emprunts </div>
 			
 			<div id="my_items" onclick="
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(useritems_jsp)))
-					$(location).attr(&#39;href&#39;, useritems_jsp);
+				if ( !(~$(location).attr('href').indexOf(useritems_jsp)))
+					$(location).attr('href', useritems_jsp);
 			"> Mes objets </div>
             
             <div id="my_friend" onclick="
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(myfriends_jsp)))
-					$(location).attr(&#39;href&#39;, myfriends_jsp);
+				if ( !(~$(location).attr('href').indexOf(myfriends_jsp)))
+					$(location).attr('href', myfriends_jsp);
 			"> Mes amis </div>
 			
 			<div id="my_places" onclick="
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(importpoint_jsp)))
-					$(location).attr(&#39;href&#39;, importpoint_jsp);
+				if ( !(~$(location).attr('href').indexOf(importpoint_jsp)))
+					$(location).attr('href', importpoint_jsp);
 			"> Mes lieux </div> 
 			
 			<br><br><br><br>
 			
 			<div id="messaging" onclick="
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(messenger_jsp)))
-					$(location).attr(&#39;href&#39;, messenger_jsp);
+				if ( !(~$(location).attr('href').indexOf(messenger_jsp)))
+					$(location).attr('href', messenger_jsp);
 			">
                 Messagerie
             </div>
 			
             <div id="help" onclick="
-				if ( !(~$(location).attr(&#39;href&#39;).indexOf(dashboard_jsp)))
-					$(location).attr(&#39;href&#39;, dashboard_jsp);
+				if ( !(~$(location).attr('href').indexOf(dashboard_jsp)))
+					$(location).attr('href', dashboard_jsp);
 			">
                 Aide
             </div>    

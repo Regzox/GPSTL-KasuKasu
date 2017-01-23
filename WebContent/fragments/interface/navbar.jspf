@@ -1,3 +1,12 @@
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('navbar.jspf','preferences');
+	trans('navbar.jspf','disc');
+});
+</script>
 <div class="kasukasu-nav-area">
     <nav class="kasukasu-navbar">
         <div class="wrapper">
@@ -5,8 +14,8 @@
                 <div class="wrapper">
                     <div	class="tier because"
                     		onclick="
-                                if ( !(~$(location).attr(&#39;href&#39;).indexOf(dashboard_jsp)) )
-                                    $(location).attr(&#39;href&#39;, dashboard_jsp);
+                                if ( !(~$(location).attr('href').indexOf(dashboard_jsp)) )
+                                    $(location).attr('href', dashboard_jsp);
                             ">
                         <div class="demi clickable">
                             <img src="/KasuKasu/data/KasuKasu.png" 
@@ -41,8 +50,8 @@
                     	id='preferences'
                     	class="tier actionable"
                     	onclick="
-                           if ( !(~$(location).attr(&#39;href&#39;).indexOf(profile_jsp)) )
-                              $(location).attr(&#39;href&#39;, profile_jsp);"
+                           if ( !(~$(location).attr('href').indexOf(profile_jsp)) )
+                              $(location).attr('href', profile_jsp);"
                     >
                         Préférences
                     </div>

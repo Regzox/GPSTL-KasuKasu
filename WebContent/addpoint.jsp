@@ -14,7 +14,8 @@
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/addpoint.js" charset="utf-8"></script>
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+
 
 			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/sidebar.css' />
 			<link rel='stylesheet' type='text/css' href='/KasuKasu/css/bootstrap.min.css' />
@@ -43,7 +44,7 @@ html, body, #mapdiv {
 
 </head>
 
-<body onload="javascript:init(); trans();">
+<body onload="javascript:init();">
 
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>

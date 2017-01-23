@@ -580,4 +580,14 @@
     <servlet-name>GetUserVacationStatusServlet</servlet-name>
     <url-pattern>/getuservacationstatus</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SaveLanguageServlet</display-name>
+    <servlet-name>SaveLanguageServlet</servlet-name>
+    <servlet-class>servlets.SaveLanguageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveLanguageServlet</servlet-name>
+    <url-pattern>/saveLanguage</url-pattern>
+  </servlet-mapping>
 </web-app>

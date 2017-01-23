@@ -242,12 +242,19 @@ function Delete(id)
 function Modifier(id_modif,old_name,old_radius)
 {
 
+    var modal = $('#myModal4');
+    modal.find("#nom_input").val(old_name);
+    modal.find("#radius_input").val(old_radius);
 
+//    $('#myModal4').modal('show');
 	$("#myModal4").modal({                    
 		"backdrop"  : "static",
 		"keyboard"  : true,
 		"show"      : true                     
 	});
+	
+
+
 
 	$('#enreg').on(
 			'click',
@@ -337,7 +344,7 @@ function affiche()
 			(
 
 					new OpenLayers.Geometry.Point( lon, lat ),
-					{description: "Mes amis sur ce lieu: "+json1.expts[i].name} ,
+					{description: "Abonnés: "+json1.expts[i].name} ,
 					{externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 			); 
 		if(bool==1)
@@ -345,7 +352,7 @@ function affiche()
 			(
 
 					new OpenLayers.Geometry.Point( lon, lat ),
-					{description: "My friends in this place : "+json1.expts[i].name} ,
+					{description: "Subscribers : "+json1.expts[i].name} ,
 					{externalGraphic: '/KasuKasu/data/marker.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 			); 
 		vectorLayer.addFeatures(feature1);
@@ -367,7 +374,7 @@ function affiche()
 			(
 
 					new OpenLayers.Geometry.Point( lon, lat ),
-					{description: "Lieu : "+json2.expts[i].name+", "+json2.expts[i].radius+"m"},
+					{description: "Lieu : "+json2.expts[i].name+", "+json2.expts[i].radius+"m"+"<br>"+"Abonnés :" + json2.expts[i].users},
 					{externalGraphic: '/KasuKasu/data/marker-red.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 			); 
 		if(bool==1)
@@ -375,7 +382,7 @@ function affiche()
 			(
 
 					new OpenLayers.Geometry.Point( lon, lat ),
-					{description: "Place : "+json2.expts[i].name+", "+json2.expts[i].radius+"m"} ,
+					{description: "Place : "+json2.expts[i].name+", "+json2.expts[i].radius+"m"+"<br>"+"Subscribers :" + json2.expts[i].users} ,
 					{externalGraphic: '/KasuKasu/data/marker-red.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 			); 
 		

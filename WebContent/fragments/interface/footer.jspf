@@ -1,3 +1,12 @@
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('footer.jspf','email');
+	trans('footer.jspf','version');
+});
+</script>
 <div class="footer">
 	<div class="wrapper">
 		<div id="email" class="tier">Contact : kasukasu@gmail.com</div>

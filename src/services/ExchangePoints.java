@@ -49,9 +49,9 @@ public class ExchangePoints {
 	public static void main(String[] args) throws DatabaseException, JSONException {
 		//System.out.println(addExchangePoint(2,3,200,"5jhjy62hghfj5874gtg5","fac"));
 		//System.out.println(addExchangePoint(2,3,500,"7jhjy62hghfj5874gtg5","maison"));
-		System.out.println(userPointDetail("586e8cd92736d4e126b99c07", 6250249.17563, 261632.91313));
+		//System.out.println(userPointDetail("586e8cd92736d4e126b99c07", 6250249.17563, 261632.91313));
 
-		//System.out.println(userPoints("5843fafc27360eacbbde0e9f"));
+		System.out.println(userPoints("586e8cd92736d4e126b99c07"));
 		//System.out.println(userPoints("Coucou"));
 	}		
 
@@ -101,31 +101,49 @@ public class ExchangePoints {
 		while (cursor.hasNext()){
 			DBObject dbo=cursor.next();
 			BasicDBList bl = (BasicDBList) dbo.get("subscribers");
-			int i=0;			
+			int i=0,j=0;			
 			String name="";
 			int radius=0;
-			boolean trouve=false;
-			String id_user;
+			
 
-			while (i< bl.size() && trouve==false)				
+			String users="";
+			for (j=0;j<bl.size(); j++)				
 			{
-				id_user= (String)((DBObject)bl.get(i)).get("id_user");
-				if (id_user.equals(userID)) 
+				String id =  (String)((DBObject)bl.get(j)).get("id_user");
+				String user_firstname = UserDao.getUserById(id).getFirstname();
+				String user_name = UserDao.getUserById(id).getName();
+				
+				if (id.equals(userID)) 
 				{
-					trouve=true;
-					name = (String)((DBObject)bl.get(i)).get("name");
-					radius = (int)((DBObject)bl.get(i)).get("radius");
-
-
+					name = (String)((DBObject)bl.get(j)).get("name");
+					radius = (int)((DBObject)bl.get(j)).get("radius");
+					
 				}
-				else i++;
 
+				if (j==bl.size()-1) users = users+ user_firstname+" "+ user_name+ "."; 
+				else users = users+ user_firstname+" "+ user_name+", ";
 			}
+
+//			while (i< bl.size() && trouve==false)				
+//			{
+//				id_user= (String)((DBObject)bl.get(i)).get("id_user");
+//				if (id_user.equals(userID)) 
+//				{
+//					trouve=true;
+//					name = (String)((DBObject)bl.get(i)).get("name");
+//					radius = (int)((DBObject)bl.get(i)).get("radius");
+//
+//
+//				}
+//				else i++;
+//
+//			}
 
 			jar.put(new JSONObject()
 					.put("id",dbo.get("_id"))
 					.put("lat",dbo.get("lat"))
 					.put("name", name)
+					.put("users", users)
 					.put("lon",dbo.get("lon"))
 					.put("radius",radius));}
 		return new JSONObject().put("expts",jar);

@@ -19,7 +19,24 @@
 <script type="text/javascript" src="/KasuKasu/js/modifyobject.js"></script>
 <script type="text/javascript"
 	src="/KasuKasu/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+	
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('itemmanagement.jsp','titre');
+	trans('itemmanagement.jsp','title');
+	trans('itemmanagement.jsp','desc');
+	trans('itemmanagement.jsp','ajout');
+	trans('itemmanagement.jsp','groupes');
+	trans('itemmanagement.jsp','ajout1');
+	trans('itemmanagement.jsp','modify');
+	trans('itemmanagement.jsp','zones');
+	trans('itemmanagement.jsp','add_zone');
+	trans('itemmanagement.jsp','mes_groupes');
+	trans('itemmanagement.jsp','add_group');
+});
+</script>
 </head>
 <body>
 	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>

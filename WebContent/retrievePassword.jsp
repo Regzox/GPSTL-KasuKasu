@@ -10,12 +10,21 @@
 	href="/KasuKasu/css/bootstrap.min.css">
 
 <script type="text/javascript" src="/KasuKasu/js/connexion.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('retrievPassword.jsp','titre');
+	trans('retrievPassword.jsp','ret');
+	trans('retrievPassword.jsp','email');
+	trans('retrievPassword.jsp','submit');
+});
+</script>
 <title id='titre'>Récupération de mot de passe</title>
 </head>
-<body onload="trans()">
+<body>
 
 	<div class='layer-center'>
 

@@ -9,8 +9,7 @@ import exceptions.StringNotFoundException;
 /**
  * @author AJoan, Ouiza
  */
-//just for now 
-//TODO replace by better or service api @ouiza
+
 public class Lingua {
 	/**
 	 * "quod" means meaning in latin

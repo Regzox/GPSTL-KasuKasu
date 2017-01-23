@@ -19,10 +19,29 @@
 
 <script type="text/javascript" src="/KasuKasu/js/modify-user-submit.js"></script>
 
-<script	type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('modifyUser.jsp','titre');
+	trans('modifyUser.jsp','titre2');
+	trans('modifyUser.jsp','modif');
+	trans('modifyUser.jsp','emaill');
+	trans('modifyUser.jsp','mdpl');
+	trans('modifyUser.jsp','noml');
+	trans('modifyUser.jsp','prenoml');
+	trans('modifyUser.jsp','numl');
+	trans('modifyUser.jsp','myModalLabel');
+	trans('modifyUser.jsp','verif');
+	trans('modifyUser.jsp','psw');
+	trans('modifyUser.jsp','enreg');
+	trans('modifyUser.jsp','old_password_input');
+});
+</script>
 </head>
 
-<body onload="trans();">
+<body>
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
