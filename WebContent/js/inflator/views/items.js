@@ -1,6 +1,7 @@
 /**
  * ANAGBLA Joan*/
 bool=0;
+applicants_shared_div_state_opened=false;
 if(document.cookie.search("lang=en")!=-1)
 	bool=1;
 else
@@ -44,7 +45,7 @@ Item.getItemTraiteReponseJSON=function(json){
 				//alert("JSOB.htmling : "+items[i].getHTML());
 			}
 		}		
-		
+
 		// DatePickerDialog
 		fhtm+="<div id='datePickerDialog'></div>"; 
 		fhtm+="</div>\n"; 
@@ -79,13 +80,13 @@ Item.listItemTraiteReponseJSON=function(json){
 				//alert("JSOB.htmling : "+items[i].getHTML());
 			}
 		}		
-		
+
 		// DatePickerDialog
 		fhtm+="<div id='datePickerDialog'></div>"; 
 		fhtm+="</div>\n"; 
 		//alert("items.html = "+fhtm);  
 		printHTML("#found-items",fhtm); 
-		
+
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
 };
@@ -164,13 +165,13 @@ Item.prototype.getHTML2=function(){
 	"id=\"remove_item_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
 	if(bool==0)
 		s+="<input style=\"float:left;\" " +
-				"onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
-						" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modifier\">";
+		"onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
+		" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modifier\">";
 	if(bool==1)
 		s+="<input style=\"float:left;\"" +
-				" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
-						" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">";
-	
+		" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
+		" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">";
+
 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
@@ -251,14 +252,17 @@ function refresh(result){
 		window.location.reload();
 }
 
-/**
- * Solution temporaire a corriger TODO
- */
+
 function reset_applicants_shared_div(id){
-	removeElt("#item-applicants");
-	printHTMLSup ("#itemBox"+id,"<div id=\"item-applicants\">" +
-			"<div id=\"current_item\" style=\"display:none;\">"+id+"<div>" +
-	"<br></div>");
+	if(applicants_shared_div_state_opened)
+		removeElt("#item-applicants");
+	else{
+		removeElt("#item-applicants");
+		printHTMLSup ("#itemBox"+id,"<div id=\"item-applicants\">" +
+				"<div id=\"current_item\" style=\"display:none;\">"+id+"<div>" +
+		"<br></div>");
+	}
+	applicants_shared_div_state_opened=!applicants_shared_div_state_opened;
 }
 
 
@@ -322,9 +326,9 @@ function ProcessFindApplicants(rep) {
 						"<td>"+y+"</td>"+
 						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher le profil </a></td>"+
 						"<td>" +
-						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
+						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"btn btn-primary btn-xs\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
-						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
+						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"btn btn-primary btn-xs\" " +
 						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
 				"</tr>";
 				if(bool==1)
