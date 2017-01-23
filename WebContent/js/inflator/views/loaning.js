@@ -143,6 +143,7 @@ function request_item(id){
 			format_date_end  += "-";                      
 			format_date_end  += str_date_end.getFullYear();     
 			
+			$("#myModal").css("display", "none");
 			request_item_query(id, format_date_begin, format_date_end);
 		}
 		else{
@@ -156,8 +157,16 @@ function request_item(id){
 }
 
 
-function loaning_request_response(rep){	
+function goToSearcItem(){
 	gotoURL(searchitems_jsp);
+}
+
+function loaning_request_response(rep){
+	openJModal(2000,
+			"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e! "
+			,goToSearcItem
+			);
+	
 }
 
 function accept_item_request(id_applicant, id_item){	
