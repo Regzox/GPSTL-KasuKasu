@@ -29,6 +29,8 @@ function trans(page,element){
 	xhr.send();
 	if(fileName == "portal.jsp" || fileName == "")
 	{
+		if(readCookie("lang") == null)
+			createCookie();
 		document.getElementById('btn_fr').onclick = function() {
 			createCookie("fr");
 			location.reload();
@@ -47,7 +49,7 @@ function trans(page,element){
 	for(var i in dico)
 		if(dico[i].hasOwnProperty(page))
 			{
-				if(document.getElementById(element).tagName == "text" || document.getElementById(element).tagName == "password")
+				if(document.getElementById(element).type == "text" || document.getElementById(element).type == "password")
 					{
 					//TODO dosn't really work :/
 						if(document.getElementById(element).placeholder !="")
@@ -78,12 +80,45 @@ function printHTML(dom,htm)
 { 
 	$(dom).html(htm);
 }
-
+var result;
 /************************************* Affichage des langues ************************************/
 
 function editLang(lang="fr")
 {
 	
+	var xhr = getXMLHttpRequest();
+	xhr.open("GET","/KasuKasu/traduction.json",false);
+	xhr.send();
+
+		var dico = JSON.parse(xhr.responseText);
+		var bodymessage="";
+		var endmessage ="</table>";
+		var message = "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Page</th><th>Element</th><th>Expression</th>"+
+		"</tr>";
+		result = dico;
+		for(var i in dico)
+		{
+			for(var page in dico[i])
+				{
+					for(var element in dico[i][page])
+					{	
+						//for(var l in dico)
+						bodymessage = bodymessage+
+						"<tr style='text-align: left'>" +
+						"<td> "+page+"</td>"+"<td> "+element+"</td>" ;
+						bodymessage = bodymessage +"<td> <input id='"+element+"'type='text' value='"+dico[i][page][element][lang]+"'></input></td>"+"<td> "+"</tr>";
+					}
+				}	
+		}
+		var elt =message + bodymessage + endmessage;	
+		printHTML(document.getElementById("elt"),elt);
+}
+/************************************* Ajout d'une nouvelle langue************************************/
+
+function addLang()
+{
 	var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
@@ -105,10 +140,44 @@ function editLang(lang="fr")
 						bodymessage = bodymessage+
 						"<tr style='text-align: left'>" +
 						"<td> "+page+"</td>"+"<td> "+element+"</td>" ;
-						bodymessage = bodymessage +"<td> <input type='text' value='"+dico[i][page][element][lang]+"'></input></td>"+"<td> "+"</tr>";
+						bodymessage = bodymessage +"<td> <input type='text' value='"+"'></input></td>"+"<td> "+"</tr>";
 					}
 				}	
 		}
 		var elt =message + bodymessage + endmessage;	
 		printHTML(document.getElementById("elt"),elt);
+}
+/********************************************* Sauvegarde des modifications ***********************************/
+
+function saveLang()
+{
+//	var xhr = getXMLHttpRequest();
+//	xhr.open("POST","/KasuKasu/traduction_test.json",true);
+	
+	for(var i in result)
+	{
+		for(var page in result[i])
+			{
+				for(var element in result[i][page])
+				{	
+					result[i][page][element]["fr"] = document.getElementById(element).value;
+				}
+			}	
+	}
+	$.ajax({
+		type : "POST",
+		url : "saveLanguage",
+		data : result, 
+		dataType : "json",
+		success :  function()
+		{
+		   
+		},
+		error : function(XHR, testStatus, errorThrown) {
+		console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
+		}
+		});
+	//console.log(result);
+//	var file = new Blob(JSON.stringify(result), {type: JSON});
+//	xhr.send(JSON.stringify(result));
 }

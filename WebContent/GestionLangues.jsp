@@ -31,7 +31,7 @@
 </div>
 	<button id='fr' onclick="editLang('fr');">Français</button>
 	<button id='en' onclick="editLang('en')">Anglais</button>
-	<button id='ajout' onclick="">Ajouter une nouvelle langue</button>
-	<button id='save' onclick="">Enregistrer</button>
+	<button id='ajout' onclick="addLang()">Ajouter une nouvelle langue</button>
+	<button id='save' onclick="saveLang()">Enregistrer</button>
 </body>
 </html>
