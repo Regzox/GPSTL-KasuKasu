@@ -145,7 +145,6 @@ function request_item(id){
 			
 			$("#myModal").css("display", "none");
 			request_item_query(id, format_date_begin, format_date_end);
-
 		}
 		else{
 			// Show popUp
