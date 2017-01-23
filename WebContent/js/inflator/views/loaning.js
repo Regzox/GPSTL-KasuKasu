@@ -22,6 +22,7 @@ function Loan(loan_id,item,title,debut,fin){
  * @returns
  */
 function request_item_query(id, begin, end){	
+	openWaiter();
 	$.ajax({
 		type : "POST",
 		url : RequestItemServlet,
@@ -30,6 +31,7 @@ function request_item_query(id, begin, end){
 		success : loaning_request_response,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+			openJModal(2000,"Une erreur s'est produite!");
 		}
 	});
 }
@@ -55,7 +57,7 @@ function request_item(id){
 			"</div>\n" +
 			"</td>\n"+
 			"<td>\n"+
-			
+
 			"<div class='end_section'>\n" +
 			"<span>Date de fin du prêt</span>\n" +
 			"<div id='date_end'></div>\n" +
@@ -74,24 +76,24 @@ function request_item(id){
 
 	// Define jquery data pickers
 	$('#date_begin').datepicker({
-		
+
 		dateFormat:'mm/dd/yy', minDate: new Date(),	
-		
+
 		// Update brother's minDate
 		onSelect: function(dateText, inst) {
 			// Destroy old brother
 			jQuery("#date_end").datepicker("destroy");
-			
+
 			str_date_end = null;
-			 
+
 			// Restrict end date range
 			$('#date_end').datepicker(
 					{dateFormat:'mm/dd/yy', minDate: new Date(dateText),
 						onSelect: function(dateText, inst) {
 							str_date_end=new Date(dateText);
-							
+
 						}
-					
+
 					}
 
 			);
@@ -108,9 +110,9 @@ function request_item(id){
 		dateFormat:'mm/dd/yy', minDate: new Date(),	
 		onSelect: function(dateText, inst) {
 			str_date_end=new Date(str_date_end); 
-			
+
 		}
-	
+
 	});
 
 	// Show popUp
@@ -132,7 +134,7 @@ function request_item(id){
 			format_date_begin += month_index;  
 			format_date_begin += "-";
 			format_date_begin += str_date_begin.getFullYear();
-			
+
 			// Reformat end
 			var format_date_end ="";
 			format_date_end  += str_date_end.getDate();    
@@ -142,31 +144,28 @@ function request_item(id){
 			format_date_end  += month_index;       
 			format_date_end  += "-";                      
 			format_date_end  += str_date_end.getFullYear();     
-			
+
 			$("#myModal").css("display", "none");
 			request_item_query(id, format_date_begin, format_date_end);
 		}
 		else{
 			// Show popUp
 			$("#date_error").html("Veuillez sélectionner des dates de début et fin SVP.");
-			
+
 		}
-		
+
 	});
 
 }
 
 
-function goToSearcItem(){
-	gotoURL(searchitems_jsp);
-}
+function goToSearchItem(){gotoURL(searchitems_jsp);}
 
 function loaning_request_response(rep){
 	openJModal(2000,
 			"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e! "
-			,goToSearcItem
-			);
-	
+			,goToSearchItem
+	);
 }
 
 function accept_item_request(id_applicant, id_item){	
