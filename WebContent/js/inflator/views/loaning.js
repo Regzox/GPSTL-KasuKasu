@@ -144,6 +144,8 @@ function request_item(id){
 			format_date_end  += str_date_end.getFullYear();     
 			
 			request_item_query(id, format_date_begin, format_date_end);
+			
+			$("#myModal").css("display", "none");
 		}
 		else{
 			// Show popUp
