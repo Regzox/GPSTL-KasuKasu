@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.LoaningDB;
@@ -134,7 +135,7 @@ public class Items {
 	
 	
 	public static void main(String[] args) throws JSONException, DatabaseException {
-		searchItems("Vélo RoûGe","1");
+		searchItems("Vï¿½lo Roï¿½Ge","1");
 	}
 
 	/**
@@ -178,5 +179,33 @@ public class Items {
 		else
 			js=new JSONArray(o.toString());
 		return js;
+	}
+	
+	
+	public static JSONObject userInfos(String userID) throws JSONException, DatabaseException
+	{
+		JSONObject jar=new JSONObject();
+		
+		JSONObject objects = Items.userItems("", userID);
+		int pret = objects.getJSONArray("items").length();
+		
+		JSONObject loaning = Loaning.applicantLoanings(userID);
+		int emprunt = loaning.getJSONArray("loans").length();
+		
+		DBCursor dbc = ItemsDB.userItemsLoaned(userID);
+		int loaned = dbc.count();
+
+		DBCursor pend = LoaningDB.pendingRequests(userID);
+		int pendR = pend.count();
+		
+		
+		jar.put("pret",pret);
+		jar.put("emprunt",emprunt);
+		jar.put("loaned",loaned);
+		jar.put("pending",pendR);
+
+
+					
+		return jar;
 	}
 }

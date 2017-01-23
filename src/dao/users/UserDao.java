@@ -10,6 +10,9 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -17,6 +20,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
+import dao.ExchangePointsDB;
 import dao.FriendsDao;
 import dao.search.FuzzyFinder;
 import dao.search.ObjetRSV;
@@ -24,12 +28,15 @@ import dao.search.PatternsHolder;
 import dao.tools.DataEncryption;
 import entities.User;
 import enumerations.Status;
+import exceptions.DatabaseException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
+import services.Items;
+import services.Loaning;
 
 /**
- * @author Anagbla Jean, Daniel RADEAU */
+ * @author Anagbla Jean, Daniel RADEAU, Lina YAHI */
 public class UserDao {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("users");
@@ -126,7 +133,7 @@ public class UserDao {
 	}
 
 	/**
-	 * Retourne la liste des utilisateurs où le champ 'fields' a pour valeur 'value'. 
+	 * Retourne la liste des utilisateurs oï¿½ le champ 'fields' a pour valeur 'value'. 
 	 * @param field
 	 * @param value
 	 * @rebasetested
@@ -476,6 +483,8 @@ public class UserDao {
 				new BasicDBObject("_id",new ObjectId(id)),
 				new BasicDBObject("$unset", new BasicDBObject("vacation","")));
 	}
+	
+	
 	
 	
 	/**
