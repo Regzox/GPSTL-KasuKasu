@@ -70,19 +70,19 @@ public class Loaning {
 		String datedebut= 
 				calfin.get(Calendar.DAY_OF_MONTH)+"/"
 						+(1+calfin.get(Calendar.MONTH))+"/"
-						+calfin.get(Calendar.YEAR)+" "
-						+calfin.get(Calendar.HOUR_OF_DAY)+":"
-						+calfin.get(Calendar.MINUTE)+":"
-						+calfin.get(Calendar.SECOND);
+						+calfin.get(Calendar.YEAR);
+//						+calfin.get(Calendar.HOUR_OF_DAY)+":"
+//						+calfin.get(Calendar.MINUTE)+":"
+//						+calfin.get(Calendar.SECOND);
 
 		calfin.setTime(fin);
 		String datefin = 
 				calfin.get(Calendar.DAY_OF_MONTH)+"/"
 						+(1+calfin.get(Calendar.MONTH))+"/"
-						+calfin.get(Calendar.YEAR)+" "
-						+calfin.get(Calendar.HOUR_OF_DAY)+":"
-						+calfin.get(Calendar.MINUTE)+":"
-						+calfin.get(Calendar.SECOND);
+						+calfin.get(Calendar.YEAR);
+//						+calfin.get(Calendar.HOUR_OF_DAY)+":"
+//						+calfin.get(Calendar.MINUTE)+":"
+//						+calfin.get(Calendar.SECOND);
 
 		// Treduction stuff
 		if(value.equals("fr"))
@@ -93,8 +93,8 @@ public class Loaning {
 							+"venant de "+applicant.getFirstname()+" "+applicant.getName()+".\n"
 							+ "Votre ami "+applicant.getFirstname() 
 							+ " voudrait vous emprunter cet objet du "+ datedebut +" jusqu'au "+ datefin +".\n"
-							+ "\nMerci de consulter vos demandes d'emprunt."
-							+ "\n\nL'équipe KasuKasu");
+							+ "\nMerci de consulter vos demandes d'emprunt.\n"
+							+ "\n\nTeam KasuKasu");
 
 		if(value.equals("en"))
 			SendEmail.sendMail(to, 
@@ -103,7 +103,7 @@ public class Loaning {
 							+ "for the item : "+item.get("title")+" "
 							+"coming from "+applicant.getFirstname()+" "+applicant.getName()+"."
 							+ applicant.getFirstname() + " would like the object from the "+ debut +" to the"+ fin +".\n"
-							+ "\nPlease, check your account."
+							+ "\nPlease, check your account.\n"
 							+ "Team KasuKasu");
 
 		//Response
