@@ -21,7 +21,7 @@
 	src="/KasuKasu/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
-	
+
 <script type="text/javascript">
 $(document).ready(function() {
 	trans('itemmanagement.jsp','titre');
@@ -49,7 +49,7 @@ $(document).ready(function() {
 	<div id="page">
 		<div id="profile">
 			<table>
-				
+			
 				<tr class="row">
 					<td class="title" id='title'>Titre</td>
 					<td class="information" id="title">
@@ -71,16 +71,16 @@ $(document).ready(function() {
 				<tr class="row">
 					<td class="title">Zones</td>
 					<td class="information" id="zone"><span
-						class="tag label label-warning"> <span id='ajout'>Ajouter</span> <a><i
-								onclick="showZones()"
+						class="tag label label-warning"> <span id='ajout'>Ajouter</span>
+							<a><i onclick="showZones()"
 								class="remove glyphicon glyphicon-plus-sign glyphicon-blue"></i></a>
 					</span></td>
 				</tr>
 				<tr class="row">
 					<td class="title" id='groupes'>Groupes</td>
 					<td class="information" id="group"><span
-						class="tag label label-warning"> <span id='ajout1'>Ajouter</span> <a><i
-								onclick="showGroups(this)"
+						class="tag label label-warning"> <span id='ajout1'>Ajouter</span>
+							<a><i onclick="showGroups(this)"
 								class="remove glyphicon glyphicon-plus-sign glyphicon-blue"></i></a>
 					</span></td>
 				</tr>
@@ -94,7 +94,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- MODAL - ZONES  -->
 	<div id="modal-zones" class="modal fade" style="z-index: 1500">
 		<div class="modal-dialog modal-lg">
@@ -110,6 +110,7 @@ $(document).ready(function() {
 							<form id="zone-form" class="form-horizontal"
 								action="javascript:(function(){return;})()" method="get"
 								OnSubmit="javascript:addZone(this)">
+								<input type="hidden" id="objectId" value=<%=itemid%>>
 								<div>
 									<SELECT class="form-control" id="zone-id" name="nom" size="1">
 
@@ -148,7 +149,7 @@ $(document).ready(function() {
 								</SELECT>
 								<div class="col-sm-offset-4 col-sm-5">
 									<button type="submit" class="btn btn-primary" name="add-group"
-										id="add_group">Ajouter </button>
+										id="add_group">Ajouter</button>
 								</div>
 							</form>
 						</div>
@@ -156,9 +157,9 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>
-		
+
 		<%@ include file="/fragments/interface/footer.jspf"%>
-		
+
 	</div>
 </body>
 <script language="javascript">
