@@ -588,6 +588,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SaveLanguageServlet</servlet-name>
-    <url-pattern>/saveLanguage</url-pattern>
+    <url-pattern>/SaveLanguageServlet</url-pattern>
   </servlet-mapping>
 </web-app>

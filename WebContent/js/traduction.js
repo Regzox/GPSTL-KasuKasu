@@ -81,11 +81,11 @@ function printHTML(dom,htm)
 	$(dom).html(htm);
 }
 var result;
+var language="";
 /************************************* Affichage des langues ************************************/
 
-function editLang(lang="fr")
+function editLang(lang)
 {
-	
 	var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
@@ -108,17 +108,22 @@ function editLang(lang="fr")
 						bodymessage = bodymessage+
 						"<tr style='text-align: left'>" +
 						"<td> "+page+"</td>"+"<td> "+element+"</td>" ;
-						bodymessage = bodymessage +"<td> <input id='"+element+"'type='text' value='"+dico[i][page][element][lang]+"'></input></td>"+"<td> "+"</tr>";
+						bodymessage = bodymessage +"<td> <input id='"+page+"_"+element+"'type='text' value='"+dico[i][page][element][lang]+"'></input></td>"+"<td> "+"</tr>";
 					}
 				}	
 		}
-		var elt =message + bodymessage + endmessage;	
-		printHTML(document.getElementById("elt"),elt);
+		var elt =message + bodymessage + endmessage;
+		alert("lang = "+lang)
+		btn = "<button id='save' onclick='saveLang()'>Enregistrer</button>"
+		
+		printHTML(document.getElementById("elt"),elt + btn);
+		language = lang;
 }
 /************************************* Ajout d'une nouvelle langue************************************/
-
+var btn;
 function addLang()
 {
+	input_lang = "<input id='input_lang' ></input>"
 	var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
@@ -144,40 +149,38 @@ function addLang()
 					}
 				}	
 		}
-		var elt =message + bodymessage + endmessage;	
+		var elt =input_lang + message + bodymessage + endmessage;
 		printHTML(document.getElementById("elt"),elt);
+		btn = "<button id='save' onclick='addLanguage()'>Ajouter</button>"
 }
 /********************************************* Sauvegarde des modifications ***********************************/
 
 function saveLang()
 {
-//	var xhr = getXMLHttpRequest();
-//	xhr.open("POST","/KasuKasu/traduction_test.json",true);
-	
+	lang = language;
 	for(var i in result)
 	{
 		for(var page in result[i])
 			{
 				for(var element in result[i][page])
 				{	
-					result[i][page][element]["fr"] = document.getElementById(element).value;
+					result[i][page][element][lang] = document.getElementById(page+"_"+element).value;
+					//console.log("result["+i+"]["+page+"]["+element+"]["+lang+"] = " +result[i][page][element][lang]);
 				}
 			}	
 	}
+
 	$.ajax({
 		type : "POST",
-		url : "saveLanguage",
-		data : result, 
-		dataType : "json",
+		url : SaveLanguageServlet,
+		data : JSON.stringify(result), 
+		dataType : 'json',
 		success :  function()
 		{
-		   
+			//TODO
 		},
 		error : function(XHR, testStatus, errorThrown) {
 		console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
 		}
 		});
-	//console.log(result);
-//	var file = new Blob(JSON.stringify(result), {type: JSON});
-//	xhr.send(JSON.stringify(result));
 }
