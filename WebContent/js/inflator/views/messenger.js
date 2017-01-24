@@ -25,18 +25,18 @@ function Message(id,type,sender,sendername,recipient,recipientname,message,date)
 }
 Message.prototype.getHTML=function(){  
 	var s;
-	s="<div class=\"msgBox\" id=\"msgBox-"+this.id+"\">\n";
-	s+="<div class=\"msg-visible-infos\" id=\"msg-visible-infos-"+this.id+"\">\n";
-	s+="<span class=\"msg-sendername\" id=\"msg-sendername-"+this.id+"\" <b>"+this.sendername+"</b></span>\n";
-	s+="<span class=\"msg-date\" id=\"msg-date-"+this.id+"\">( "+this.date+" )</span>\n";
-	s+="</div>\n";	
-	s+="<div class=\"msg-content\">"+this.message+"</div>\n";
-	s+="<div class=\"msg-control\">\n";
+	s="<tr><td class=\"msgBox\" id=\"msgBox-"+this.id+"\">\n";
+	s+="<span class=\"msg-visible-infos\" id=\"msg-visible-infos-"+this.id+"\">\n";
+	s+="<span class=\"msg-sendername\" id=\"msg-sendername-"+this.id+"\"><b>"+this.sendername+"</b></span>\n";
+	s+="<span style=\"margin-left:5px;\" class=\"msg-date\" id=\"msg-date-"+this.id+"\">"+this.date+" </span>\n";
+	s+="</span>\n<br>";	
+	s+="<span style=\"margin-left:10px;\" class=\"msg-content\">"+this.message+"</span>\n";
+	s+="<span class=\"msg-control\">\n";
 	s+="<span style=\"display:none;\" class=\"msg-hiden-control\" id=\"msg-hiden-id-"+this.id+"\">"+this.id+"</span>\n";
 	s+="<span style=\"display:none;\" class=\"msg-hiden-control\" id=\"msg-hiden-sender-"+this.id+"\">"+this.sender+"</span>\n";
 	s+="<span style=\"display:none;\" class=\"msg-hiden-control\" id=\"msg-hiden-recipient-"+this.id+"\">"+this.recipient+"</span>\n";
-	s+="</div>\n";
-	s+="</div><br>\n";
+	s+="</span>\n";
+	s+="</td></tr>\n";
 	return s;
 };
 
@@ -89,7 +89,7 @@ Message.TraiteReponse = function(result){
 	for(var message in messages)
 		MESSAGESMAP.set(message.id,message);
 
-	var fhtm="<div id=\"universalBox\">\n";		
+	var fhtm="<div id=\"universalBox\" align=\"center\">\n<table>";		
 	if(messages.length==0)
 	{
 		if(bool == 0)
@@ -101,8 +101,8 @@ Message.TraiteReponse = function(result){
 	for(var i=0;i<messages.length;i++)
 		//alert("messages[i] : "+JSON.stringify(messages[i]));
 		fhtm+=(messages[i]).getHTML();
-			
-	fhtm+="</div>\n"; //universalBox end
+
+	fhtm+="</table></div>\n"; //universalBox end
 	//alert("#html conversation_mirror: "+fhtm);
 	printHTML("#found-messages",fhtm);  
 }
@@ -118,14 +118,14 @@ function Speaker(id,type,interlocutor){
 
 Speaker.prototype.getHTML=function(){  
 	var s;
-	s="<div class=\"speakerBox\" id=\"speakerBox-"+this.id+"\">\n";
-	s+="<div class=\"speaker-visible-infos\" id=\"speaker-visible-infos-"+this.id+"\">\n";
+	s="<tr><td class=\"speakerBox\" id=\"speakerBox-"+this.id+"\">\n";
+	s+="<span style=\"margin-left:45%\" class=\"speaker-visible-infos\" id=\"speaker-visible-infos-"+this.id+"\">\n";
 	s+="<a class=\"speaker-username\" id=\"speaker-username-"+this.id+"\" href=\"conversation.jsp?uther="+this.id+"&interlocutor="+this.interlocutor+"\"><b>"+this.interlocutor+"</b></a>\n";
-	s+="</div>\n";	
-	s+="<div class=\"msg-control\">\n";
+	s+="</span>\n";	
+	s+="<span class=\"msg-control\">\n";
 	s+="<span style=\"display:none;\" class=\"msg-hiden-control\" id=\"msg-hiden-id-"+this.id+"\">"+this.id+"</span>\n";
-	s+="</div>\n";
-	s+="</div><br>\n";
+	s+="</span>\n";
+	s+="</td></tr>\n";
 	return s;
 };
 
@@ -151,7 +151,7 @@ Speaker.traiteReponse = function (result){
 	for(var speaker in speakers)
 		SPEAKERSMAP.set(speaker.id,speaker);
 
-	var fhtm="<div id=\"universalBox\">\n";		
+	var fhtm="<div id=\"universalBox\" align=\"center\">\n<table>";
 	if(speakers.length==0)
 	{
 		if(bool==0)
@@ -165,7 +165,7 @@ Speaker.traiteReponse = function (result){
 		//alert("messages[i] : "+JSON.stringify(speakers[i]));
 		fhtm+=(speakers[i]).getHTML()+"<br>";
 		
-	fhtm+="</div>\n"; //universalBox end
+	fhtm+="</table></div>\n"; //universalBox end
 	//alert("#html conversation_mirror: "+fhtm);
 	printHTML("#found-speakers",fhtm);  
 }

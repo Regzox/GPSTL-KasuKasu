@@ -113,7 +113,7 @@ function editLang(lang)
 				}	
 		}
 		var elt =message + bodymessage + endmessage;
-		alert("lang = "+lang)
+		//alert("lang = "+lang)
 		btn = "<button id='save' onclick='saveLang()'>Enregistrer</button>"
 		
 		printHTML(document.getElementById("elt"),elt + btn);
@@ -180,7 +180,7 @@ function saveLang()
 			//TODO
 		},
 		error : function(XHR, testStatus, errorThrown) {
-		console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
+		//console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
 		}
 		});
 }

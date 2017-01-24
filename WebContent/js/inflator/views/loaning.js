@@ -4,13 +4,16 @@ if(document.cookie.search("lang=en")!=-1)
 else
 	if(document.cookie.search("lang=fr")!=-1)
 		bool=0;
-function Loan(loan_id,item,title,debut,fin){
+function Loan(loan_id,item,title,debut,fin,owner,ownername){
 	//alert("new Loan("+loan_id+","+item+","+title+","+debut+","+fin+")");
 	this.loan_id=loan_id;
 	this.item=item;
 	this.title=title;
 	this.debut=debut;
 	this.fin=fin;
+	this.owner=owner;
+	this.ownername=ownername;
+
 } 
 
 /**
@@ -22,17 +25,27 @@ function Loan(loan_id,item,title,debut,fin){
  * @returns
  */
 function request_item_query(id, begin, end){	
+	openWaiter();
 	$.ajax({
 		type : "POST",
 		url : RequestItemServlet,
 		data : "id=" +id +"&debut="+ begin + "&fin=" + end,
 		dataType : "JSON",
-		success : loaning_request_response,
+		success : request_item_query_response,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+			openJModal(2000,"Une erreur s'est produite!");
 		}
 	});
 }
+function goToSearchItem(){gotoURL(searchitems_jsp);}
+function request_item_query_response(rep){
+	openJModal(2000,
+			"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e! "
+			,goToSearchItem
+	);
+}
+
 
 //Request item process
 //1) Show date/time dialog
@@ -55,7 +68,7 @@ function request_item(id){
 			"</div>\n" +
 			"</td>\n"+
 			"<td>\n"+
-			
+
 			"<div class='end_section'>\n" +
 			"<span>Date de fin du prêt</span>\n" +
 			"<div id='date_end'></div>\n" +
@@ -74,24 +87,24 @@ function request_item(id){
 
 	// Define jquery data pickers
 	$('#date_begin').datepicker({
-		
+
 		dateFormat:'mm/dd/yy', minDate: new Date(),	
-		
+
 		// Update brother's minDate
 		onSelect: function(dateText, inst) {
 			// Destroy old brother
 			jQuery("#date_end").datepicker("destroy");
-			
+
 			str_date_end = null;
-			 
+
 			// Restrict end date range
 			$('#date_end').datepicker(
 					{dateFormat:'mm/dd/yy', minDate: new Date(dateText),
 						onSelect: function(dateText, inst) {
 							str_date_end=new Date(dateText);
-							
+
 						}
-					
+
 					}
 
 			);
@@ -108,9 +121,9 @@ function request_item(id){
 		dateFormat:'mm/dd/yy', minDate: new Date(),	
 		onSelect: function(dateText, inst) {
 			str_date_end=new Date(str_date_end); 
-			
+
 		}
-	
+
 	});
 
 	// Show popUp
@@ -132,7 +145,7 @@ function request_item(id){
 			format_date_begin += month_index;  
 			format_date_begin += "-";
 			format_date_begin += str_date_begin.getFullYear();
-			
+
 			// Reformat end
 			var format_date_end ="";
 			format_date_end  += str_date_end.getDate();    
@@ -142,23 +155,18 @@ function request_item(id){
 			format_date_end  += month_index;       
 			format_date_end  += "-";                      
 			format_date_end  += str_date_end.getFullYear();     
-			
+
+			$("#myModal").css("display", "none");
 			request_item_query(id, format_date_begin, format_date_end);
 		}
 		else{
 			// Show popUp
 			$("#date_error").html("Veuillez sélectionner des dates de début et fin SVP.");
-			
 		}
-		
 	});
-
 }
 
 
-function loaning_request_response(rep){	
-	gotoURL(searchitems_jsp);
-}
 
 function accept_item_request(id_applicant, id_item){	
 	$.ajax({
@@ -166,24 +174,40 @@ function accept_item_request(id_applicant, id_item){
 		url : AcceptRequestsServlet,
 		data : "applicant="+id_applicant+"&item="+id_item,
 		dataType : "JSON",
-		success : loaning_request_response,
+		success : accept_item_request_response,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+			openJModal(2000,"Une erreur s'est produite");
 		}
 	});
 }
+function goToApplicants(){gotoURL(applicants_jsp);}
+function accept_item_request_response(rep){
+	openJModal(2000,
+			"Vous venez d'accepter cette requete. Votre ami en sera inform&eacute;."
+			,goToApplicants
+	);
+}
 
-function refuse_item_request(id){	
+
+function refuse_item_request(id_applicant,id_item){	
 	$.ajax({
 		type : "POST",
 		url : RefuseRequestsServlet,
-		data : "id=" +id,
+		data : "applicant="+id_applicant+"&item="+id_item,
 		dataType : "JSON",
-		success : loaning_request_response,
+		success : refuse_item_request_response,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+			openJModal(2000,"Une erreur s'est produite");
 		}
 	});
+}
+function refuse_item_request_response(rep){
+	openJModal(2000,
+			"Vous venez de refuser cette requete. Votre ami en sera inform&eacute;."
+			,goToApplicants
+	);
 }
 
 
@@ -200,49 +224,50 @@ function find_user_loans(){
 }
 
 
-list_loaning_response = function(json)
-{var jsob =JSON.parse(JSON.stringify(json),mirror);
-loans = jsob.loans;
-if(jsob.error==undefined){
-	var fhtm="<br><div id=\"loansBox\">";	
+list_loaning_response = function(json){
+	var jsob =JSON.parse(JSON.stringify(json),mirror);
+	loans = jsob.loans;
+	if(jsob.error==undefined){
 
-	if(loans.length==0 && bool==0)	
-		fhtm+="<h3>Vous n'avez emprunté aucun objet.</h3>";
-	if(loans.length==0 && bool==1)	
-		fhtm+="<h3>You haven't borrowed any item.</h3>";
+		var fhtm="<div id=\"loansBox\" align=\"center\">\n<table>";
 
-	for(var i in loans)
-		fhtm+= loans[i].getHTML();
+		if(loans.length==0 && bool==0)	
+			fhtm+="<h3>Vous n'avez emprunté aucun objet.</h3>";
+		if(loans.length==0 && bool==1)	
+			fhtm+="<h3>You haven't borrowed any item.</h3>";
 
-	fhtm+="</div>\n"; 
-	printHTML("#found-loans",fhtm);
+		for(var i in loans)
+			fhtm+= loans[i].getHTML();
 
-	for (var loan of loans) {
-		console.log(loan);
-		$("#item-title" + loan.loan_id).append(makeReturnItemButton(loan));
-	}
+		fhtm+="</table></div>\n";
+		printHTML("#found-loans",fhtm);
 
-}else
-	console.log("server error ! : " +jsob.error+"\n");
+		for (var loan of loans) {
+			console.log(loan);
+			$("#loanBox" + loan.loan_id).append(makeReturnItemButton(loan));
+		}
+
+	}else
+		console.log("server error ! : " +jsob.error+"\n");
 }
 
 Loan.prototype.getHTML=function(){  
 	//alert("Loan ->getHtml ");
 	var s;
-	s="<div class=\"loanBox\" id=\"loanBox"+ this.loan_id +"\">";
-	s+="<div class=\"item-title\" id=\"item-title"+ this.loan_id +"\">";
+	s="<tr><td class=\"loanBox\" id=\"loanBox"+ this.loan_id +"\">";
+	s+="<span class=\"item-title\" id=\"item-title"+ this.loan_id +"\">";
 	s+="<a href=" + item_jsp + "?id="+ this.item +"&title="+ this.title +">";
 	s+="<b>"+ this.title +"</b>";
 	s+="</a>";
-	s+="</div>\n";	
-	s+="<div class=\"item-infos\">";
-	//s+="<span class=\"visible-item-info\" id=\"item-owner-info"+this.id+"\">"+this.owner+"</span>";//TODO access profil or contact
-	s+="</div> ";
-	s+="<div class=\"loan-more\">";
-	//s+="<span class=\"loan-date\" id=\"loan-date"+this.id+"\">"+this.debut+"</span>\n";
-	//s+="<span class=\"loan-date\" id=\"loan-date"+this.id+"\">"+this.fin+"</span>\n";
-	s+="</div>";
-	s+="</div><hr><br>\n";
+	s+="</span>\n";	
+	s+="<span class=\"item-infos\">";
+	s+="<span class=\"visible-item-info\" id=\"item-owner-info"+this.id+"\"> de <a href=/KasuKasu/restricted/memberprofile.jsp?id="+this.owner+">"+this.ownername+"</a></span>";
+	s+="</span> ";
+	s+="<span class=\"loan-more\">";
+	s+="<span class=\"loan-date\" id=\"loan-date"+this.id+"\"> du "+this.debut+"</span>\n";
+	s+="<span class=\"loan-date\" id=\"loan-date"+this.id+"\"> au "+this.fin+"</span>\n";
+	s+="</span>";
+	s+="</td></tr>\n";
 	return s;
 };
 
@@ -269,6 +294,5 @@ function makeReturnItemButton(loan) {
 			window.location.reload();
 		});
 	});
-
 	return button;
 }

@@ -1,7 +1,5 @@
 package services;
 
-import java.sql.SQLException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -147,7 +145,7 @@ public class Groups {
 	 * Return the list of group's members
 	 * @param gid
 	 * @return */
-	public static JSONObject groupMembers(String groupID) throws JSONException, DatabaseException, SQLException{
+	public static JSONObject groupMembers(String groupID) throws JSONException, DatabaseException{
 		BasicDBList members= GroupsDB.groupMembers(groupID);
 		JSONArray jar = new JSONArray();
 		if(members!=null)

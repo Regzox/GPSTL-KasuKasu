@@ -1,6 +1,7 @@
 /**
  * ANAGBLA Joan*/
 bool=0;
+applicants_shared_div_state_opened=false;
 if(document.cookie.search("lang=en")!=-1)
 	bool=1;
 else
@@ -44,7 +45,7 @@ Item.getItemTraiteReponseJSON=function(json){
 				//alert("JSOB.htmling : "+items[i].getHTML());
 			}
 		}		
-		
+
 		// DatePickerDialog
 		fhtm+="<div id='datePickerDialog'></div>"; 
 		fhtm+="</div>\n"; 
@@ -79,13 +80,13 @@ Item.listItemTraiteReponseJSON=function(json){
 				//alert("JSOB.htmling : "+items[i].getHTML());
 			}
 		}		
-		
+
 		// DatePickerDialog
 		fhtm+="<div id='datePickerDialog'></div>"; 
 		fhtm+="</div>\n"; 
 		//alert("items.html = "+fhtm);  
 		printHTML("#found-items",fhtm); 
-		
+
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
 };
@@ -164,13 +165,13 @@ Item.prototype.getHTML2=function(){
 	"id=\"remove_item_btn"+this.id+"\" OnClick=\"javascript:removeItem('"+this.id+"')\"/>\n";
 	if(bool==0)
 		s+="<input style=\"float:left;\" " +
-				"onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
-						" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modifier\">";
+		"onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
+		" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modifier\">";
 	if(bool==1)
 		s+="<input style=\"float:left;\"" +
-				" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
-						" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">";
-	
+		" onclick=\"window.location.href='" + ObjectManagementServlet + "?objectId="+this.id+"&data=null'\"" +
+		" type=\"button\" class=\"btn btn-primary btn-xs\" name=\"modify\" value=\"modify\">";
+
 	s+="<span  class=\"item-date\" id=\"item-date"+this.id+"\">"+this.date+"</span>\n";
 	s+="</div>";
 	s+="</div><hr><br>\n";
@@ -229,6 +230,20 @@ function item_applicants(id) {
 	});
 }
 
+function user_items_applicants() {
+	$.ajax({
+		type : "GET",
+		url : UserItemsApplicantsServlet,
+		data : "",
+		dataType : "JSON",
+		success : ProcessFindApplicants,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+
 function removeItem(id) {
 	reset_applicants_shared_div(id);
 
@@ -251,14 +266,17 @@ function refresh(result){
 		window.location.reload();
 }
 
-/**
- * Solution temporaire a corriger TODO
- */
+
 function reset_applicants_shared_div(id){
-	removeElt("#item-applicants");
-	printHTMLSup ("#itemBox"+id,"<div id=\"item-applicants\">" +
-			"<div id=\"current_item\" style=\"display:none;\">"+id+"<div>" +
-	"<br></div>");
+	if(applicants_shared_div_state_opened)
+		removeElt("#item-applicants");
+	else{
+		removeElt("#item-applicants");
+		printHTMLSup ("#itemBox"+id,"<div id=\"item-applicants\">" +
+				"<div id=\"current_item\" style=\"display:none;\">"+id+"<div>" +
+		"<br></div>");
+	}
+	applicants_shared_div_state_opened=!applicants_shared_div_state_opened;
 }
 
 
@@ -277,81 +295,79 @@ function getItem(id){
 }
 
 
-
-/**
- * GESTION TRES SALE DES APPLICANTS POUR CE PROTOTYPE (oN NE GERE PAS LE NOMBRE DAPPEL SERVER , PAS RE CACHE DES USER RETROUVES , A CORRIGER ...)
- * @param rep
- */
 function ProcessFindApplicants(rep) {
 	var message;
-	if(bool==0)
-		message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-		"</tr>";
+	message = "<table class=\"table\"><tr>";
+	if(bool==0){
+		message +="<th>Date de demande</th>";
+		if(rep.printobject==true)
+			message +="<th>Objet</th>";
+		message +="<th>De</th>"+"<th>&agrave;</th>"+"<th>Nom</th>"+"<th>Prenom</th>"+"<th>Profil</th>";
+	}
+	if(bool==1){
+		message +="<th>Date of request</th>";
+		if(rep.printobject==true)
+			message +="<th>Item</th>";
+		message +="<th>From</th>"+"<th>To</th>"+"<th>Last name</th>"+"<th>First name</th>"+"<th>Profile</th>";		
+	}
+	message+="</tr>";
 
-	if(bool==1)
-		message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Last name</th><th>First name</th><th>Profile</th>" +
-		"</tr>";
 	var endmessage ="</table>";
-
 	var bodymessage ="";
 	var nb=0;
+
 	if(rep.users != undefined)
 		$.each(rep.users, function(user, profile) {
-			var x,y,z;
+			var x,y,z,iid,ititle,debut,fin,when;
 			if(user !='warning'){
 				$.each(profile, function(field, value) {
 					//console.log(field); console.log(value);
-					if(field=='name')
-						x=value;
-					if(field=='firstname')
-						y=value;
-					if(field=='id')
-						z=value;
+					if(field=='name') x=value;
+					if(field=='firstname') y=value;
+					if(field=='id')	z=value;
+					if(field=='itemid')	iid=value;
+					if(field=='itemtitle')	ititle=value;
+					if(field=='debut') debut=value;
+					if(field=='fin') fin=value;
+					if(field=='when') when=value;
 				});
-
-				if(z==rep.id)return;//Skip if the user is yourself
 				nb++;
+
+				bodymessage +="<tr>";
+				bodymessage +="<td>"+when+"</td>";
+				
+				if(rep.printobject==true)
+					bodymessage +="<td><b><a href="+item_jsp+"?id="+iid+"&title="+ititle+">"+ititle+"</a></b></td>" ;
+				
+				bodymessage +="<td>"+debut+"</td>"+"<td>"+fin+"</td>"+"<td>"+x+"</td>"+"<td>"+y+"</td>";
+
 				if(bool==0)
 					bodymessage +=
-						"<tr>" +
-						"<td>"+x+"</td>" +
-						"<td>"+y+"</td>"+
-						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher le profil </a></td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\">Afficher</a></td>"+
 						"<td>" +
-						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"accept_request_btn\" " +
-						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
-						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"accept_request_btn\" " +
-						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
-				"</tr>";
+						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"btn btn-primary btn-xs\" " +
+						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+iid+"');\"/>\n"+
+						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"btn btn-primary btn-xs\" " +
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/></td>\n";
 				if(bool==1)
 					bodymessage +=
-						"<tr>" +
-						"<td>"+x+"</td>" +
-						"<td>"+y+"</td>"+
-						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\">Show</a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
-						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
+						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+iid+"');\"/>\n"+
 						"<input style=\"float:right;\" type=\"button\" value=\"Validate\" class=\"accept_request_btn\" " +
-						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
-				"</tr>";
-
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/></td>\n";
+				bodymessage +="</tr>";
 			} 
 		});
 	if(nb==0){
 		if(bool==0)
-			message="<br>Aucune demande sur cet objet pour le moment.";
+			message="<br>Aucune demande pour le moment.";
 		if(bool==1)
-			message="<br>No request on this item for the moment.";
-
+			message="<br>No request for the moment.";
 		bodymessage="";
 		endmessage="";
 	}
-	endmessage+="<br>";
 
 	var iahtm=(message+bodymessage+endmessage);
 	printHTML("#item-applicants",iahtm);

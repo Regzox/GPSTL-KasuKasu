@@ -14,6 +14,7 @@
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/profile.css" />
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/icon.css" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/jmodal.css" />
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/modifyobject.js"></script>
@@ -21,27 +22,34 @@
 	src="/KasuKasu/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
-	
+<script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
+
 <script type="text/javascript">
-$(document).ready(function() {
-	trans('itemmanagement.jsp','titre');
-	trans('itemmanagement.jsp','title');
-	trans('itemmanagement.jsp','desc');
-	trans('itemmanagement.jsp','ajout');
-	trans('itemmanagement.jsp','groupes');
-	trans('itemmanagement.jsp','ajout1');
-	trans('itemmanagement.jsp','modify');
-	trans('itemmanagement.jsp','zones');
-	trans('itemmanagement.jsp','add_zone');
-	trans('itemmanagement.jsp','mes_groupes');
-	trans('itemmanagement.jsp','add_group');
-});
+	$(document).ready(function() {
+
+		getItemBusyStatus();
+
+		trans('itemmanagement.jsp', 'titre');
+		trans('itemmanagement.jsp', 'title');
+		trans('itemmanagement.jsp', 'desc');
+		trans('itemmanagement.jsp', 'ajout');
+		trans('itemmanagement.jsp', 'groupes');
+		trans('itemmanagement.jsp', 'ajout1');
+		trans('itemmanagement.jsp', 'modify');
+		trans('itemmanagement.jsp', 'zones');
+		trans('itemmanagement.jsp', 'add_zone');
+		trans('itemmanagement.jsp', 'mes_groupes');
+		trans('itemmanagement.jsp', 'add_group');
+	});
 </script>
 </head>
 <body>
+
 	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-	<%String itemid = (String)request.getParameter("objectId");%>
+	<%
+		String itemid = (String) request.getParameter("objectId");
+	%>
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
@@ -49,7 +57,9 @@ $(document).ready(function() {
 	<div id="page">
 		<div id="profile">
 			<table>
-				
+				<tr class="row">
+					<td id="vacation_control"></td>
+				</tr>
 				<tr class="row">
 					<td class="title" id='title'>Titre</td>
 					<td class="information" id="title">
@@ -71,16 +81,16 @@ $(document).ready(function() {
 				<tr class="row">
 					<td class="title">Zones</td>
 					<td class="information" id="zone"><span
-						class="tag label label-warning"> <span id='ajout'>Ajouter</span> <a><i
-								onclick="showZones()"
+						class="tag label label-warning"> <span id='ajout'>Ajouter</span>
+							<a><i onclick="showZones()"
 								class="remove glyphicon glyphicon-plus-sign glyphicon-blue"></i></a>
 					</span></td>
 				</tr>
 				<tr class="row">
 					<td class="title" id='groupes'>Groupes</td>
 					<td class="information" id="group"><span
-						class="tag label label-warning"> <span id='ajout1'>Ajouter</span> <a><i
-								onclick="showGroups(this)"
+						class="tag label label-warning"> <span id='ajout1'>Ajouter</span>
+							<a><i onclick="showGroups(this)"
 								class="remove glyphicon glyphicon-plus-sign glyphicon-blue"></i></a>
 					</span></td>
 				</tr>
@@ -94,7 +104,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- MODAL - ZONES  -->
 	<div id="modal-zones" class="modal fade" style="z-index: 1500">
 		<div class="modal-dialog modal-lg">
@@ -110,6 +120,7 @@ $(document).ready(function() {
 							<form id="zone-form" class="form-horizontal"
 								action="javascript:(function(){return;})()" method="get"
 								OnSubmit="javascript:addZone(this)">
+								<input type="hidden" id="objectId" value=<%=itemid%>>
 								<div>
 									<SELECT class="form-control" id="zone-id" name="nom" size="1">
 
@@ -148,7 +159,7 @@ $(document).ready(function() {
 								</SELECT>
 								<div class="col-sm-offset-4 col-sm-5">
 									<button type="submit" class="btn btn-primary" name="add-group"
-										id="add_group">Ajouter </button>
+										id="add_group">Ajouter</button>
 								</div>
 							</form>
 						</div>
@@ -156,12 +167,12 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</div>
-		
+
 		<%@ include file="/fragments/interface/footer.jspf"%>
-		
+
 	</div>
 </body>
 <script language="javascript">
-window.onload=updateItemInformations();
+	window.onload = updateItemInformations();
 </script>
 </html>

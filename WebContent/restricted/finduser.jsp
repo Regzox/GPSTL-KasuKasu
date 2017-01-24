@@ -28,7 +28,7 @@ $(document).ready(function() {
 });
 </script>
 <title id='titre'>Rechercher un utilisateur</title>
-
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/applicants.css"/>
 </head>
 <body>
 

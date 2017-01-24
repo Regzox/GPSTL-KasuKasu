@@ -5,7 +5,7 @@ else
 	if(document.cookie.search("lang=fr")!=-1)
 		bool=0;
 function updateItemInformations(){
-	var id=document.getElementById("objectId").innerText;
+	var id=document.getElementById("objectId").value;
 	{
 		$.ajax({
 			type : "GET",
@@ -59,7 +59,7 @@ function processItemInformations(r){
 }
 
 function modifyItem(){
-	var id=document.getElementById("objectId").innerText;
+	var id=document.getElementById("objectId").value;
 	var title=$('#itemtitle').val();
 	var description=$('#itemdescription').val();
 	{
@@ -90,7 +90,7 @@ function modifyObject(){
 }
 
 function addZone(form){
-	var objectId = document.getElementById("objectId").innerText;
+	var objectId = document.getElementById("objectId").value;
 	var sel = document.getElementById("zone-id");
 	var text= sel.options[sel.selectedIndex].text;
 	var id= sel.options[sel.selectedIndex].value;
@@ -105,7 +105,7 @@ function addZone(form){
 }
 
 function addGroup(form){
-	var objectId = document.getElementById("objectId").innerText;
+	var objectId = document.getElementById("objectId").value;
 	var sel = document.getElementById("group-id");
 	var text= sel.options[sel.selectedIndex].text;
 	var id= sel.options[sel.selectedIndex].value;
@@ -150,7 +150,7 @@ function addGroupPost(obj,group){
 }
 
 function removeZone(element){
-	var objectId = document.getElementById("objectId").innerText;
+	var objectId = document.getElementById("objectId").value;
 	var elem=element.parentNode.parentNode;
 	var gid = elem.id;
 	var id=gid.substring(1,gid.length);
@@ -159,7 +159,7 @@ function removeZone(element){
 }
 
 function removeGroup(element){
-	var objectId = document.getElementById("objectId").innerText;
+	var objectId = document.getElementById("objectId").value;
 	var elem=element.parentNode.parentNode;
 	var gid = elem.id;
 	var id=gid.substring(1,gid.length);
@@ -199,4 +199,59 @@ function removeGroupPost(obj,group){
 
 function actionSuccess(){
 	
+}
+
+
+
+
+function setItemBusyStatus(newstatus){
+	var id=document.getElementById("objectId").value;
+	$
+	.post(SetItemBusyStatusServlet + "?status=" + newstatus+"&id="+id)
+	.done(function (rep) {
+		alert("TODO : rep.message"+rep.message)
+		openJModal(2000,
+				JSON.stringify(rep) //TODO
+				,getItemBusyStatus
+		);
+		
+	});
+}
+
+function getItemBusyStatus(){
+	var id=document.getElementById("objectId").value;
+	$
+	.get(GetItemStatusServlet + "?id="+id)
+	.done( function (data) {
+		var vaccation = $.parseJSON(data).vacationstatus;
+
+		if(vaccation){
+			printHTML('#vacation_control',
+					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Exposer</button>");
+			$("#vacation_control_button").css({
+				"background-color": "#f44336",
+				"color" : "white", 
+				"border" : "2px solid #008CBA"
+			});
+			$("#vacation_control_button").hover(
+					function(){$(this).css({"background-color": "white","color" : "#f44336"});}
+					,
+					function(){$(this).css({"background-color" : "#f44336", "color" : "white"});}
+			); 
+		}
+		else{
+			printHTML('#vacation_control',
+					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Ranger</button>");
+			$("#vacation_control_button").css({
+				"background-color": "white",
+				"color" : "#f44336", 
+				"border" : "2px solid #008CBA"
+			});
+			$("#vacation_control_button").hover(
+					function(){$(this).css({"background-color": "#f44336","color" : "white"});}
+					,
+					function(){$(this).css({"background-color" : "white", "color" : "#f44336"});}
+			); 
+		}
+	} );
 }

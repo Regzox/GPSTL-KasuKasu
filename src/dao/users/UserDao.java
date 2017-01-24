@@ -28,8 +28,9 @@ import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
 
+
 /**
- * @author Anagbla Jean, Daniel RADEAU */
+ * @author Anagbla Jean, Daniel RADEAU, Lina YAHI */
 public class UserDao {
 
 	public static DBCollection collection = KasuDB.getMongoCollection("users");
@@ -126,7 +127,7 @@ public class UserDao {
 	}
 
 	/**
-	 * Retourne la liste des utilisateurs où le champ 'fields' a pour valeur 'value'. 
+	 * Retourne la liste des utilisateurs oï¿½ le champ 'fields' a pour valeur 'value'. 
 	 * @param field
 	 * @param value
 	 * @rebasetested
@@ -476,6 +477,8 @@ public class UserDao {
 				new BasicDBObject("_id",new ObjectId(id)),
 				new BasicDBObject("$unset", new BasicDBObject("vacation","")));
 	}
+	
+	
 	
 	
 	/**

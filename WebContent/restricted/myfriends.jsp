@@ -20,6 +20,7 @@ $(document).ready(function() {
 	trans('myfriends.jsp','titre');
 });
 </script>
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/applicants.css"/>
 </head>
 <body onload="retrieveFriendsFunc();">
 	

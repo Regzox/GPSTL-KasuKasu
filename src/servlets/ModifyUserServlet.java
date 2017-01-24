@@ -1,6 +1,5 @@
 package servlets;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -79,9 +78,7 @@ public class ModifyUserServlet extends OnlinePostServlet {
 			oldUser = User.getUserById(userId);
 			System.out.println("oldUser : "+oldUser);
 			oldEmail = oldUser.getEmail();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -108,11 +105,11 @@ public class ModifyUserServlet extends OnlinePostServlet {
 					try {
 						User.getUser(email);
 						resp.getWriter().print(new Warning("Your new email is already choosen"));
-					} catch (SQLException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 						resp.getWriter().print(new Error("We apologize, an internal error has occured during email searching"));
 						return;
-					} catch (Exception e) {} // It's ok email is being modify
+					} // It's ok email is being modify
 				}
 			}
 

@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,15 +57,17 @@ public class Messenger {
 			DBObject dbo=cursor.next();
 			entities.User sender = UserDao.getUserById((String)dbo.get("sender"));
 			entities.User recipient = UserDao.getUserById((String)dbo.get("recipient"));
-			jar.put(new JSONObject()
-					.put("id",dbo.get("_id"))
-					.put("type","message")
-					.put("sender",dbo.get("sender"))
-					.put("sendername",sender.getName()+" "+sender.getFirstname())
-					.put("recipient",dbo.get("recipient"))
-					.put("recipientname",recipient.getName()+" "+recipient.getFirstname())
-					.put("message",dbo.get("message"))
-					.put("date",dbo.get("date")));}
+
+					jar.put(new JSONObject()
+							.put("id",dbo.get("_id"))
+							.put("type","message")
+							.put("sender",dbo.get("sender"))
+							.put("sendername",sender.getName()+" "+sender.getFirstname())
+							.put("recipient",dbo.get("recipient"))
+							.put("recipientname",recipient.getName()+" "+recipient.getFirstname())
+							.put("message",dbo.get("message"))
+							.put("date",Tools.reshapeDateLong((Date)dbo.get("date"))));
+		}
 		return new JSONObject().put("messages", jar);
 	}
 
@@ -99,6 +103,14 @@ public class Messenger {
 
 
 	public static void main(String[] args) throws JSONException, DatabaseException {
-		System.out.println(interlocutors("a981a551a770b86e02f3a5a0f49ee2bd"));}
-
+		System.out.println(interlocutors("a981a551a770b86e02f3a5a0f49ee2bd"));
+		Date d = (Date)MessengerDB.messages("588610d8ed0a2422703f1ad4").next().get("date");
+		System.out.println(d);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(d);
+		System.err.println(""+cal.get(Calendar.DAY_OF_MONTH)+"/"+
+				cal.get(Calendar.MONTH)+"/"+cal.get(Calendar.YEAR)+" "
+				+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)
+				+":"+cal.get(Calendar.SECOND));
+	}
 }

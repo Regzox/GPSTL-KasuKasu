@@ -570,7 +570,7 @@
     <servlet-name>SetUserVacationStatusServlet</servlet-name>
     <url-pattern>/setuservacationstatus</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <description></description>
     <display-name>GetUserVacationStatusServlet</display-name>
     <servlet-name>GetUserVacationStatusServlet</servlet-name>
@@ -582,6 +582,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>UserInfosPageAide</display-name>
+    <servlet-name>UserInfosPageAide</servlet-name>
+    <servlet-class>servlets.UserInfosPageAide</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserInfosPageAide</servlet-name>
+    <url-pattern>/userinfospageaide</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>SaveLanguageServlet</display-name>
     <servlet-name>SaveLanguageServlet</servlet-name>
     <servlet-class>servlets.SaveLanguageServlet</servlet-class>
@@ -589,5 +599,35 @@
   <servlet-mapping>
     <servlet-name>SaveLanguageServlet</servlet-name>
     <url-pattern>/SaveLanguageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserItemsApplicantsServlet</display-name>
+    <servlet-name>UserItemsApplicantsServlet</servlet-name>
+    <servlet-class>servlets.UserItemsApplicantsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserItemsApplicantsServlet</servlet-name>
+    <url-pattern>/useritemsapplicants</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetItemStatusServlet</display-name>
+    <servlet-name>GetItemStatusServlet</servlet-name>
+    <servlet-class>servlets.GetItemStatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetItemStatusServlet</servlet-name>
+    <url-pattern>/getitemstatus</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SetItemBusyStatusServlet</display-name>
+    <servlet-name>SetItemBusyStatusServlet</servlet-name>
+    <servlet-class>servlets.SetItemBusyStatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetItemBusyStatusServlet</servlet-name>
+    <url-pattern>/setitembusystatus</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -24,7 +24,7 @@ mirror =(function(key,value){
 	}
 
 	else if(isNumber(key) && value.type=="loan"){ 
-		var l = new Loan(value.loan_id,value.item,value.title,value.debut,value.fin);
+		var l = new Loan(value.loan_id,value.item,value.title,value.debut,value.fin,value.owner,value.ownername);
 		return (l);
 
 	}else if(isNumber(key) && (value.type=="message")){ 
@@ -35,10 +35,6 @@ mirror =(function(key,value){
 		var sp = new Speaker(value.id,value.type,value.interlocutor);
 		return (sp);
 	}
-
-
-
-
 
 	else{
 		//alert("revival -> value = "+value);

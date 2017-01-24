@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import exceptions.UserNotFoundException;
 import services.User;
 import servlets.tools.templates.offline.OfflinePostServlet;
+import utils.Tools;
 
 /**
  * * @author Anagbla Jean */
@@ -40,17 +42,34 @@ public class CreateUserServlet extends OfflinePostServlet {
 		}
 		if(value.equals(""))
 			value="fr";
-		JSONObject json = User.createUser(value,
-				params.get("email"),
-				params.get("mdp"),
-				params.get("nom"), 
-				params.get("prenom"),
-				params.get("numero"));
+		
+		entities.User user = null;
+		
+		try {
+			 user = User.getUser(params.get("email"));
+		} catch ( UserNotFoundException e ) {
+			System.out.println("Utilisateur non trouvé");
+		}
+		
+		if ( user == null ) {
+			
+			JSONObject json = User.createUser(
+					value,
+					params.get("email"),
+					params.get("mdp"),
+					params.get("nom"), 
+					params.get("prenom"),
+					params.get("numero"));
+			
+			user = User.getUser(params.get("email"));
+			request.getSession().setAttribute("userId", user.getId());
+			request.getSession().setMaxInactiveInterval(3600*24);//24 inactive hours before session invalidation
+			response.getWriter().print(( json != null ) ? json : Tools.serviceMessage(1));
+			
+		} else {
+			response.getWriter().print(Tools.serviceMessage("Cet email est déjà utilisé"));
+		}		
 
-		request.getSession().setAttribute("userId", 
-				User.getUser(params.get("email")).getId());
-		request.getSession().setMaxInactiveInterval(3600*24);//24 inactive hours before session invalidation
-		response.getWriter().print(json); 
 	}
 
 }
