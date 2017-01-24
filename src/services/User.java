@@ -317,12 +317,20 @@ public class User {
 		int sizeres = 10,i=0;
 		for(ObjetRSV user : UserDao.findUser(userId, query)){
 			if(i++>=sizeres) break;
-			jar.put(new JSONObject()
+			JSONObject o =new JSONObject()
 					.put("id", user.getDbo().get("_id"))
 					.put("email", user.getDbo().get("email"))
 					.put("name", user.getDbo().get("nom"))
 					.put("firstname", user.getDbo().get("prenom"))
-					.put("phone", user.getDbo().get("numero")));
+					.put("phone", user.getDbo().get("numero"));
+			String otherId=o.get("id").toString();
+			if(Friends.isPending(userId,otherId))
+				o.put("friend", "waiting");
+			else if(Friends.areFriends(userId,otherId))
+				o.put("friend", "friend");
+			else
+				o.put("friend", "stranger");
+			jar.put(o);
 		}
 		return new JSONObject().put("users",jar);
 	}
