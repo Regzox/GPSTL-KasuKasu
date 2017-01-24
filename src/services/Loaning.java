@@ -1,7 +1,4 @@
 package services;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.bson.types.ObjectId;
@@ -38,15 +35,13 @@ public class Loaning {
 	 * @param debut - Start date of the desired loaning.
 	 * @param fin  - End date of the desired loaning.
 	 * @throws Exception 
-	 * @throws SQLException */
+	 * @throws  */
 	public static JSONObject requestItem(	String value, 
 			String idApplicant,
 			String idItem, 
 			Date debut, 
 			Date fin) 
-					throws SQLException, Exception{
-		Calendar caldebut = Calendar.getInstance();
-		Calendar calfin = Calendar.getInstance();
+					throws Exception{
 
 		// Test if the request already exists
 		if(LoaningDB.requestExists(idApplicant, idItem))
@@ -66,25 +61,9 @@ public class Loaning {
 				item.get("owner").toString())
 				.getEmail();
 
-		caldebut.setTime(debut);
-		String datedebut= 
-				calfin.get(Calendar.DAY_OF_MONTH)+"/"
-						+(1+calfin.get(Calendar.MONTH))+"/"
-						+calfin.get(Calendar.YEAR)+" "
-						+calfin.get(Calendar.HOUR_OF_DAY)+":"
-						+calfin.get(Calendar.MINUTE)+":"
-						+calfin.get(Calendar.SECOND);
+		
 
-		calfin.setTime(fin);
-		String datefin = 
-				calfin.get(Calendar.DAY_OF_MONTH)+"/"
-						+(1+calfin.get(Calendar.MONTH))+"/"
-						+calfin.get(Calendar.YEAR)+" "
-						+calfin.get(Calendar.HOUR_OF_DAY)+":"
-						+calfin.get(Calendar.MINUTE)+":"
-						+calfin.get(Calendar.SECOND);
-
-		// Treduction stuff
+		// Traduction stuff
 		if(value.equals("fr"))
 			SendEmail.sendMail(to, 
 					"[kasukasu] Demande d'emprunt pour l'objet : "+item.get("title"),
@@ -92,7 +71,7 @@ public class Loaning {
 							+ "l'objet "+item.get("title")+" "
 							+"venant de "+applicant.getFirstname()+" "+applicant.getName()+".\n"
 							+ "Votre ami "+applicant.getFirstname() 
-							+ " voudrait vous emprunter cet objet du "+ datedebut +" jusqu'au "+ datefin +".\n"
+							+ " voudrait vous emprunter cet objet du "+ Tools.reshapeDateShort(debut) +" jusqu'au "+ Tools.reshapeDateShort(fin) +".\n"
 							+ "\nMerci de consulter vos demandes d'emprunt."
 							+ "\n\nL'équipe KasuKasu");
 
@@ -102,9 +81,9 @@ public class Loaning {
 					"You have got a loan request  "
 							+ "for the item : "+item.get("title")+" "
 							+"coming from "+applicant.getFirstname()+" "+applicant.getName()+"."
-							+ applicant.getFirstname() + " would like the object from the "+ debut +" to the"+ fin +".\n"
-							+ "\nPlease, check your account."
-							+ "Team KasuKasu");
+							+ applicant.getFirstname() + " would like to borrow this object from "+ Tools.reshapeDateShort(debut) +" to "+ Tools.reshapeDateShort(fin) +".\n"
+							+ "\nPlease, check your  loan requests."
+							+ "\n\nTeam KasuKasu");
 
 		//Response
 		return Tools.serviceMessage(1);
@@ -148,9 +127,9 @@ public class Loaning {
 					.put("loan_request", dbc.next().get("_id"))
 					.put("applicant", dbc.next().get("id_applicant"))
 					.put("item",  dbc.next().get("id_item"))
-					.put("when",dbc.next().get("when"))
-					.put("debut", dbc.next().get("debut"))
-					.put("fin", dbc.next().get("fin"))
+					.put("when", Tools.reshapeDateShort((Date)dbc.next().get("when")))
+					.put("debut", Tools.reshapeDateShort((Date)dbc.next().get("debut")))
+					.put("fin", Tools.reshapeDateShort((Date)dbc.next().get("fin")))
 					);
 		return new JSONObject().put("requests",jar);
 	}
@@ -160,13 +139,17 @@ public class Loaning {
 	 * Return a json object containing an applicant's loan which has been validated
 	 * @param idApplicant
 	 * @return
-	 * @throws JSONException
+	 * @throws Exception 
+	 * @throws  
 	 */
-	public static JSONObject applicantLoanings(String idApplicant)throws JSONException {
+	public static JSONObject applicantLoanings(String idApplicant)throws Exception {
 		JSONArray jar = new JSONArray();
 		DBCursor dbc = LoaningDB.applicantLoanings(idApplicant);
 		while(dbc.hasNext()){
 			DBObject dbo = dbc.next();
+			entities.User owner = User.getUserById(
+					((String)ItemsDB.getItem((String)dbo.get("id_item")).get("owner"))
+					);
 			jar.put(
 					new JSONObject()
 					.put("loan_id", dbo.get("_id"))
@@ -174,8 +157,10 @@ public class Loaning {
 					.put("type", "loan")
 					.put("title", ItemsDB.getItem(dbo.get("id_item").toString())
 							.get("title"))
-					.put("debut", dbo.get("debut")) 
-					.put("fin", dbo.get("fin")) 
+					.put("debut", Tools.reshapeDateShort((Date)dbo.get("debut"))) 
+					.put("fin", Tools.reshapeDateShort((Date)dbo.get("fin"))) 
+					.put("owner", owner.getId())
+					.put("ownername", owner.getName()+" "+ owner.getFirstname())
 					);
 		}
 		return new JSONObject().put("loans",jar);
@@ -187,13 +172,31 @@ public class Loaning {
 	 * @param idItem
 	 * @return
 	 * @throws UserNotUniqueException 
-	 * @throws UserNotFoundException */
-	public static JSONObject itemApplicants(String idItem) throws UserNotFoundException, UserNotUniqueException{
+	 * @throws UserNotFoundException 
+	 * @throws JSONException */
+	public static JSONObject itemApplicants(String idItem) throws UserNotFoundException, UserNotUniqueException, JSONException{
 		DBCursor dbc = LoaningDB.itemApplicants(idItem);
-		ArrayList<String> applicantIDs = new ArrayList<String>();
-		while(dbc.hasNext())
-			applicantIDs.add((String)dbc.next().get("id_applicant"));
-		return User.getUsersJSONProfileFromIds(applicantIDs);
+		JSONObject applicants = new JSONObject();
+		JSONArray jar = new JSONArray();
+
+		while(dbc.hasNext()){
+			DBObject dbo =dbc.next();
+			entities.User applicant = UserDao.getUserById((String)dbo.get("id_applicant"));
+			jar.put(new JSONObject()
+					.put("id",applicant.getId())
+					.put("debut",Tools.reshapeDateShort((Date)dbo.get("debut")))
+					.put("fin",Tools.reshapeDateShort((Date)dbo.get("fin")))
+					.put("when",Tools.reshapeDateLong((Date)dbo.get("when")))
+					.put("name", applicant.getName())
+					.put("firstname", applicant.getFirstname())
+					);
+
+			applicants.put("users", jar).put("printobject", false);
+
+			if (jar.length() ==0)
+				return new Warning("No requests found.");
+		}
+		return applicants;
 	}
 
 
@@ -215,13 +218,16 @@ public class Loaning {
 			entities.User applicant = UserDao.getUserById((String)dbo.get("id_applicant"));
 			jar.put(new JSONObject()
 					.put("id",applicant.getId())
+					.put("debut",Tools.reshapeDateShort((Date)dbo.get("debut")))
+					.put("fin",Tools.reshapeDateShort((Date)dbo.get("fin")))
+					.put("when",Tools.reshapeDateLong((Date)dbo.get("when")))
 					.put("name", applicant.getName())
 					.put("firstname", applicant.getFirstname())
 					.put("itemid", (String)dbo.get("id_item"))
 					.put("itemtitle",item.get("title"))
 					);
 
-			applicants.put("users", jar);
+			applicants.put("users", jar).put("printobject", true);
 
 			if (jar.length() ==0)
 				return new Warning("No requests found.");
@@ -229,7 +235,7 @@ public class Loaning {
 		return applicants;
 	}
 
-	public static void main(String[] args) throws JSONException, UserNotFoundException, UserNotUniqueException {
+	public static void main(String[] args) throws Exception {
 		System.out.println(applicantLoanings("5849a585641a80878d717279"));
 		System.out.println(userItemsApplicants("588610d8ed0a2422703f1ad4"));
 	}

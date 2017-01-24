@@ -1,6 +1,5 @@
 package services;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -37,13 +36,13 @@ public class User {
 	 * @param prenom
 	 * @param numero
 	 * @return
-	 * @throws SQLException
+	 * @throws 
 	 * @throws JSONException 
 	 * @throws UserNotUniqueException 
 	 * @throws UserNotFoundException 
 	 */
 	public static JSONObject createUser(String value, String email,String mdp,String nom,String prenom, String numero) 
-			throws SQLException, JSONException, UserNotFoundException, UserNotUniqueException{		
+			throws JSONException, UserNotFoundException, UserNotUniqueException{		
 		if (UserDao.userExistsByEmail(email))
 			return Tools.serviceMessage("User's email already exists.");
 
@@ -82,11 +81,11 @@ public class User {
 	 * @param password
 	 * @param newUser
 	 * @return
-	 * @throws SQLException
+	 * @throws 
 	 * @throws Exception
 	 */
 
-	public static boolean updateUser(String email, String password, entities.User newUser) throws SQLException, Exception {
+	public static boolean updateUser(String email, String password, entities.User newUser) throws Exception {
 		entities.User oldUser = UserDao.getUserByEmail(email);
 		if (!oldUser.getPassword().equals(password))
 			return false;
@@ -280,18 +279,18 @@ public class User {
 	 * Recupere l'utilisateur correspondant a l'email passe en parametre
 	 * @param email
 	 * @return
-	 * @throws SQLException
+	 * @throws 
 	 * @throws Exception
 	 */
 
-	public static entities.User getUser(String email) throws SQLException, Exception {
+	public static entities.User getUser(String email) throws Exception {
 		entities.User user = UserDao.getUserByEmail(email);
 		if (user != null)
 			return user;
 		return null;
 	}
 
-	public static entities.User getUserById(String id) throws SQLException, Exception {
+	public static entities.User getUserById(String id) throws Exception {
 		List<entities.User> users = UserDao.getUsersWhere("_id", id);
 		if (users.size() == 1)
 			return users.get(0);
@@ -300,7 +299,7 @@ public class User {
 		else return null;
 	}
 
-	public static void confirmUser(String id) throws UserNotFoundException, SQLException{ 
+	public static void confirmUser(String id) throws UserNotFoundException{ 
 		if(!UserDao.userExistsById(id))
 			throw new UserNotFoundException();
 		UserDao.confirmUser(id);

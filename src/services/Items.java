@@ -182,8 +182,7 @@ public class Items {
 	}
 	
 	
-	public static JSONObject userInfos(String userID) throws JSONException, DatabaseException
-	{
+	public static JSONObject userInfos(String userID) throws Exception {
 		JSONObject jar=new JSONObject();
 		
 		JSONObject objects = Items.userItems("", userID);

@@ -236,7 +236,7 @@ function user_items_applicants() {
 		url : UserItemsApplicantsServlet,
 		data : "",
 		dataType : "JSON",
-		success : ProcessFindApplicants2,
+		success : ProcessFindApplicants,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
@@ -295,152 +295,69 @@ function getItem(id){
 }
 
 
-
 function ProcessFindApplicants(rep) {
 	var message;
-	if(bool==0)
-		message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
-		"</tr>";
-
-	if(bool==1)
-		message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Last name</th><th>First name</th><th>Profile</th>" +
-		"</tr>";
-	var endmessage ="</table>";
-
-	var bodymessage ="";
-	var nb=0;
-	if(rep.users != undefined)
-		$.each(rep.users, function(user, profile) {
-			var x,y,z;
-			if(user !='warning'){
-				$.each(profile, function(field, value) {
-					//console.log(field); console.log(value);
-					if(field=='name')
-						x=value;
-					if(field=='firstname')
-						y=value;
-					if(field=='id')
-						z=value;
-				});
-
-				if(z==rep.id)return;//Skip if the user is yourself
-				nb++;
-				if(bool==0)
-					bodymessage +=
-						"<tr>" +
-						"<td>"+x+"</td>" +
-						"<td>"+y+"</td>"+
-						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher le profil </a></td>"+
-						"<td>" +
-						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"btn btn-primary btn-xs\" " +
-						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
-						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"btn btn-primary btn-xs\" " +
-						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
-				"</tr>";
-				if(bool==1)
-					bodymessage +=
-						"<tr>" +
-						"<td>"+x+"</td>" +
-						"<td>"+y+"</td>"+
-						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>"+
-						"<td>" +
-						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
-						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
-						"<input style=\"float:right;\" type=\"button\" value=\"Validate\" class=\"accept_request_btn\" " +
-						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
-				"</tr>";
-
-			} 
-		});
-	if(nb==0){
-		if(bool==0)
-			message="<br>Aucune demande sur cet objet pour le moment.";
-		if(bool==1)
-			message="<br>No request on this item for the moment.";
-
-		bodymessage="";
-		endmessage="";
+	message = "<table class=\"table\"><tr>";
+	if(bool==0){
+		message +="<th>Date de demande</th>";
+		if(rep.printobject==true)
+			message +="<th>Objet</th>";
+		message +="<th>De</th>"+"<th>&agrave;</th>"+"<th>Nom</th>"+"<th>Prenom</th>"+"<th>Profil</th>";
 	}
-	endmessage+="<br>";
+	if(bool==1){
+		message +="<th>Date of request</th>";
+		if(rep.printobject==true)
+			message +="<th>Item</th>";
+		message +="<th>From</th>"+"<th>To</th>"+"<th>Last name</th>"+"<th>First name</th>"+"<th>Profile</th>";		
+	}
+	message+="</tr>";
 
-	var iahtm=(message+bodymessage+endmessage);
-	printHTML("#item-applicants",iahtm);
-}
-
-
-
-
-
-
-function ProcessFindApplicants2(rep) {
-	var message;
-	if(bool==0)
-		message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Objet</th><th>Nom</th><th>Prenom</th><th>Profil</th>" +
-		"</tr>";
-
-	if(bool==1)
-		message = "<table class=\"table\">" +
-		"<tr>" +
-		"<th>Item</th><th>Last name</th><th>First name</th><th>Profile</th>" +
-		"</tr>";
 	var endmessage ="</table>";
-
 	var bodymessage ="";
 	var nb=0;
+
 	if(rep.users != undefined)
 		$.each(rep.users, function(user, profile) {
-			var x,y,z,iid,ititle;
+			var x,y,z,iid,ititle,debut,fin,when;
 			if(user !='warning'){
 				$.each(profile, function(field, value) {
 					//console.log(field); console.log(value);
-					if(field=='name')
-						x=value;
-					if(field=='firstname')
-						y=value;
-					if(field=='id')
-						z=value;
-					if(field=='itemid')
-						iid=value;
-					if(field=='itemtitle')
-						ititle=value;
+					if(field=='name') x=value;
+					if(field=='firstname') y=value;
+					if(field=='id')	z=value;
+					if(field=='itemid')	iid=value;
+					if(field=='itemtitle')	ititle=value;
+					if(field=='debut') debut=value;
+					if(field=='fin') fin=value;
+					if(field=='when') when=value;
 				});
-
-				if(z==rep.id)return;//Skip if the user is yourself
 				nb++;
+
+				bodymessage +="<tr>";
+				bodymessage +="<td>"+when+"</td>";
+				
+				if(rep.printobject==true)
+					bodymessage +="<td><b><a href="+item_jsp+"?id="+iid+"&title="+ititle+">"+ititle+"</a></b></td>" ;
+				
+				bodymessage +="<td>"+debut+"</td>"+"<td>"+fin+"</td>"+"<td>"+x+"</td>"+"<td>"+y+"</td>";
+
 				if(bool==0)
 					bodymessage +=
-						"<tr>" +
-						"<td><b><a href="+item_jsp+"?id="+iid+"&title="+ititle+">"+ititle+"</a></b></td>" +
-						"<td>"+x+"</td>" +
-						"<td>"+y+"</td>"+
-						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher le profil </a></td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\">Afficher</a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"btn btn-primary btn-xs\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+iid+"');\"/>\n"+
 						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"btn btn-primary btn-xs\" " +
-						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/>\n";
-				"</tr>";
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/></td>\n";
 				if(bool==1)
 					bodymessage +=
-						"<tr>" +
-						"<td><b><a href="+item_jsp+"?id="+iid+"&title="+ititle+">"+ititle+"</a></b></td>" +
-						"<td>"+ititle+"</td>" +
-						"<td>"+x+"</td>" +
-						"<td>"+y+"</td>"+
-						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\">Show</a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+iid+"');\"/>\n"+
 						"<input style=\"float:right;\" type=\"button\" value=\"Validate\" class=\"accept_request_btn\" " +
-						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/>\n";
-				"</tr>";
-
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/></td>\n";
+				bodymessage +="</tr>";
 			} 
 		});
 	if(nb==0){
@@ -448,11 +365,9 @@ function ProcessFindApplicants2(rep) {
 			message="<br>Aucune demande pour le moment.";
 		if(bool==1)
 			message="<br>No request for the moment.";
-
 		bodymessage="";
 		endmessage="";
 	}
-	endmessage+="<br>";
 
 	var iahtm=(message+bodymessage+endmessage);
 	printHTML("#item-applicants",iahtm);
