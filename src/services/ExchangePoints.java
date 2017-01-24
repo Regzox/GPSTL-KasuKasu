@@ -15,7 +15,6 @@ import com.mongodb.DBObject;
 import dao.ExchangePointsDB;
 import dao.items.ItemsDB;
 import dao.users.UserDao;
-import entities.User;
 import exceptions.DatabaseException;
 import utils.Tools;
 

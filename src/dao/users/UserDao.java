@@ -10,9 +10,6 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.bson.types.ObjectId;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -20,7 +17,6 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-import dao.ExchangePointsDB;
 import dao.FriendsDao;
 import dao.search.FuzzyFinder;
 import dao.search.ObjetRSV;
@@ -28,12 +24,10 @@ import dao.search.PatternsHolder;
 import dao.tools.DataEncryption;
 import entities.User;
 import enumerations.Status;
-import exceptions.DatabaseException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import kasudb.KasuDB;
-import services.Items;
-import services.Loaning;
+
 
 /**
  * @author Anagbla Jean, Daniel RADEAU, Lina YAHI */

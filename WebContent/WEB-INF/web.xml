@@ -610,4 +610,24 @@
     <servlet-name>UserItemsApplicantsServlet</servlet-name>
     <url-pattern>/useritemsapplicants</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetItemStatusServlet</display-name>
+    <servlet-name>GetItemStatusServlet</servlet-name>
+    <servlet-class>servlets.GetItemStatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetItemStatusServlet</servlet-name>
+    <url-pattern>/getitemstatus</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SetItemBusyStatusServlet</display-name>
+    <servlet-name>SetItemBusyStatusServlet</servlet-name>
+    <servlet-class>servlets.SetItemBusyStatusServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetItemBusyStatusServlet</servlet-name>
+    <url-pattern>/setitembusystatus</url-pattern>
+  </servlet-mapping>
 </web-app>

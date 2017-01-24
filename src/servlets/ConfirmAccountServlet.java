@@ -18,12 +18,13 @@ import servlets.tools.templates.offline.OfflinePostServlet;
  * * @author Anagbla Jean */
 public class ConfirmAccountServlet extends OfflinePostServlet {
 	private static final long serialVersionUID = 1L;
-	private Resource resource = ((Resource) this.getServletContext().getAttribute("resource"));
+	private Resource resource;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		super.epn= new HashSet<>(Arrays.asList(new String[]{"id"}));}
+		super.epn= new HashSet<>(Arrays.asList(new String[]{"id"}));
+		resource = ((Resource) this.getServletContext().getAttribute("resource"));}
 
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)

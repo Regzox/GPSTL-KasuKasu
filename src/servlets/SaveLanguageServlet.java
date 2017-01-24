@@ -1,13 +1,10 @@
 package servlets;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import services.ExchangePoints;
 import servlets.tools.templates.online.OnlineGetServlet;
 /**
  * 

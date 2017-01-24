@@ -110,22 +110,6 @@ public class ItemsDB {
 
 
 	/**
-	 * Set an item'status 
-	 * @param id
-	 * @param title
-	 * @param description */
-	public static void setItemStatus(String id,String status) {
-		collection.update(
-				new BasicDBObject()
-				.append("_id",new ObjectId(id))
-				,new BasicDBObject()
-				.append("$set",
-						new BasicDBObject()						
-						.append("status",status)));
-	}
-
-
-	/**
 	 * return an item (all fields)
 	 * @param id
 	 * @param title
@@ -140,6 +124,8 @@ public class ItemsDB {
 
 	/**
 	 * return item's status 
+	 * status are borrowed|available|busy
+	 * if an item doesn't have status it means it's available (by default)
 	 * @param id
 	 * @param title
 	 * @param description 
@@ -149,6 +135,25 @@ public class ItemsDB {
 				new BasicDBObject()
 				.append("_id",new ObjectId(id))).get("status");
 	}	
+	
+	
+	
+	/**
+	 * Set an item's status 
+	 * status are borrowed|available|busy
+	 * @param id
+	 * @param title
+	 * @param description */
+	public static void setItemStatus(String id,String status) {
+		collection.update(
+				new BasicDBObject()
+				.append("_id",new ObjectId(id))
+				,new BasicDBObject()
+				.append("$set",
+						new BasicDBObject()						
+						.append("status",status)));
+	}
+
 
 
 
