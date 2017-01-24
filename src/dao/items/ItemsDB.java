@@ -23,8 +23,7 @@ import dao.search.FuzzyFinder;
 import dao.search.PatternsHolder;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
-import services.Items;
-import services.Loaning;
+
 
 /**
  * @author ANAGBLA Joan, Giuseppe FEDERICO, Cedric Ribeiro, Lina YAHI*/

@@ -230,6 +230,20 @@ function item_applicants(id) {
 	});
 }
 
+function user_items_applicants() {
+	$.ajax({
+		type : "GET",
+		url : UserItemsApplicantsServlet,
+		data : "",
+		dataType : "JSON",
+		success : ProcessFindApplicants2,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+
 function removeItem(id) {
 	reset_applicants_shared_div(id);
 
@@ -282,10 +296,6 @@ function getItem(id){
 
 
 
-/**
- * GESTION TRES SALE DES APPLICANTS POUR CE PROTOTYPE (oN NE GERE PAS LE NOMBRE DAPPEL SERVER , PAS RE CACHE DES USER RETROUVES , A CORRIGER ...)
- * @param rep
- */
 function ProcessFindApplicants(rep) {
 	var message;
 	if(bool==0)
@@ -360,3 +370,91 @@ function ProcessFindApplicants(rep) {
 	var iahtm=(message+bodymessage+endmessage);
 	printHTML("#item-applicants",iahtm);
 }
+
+
+
+
+
+
+function ProcessFindApplicants2(rep) {
+	var message;
+	if(bool==0)
+		message = "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Objet</th><th>Nom</th><th>Prenom</th><th>Profil</th>" +
+		"</tr>";
+
+	if(bool==1)
+		message = "<table class=\"table\">" +
+		"<tr>" +
+		"<th>Item</th><th>Last name</th><th>First name</th><th>Profile</th>" +
+		"</tr>";
+	var endmessage ="</table>";
+
+	var bodymessage ="";
+	var nb=0;
+	if(rep.users != undefined)
+		$.each(rep.users, function(user, profile) {
+			var x,y,z,iid,ititle;
+			if(user !='warning'){
+				$.each(profile, function(field, value) {
+					//console.log(field); console.log(value);
+					if(field=='name')
+						x=value;
+					if(field=='firstname')
+						y=value;
+					if(field=='id')
+						z=value;
+					if(field=='itemid')
+						iid=value;
+					if(field=='itemtitle')
+						ititle=value;
+				});
+
+				if(z==rep.id)return;//Skip if the user is yourself
+				nb++;
+				if(bool==0)
+					bodymessage +=
+						"<tr>" +
+						"<td><b><a href="+item_jsp+"?id="+iid+"&title="+ititle+">"+ititle+"</a></b></td>" +
+						"<td>"+x+"</td>" +
+						"<td>"+y+"</td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher le profil </a></td>"+
+						"<td>" +
+						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"btn btn-primary btn-xs\" " +
+						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
+						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"btn btn-primary btn-xs\" " +
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
+				"</tr>";
+				if(bool==1)
+					bodymessage +=
+						"<tr>" +
+						"<td><b><a href="+item_jsp+"?id="+iid+"&title="+ititle+">"+ititle+"</a></b></td>" +
+						"<td>"+ititle+"</td>" +
+						"<td>"+x+"</td>" +
+						"<td>"+y+"</td>"+
+						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>"+
+						"<td>" +
+						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
+						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
+						"<input style=\"float:right;\" type=\"button\" value=\"Validate\" class=\"accept_request_btn\" " +
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
+				"</tr>";
+
+			} 
+		});
+	if(nb==0){
+		if(bool==0)
+			message="<br>Aucune demande sur cet objet pour le moment.";
+		if(bool==1)
+			message="<br>No request on this item for the moment.";
+
+		bodymessage="";
+		endmessage="";
+	}
+	endmessage+="<br>";
+
+	var iahtm=(message+bodymessage+endmessage);
+	printHTML("#item-applicants",iahtm);
+}
+

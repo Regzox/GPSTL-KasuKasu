@@ -116,6 +116,31 @@ public class LoaningDB {
 
 	
 	/**
+	 * list an item's applicants 
+	 * @param id_item
+	 * @return */
+	public static DBCursor itemApplicants(String id_item){
+		return requests.find(
+				new BasicDBObject()
+				.append("id_item", id_item));
+	}
+	
+	/**
+	 * list all user's items applicants
+	 * @param userID
+	 * @return */
+	public static DBCursor userItemsApplicants(String userID){
+		BasicDBList itemsListID = new BasicDBList();
+		for(DBObject uitem : ItemsDB.userItems(userID, ""))
+				itemsListID.add(uitem.get("_id").toString());
+		return requests.find(
+				new BasicDBObject("id_item",
+						new BasicDBObject("$in",itemsListID))
+				);
+	}
+	
+	
+	/**
 	 * List all the objects borrowed by a user
 	 * @param idApplicant
 	 * @return */
@@ -125,12 +150,6 @@ public class LoaningDB {
 				.append("id_applicant", idApplicant));
 	}
 	
-	
-	public static DBCursor itemApplicants(String id_item){
-		return requests.find(
-				new BasicDBObject()
-				.append("id_item", id_item));
-	}
 	
 	/**
 	 * Remove an loan by removing from the collection "loanings" and setting up to 'available' the item referenced in this one
@@ -175,8 +194,13 @@ public class LoaningDB {
 
 	public static void main(String[] args) {
 		// Test object request
-		requestItem("1","idObject", new Date(), new Date("01/26/2017"));
-		System.out.println(applicantRequests("5849a585641a80878d717279").next());
-		System.out.println(applicantLoanings("5849a585641a80878d717279").next());
+//		requestItem("1","idObject", new Date(), new Date("01/26/2017"));
+//		System.out.println(applicantRequests("5849a585641a80878d717279").next());
+//		System.out.println(applicantLoanings("5849a585641a80878d717279").next());
+		
+		DBCursor dbc =userItemsApplicants("588610d8ed0a2422703f1ad4");
+		while(dbc.hasNext())
+			System.out.println(dbc.next());
+			
 	}
 }

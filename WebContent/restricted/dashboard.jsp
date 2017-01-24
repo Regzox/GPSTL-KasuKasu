@@ -36,14 +36,13 @@
 			<p class='capital'>Bienvenue sur KasuKasu!</p>
 		</div>
 
-		<p id='act'></p>
-		<p id='emprunt'></p>
-		<p id='pret'></p>
-		<p id='pend'></p>
-		<pre id="contents"></pre>
-
-
-
+		<div align="center">
+			<p id='act'></p>
+			<p id='emprunt'></p>
+			<p id='pret'></p>
+			<p id='pend'></p>
+			<pre id="contents"></pre>
+		</div>
 
 		<%@ include file="/fragments/interface/footer.jspf"%>
 
