@@ -135,7 +135,7 @@ public class Items {
 	
 	
 	public static void main(String[] args) throws JSONException, DatabaseException {
-		searchItems("Vï¿½lo Roï¿½Ge","1");
+		searchItems("Vélo rouge","1");
 	}
 
 	/**
