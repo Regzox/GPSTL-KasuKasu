@@ -49,7 +49,6 @@ public class Messenger {
 	 * @throws JSONException */
 	public static JSONObject conversation(String userID,String remoteuser) 
 			throws DatabaseException, JSONException{
-		Calendar cal = Calendar.getInstance();
 		JSONArray jar=new JSONArray();
 		DBCursor cursor =MessengerDB.messages(userID,remoteuser);
 		cursor.sort(new BasicDBObject("date",-1)); 
@@ -59,16 +58,6 @@ public class Messenger {
 			entities.User sender = UserDao.getUserById((String)dbo.get("sender"));
 			entities.User recipient = UserDao.getUserById((String)dbo.get("recipient"));
 
-			cal.setTime((Date)dbo.get("date"));
-
-			String date = 
-					cal.get(Calendar.DAY_OF_MONTH)+"/"
-					+(1+cal.get(Calendar.MONTH))+"/"
-					+cal.get(Calendar.YEAR)+" "
-					+cal.get(Calendar.HOUR_OF_DAY)+":"
-					+cal.get(Calendar.MINUTE)+":"
-					+cal.get(Calendar.SECOND);
-
 					jar.put(new JSONObject()
 							.put("id",dbo.get("_id"))
 							.put("type","message")
@@ -77,7 +66,7 @@ public class Messenger {
 							.put("recipient",dbo.get("recipient"))
 							.put("recipientname",recipient.getName()+" "+recipient.getFirstname())
 							.put("message",dbo.get("message"))
-							.put("date",date));
+							.put("date",Tools.reshapeDateLong((Date)dbo.get("date"))));
 		}
 		return new JSONObject().put("messages", jar);
 	}

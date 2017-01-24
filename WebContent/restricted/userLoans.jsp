@@ -8,6 +8,7 @@
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/applicants.css"/>
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/loaning.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>

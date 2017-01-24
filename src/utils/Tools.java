@@ -2,6 +2,8 @@ package utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,4 +54,23 @@ public class Tools{
 					word2[0]+="*"; 
 	}
 	
+	
+	public static String reshapeDateShort(Date date){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.DAY_OF_MONTH)+"/"
+						+(1+calendar.get(Calendar.MONTH))+"/"
+						+calendar.get(Calendar.YEAR);
+	}
+	
+	public static String reshapeDateLong(Date date){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+				return calendar.get(Calendar.DAY_OF_MONTH)+"/"
+				+(1+calendar.get(Calendar.MONTH))+"/"
+				+calendar.get(Calendar.YEAR)+" "
+				+calendar.get(Calendar.HOUR_OF_DAY)+":"
+				+calendar.get(Calendar.MINUTE)+":"
+				+calendar.get(Calendar.SECOND);
+	}
 }

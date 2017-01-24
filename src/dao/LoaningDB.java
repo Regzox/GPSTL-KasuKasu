@@ -30,9 +30,9 @@ public class LoaningDB {
 	 * @param fin  - End date of the desired loaning.
 	 *  */
 	public static void requestItem(	String idApplicant,
-									String idItem, 
-									Date debut,
-									Date fin){
+			String idItem, 
+			Date debut,
+			Date fin){
 		requests.insert(
 				new BasicDBObject()
 				.append("id_applicant", idApplicant)
@@ -41,7 +41,7 @@ public class LoaningDB {
 				.append("debut", debut)
 				.append("fin", fin)
 				);
-		
+
 	}
 
 
@@ -51,8 +51,8 @@ public class LoaningDB {
 	 * @param idApplicant
 	 * @param idItem */
 	public static boolean requestExists(	String idApplicant,
-											String idItem
-										){
+			String idItem
+			){
 		return requests.find(
 				new BasicDBObject()
 				.append("id_applicant", idApplicant)
@@ -81,18 +81,16 @@ public class LoaningDB {
 				.append("id_applicant", dbo.get("id_applicant"))
 				.append("id_item", dbo.get("id_item"))
 				.append("when", new Date())
-				.append("debut", "") //TODO
-				.append("fin", "")//TODO
+				.append("debut", dbo.get("debut")) 
+				.append("fin", dbo.get("fin"))
 				);
-		requests.remove(
-				new BasicDBObject()
-				.append("_id", new ObjectId(dbo.get("_id").toString()))
-				);
+		//TODO avertir applicants malheureux
+		requests.remove(new BasicDBObject("id_item",idItem));
 		ItemsDB.setItemStatus(idItem,"borrowed");
 	}
 
 
-	/**
+	/**		//TODO avertir applicants malheureux
 	 * Refuse an applicant's request for an item
 	 * @param idRequest */
 	public static void refuseRequests(String idApplicant, String idItem){
@@ -114,7 +112,7 @@ public class LoaningDB {
 				.append("id_applicant", idApplicant));
 	}
 
-	
+
 	/**
 	 * list an item's applicants 
 	 * @param id_item
@@ -124,7 +122,7 @@ public class LoaningDB {
 				new BasicDBObject()
 				.append("id_item", id_item));
 	}
-	
+
 	/**
 	 * list all user's items applicants
 	 * @param userID
@@ -132,14 +130,14 @@ public class LoaningDB {
 	public static DBCursor userItemsApplicants(String userID){
 		BasicDBList itemsListID = new BasicDBList();
 		for(DBObject uitem : ItemsDB.userItems(userID, ""))
-				itemsListID.add(uitem.get("_id").toString());
+			itemsListID.add(uitem.get("_id").toString());
 		return requests.find(
 				new BasicDBObject("id_item",
 						new BasicDBObject("$in",itemsListID))
 				);
 	}
-	
-	
+
+
 	/**
 	 * List all the objects borrowed by a user
 	 * @param idApplicant
@@ -149,8 +147,8 @@ public class LoaningDB {
 				new BasicDBObject()
 				.append("id_applicant", idApplicant));
 	}
-	
-	
+
+
 	/**
 	 * Remove an loan by removing from the collection "loanings" and setting up to 'available' the item referenced in this one
 	 * 
@@ -158,14 +156,14 @@ public class LoaningDB {
 	 * 
 	 * @param id_loan
 	 */
-	
+
 	public static void removeLoan(String id_loan) {
 		DBCursor dbc = collection.find(new BasicDBObject("_id", new ObjectId(id_loan)));
 		DBObject loan = dbc.next();
-		
+
 		if (dbc.count() == 1) {
 			BasicDBObject item = new BasicDBObject().append("_id", new ObjectId((String)loan.get("id_item")));	
-			
+
 			dbc = items.find(item);
 			item = (BasicDBObject) dbc.next();
 			item.append("status", "available");
@@ -174,13 +172,13 @@ public class LoaningDB {
 			KasuDB.getMongoCollection("lhistory").save(loan);
 		}
 	}
-	
+
 	/**
 	 * Liste des demandes de prêt en attente
 	 * @param userID
 	 * @return */
 	public static DBCursor pendingRequests(String userID){
-		
+
 		BasicDBList useritems = new BasicDBList();
 		DBCursor dbc = ItemsDB.userItems2(userID);
 
@@ -194,13 +192,13 @@ public class LoaningDB {
 
 	public static void main(String[] args) {
 		// Test object request
-//		requestItem("1","idObject", new Date(), new Date("01/26/2017"));
-//		System.out.println(applicantRequests("5849a585641a80878d717279").next());
-//		System.out.println(applicantLoanings("5849a585641a80878d717279").next());
-		
+		//		requestItem("1","idObject", new Date(), new Date("01/26/2017"));
+		//		System.out.println(applicantRequests("5849a585641a80878d717279").next());
+		//		System.out.println(applicantLoanings("5849a585641a80878d717279").next());
+
 		DBCursor dbc =userItemsApplicants("588610d8ed0a2422703f1ad4");
 		while(dbc.hasNext())
 			System.out.println(dbc.next());
-			
+
 	}
 }

@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/jmodal.css" />
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/views/loaning.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
@@ -23,7 +24,7 @@ $(document).ready(function() {
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/applicants.css"/>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
-<title id="titre">Objet <%=request.getParameter("title")%></title>
+<title id="titre">Demandes d'emprunt</title>
 </head>
 <body onload="user_items_applicants()">
 
