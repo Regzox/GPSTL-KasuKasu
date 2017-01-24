@@ -68,7 +68,7 @@ function ProcessFindUser(rep)
 				nb++;
 				if(bool==0){
 					bodymessage = bodymessage+
-					"<tr>" +
+					"<tr style='text-align: left'>" +
 					"<td>"+x+"</td>" +
 					"<td>"+y+"</td>"+
 					"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Voir Profil </a></td>";
@@ -91,7 +91,7 @@ function ProcessFindUser(rep)
 				}
 				if(bool==1){
 					bodymessage = bodymessage+
-					"<tr>" +
+					"<tr style='text-align: left'>" +
 					"<td>"+x+"</td>" +
 					"<td>"+y+"</td>"+
 					"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show Profile </a></td>";
