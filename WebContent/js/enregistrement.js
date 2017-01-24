@@ -247,11 +247,11 @@ function traiteReponseEnregistrement(rep)
 	else if (rep.message!=undefined)
 	{
 		if (rep.message!="1") func_erreur_inscription(rep.message);
-		else window.location.href = kasukasu.private.dashboard;
+		else window.location.href = dashboard_jsp;
 	}
 	else 
 	{
-		window.location.href = kasukasu.private.dashboard;
+		window.location.href = dashboard_jsp;
 	}
 }
 
