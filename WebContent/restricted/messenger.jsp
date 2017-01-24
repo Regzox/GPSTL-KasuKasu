@@ -20,6 +20,7 @@ $(document).ready(function() {
 	trans('messenger.jsp','titre');
 });
 </script>
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/messenger.css" />
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
 <body id="gc-search" onload="interlocutors()">
