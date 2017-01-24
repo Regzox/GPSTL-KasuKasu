@@ -206,7 +206,11 @@ public class ObjectManagementServlet extends HttpServlet{
 				}
 				switch(action){
 				case "update" :
+					try{
 					Items.updateItem(userId, objectId, title, description);
+					}catch(Exception e){
+						response.sendRedirect(resource.relativePath("dashboard_jsp"));
+					}
 					break;
 				case "delete" :
 					break;
