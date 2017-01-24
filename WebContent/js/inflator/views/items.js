@@ -422,9 +422,9 @@ function ProcessFindApplicants2(rep) {
 						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher le profil </a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"btn btn-primary btn-xs\" " +
-						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
+						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+iid+"');\"/>\n"+
 						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"btn btn-primary btn-xs\" " +
-						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/>\n";
 				"</tr>";
 				if(bool==1)
 					bodymessage +=
@@ -436,18 +436,18 @@ function ProcessFindApplicants2(rep) {
 						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>"+
 						"<td>" +
 						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
-						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n"+
+						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+iid+"');\"/>\n"+
 						"<input style=\"float:right;\" type=\"button\" value=\"Validate\" class=\"accept_request_btn\" " +
-						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+$("#current_item").text()+"');\"/>\n";
+						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/>\n";
 				"</tr>";
 
 			} 
 		});
 	if(nb==0){
 		if(bool==0)
-			message="<br>Aucune demande sur cet objet pour le moment.";
+			message="<br>Aucune demande pour le moment.";
 		if(bool==1)
-			message="<br>No request on this item for the moment.";
+			message="<br>No request for the moment.";
 
 		bodymessage="";
 		endmessage="";

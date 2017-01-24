@@ -15,29 +15,28 @@
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	trans('messenger.jsp','titre1');
-	trans('messenger.jsp','titre');
-});
+	$(document).ready(function() {
+		trans('messenger.jsp', 'titre1');
+		trans('messenger.jsp', 'titre');
+	});
 </script>
-<link type="text/css" rel="stylesheet" href="/KasuKasu/css/messenger.css" />
+<link type="text/css" rel="stylesheet"
+	href="/KasuKasu/css/messenger.css" />
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
 <body id="gc-search" onload="interlocutors()">
-	
+
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id="page">
-
-		<h1 id="titre" class="title" align="center">Toutes mes
-			conversations</h1>
-		<br>
-		<div id="found-speakers" align="center" class="result_writable_zone"></div>
-		<br>
-
+		<div class='layer-center'>
+			<h1 id="titre" class="title" align="center">Toutes mes
+				conversations</h1>
+			<hr style="width:80%; margin-left:10%"><br>
+			<div id="found-speakers" align="center" class="result_writable_zone"></div>
+		</div>
 		<%@ include file="/fragments/interface/footer.jspf"%>
-		
 	</div>
 </body>
 </html>

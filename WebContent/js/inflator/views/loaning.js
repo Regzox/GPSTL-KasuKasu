@@ -169,6 +169,7 @@ function loaning_request_response(rep){
 }
 
 function accept_item_request(id_applicant, id_item){	
+	alert(id_applicant+" "+id_item)
 	$.ajax({
 		type : "POST",
 		url : AcceptRequestsServlet,
@@ -277,6 +278,5 @@ function makeReturnItemButton(loan) {
 			window.location.reload();
 		});
 	});
-
 	return button;
 }
