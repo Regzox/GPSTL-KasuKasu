@@ -215,6 +215,7 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 	$.ajax({
 		type : "POST",
 		url : "createuser",
+        async: false,
 		xhrFields: 
 		{
 			withCredentials: true
