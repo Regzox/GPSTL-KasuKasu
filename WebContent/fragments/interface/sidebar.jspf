@@ -11,6 +11,7 @@ $(document).ready(function() {
 	trans('sidebar.jspf','my_places');
 	trans('sidebar.jspf','messaging');
 	trans('sidebar.jspf','help');
+	trans('sidebar.jspf','gest_lang');
 });
 </script>
 <div class="sidebar-wrapper">

@@ -1,8 +1,8 @@
 bool=0;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")
 		bool=1;
 	else
-		if(document.cookie.search("lang=fr")!=-1)
+		if(readCookie("lang") == "fr")
 			bool=0;
 function finduseramongfriends(query) {
 	if (query.length==0) return;

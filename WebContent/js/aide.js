@@ -1,11 +1,9 @@
 bool=0;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")
 	bool=1;
 else
-	if(document.cookie.search("lang=fr")!=-1)
+	if(readCookie("lang") == "fr")
 		bool=0;
-
-
 
 function init()
 {
@@ -22,8 +20,8 @@ function init()
 		{
 
 			act = document.getElementById('act');
-			if(bool==0) act.innerHTML=' Actuellement:';
-			else if (bool==1) act.innerHTML=' Currently:';
+			if(bool==0) act.innerHTML=' Actuellement :';
+			else if (bool==1) act.innerHTML=' Currently :';
 
 			emprunt=document.getElementById('emprunt');
 			if(bool==0) emprunt.innerHTML='- Vous empruntez '+data.emprunt+' objet(s),';
@@ -34,12 +32,12 @@ function init()
 			else if(bool==1) pret.innerHTML='- You lend '+data.loaned+' objects among your '+data.pret+' object(s).';
 
 			pend=document.getElementById('pend');
-			if(bool==0) pend.innerHTML='Vous avez '+data.pending+' demande(s) de prêts en attente'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick= locations(\"/KasuKasu/restricted/applicants.jsp\") >Voir</button>';
-			else if(bool==1) pend.innerHTML='You have '+data.pending+' pending loan request(s)'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick=locations(\"/KasuKasu/restricted/applicants.jsp\") >See</button>';
+			if(bool==0) pend.innerHTML='- Vous avez '+data.pending+' demande(s) de prêts en attente'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick= locations(\"/KasuKasu/restricted/applicants.jsp\") >Voir</button>';
+			else if(bool==1) pend.innerHTML='- You have '+data.pending+' pending loan request(s)'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick=locations(\"/KasuKasu/restricted/applicants.jsp\") >Show</button>';
 			
 			back=document.getElementById('back');
-			if(bool==0) back.innerHTML='Vous avez '+data.back+' retrour(s) à valider'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/evaluationRequest.jsp\") >Voir</button>';
-			else if(bool==1) back.innerHTML='You have '+data.back+' return(s) to validate'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick="locations(\"/KasuKasu/restricted/evaluationRequest.jsp\")">See</button>';
+			if(bool==0) back.innerHTML='- Vous avez '+data.back+' retrour(s) à valider'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/evaluationRequest.jsp\") >Voir</button>';
+			else if(bool==1) back.innerHTML='- You have '+data.back+' return(s) to validate'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick="locations(\"/KasuKasu/restricted/evaluationRequest.jsp\")">Show</button>';
 
 
 		},		error : function(xhr,status,errorthrown){

@@ -24,7 +24,6 @@
 $(document).ready(function() {
 	trans('finduser.jsp','titre');
 	trans('finduser.jsp','rech');
-	trans('finduser.jsp','submit');
 });
 </script>
 <title id='titre'>Rechercher un utilisateur</title>

@@ -28,7 +28,6 @@
 $(document).ready(function() {
 	trans('useritems.jsp','titre');
 	trans('useritems.jsp','manage');
-	trans('useritems.jsp','submit');
 	trans('useritems.jsp','liste');
 });
 </script>

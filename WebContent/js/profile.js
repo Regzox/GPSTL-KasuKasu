@@ -1,3 +1,9 @@
+bool=0;
+if(readCookie("lang") == "en")
+	bool=1;
+else
+	if(readCookie("lang") == "fr")
+		bool=0;
 function fillMyProfile() {
 
 	$
@@ -56,13 +62,25 @@ function setUserVacationStatus(newstatus){
 }
 
 function getUserVacationStatus (){
+	var sort_vac = "";
+	var vac = "";
+	if(bool==0)
+		{
+			sort_vac = "Sortir du mode vacances"; 
+			vac = "Se mettre en mode vacances";
+		}
+	if(bool==1)
+		{
+			sort_vac = "Exit the vacation mode"; 
+			vac = "Enter the vacation mode";
+		}
 	$
 	.get(GetUserVacationStatusServlet)
 	.done( function (data) {
 		var vaccation = $.parseJSON(data).vacationstatus;
 		if(vaccation){
 			printHTML('#vacation_control',
-					"<button onclick=\"setUserVacationStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Sortir du mode vaccances</button>");
+					"<button onclick=\"setUserVacationStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">"+sort_vac+"</button>");
 			$("#vacation_control_button").css({
 				"background-color": "#f44336",
 				"color" : "white", 
@@ -76,7 +94,7 @@ function getUserVacationStatus (){
 		}
 		else{
 			printHTML('#vacation_control',
-					"<button onclick=\"setUserVacationStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Se mettre en mode vaccances</button>");
+					"<button onclick=\"setUserVacationStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">"+vac+"</button>");
 			$("#vacation_control_button").css({
 				"background-color": "white",
 				"color" : "#f44336", 

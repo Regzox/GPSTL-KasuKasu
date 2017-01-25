@@ -12,7 +12,7 @@
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/groupmembers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 

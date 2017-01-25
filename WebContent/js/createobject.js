@@ -2,10 +2,12 @@ var result = new Array();
 var result2 = new Array();
 
 bool_trans=0;
-if(document.cookie.search("lang=en")!=-1)
-		bool_trans=1;
+alert(readCookie("lang"))
+
+if(readCookie("lang") == "en")
+	bool_trans=1;
 	else
-		if(document.cookie.search("lang=fr")!=-1)
+		if(readCookie("lang") == "fr")
 			bool_trans=0;
 
 function init() 
@@ -34,15 +36,11 @@ function getSelectedGroups()
             			{
             				    "id": tops[i].value,
             				    "nom": tops[i].name,
-           		
             			}
             			
              		   result.push(groupe);
-
-
      		       }
         		}
- 
         }
     }
 }

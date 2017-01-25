@@ -1,10 +1,10 @@
 /**
  * ANAGBLA Joan & Ouiza B*/
 bool=0;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")
 		bool=1;
 	else
-		if(document.cookie.search("lang=fr")!=-1)
+		if(readCookie("lang") == "fr")
 			bool=0;
 
 function Group(id,name,type,owner,date){

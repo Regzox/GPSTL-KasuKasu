@@ -1,8 +1,8 @@
 bool=0;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")
 	bool=1;
 else
-	if(document.cookie.search("lang=fr")!=-1)
+	if(readCookie("lang") == "fr")
 		bool=0;
 
 function finduser(query) 
@@ -101,10 +101,10 @@ function ProcessFindUser(rep)
 							bodymessage+="<td><a href=\"" + FriendsManagementServlet + "?typeOfRequest=3&id="+z+"\"> Add Friend </a></td>";
 							break;
 						case "friend":
-							bodymessage+="<td>Already Friend</td>";
+							bodymessage+="<td>Already Friends</td>";
 							break;
 						case "waiting" :
-							bodymessage+="<td>Waiting an Answer</td>"
+							bodymessage+="<td>Waiting for an Answer</td>"
 								break;
 						}
 					}
