@@ -212,6 +212,7 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 	var userlang = navigator.language || navigator.userLanguage; 
 	document.cookie = "language="+userlang+"; expires=Thu, 21 Dec 2021 12:00:00 UTC;";
 
+	openWaiter();
 	$.ajax({
 		type : "POST",
 		url : "createuser",
@@ -227,6 +228,8 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 		error : function(XHR, testStatus, errorThrown) 
 		{
 			console.log(JSON.stringify(XHR + " " + testStatus + " " + errorThrown));
+			openJModal(2000,"Une erreur s'est produite!");
+
 
 		}
 	});
@@ -254,6 +257,10 @@ function traiteReponseEnregistrement(rep)
 	{
 		window.location.href = dashboard_jsp;
 	}
+	
+	openJModal(2000,
+			"Demande en cours! ",dashboard_jsp
+	);
 }
 
 
