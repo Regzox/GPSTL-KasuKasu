@@ -25,36 +25,36 @@ function processItemInformations(r){
 	item = r;
 	/** Title **/
 	$('#itemtitle').val(r.item.items[0].title);
-	
+
 	/** Description **/
 	$('#itemdescription').val(r.item.items[0].description);
 
 	/** POUR CHAQUE ZONE ITEM **/
 	if(r.itempoint!=undefined)
-	for (var i = 0; i < r.itempoint.length; i++) {
-		var zone = r.itempoint[i];
-		$('#zone').prepend("<span id=\"z"+zone.id+"\" class=\"tag label label-info\"> <span>"
-				+zone.nom+"</span> <a><i onclick=\"removeZone(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
-	}
+		for (var i = 0; i < r.itempoint.length; i++) {
+			var zone = r.itempoint[i];
+			$('#zone').prepend("<span id=\"z"+zone.id+"\" class=\"tag label label-info\"> <span>"
+					+zone.nom+"</span> <a><i onclick=\"removeZone(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
+		}
 	/** POUR CHAQUE GROUPE ITEM**/
 	if(r.itemgroup!=undefined)
-	for (var i = 0; i < r.itemgroup.length; i++) {
-		var group = r.itemgroup[i];
-		$('#group').prepend("<span id=\"g"+group.id+"\" class=\"tag label label-info\"> <span>"
-				+group.name+"</span> <a><i onclick=\"removeGroup(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
-	}
+		for (var i = 0; i < r.itemgroup.length; i++) {
+			var group = r.itemgroup[i];
+			$('#group').prepend("<span id=\"g"+group.id+"\" class=\"tag label label-info\"> <span>"
+					+group.name+"</span> <a><i onclick=\"removeGroup(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
+		}
 	/** MODAL ZONE USER**/
 	if(r.userpoint!=undefined)
-	for (var i = 0; i < r.userpoint.length; i++) {
-		var zone = r.userpoint[i];
-		$('#zone-id').append("<OPTION value=\""+zone.id+"\">"+zone.nom+"</OPTION>");
-	}
+		for (var i = 0; i < r.userpoint.length; i++) {
+			var zone = r.userpoint[i];
+			$('#zone-id').append("<OPTION value=\""+zone.id+"\">"+zone.nom+"</OPTION>");
+		}
 	/** MODAL GROUPE USER**/
 	if(r.usergroup!=undefined)
-	for (var i = 0; i < r.usergroup.length; i++) {
-		var group = r.usergroup[i];
-		$('#group-id').append("<OPTION value=\""+group.id+"\">"+group.nom+"</OPTION>");
-	}
+		for (var i = 0; i < r.usergroup.length; i++) {
+			var group = r.usergroup[i];
+			$('#group-id').append("<OPTION value=\""+group.id+"\">"+group.nom+"</OPTION>");
+		}
 
 }
 
@@ -198,5 +198,70 @@ function removeGroupPost(obj,group){
 }
 
 function actionSuccess(){
-	
+
+}
+
+
+
+
+function setItemBusyStatus(newstatus){
+	var id=document.getElementById("objectId").value;
+	$
+	.post(SetItemBusyStatusServlet + "?status=" + newstatus+"&id="+id)
+	.done(function (data) {
+		openJModal(2000,
+				$.parseJSON(data).message
+				,getItemBusyStatus
+		);
+
+	});
+}
+
+function getItemBusyStatus(){
+	var id=document.getElementById("objectId").value;
+	$
+	.get(GetItemStatusServlet + "?id="+id)
+	.done( function (data) {
+		var vaccation = $.parseJSON(data).vacationstatus;
+
+		if(vaccation){
+			if($.parseJSON(data).status=="borrowed"){
+				printHTML('#vacation_control',
+						"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">En pr&ecirc;t</button>");
+				$("#vacation_control_button").css({
+					"background-color": "orange",
+					"color" : "white", 
+					"border" : "2px solid #008CBA"
+				});
+			}
+			else{
+				printHTML('#vacation_control',
+						"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Exposer</button>");
+				$("#vacation_control_button").css({
+					"background-color": "#f44336",
+					"color" : "white", 
+					"border" : "2px solid #008CBA"
+				});
+				$("#vacation_control_button").hover(
+						function(){$(this).css({"background-color": "white","color" : "#f44336"});}
+						,
+						function(){$(this).css({"background-color" : "#f44336", "color" : "white"});}
+				); 
+			}
+		}
+		else{
+			printHTML('#vacation_control',
+					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Ranger</button>");
+			$("#vacation_control_button").css({
+				"background-color": "white",
+				"color" : "#f44336", 
+				"border" : "2px solid #008CBA"
+			});
+			$("#vacation_control_button").hover(
+					function(){$(this).css({"background-color": "#f44336","color" : "white"});}
+					,
+					function(){$(this).css({"background-color" : "white", "color" : "#f44336"});}
+			); 
+		}
+	} );
 }

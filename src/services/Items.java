@@ -81,6 +81,49 @@ public class Items {
 		return Tools.serviceMessage(1);
 	}	
 
+
+	/**
+	 * Return item's status (availability) 
+	 * this method is a service only to know if yes or not an item is busy  
+	 * true if item is busy (or borrowed), else false.
+	 * 
+	 * 
+	 * @param id
+	 * @param title
+	 * @param description 
+	 * @return 
+	 * @throws JSONException */
+	public static JSONObject isBusy(String id) throws JSONException {
+		if(ItemsDB.itemStatus(id).equals("borrowed"))
+			return new JSONObject().put("vacationstatus", true).put("status", "borrowed");
+		if(ItemsDB.itemStatus(id).equals("busy"))
+			return new JSONObject().put("vacationstatus", true).put("status", "busy");
+		return new JSONObject().put("vacationstatus", false);
+	}	
+
+
+	/**
+	 * Set an item's status 
+	 * status are borrowed|available|busy
+	 * @param id
+	 * @param title
+	 * @param description 
+	 * @throws JSONException */
+	public static JSONObject setItemBusyStatus(String id,boolean status) throws JSONException{
+		if(ItemsDB.itemStatus(id).equals("borrowed"))
+			return Tools.serviceMessage("Cet objet est en pret."); 
+		if(status){
+			ItemsDB.setItemStatus(id,"busy");
+			return Tools.serviceMessage("Cet objet n'est plus visible de vos amis");
+		}
+		else{
+			ItemsDB.setItemStatus(id,"available");	
+			return Tools.serviceMessage("Cet objet est de nouveau visible par vos amis");
+		}
+	}
+
+
+
 	/**
 	 * return a list of items owned by an user 
 	 * @param userID
@@ -120,6 +163,10 @@ public class Items {
 				continue;
 			else if (UserDao.getVacationStatus((String) orsv.getDbo().get("owner")))
 				continue;
+			else if(orsv.getDbo().get("status").equals("borrowed"))
+				continue;
+			else if(orsv.getDbo().get("status").equals("busy"))
+				continue;
 			else
 				jar.put(new JSONObject()
 						.put("id",orsv.getDbo().get("_id"))
@@ -132,10 +179,10 @@ public class Items {
 		return new JSONObject().put("items",jar);
 	}
 
-	
-	
-	
-	
+
+
+
+
 	public static void main(String[] args) throws JSONException, DatabaseException {
 		searchItems("V�lo rouge","1");
 	}
@@ -182,35 +229,29 @@ public class Items {
 			js=new JSONArray(o.toString());
 		return js;
 	}
-	
-	
+
+
 	public static JSONObject userInfos(String userID) throws Exception {
 		JSONObject jar=new JSONObject();
-		
+
 		JSONObject objects = Items.userItems("", userID);
 		int pret = objects.getJSONArray("items").length();
-		System.out.println("Pret: " +pret);
+
 		
 		JSONObject loaning = Loaning.applicantLoanings(userID);
 		int emprunt = loaning.getJSONArray("loans").length();
-		System.out.println("Emprunt: " +emprunt);
 
-		
+
 		DBCursor dbc = ItemsDB.userItemsLoaned(userID);
 		int loaned = dbc.count();
-		System.out.println("Loaned: " +loaned);
 
 
 		DBCursor pend = LoaningDB.pendingRequests(userID);
 		int pendR = pend.count();
-		System.out.println("Pending: " +pendR);
 		
 		JSONObject jo = Evaluation.findlistRequest(userID);
 		int back = jo.getJSONArray("result").length();		
-		System.out.println("Back: " +back);
 
-		
-		
 		jar.put("pret",pret);
 		jar.put("emprunt",emprunt);
 		jar.put("loaned",loaned);
@@ -219,7 +260,7 @@ public class Items {
 
 
 
-					
+
 		return jar;
 	}
 }

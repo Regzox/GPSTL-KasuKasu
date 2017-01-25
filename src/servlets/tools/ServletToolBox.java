@@ -44,8 +44,7 @@ public class ServletToolBox {
 
 		@SuppressWarnings("unchecked")
 		Map<String,String>params=MapRefiner.refine(request.getParameterMap());	
-		//params.put("skey",(String) session.getAttribute("skey"));//TODO ASK OTHER IF WANTED
-
+ 
 		for(String expected : epn){
 			if(!params.containsKey(expected)){
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "URL MISUSED");

@@ -32,8 +32,8 @@ public class Lingua {
 		quodWMS.add("[kasukasu] Confirm your account.");
 		
 		// retrieve password mail subject
-		quodRetPswMS.add("[kasukasu] Récupération de votre mot de passe.");
-		quodRetPswMS.add("[kasukasu] Retrieving your password.");
+		quodRetPswMS.add("[kasukasu] Retrouvez votre compte utilisateur.");
+		quodRetPswMS.add("[kasukasu] Retrieving access to your account.");
 		
 		// modif password mail subject
 		quodModifMS.add("[kasukasu] Modification de votre mot de passe.");
@@ -48,21 +48,21 @@ public class Lingua {
 		quodWMM.add("Welcome to kasu-kasu.\nPlease, confirm your account by clicking the link below : \n");
 
 		//retrieve password mail message
-		quodRetPswMM.add("Voici votre mot de passe : \n ");
-		quodRetPswMM.add("Here is your password : \n");
+		quodRetPswMM.add("Merci de cliquer sur le lien ci-dessous pour vous reconnecter : \n ");
+		quodRetPswMM.add("Please, click the link below to regain access to your account : \n");
 		
 		//modif password mail message
-		quodModifMM.add("Bonjour,\n\n Votre mot de passe a récement fait l'objet d'une modification."
+		quodModifMM.add("Bonjour,\n\n Votre mot de passe vient de faire l'objet d'une modification."
 				+ " Contactez au plus vite un administrateur si cette demande de changement "
-				+ "de mot de passe n'a pas été initié par vous.\n\n Cordialement,\n "
-				+ "L'équipe KasuKasu");
+				+ "de mot de passe ne vient pas de vous.\n\n Cordialement,\n "
+				+ "L'equipe KasuKasu");
 		quodModifMM.add("Hello,\n\n Your password has been recently changed."
 				+ " If this change password request has not been initiated by you, please contact an administrator "
 				+ "as soon as possible.\n\n Cordially,\n "
 				+ "Team KasuKasu");
 
 		//loaning request 
-		//TODO à améliorer ??!
+		//TODO a� ameliorer ??!
 //		quodLoanMM.add("Voici votre mot de passe : \n ");
 //		quodLoanMM.add("Here is your password : \n");
 	}
@@ -70,7 +70,7 @@ public class Lingua {
 	/**
 	 * "latin" means translator in latin 
 	 * This is a home made multi-language web-app dictionary.
-	 * TODO please fill this dictionary with your Strings */
+	 * */
 	private static Map<String,ArrayList<String>> latin = new HashMap<String, ArrayList<String>>();
 	static
 	{

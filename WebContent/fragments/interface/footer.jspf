@@ -3,14 +3,14 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	trans('footer.jspf','email');
-	trans('footer.jspf','version');
+	trans('footer.jspf','footer_email');
+	trans('footer.jspf','footer_version');
 });
 </script>
 <div class="footer">
 	<div class="wrapper">
-		<div id="email" class="tier">Contact : kasukasu@gmail.com</div>
+		<div id="footer_email" class="tier">Contact : kasukasu@gmail.com</div>
 		<div class="tier"></div>
-		<div id="version" class="tier">Version : alpha</div>
+		<div id="footer_version" class="tier">Version : alpha</div>
 	</div>
 </div>

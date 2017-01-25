@@ -62,7 +62,7 @@ function getUserVacationStatus (){
 		var vaccation = $.parseJSON(data).vacationstatus;
 		if(vaccation){
 			printHTML('#vacation_control',
-					"<button onclick=\"setUserVacationStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Exit vacation</button>");
+					"<button onclick=\"setUserVacationStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Sortir du mode vaccances</button>");
 			$("#vacation_control_button").css({
 				"background-color": "#f44336",
 				"color" : "white", 
@@ -76,7 +76,7 @@ function getUserVacationStatus (){
 		}
 		else{
 			printHTML('#vacation_control',
-					"<button onclick=\"setUserVacationStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Go on vacation</button>");
+					"<button onclick=\"setUserVacationStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Se mettre en mode vaccances</button>");
 			$("#vacation_control_button").css({
 				"background-color": "white",
 				"color" : "#f44336", 

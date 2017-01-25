@@ -80,7 +80,6 @@ public class ModifyUserServlet extends OnlinePostServlet {
 			oldEmail = oldUser.getEmail();
 		
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 

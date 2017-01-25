@@ -372,4 +372,3 @@ function ProcessFindApplicants(rep) {
 	var iahtm=(message+bodymessage+endmessage);
 	printHTML("#item-applicants",iahtm);
 }
-

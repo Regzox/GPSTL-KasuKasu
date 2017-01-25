@@ -584,11 +584,11 @@
 	}
 }, {
 	"footer.jspf": {
-		"email": {
+		"footer_email": {
 			"fr": "Contact : kasukasu@gmail.com",
 			"en": "Contact : kasukasu@gmail.com"
 		},
-		"version": {
+		"footer_version": {
 			"fr": "Version : alpha",
 			"en": "Version : alpha"
 		}

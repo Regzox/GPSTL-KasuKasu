@@ -282,7 +282,7 @@ public class ExchangePointsDB {
 								new BasicDBObject("id_user", ownerID))));		
 	}
 	
-	/** TODO mod add groups visibility constraints 
+	/** 
 	 * Return the list of user friend's exchange points (including subscribed user's points)
 	 * @param userID
 	 * @return */
