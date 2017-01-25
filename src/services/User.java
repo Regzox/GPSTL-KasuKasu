@@ -47,8 +47,7 @@ public class User {
 			return Tools.serviceMessage("User's email already exists.");
 
 		UserDao.addUser(email,mdp,nom,prenom,numero);
-		//TODO if we implements language choices , change fr-FR by dyn language selection
-		//choice made by the value of the cookies
+		
 		try {
 
 			SendEmail.sendMail(email,

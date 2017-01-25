@@ -93,9 +93,9 @@ public class Items {
 	 * @throws JSONException */
 	public static JSONObject isBusy(String id) throws JSONException {
 		if(ItemsDB.itemStatus(id).equals("borrowed"))
-			return new JSONObject().put("vacationstatus", true);
+			return new JSONObject().put("vacationstatus", true).put("status", "borrowed");
 		if(ItemsDB.itemStatus(id).equals("busy"))
-			return new JSONObject().put("vacationstatus", true);
+			return new JSONObject().put("vacationstatus", true).put("status", "busy");
 		return new JSONObject().put("vacationstatus", false);
 	}	
 
@@ -116,7 +116,7 @@ public class Items {
 		}
 		else{
 			ItemsDB.setItemStatus(id,"available");	
-			return Tools.serviceMessage("Cet objet est de nouveau visible de vos amis");
+			return Tools.serviceMessage("Cet objet est de nouveau visible par vos amis");
 		}
 	}
 
