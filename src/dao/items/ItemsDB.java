@@ -238,13 +238,16 @@ public class ItemsDB {
 
 
 	/**
-	 * TODO CONTINUE
-	 * remove from an item the specified groupId
+	 * Remove from an item the specified groupId
 	 * @param itemID
 	 * @param groupID */
 	public static void removeGroupFromItem(String itemID, String groupID){	
 		collection.update(new BasicDBObject("_id", new ObjectId(itemID)),
-				new BasicDBObject("$pull", new BasicDBObject("groups.$.id",groupID)));
+				new BasicDBObject("$pull",
+						new BasicDBObject("groups",
+								new BasicDBObject("id",groupID))
+						)
+				);
 	}
 
 	
@@ -253,11 +256,12 @@ public class ItemsDB {
 	public static void main(String[] args) {
 		System.out.println("Results...\n%");
 
-		//addGroupToItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+		//addGroupToItem("58886d2eed0a14c5a9f5bc2e","58809F2D6D26AA03D268B50B");
 
-		//removeGroupFromItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+		System.out.println(getItem("58886d2eed0a14c5a9f5bc2e"));
+		removeGroupFromItem("58886d2eed0a14c5a9f5bc2e","58886d0ced0a14c5a9f5bc2d");
 		
-		System.out.println(userItemsLoaned("586e8cd92736d4e126b99c07"));
+		//System.out.println(userItemsLoaned("586e8cd92736d4e126b99c07"));
 
 		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
 		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
