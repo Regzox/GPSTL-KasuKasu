@@ -22,6 +22,7 @@ public class SaveLanguageServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	
+		//TODO save the json object in the traduction.json file
 		File file = new File("/home/ouiza/Bureau/file.txt");
 		FileOutputStream f = new FileOutputStream(file);
 		
