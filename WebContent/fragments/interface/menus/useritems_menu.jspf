@@ -9,13 +9,31 @@ $(document).ready(function() {
 <div class="menu">
 	<div class="wrapper">
 		<div	id="ajout_obj"
-				class="demi clickable"
+				class="tier clickable"
 				onclick="
 						if ( !(~$(location).attr('href').indexOf(createobject_jsp)))
 						$(location).attr('href', createobject_jsp);
 				"
 		>
 		Ajouter un objet
+		</div>
+		<div	id="my_items"
+				class="tier clickable"
+				onclick="
+						if ( !(~$(location).attr('href').indexOf(useritems_jsp)))
+						$(location).attr('href', useritems_jsp);
+				"
+		>
+		Mes objets
+		</div>
+		<div	id="my_places"
+				class="tier clickable"
+				onclick="
+						if ( !(~$(location).attr('href').indexOf(importpoint_jsp)))
+						$(location).attr('href', importpoint_jsp);
+				"
+		>
+		Mes lieux
 		</div>
 	</div>
 </div>

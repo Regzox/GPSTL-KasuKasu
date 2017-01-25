@@ -23,8 +23,9 @@
 	rel="stylesheet" />
 <script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
-<link type="text/css" href="/KasuKasu/css/jquery-ui.css" rel="stylesheet" />
-<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<link type="text/css" href="/KasuKasu/css/jquery-ui.css"
+	rel="stylesheet" />
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 <script>
@@ -36,11 +37,11 @@
 </script>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	trans('searchitems.jsp','titre');
-	trans('searchitems.jsp','comment');
-	trans('searchitems.jsp','submit');
-});
+	$(document).ready(function() {
+		trans('searchitems.jsp', 'titre');
+		trans('searchitems.jsp', 'comment');
+		trans('searchitems.jsp', 'submit');
+	});
 </script>
 
 <title id='titre'>Recherche d'objets</title>
@@ -61,12 +62,15 @@ $(document).ready(function() {
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:searchItems(this.iquery.value)">
 
-				<div class="wrapper">
+				<div class="form-group row">
 					<input type="text" class="form-control" name="iquery" value=""
 						id="iquery" autocomplete="off">
 				</div>
-				<input id="submit" type="submit" class="btn btn-primary btn-block"
-					value="Rechercher">
+
+				<div class="form-group row">
+					<input id="submit" type="submit" class="btn btn-primary btn-block"
+						value="Rechercher">
+				</div>
 			</form>
 
 			<br>

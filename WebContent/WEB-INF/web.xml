@@ -238,7 +238,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ObjectManagementServlet</servlet-name>
-    <url-pattern>/objectmanagement</url-pattern>
+    <url-pattern>/restricted/objectmanagement</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
