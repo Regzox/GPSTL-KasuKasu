@@ -105,16 +105,36 @@ function abonnement(lat,lon)
 			'click',
 			function(evt)
 			{
-				
+
 				nom_abo = $("#myModal").find("#nom_input").val();
 				radius_abo = $("#myModal").find("#radius_input").val();
-				var pattern = /^\d+$/;
+				var pattern = /^\d+$/; 
 				numeric = pattern.test(radius_abo);
 
-//				if (nom_abo.lenght==0) $("#myModal").find("#nom_input").text("Champ obligatoire");
-//				if (radius_abo.lenght==0) $("#myModal").find("#radius_input").text("Champ obligatoire");
-//				if (!numeric) $("#myModal").find("#radius_input").text("Valeur numérique obligatoire");
+				var text="";
 
+				if (nom_abo.length==0) 
+					{
+					   if (bool==0) text = "Nom obligatoire";
+					   if (bool==1) text = "Name required";
+
+					}
+				if (radius_abo.length==0)
+					{
+					  if (bool==0) text.concat("\n Portée obligatoire");	
+					  if (bool==1) text.concat("\n Range required");
+					}
+				
+				if (!numeric)
+					{
+					   if (bool==0) text = text.concat("\n La portée doit être une valeur numérique");
+					   if (bool==1) text = text.concat("\n Range must be an integer");
+					}
+
+				text = text.replace(/\n/g, "<br />");
+
+
+				$("#myModal").find("#error_add").html(text);	
 
 				if (nom_abo.length!=0 && radius_abo.length!=0 && numeric)
 				{
@@ -272,13 +292,17 @@ function Modifier(id_modif,old_name,old_radius)
 
 				if (nom_modif.length==0) nom_modif = old_name;
 				if (radius_modif.length==0) radius_modif = old_radius;
-				
+
 				var pattern = /^\d+$/;
 				numeric = pattern.test(radius_modif);
-				
-				if (numeric) updatePoint(id_modif,radius_modif,nom_modif); 
-				
-				
+
+				if (numeric) updatePoint(id_modif,radius_modif,nom_modif);
+
+				else
+				{
+				   if (bool==0) $("#myModal4").find("#error_modif").html("La portée doit être une valeur numérique");
+				   if (bool==1) $("#myModal4").find("#error_modif").html("Range must be an integer");
+				}
 
 			}
 	);
@@ -342,8 +366,10 @@ function affiche()
 {
 
 	var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
+	
+	/********     Afficher les points des amis de l'utilisateur    **********/
 
-	/********     Afficher les points de l'utilisateur **********/
+
 	for (var i=0; i< json1.expts.length; i++)
 	{
 
@@ -369,8 +395,10 @@ function affiche()
 		table_feature1.push(feature1);
 
 	}
+	
+	/********     Afficher les points de l'utilisateur **********/
 
-	/********     Afficher les points des amis de l'utilisateur    **********/
+
 
 
 	for (var i=0; i< json2.expts.length; i++)
@@ -384,7 +412,7 @@ function affiche()
 			(
 
 					new OpenLayers.Geometry.Point( lon, lat ),
-					{description: "Lieu : "+json2.expts[i].name+", "+json2.expts[i].radius+"m"+"<br>"+"Abonnés :" + json2.expts[i].users},
+					{description: "Lieu : "+json2.expts[i].name+", "+json2.expts[i].radius+"km"+"<br>"+"Abonnés :" + json2.expts[i].users},
 					{externalGraphic: '/KasuKasu/data/marker-red.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 			); 
 		if(bool==1)
@@ -392,7 +420,7 @@ function affiche()
 			(
 
 					new OpenLayers.Geometry.Point( lon, lat ),
-					{description: "Place : "+json2.expts[i].name+", "+json2.expts[i].radius+"m"+"<br>"+"Subscribers :" + json2.expts[i].users} ,
+					{description: "Place : "+json2.expts[i].name+", "+json2.expts[i].radius+"km"+"<br>"+"Subscribers :" + json2.expts[i].users} ,
 					{externalGraphic: '/KasuKasu/data/marker-red.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 			); 
 
