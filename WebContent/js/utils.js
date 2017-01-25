@@ -47,10 +47,25 @@ function openWaiter(){
 
 function openJModal(timeout=0,message="",callback=chill){
 	var coreHTM ="<div class=\"jmodal-content\">" +
+	"<span " +
+	"style =\"color:#aaa;float:right;font-size:28px;font-weight:bold;\" "+
+	"id=\"xclosexjmodalx\">&times;" +
+	"</span>"+
 	"<p id=\"JMODALMESSAGE\"></p>" +
 	"</div>";
 	var fullHTM = "<div id=\"jModal\" class=\"jmodal\">"+coreHTM+"</div>";
-
+	
+	$("#xclosexjmodalx").hover(
+			function(){$(this).css({"color":"black","text-decoration":"none","cursor":"pointer"});}
+			,
+			function(){$(this).css({"color":"#aaa","float":"right","font-size":"28px","font-weight":"bold"});}
+	);
+	
+	
+	$("#xclosexjmodalx").focus(
+			function(){$(this).css({"color":"black","text-decoration":"none","cursor":"pointer"});}
+	);
+	
 	if(document.getElementById('jModal') != undefined)
 		printHTML("#jModal",coreHTM);
 	else
@@ -59,10 +74,17 @@ function openJModal(timeout=0,message="",callback=chill){
 	var modal = document.getElementById('jModal');
 	modal.style.display = "block";
 	printHTML("#JMODALMESSAGE",message);
-	setTimeout(function(){
+
+	window.onclick = function(event) {
+		    if (event.target == modal) 
+			        modal.style.display = "none";
 		callback();
-		modal.style.display = "none";
-	}, timeout);
+	}
+
+	
+	var close = document.getElementById('xclosexjmodalx');
+
+	close.onclick = function() {modal.style.display = "none"; callback();}
 
 	/**later-> http://stackoverflow.com/questions/574944/how-to-load-up-css-files-using-javascript
 	//https://www.google.fr/search?newwindow=1&q=dynamically+include+css&spell=1&sa=X&ved=0ahUKEwjG3MSf2djRAhWE7hoKHaETBM4QvwUIGSgA&biw=1449&bih=768*/

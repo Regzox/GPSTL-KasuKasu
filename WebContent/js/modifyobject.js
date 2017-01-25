@@ -236,7 +236,7 @@ function getItemBusyStatus(){
 			}
 			else{
 				printHTML('#vacation_control',
-						"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Exposer</button>");
+						"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Sortir du mode vaccances</button>");
 				$("#vacation_control_button").css({
 					"background-color": "#f44336",
 					"color" : "white", 
@@ -251,7 +251,7 @@ function getItemBusyStatus(){
 		}
 		else{
 			printHTML('#vacation_control',
-					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Ranger</button>");
+					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Mettre en vaccances</button>");
 			$("#vacation_control_button").css({
 				"background-color": "white",
 				"color" : "#f44336", 

@@ -35,12 +35,12 @@ function ProcessFindUser(rep)
 	if(bool==0)
 		message= "<table class=\"table\">" +
 		"<tr>" +
-		"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+		"<th>Nom</th><th>Prenom</th><th>Profil</th><th>Contact</th><th>Statut</th>" +
 		"</tr>";
 	if(bool==1)
 		message="<table class=\"table\">" +
 		"<tr>" +
-		"<th>Last name</th><th>First name</th><th>Profile</th>" +
+		"<th>Last name</th><th>First name</th><th>Profile</th><th>Contact</th><th>Status</th>" +
 		"</tr>";
 
 	var endmessage ="</table>";
@@ -71,17 +71,18 @@ function ProcessFindUser(rep)
 					"<tr style='text-align: left'>" +
 					"<td>"+x+"</td>" +
 					"<td>"+y+"</td>"+
-					"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Voir Profil </a></td>";
+					"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Voir </a></td>"+
+					"<td><a href=\"" + conversation_jsp + "?uther="+z+"&interlocutor="+x+" "+y+" \"> Contacter </a></td>";
 					if(f!=undefined && f!=null){
 						switch(f){
 						case "stranger" :
-							bodymessage+="<td><a href=\"" + FriendsManagementServlet + "?typeOfRequest=3&id="+z+"\"> Ajouter amis </a></td>";
+							bodymessage+="<td><a href=\"" + FriendsManagementServlet + "?typeOfRequest=3&id="+z+"\"> Ajouter aux amis </a></td>";
 							break;
 						case "friend":
 							bodymessage+="<td>Déjà Amis</td>";
 							break;
 						case "waiting" :
-							bodymessage+="<td>Attente de réponse</td>";
+							bodymessage+="<td>Attente de r&eacute;ponse</td>";
 							break;
 						}
 					}
@@ -94,11 +95,11 @@ function ProcessFindUser(rep)
 					"<tr style='text-align: left'>" +
 					"<td>"+x+"</td>" +
 					"<td>"+y+"</td>"+
-					"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show Profile </a></td>";
+					"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show </a></td>";
 					if(f!=undefined && f!=null){
 						switch(f){
 						case "stranger" :
-							bodymessage+="<td><a href=\"" + FriendsManagementServlet + "?typeOfRequest=3&id="+z+"\"> Add Friend </a></td>";
+							bodymessage+="<td><a href=\"" + FriendsManagementServlet + "?typeOfRequest=3&id="+z+"\"> Add to friends </a></td>";
 							break;
 						case "friend":
 							bodymessage+="<td>Already Friend</td>";
