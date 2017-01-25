@@ -125,7 +125,7 @@ public class ItemsDB {
 	/**
 	 * return item's status 
 	 * status are borrowed|available|busy
-	 * if an item doesn't have status it means it's available (by default)
+	 * 
 	 * @param id
 	 * @param title
 	 * @param description 
@@ -185,17 +185,23 @@ public class ItemsDB {
 	 * @throws DatabaseException */
 	public static Iterable<DBObject> utherItems(String userID,String query) { 
 		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-		BasicDBList groupsIDList = new BasicDBList();
+		BasicDBList userMembershipGroupsIDList = new BasicDBList();
 		while(dbc.hasNext())
-			groupsIDList.add(dbc.next().get("_id").toString());
-		System.out.println("ItemDB/utherItems::userGroupsMembership="+groupsIDList);//debug
+			userMembershipGroupsIDList.add(dbc.next().get("_id").toString());
+		System.out.println("ItemDB/utherItems::userGroupsMembership="+userMembershipGroupsIDList);//debug
 
+		//is item acessible bu this user
 		BasicDBList orList = new BasicDBList();
-		orList.add(new BasicDBObject("groups", new BasicDBObject("$in",groupsIDList))); //TODO plutot $elemMatch
+		orList.add(new BasicDBObject(
+				"groups", new BasicDBObject("$elemMatch",
+				new BasicDBObject(
+						"id",new BasicDBObject(
+								"$in",userMembershipGroupsIDList))))
+				);
 		orList.add(new BasicDBObject("groups",new BasicDBObject("$size",0)));
 
 		BasicDBObject constraints = new BasicDBObject("status","available")
-				//.append("$or", orList)//TODO visibilite tester
+				.append("$or", orList)
 				.append("owner",new BasicDBObject("$ne",userID));
 
 		if(query.trim().length()==0) 

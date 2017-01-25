@@ -84,7 +84,7 @@ public class Items {
 	 * Return item's status (availability) 
 	 * this method is a service only to know if yes or not an item is busy  
 	 * true if item is busy (or borrowed), else false.
-	 * if an item doesn't have status it means it's available (by default)
+	 * 
 	 * 
 	 * @param id
 	 * @param title
