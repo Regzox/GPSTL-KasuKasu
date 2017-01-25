@@ -49,6 +49,7 @@ function trans(page,element){
 	for(var i in dico)
 		if(dico[i].hasOwnProperty(page))
 			{
+			//TODO à vérifier
 				if(document.getElementById(element).type == "text" || document.getElementById(element).type == "password")
 					{
 					//TODO dosn't really work :/

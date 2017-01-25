@@ -49,7 +49,9 @@ $(document).ready(function() {
 					$(location).attr('href', importpoint_jsp);
 			"> Mes lieux </div> 
 			
-			<br><br><br><br>
+				
+			
+			<br><br><br>
 			
 			<div id="messaging" onclick="
 				if ( !(~$(location).attr('href').indexOf(messenger_jsp)))
@@ -63,7 +65,26 @@ $(document).ready(function() {
 					$(location).attr('href', dashboard_jsp);
 			">
                 Aide
-            </div>    
+            </div>   
+            
+            <%
+					boolean isAdmin1 = false;
+					try {
+						isAdmin1 = ((String) session.getAttribute("isAdmin")).compareTo("true") == 0;
+					} catch (Exception e) {
+						isAdmin1 = false;
+					}
+					
+					if (isAdmin1) {
+				%>
+				<div id="gest_lang" onclick="
+				if ( !(~$(location).attr('href').indexOf(gestionLangues_jsp)))
+					$(location).attr('href', gestionLangues_jsp);
+			">
+                Langues
+            </div>
+				
+				<% } %> 
            	
 		</div>
 	</div>
