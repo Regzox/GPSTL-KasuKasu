@@ -17,7 +17,27 @@
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
-
+<script type="text/javascript">
+$(document).ready(function() {
+	trans('importpoint.jsp','titre');
+	trans('importpoint.jsp','pts');
+	trans('importpoint.jsp','pts_amis');
+	trans('importpoint.jsp','comment');
+	trans('importpoint.jsp','ModalAjout');
+	trans('importpoint.jsp','noml');
+	trans('importpoint.jsp','porteel');
+	trans('importpoint.jsp','radius_input');
+	trans('importpoint.jsp','close');
+	trans('importpoint.jsp','save');
+	trans('importpoint.jsp','comment2');
+	trans('importpoint.jsp','comment3');
+	trans('importpoint.jsp','ModalModif');
+	trans('importpoint.jsp','nom');
+	trans('importpoint.jsp','range');
+	trans('importpoint.jsp','ferm');
+	trans('importpoint.jsp','enreg');
+});
+</script>
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 
