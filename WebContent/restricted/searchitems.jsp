@@ -21,8 +21,6 @@
 
 <link type="text/css" href="/KasuKasu/css/jquery-ui.css"
 	rel="stylesheet" />
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
-
 <link type="text/css" href="/KasuKasu/css/jquery-ui.css" rel="stylesheet" />
 <script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
