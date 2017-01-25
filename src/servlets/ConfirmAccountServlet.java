@@ -21,7 +21,6 @@ public class ConfirmAccountServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		super.init();
-//		super.epn= new HashSet<>(Arrays.asList(new String[]{"id"}));
 		resource = ((Resource) this.getServletContext().getAttribute("resource"));
 	}
 
@@ -30,7 +29,7 @@ public class ConfirmAccountServlet extends HttpServlet {
 	}
 	
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		try {
 			String uid = request.getParameter ("id");
 			User.confirmUser(uid);
@@ -42,9 +41,10 @@ public class ConfirmAccountServlet extends HttpServlet {
 			Cookie cookieId = new Cookie("userId", uid);
 			response.addCookie(cookieId);
 			//redirect to dashboard
-			response.sendRedirect(resource.absolutePath("searchitems_jsp"));
+			response.sendRedirect(resource.absolutePath("dashboard_jsp"));
 		} catch ( Exception e ) {
 			e.printStackTrace();
+			response.getWriter().print(new json.Error("Une erreur s'est produite."));
 		}
 	}
 }

@@ -53,10 +53,6 @@ $(document).ready(function() {
 				En ajoutant des membres
 			</p>
 
-
-
-				<!-- 			<div id='notifier'>TODO REPLACE BY MODAL</div> -->
-
 			
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduseramongfriends(this.query.value)">

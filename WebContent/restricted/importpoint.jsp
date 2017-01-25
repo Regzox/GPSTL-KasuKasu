@@ -111,13 +111,14 @@ html, body, #mapdiv {
 
 			<%@ include file="/fragments/interface/footer.jspf"%>
 
+<!-- <<<<<<< HEAD
 		</div>
-		<!-- Modal -->
+		Modal
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<!-- Modal Header -->
+					Modal Header
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">
 							<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
@@ -125,7 +126,7 @@ html, body, #mapdiv {
 						<h4 class="modal-title" id="ModalAjout">Ajouter le lieu</h4>
 					</div>
 
-					<!-- Modal Body -->
+					Modal Body
 					<div class="modal-body">
 
 						<form class="form-horizontal" role="form">
@@ -146,6 +147,23 @@ html, body, #mapdiv {
 										type="number" name="radius_input"
 										placeholder="Portée (obligatoire)" required="required">
 								</div>
+======= -->
+					<form class="form-horizontal" role="form">
+						<div class="form-group row">
+							<label id='noml' for="old_email_input" class="col-xs-3 col-form-label">Nom</label>
+							<div class="col-xs-8">
+								<input class="form-control" value="" id="nom_input"
+									name="nom_input" placeholder="Nom (obligatoire)"
+									>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label id='porteel' for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
+							<div class="col-xs-8">
+								<input class="form-control" value="" id="radius_input"
+									 name="radius_input"
+									placeholder="Portée numérique (obligatoire)" >
+<!-- >>>>>>> 2109ac524c37be233189e9a1de146531641065b6 -->
 							</div>
 						</form>
 
@@ -220,14 +238,25 @@ html, body, #mapdiv {
 
 								</div>
 							</div>
+<!-- <<<<<<< HEAD
 							<div class="form-group row">
 								<label id="range" for="old_password_input"
 									class="col-xs-3 col-form-label">Portée</label>
 								<div class="col-xs-8">
 									<input class="form-control" value="" id="radius_input"
 										type="number" name="radius_input">
-									<!-- 									placeholder="Portée" -->
+																		placeholder="Portée"
 								</div>
+======= -->
+						</div>
+						<div class="form-group row">
+							<label id="range" for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
+							<div class="col-xs-8">
+								<input class="form-control" value="" id="radius_input"
+									 name="radius_input"
+									>
+<!-- 									placeholder="Portée" -->
+<!-- >>>>>>> 2109ac524c37be233189e9a1de146531641065b6 -->
 							</div>
 						</form>
 					</div>

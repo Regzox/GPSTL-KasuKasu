@@ -30,9 +30,7 @@ $(document).ready(function() {
 
 		<p id='ret' class='capital'>Récupération de votre mot de passe</p>
 
-
 		<form action="/KasuKasu/retrievepassword">
-
 
 			<div class="form-group row">
 				<label id='email' for="email" class="col-xs-2 col-form-label">Email</label>
@@ -42,8 +40,6 @@ $(document).ready(function() {
 				</div>
 			</div>
 
-
-		
 			<input id='submit' type="submit" class="btn btn-primary btn-block"
 				value="Envoyer"> 
 		</form>

@@ -19,12 +19,11 @@ function getXMLHttpRequest() {
 }
 
 function trans(page,element){
-	var xhr = getXMLHttpRequest();
 	
 	//get the file name
 	var href = document.location.href;
 	var fileName = href.substr(href.lastIndexOf('/') + 1);
-
+	var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
 	if(fileName == "portal.jsp" || fileName == "")
@@ -38,7 +37,8 @@ function trans(page,element){
 		document.getElementById('btn_en').onclick = function() {
 			createCookie("en");
 			location.reload();
-			}           	
+			}  
+		//TODO Add buttons in the portal.jsp and edit it in the !
 	}
 	//xhr.onreadystatechange = function() {
 
@@ -52,8 +52,10 @@ function trans(page,element){
 				if(document.getElementById(element).type == "text" || document.getElementById(element).type == "password")
 					{
 					//TODO dosn't really work :/
+					alert(document.getElementById(element).placeholder)
 						if(document.getElementById(element).placeholder !="")
 						{
+							
 							document.getElementById(element).placeholder = walk_through(dico[i][page],element,readCookie("lang"));
 						}
 					}
@@ -80,16 +82,19 @@ function printHTML(dom,htm)
 { 
 	$(dom).html(htm);
 }
+
+
 var result;
+
+var language="";
+
 /************************************* Affichage des langues ************************************/
 
-function editLang(lang="fr")
+function editLang(lang)
 {
-	
 	var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
-
 		var dico = JSON.parse(xhr.responseText);
 		var bodymessage="";
 		var endmessage ="</table>";
@@ -104,25 +109,27 @@ function editLang(lang="fr")
 				{
 					for(var element in dico[i][page])
 					{	
-						//for(var l in dico)
 						bodymessage = bodymessage+
 						"<tr style='text-align: left'>" +
 						"<td> "+page+"</td>"+"<td> "+element+"</td>" ;
-						bodymessage = bodymessage +"<td> <input id='"+element+"'type='text' value='"+dico[i][page][element][lang]+"'></input></td>"+"<td> "+"</tr>";
+						bodymessage = bodymessage +"<td> <input id='"+page+"_"+element+"'type='text' value='"+dico[i][page][element][lang]+"'></input></td>"+"<td> "+"</tr>";
 					}
 				}	
 		}
-		var elt =message + bodymessage + endmessage;	
-		printHTML(document.getElementById("elt"),elt);
+		var elt =message + bodymessage + endmessage;
+		var btn = "<button id='save' onclick='saveLang()'>Enregistrer</button>"
+		
+		printHTML(document.getElementById("elt"),elt + btn);
+		language = lang;
 }
 /************************************* Ajout d'une nouvelle langue************************************/
-
+var lang_added;
 function addLang()
 {
-	var xhr = getXMLHttpRequest();
+	input_lang = "<input id='input_lang' ></input>"
+		var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
-
 		var dico = JSON.parse(xhr.responseText);
 		var bodymessage="";
 		var endmessage ="</table>";
@@ -140,44 +147,83 @@ function addLang()
 						bodymessage = bodymessage+
 						"<tr style='text-align: left'>" +
 						"<td> "+page+"</td>"+"<td> "+element+"</td>" ;
-						bodymessage = bodymessage +"<td> <input type='text' value='"+"'></input></td>"+"<td> "+"</tr>";
+						bodymessage = bodymessage +"<td> <input type='text' id='"+page+"_"+element+"'></input></td>"+"<td> "+"</tr>";
 					}
 				}	
 		}
-		var elt =message + bodymessage + endmessage;	
+		
+		var btn = "<button id='save' onclick='addLanguage()'>Ajouter</button>"
+		var elt = input_lang + message + bodymessage + endmessage + btn;
 		printHTML(document.getElementById("elt"),elt);
+		
 }
-/********************************************* Sauvegarde des modifications ***********************************/
+/******************************* Add a new language and save it to a file*******************************/
 
-function saveLang()
+function addLanguage()
 {
-//	var xhr = getXMLHttpRequest();
-//	xhr.open("POST","/KasuKasu/traduction_test.json",true);
-	
+	lang_added = document.getElementById('input_lang').value;
+	var lang = lang_added;
+	var xhr = getXMLHttpRequest();
+	xhr.open("GET","/KasuKasu/traduction.json",false);
+	xhr.send();
+	var result = JSON.parse(xhr.responseText);
 	for(var i in result)
 	{
 		for(var page in result[i])
 			{
 				for(var element in result[i][page])
 				{	
-					result[i][page][element]["fr"] = document.getElementById(element).value;
+					result[i][page][element][lang] = document.getElementById(page+"_"+element).value;
 				}
 			}	
 	}
+
 	$.ajax({
 		type : "POST",
-		url : "saveLanguage",
-		data : result, 
-		dataType : "json",
+		url : SaveLanguageServlet,
+		data : JSON.stringify(result), 
+		dataType : 'json',
 		success :  function()
 		{
-		   
+			console.log("OK");
 		},
 		error : function(XHR, testStatus, errorThrown) {
-		console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
+		//console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
 		}
 		});
-	//console.log(result);
-//	var file = new Blob(JSON.stringify(result), {type: JSON});
-//	xhr.send(JSON.stringify(result));
+}
+
+
+
+
+
+/********************************************* Sauvegarde des modifications ***********************************/
+
+function saveLang()
+{
+	lang = language;
+	for(var i in result)
+	{
+		for(var page in result[i])
+			{
+				for(var element in result[i][page])
+				{	
+					result[i][page][element][lang] = document.getElementById(page+"_"+element).value;
+				}
+			}	
+	}
+
+	$.ajax({
+		type : "POST",
+		url : SaveLanguageServlet,
+		data : JSON.stringify(result), 
+		dataType : 'json',
+		success :  function()
+		{
+			console.log("OK");
+		},
+		error : function(XHR, testStatus, errorThrown) {
+		//console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
+		}
+		});
 }
