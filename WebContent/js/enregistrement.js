@@ -1,8 +1,8 @@
 bool=0;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")
 	bool=1;
 else
-	if(document.cookie.search("lang=fr")!=-1)
+	if(readCookie("lang") == "fr")
 		bool=0;
 
 function enregistrement(formulaire) 
@@ -192,7 +192,7 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 			"font-size": "80%"
 		});
 		if(bool==1)
-			printHTML("#error_captcha","It is not Einstein !");
+			printHTML("#error_captcha","This is not Einstein !");
 		$("#error_captcha").css({
 			"color":"red",
 			"font-size": "80%"
@@ -247,7 +247,10 @@ function traiteReponseEnregistrement(rep)
 	if (rep.error != undefined)  
 	{
 		//func_erreur_inscription(rep.error);
-		openJModal(2000,"Une erreur s'est produite");
+		if(bool==0)
+			openJModal(2000,"Une erreur s'est produite");
+		if(bool==1)
+			openJModal(2000,"An error has been occurred");
 
 	}
 	else if (rep.message!=undefined)

@@ -2,10 +2,10 @@
  * ANAGBLA Joan*/
 bool=0;
 applicants_shared_div_state_opened=false;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")	
 	bool=1;
 else
-	if(document.cookie.search("lang=fr")!=-1)
+	if(readCookie("lang") == "fr")
 		bool=0;
 function Item(id,owner,group,date,longitude,latitude,title,description,permission){
 	//alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","+description+","+permission+")");

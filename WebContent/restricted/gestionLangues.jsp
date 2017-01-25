@@ -29,6 +29,8 @@
 <div id='main'>
 	<div id='elt'></div>
 </div>
+<!-- TODO -->
+<!-- afficher les langues en fonction des langues qui existent dans le json -->
 	<button id='fr' onclick="editLang('fr');">Français</button>
 	<button id='en' onclick="editLang('en')">Anglais</button>
 	<button id='ajout' onclick="addLang()">Ajouter une nouvelle langue</button>

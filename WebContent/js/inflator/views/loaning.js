@@ -1,8 +1,8 @@
 bool=0;
-if(document.cookie.search("lang=en")!=-1)
-	bool=1;
+if(readCookie("lang") == "en")
+bool=1;
 else
-	if(document.cookie.search("lang=fr")!=-1)
+	if(readCookie("lang") == "fr")
 		bool=0;
 function Loan(loan_id,item,title,debut,fin,owner,ownername){
 	//alert("new Loan("+loan_id+","+item+","+title+","+debut+","+fin+")");
@@ -40,10 +40,16 @@ function request_item_query(id, begin, end){
 }
 function goToSearchItem(){gotoURL(searchitems_jsp);}
 function request_item_query_response(rep){
-	openJModal(2000,
-			"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e! "
-			,goToSearchItem
-	);
+	if(bool==0)
+		openJModal(2000,
+				"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e ! "
+				,goToSearchItem
+		);
+	if(bool==1)
+		openJModal(2000,
+				"A request for this item has been sent ! "
+				,goToSearchItem
+		);
 }
 
 
@@ -52,18 +58,19 @@ function request_item_query_response(rep){
 //2) Call request_item_query
 function request_item(id){	
 
+	if(bool==0)
 	// Add DataPickerHTML
 	$( "#datePickerDialog" ).html(
 			"<div id='myModal' class='modal'>\n" +
 			"<div class='modal-content'>\n"+
 			"<span class='close'>&times;</span>\n"+
-			"<h1>Date de début et fin du prêt souhaités</h1>\n"+
+			"<h1>Date de début et de fin du prêt souhaités</h1>\n"+
 			"<strong id='date_error'></strong>\n" +
 			"<table style='margin: auto;'>\n"+
 			"<tr>\n"+
 			"<td>\n"+
 			"<div class='begin_section'>\n" +
-			"<span>Date du début du prêt</span>\n" +
+			"<span>Date de début du prêt</span>\n" +
 			"<div id='date_begin'></div>\n" +
 			"</div>\n" +
 			"</td>\n"+
@@ -81,7 +88,35 @@ function request_item(id){
 			"</div>\n"
 
 	);
+	if(bool==1)
+		$( "#datePickerDialog" ).html(
+				"<div id='myModal' class='modal'>\n" +
+				"<div class='modal-content'>\n"+
+				"<span class='close'>&times;</span>\n"+
+				"<h1>Loan start and end dates desired </h1>\n"+
+				"<strong id='date_error'></strong>\n" +
+				"<table style='margin: auto;'>\n"+
+				"<tr>\n"+
+				"<td>\n"+
+				"<div class='begin_section'>\n" +
+				"<span>Loan start date</span>\n" +
+				"<div id='date_begin'></div>\n" +
+				"</div>\n" +
+				"</td>\n"+
+				"<td>\n"+
 
+				"<div class='end_section'>\n" +
+				"<span>Loan end date</span>\n" +
+				"<div id='date_end'></div>\n" +
+				"</div>\n" +
+				"</td>"+
+				"</div>\n"+
+				"</tr>"+
+				"</table>"+
+				"<div class='btn btn-primary btn-xs' id='validate_dates_button'>Ok</div>" +
+				"</div>\n"
+
+		);
 	var str_date_begin = null;
 	var str_date_end = null;
 
@@ -160,8 +195,12 @@ function request_item(id){
 			request_item_query(id, format_date_begin, format_date_end);
 		}
 		else{
+			if(bool==0)
 			// Show popUp
-			$("#date_error").html("Veuillez sélectionner des dates de début et fin SVP.");
+				$("#date_error").html("Veuillez sélectionner des dates de début et de fin du prêt.");
+			if(bool==1)
+				// Show popUp
+				$("#date_error").html("Please, select the loan start and end dates.");
 		}
 	});
 }
@@ -177,16 +216,25 @@ function accept_item_request(id_applicant, id_item){
 		success : accept_item_request_response,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+			if(bool==0)
 			openJModal(2000,"Une erreur s'est produite");
+			if(bool==1)
+				openJModal(2000,"An error has occured");
 		}
 	});
 }
 function goToApplicants(){gotoURL(applicants_jsp);}
 function accept_item_request_response(rep){
+	if(bool==0)
 	openJModal(2000,
-			"Vous venez d'accepter cette requete. Votre ami en sera inform&eacute;."
+			"Vous venez d'accepter cette requête. Votre ami(e) en sera inform&eacute;(e)."
 			,goToApplicants
 	);
+	if(bool==1)
+		openJModal(2000,
+				"You have accepted this request. Your friend will be informed."
+				,goToApplicants
+		);
 }
 
 
@@ -199,15 +247,24 @@ function refuse_item_request(id_applicant,id_item){
 		success : refuse_item_request_response,
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
-			openJModal(2000,"Une erreur s'est produite");
+			if(bool==0)
+				openJModal(2000,"Une erreur s'est produite");
+				if(bool==1)
+					openJModal(2000,"An error has occured");
 		}
 	});
 }
 function refuse_item_request_response(rep){
+	if(bool==0)
 	openJModal(2000,
-			"Vous venez de refuser cette requete. Votre ami en sera inform&eacute;."
+			"Vous venez de refuser cette requête. Votre ami(e) en sera inform&eacute;(e)."
 			,goToApplicants
 	);
+	if(bool==1)
+		openJModal(2000,
+				"You have refused this request. Your friend will be informed."
+				,goToApplicants
+		);
 }
 
 

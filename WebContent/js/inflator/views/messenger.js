@@ -2,11 +2,13 @@
  *Messenger  
  */
 bool=0;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")
 	bool=1;
-else
-	if(document.cookie.search("lang=fr")!=-1)
-		bool=0;
+	else
+		if(readCookie("lang") == "fr")
+			bool=0;
+
+
 MESSAGESMAP = new Map();
 SPEAKERSMAP = new Map();
 
@@ -93,7 +95,7 @@ Message.TraiteReponse = function(result){
 	if(messages.length==0)
 	{
 		if(bool == 0)
-			fhtm+="<h2 class=\"nothing\">Commencer par écrire un premier message</h2>";
+			fhtm+="<h2 class=\"nothing\">Commencez par écrire un premier message</h2>";
 		if(bool == 1)
 			fhtm+="<h2 class=\"nothing\">Start by writing a first message</h2>";
 	}
