@@ -38,12 +38,8 @@ function init()
 			else if(bool==1) pend.innerHTML='You have '+data.pending+' pending loan request(s)'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick=locations(\"/KasuKasu/restricted/applicants.jsp\") >See</button>';
 			
 			back=document.getElementById('back');
-			//if (data.back=="undefined") data.back=0;
-			if(bool==0) back.innerHTML='Vous avez '+data.back+' retrour(s) à valider'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/evaluation.jsp\") >Voir</button>';
-			else if(bool==1) back.innerHTML='You have '+data.back+' return(s) to validate'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick="locations(\"/KasuKasu/restricted/evaluation.jsp\")">See</button>';
-
-
-			//populatePre('aide.txt');
+			if(bool==0) back.innerHTML='Vous avez '+data.back+' retrour(s) à valider'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/evaluationRequest.jsp\") >Voir</button>';
+			else if(bool==1) back.innerHTML='You have '+data.back+' return(s) to validate'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick="locations(\"/KasuKasu/restricted/evaluationRequest.jsp\")">See</button>';
 
 
 		},		error : function(xhr,status,errorthrown){
@@ -60,10 +56,6 @@ function locations(href)
 	window.location.href=href; 
 }
 
-function locations2()
-{
-	window.location.href='/KasuKasu/restricted/evaluation.jsp'; 
-}
 
 function populatePre(url) {
 	var xhr = new XMLHttpRequest();

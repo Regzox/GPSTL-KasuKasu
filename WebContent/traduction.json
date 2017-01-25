@@ -419,8 +419,8 @@
 			"en": "Name"
 		},
 		"porteel": {
-			"fr": "Portée",
-			"en": "Range"
+			"fr": "Portée en km",
+			"en": "Range in km"
 		},
 		"radius_input": {
 			"fr": "Portée (obligatoire)",

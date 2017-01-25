@@ -53,7 +53,7 @@ function trans(page,element){
 				if(document.getElementById(element).type == "text" || document.getElementById(element).type == "password")
 					{
 					//TODO dosn't really work :/
-					alert(document.getElementById(element).placeholder)
+					//alert(document.getElementById(element).placeholder)
 						if(document.getElementById(element).placeholder !="")
 						{
 							
