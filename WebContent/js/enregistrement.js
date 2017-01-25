@@ -258,9 +258,7 @@ function traiteReponseEnregistrement(rep)
 		window.location.href = dashboard_jsp;
 	}
 	
-	openJModal(2000,
-			"Demande en cours! ",dashboard_jsp
-	);
+	openJModal(2000,"Demande en cours...",dashboard_jsp);
 }
 
 
