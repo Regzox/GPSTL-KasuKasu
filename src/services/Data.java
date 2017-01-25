@@ -66,7 +66,6 @@ public class Data {
 		try {
 			System.out.println(test.getCanonicalPath());
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 

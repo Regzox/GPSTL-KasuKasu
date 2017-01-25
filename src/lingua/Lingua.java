@@ -70,7 +70,7 @@ public class Lingua {
 	/**
 	 * "latin" means translator in latin 
 	 * This is a home made multi-language web-app dictionary.
-	 * TODO please fill this dictionary with your Strings */
+	 * */
 	private static Map<String,ArrayList<String>> latin = new HashMap<String, ArrayList<String>>();
 	static
 	{

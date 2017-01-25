@@ -222,7 +222,7 @@ public class ItemsDB {
 	/***************** ITEMS GROUPS (VISIBILITY ) MANAGEMENT *****************/
 
 
-	/** TODO VERIFIER QUE TOUT MARCHE BIEN LORS 
+	/**  
 	 * Add to an item one more groupId 
 	 * @param itemID
 	 * @param groupID */
@@ -237,8 +237,6 @@ public class ItemsDB {
 	}
 
 
-
-
 	/**
 	 * TODO CONTINUE
 	 * remove from an item the specified groupId
@@ -249,6 +247,9 @@ public class ItemsDB {
 				new BasicDBObject("$pull", new BasicDBObject("groups.$.id",groupID)));
 	}
 
+	
+	
+	
 	public static void main(String[] args) {
 		System.out.println("Results...\n%");
 
@@ -329,8 +330,4 @@ public class ItemsDB {
 				.append("owner", userID));
 	}
 	
-
-	
-
-
 }
