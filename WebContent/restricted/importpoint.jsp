@@ -45,7 +45,8 @@
 
 <style type="text/css">
 html, body, #mapdiv {
-	overflow: hidden; z-index : 0;
+	overflow: hidden;
+	z-index: 0;
 	width: 100%;
 	height: 100%;
 	margin: 0;
@@ -65,7 +66,7 @@ html, body, #mapdiv {
 	<!-- 	<div id="mapdiv"></div> -->
 	<div id="page">
 
-		<div class="menu captital">
+				<div class="menu captital">
 			<div class="wrapper">
 				<div class="tier"></div>
 				<div class="tier">Carte interactive</div>
@@ -108,167 +109,138 @@ html, body, #mapdiv {
 						lieu</div>
 				</div>
 			</div>
-
-			<%@ include file="/fragments/interface/footer.jspf"%>
-
-<!-- <<<<<<< HEAD
 		</div>
-		Modal
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					Modal Header
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-						</button>
-						<h4 class="modal-title" id="ModalAjout">Ajouter le lieu</h4>
-					</div>
+		
+		<%@ include file="/fragments/interface/footer.jspf"%>
 
-					Modal Body
-					<div class="modal-body">
 
-						<form class="form-horizontal" role="form">
-							<div class="form-group row">
-								<label id='noml' for="old_email_input"
-									class="col-xs-3 col-form-label">Nom</label>
-								<div class="col-xs-8">
-									<input class="form-control" value="" id="nom_input"
-										name="nom_input" placeholder="Nom (obligatoire)"
-										required="required">
-								</div>
-							</div>
-							<div class="form-group row">
-								<label id='porteel' for="old_password_input"
-									class="col-xs-3 col-form-label">Portée</label>
-								<div class="col-xs-8">
-									<input class="form-control" value="" id="radius_input"
-										type="number" name="radius_input"
-										placeholder="Portée (obligatoire)" required="required">
-								</div>
-======= -->
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="ModalAjout">Ajouter le lieu</h4>
+				</div>
+
+				<!-- Modal Body -->
+				<div class="modal-body">
+
 					<form class="form-horizontal" role="form">
 						<div class="form-group row">
-							<label id='noml' for="old_email_input" class="col-xs-3 col-form-label">Nom</label>
+							<label id='noml' for="old_email_input"
+								class="col-xs-3 col-form-label">Nom</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="nom_input"
-									name="nom_input" placeholder="Nom (obligatoire)"
-									>
+									name="nom_input" placeholder="Nom (obligatoire)">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label id='porteel' for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
+							<label id='porteel' for="old_password_input"
+								class="col-xs-3 col-form-label">Portée</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="radius_input"
-									 name="radius_input"
-									placeholder="Portée numérique (obligatoire)" >
-<!-- >>>>>>> 2109ac524c37be233189e9a1de146531641065b6 -->
+									name="radius_input"
+									placeholder="Portée numérique (obligatoire)">
 							</div>
-						</form>
+						</div>
+					</form>
 
 
 
 
 
 
-					</div>
+				</div>
 
-					<!-- Modal Footer -->
-					<div class="modal-footer">
-						<button id='close' type="button" class="btn btn-default"
-							data-dismiss="modal">Fermer</button>
-						<button type="button" id="save" class="btn btn-primary">Ajouter</button>
-					</div>
+				<!-- Modal Footer -->
+				<div class="modal-footer">
+					<button id='close' type="button" class="btn btn-default"
+						data-dismiss="modal">Fermer</button>
+					<button type="button" id="save" class="btn btn-primary">Ajouter</button>
 				</div>
 			</div>
 		</div>
+	</div>
 
 
-		<div id="myModal2" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- dialog body -->
-					<div class="modal-body">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<div id='comment2'>Le lieu a bien été ajouté</div>
-					</div>
+	<div id="myModal2" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- dialog body -->
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<div id='comment2'>Le lieu a bien été ajouté</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<div id="myModal3" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- dialog body -->
-					<div class="modal-body">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<div id="comment3">Les changements ont bien été pris en
-							compte</div>
-					</div>
+	<div id="myModal3" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- dialog body -->
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<div id="comment3">Les changements ont bien été pris en
+						compte</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- Modal -->
-		<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">
-							<span aria-hidden="true">&times;</span> <span id="close"
-								class="sr-only">Fermer</span>
-						</button>
-						<h4 class="modal-title" id="ModalModif">Modifier le lieu</h4>
-					</div>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal4" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span> <span id="close"
+							class="sr-only">Fermer</span>
+					</button>
+					<h4 class="modal-title" id="ModalModif">Modifier le lieu</h4>
+				</div>
 
-					<!-- Modal Body -->
-					<div class="modal-body">
+				<!-- Modal Body -->
+				<div class="modal-body">
 
-						<form class="form-horizontal" role="form">
-							<div class="form-group row">
-								<label id="nom" for="old_email_input"
-									class="col-xs-3 col-form-label">Nom</label>
-								<div class="col-xs-8">
-									<input class="form-control" value="" id="nom_input"
-										name="nom_input">
-									<!-- 									placeholder="Nom" -->
+					<form class="form-horizontal" role="form">
+						<div class="form-group row">
+							<label id="nom" for="old_email_input"
+								class="col-xs-3 col-form-label">Nom</label>
+							<div class="col-xs-8">
+								<input class="form-control" value="" id="nom_input"
+									name="nom_input">
 
-								</div>
 							</div>
-<!-- <<<<<<< HEAD
-							<div class="form-group row">
-								<label id="range" for="old_password_input"
-									class="col-xs-3 col-form-label">Portée</label>
-								<div class="col-xs-8">
-									<input class="form-control" value="" id="radius_input"
-										type="number" name="radius_input">
-																		placeholder="Portée"
-								</div>
-======= -->
 						</div>
 						<div class="form-group row">
-							<label id="range" for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
+							<label id="range" for="old_password_input"
+								class="col-xs-3 col-form-label">Portée</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="radius_input"
-									 name="radius_input"
-									>
-<!-- 									placeholder="Portée" -->
-<!-- >>>>>>> 2109ac524c37be233189e9a1de146531641065b6 -->
+									name="radius_input">
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
+				</div>
 
-					<!-- Modal Footer -->
-					<div class="modal-footer">
-						<button id="ferm" type="button" class="btn btn-default"
-							data-dismiss="modal">Fermer</button>
-						<button id="enreg" type="button" class="btn btn-primary">Enregistrer</button>
-					</div>
+				<!-- Modal Footer -->
+				<div class="modal-footer">
+					<button id="ferm" type="button" class="btn btn-default"
+						data-dismiss="modal">Fermer</button>
+					<button id="enreg" type="button" class="btn btn-primary">Enregistrer</button>
 				</div>
 			</div>
 		</div>
+	</div>
+
 </body>
 </html>
