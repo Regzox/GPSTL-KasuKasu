@@ -105,15 +105,23 @@ function abonnement(lat,lon)
 			'click',
 			function(evt)
 			{
+				
 				nom_abo = $("#myModal").find("#nom_input").val();
 				radius_abo = $("#myModal").find("#radius_input").val();
+				var pattern = /^\d+$/;
+				numeric = pattern.test(radius_abo);
 
-				if (nom_abo.length!=0 && radius_abo.length!=0)
+//				if (nom_abo.lenght==0) $("#myModal").find("#nom_input").text("Champ obligatoire");
+//				if (radius_abo.lenght==0) $("#myModal").find("#radius_input").text("Champ obligatoire");
+//				if (!numeric) $("#myModal").find("#radius_input").text("Valeur numérique obligatoire");
+
+
+				if (nom_abo.length!=0 && radius_abo.length!=0 && numeric)
 				{
 					addPoint(nom_abo,radius_abo,lat,lon); 
+					$("#myModal").hide();
 				}
 
-				else $("#myModal").hide(); 
 
 			}
 	);
@@ -242,17 +250,16 @@ function Delete(id)
 function Modifier(id_modif,old_name,old_radius)
 {
 
-    var modal = $('#myModal4');
-    modal.find("#nom_input").val(old_name);
-    modal.find("#radius_input").val(old_radius);
+	var modal = $('#myModal4');
+	modal.find("#nom_input").val(old_name);
+	modal.find("#radius_input").val(old_radius);
 
-//    $('#myModal4').modal('show');
 	$("#myModal4").modal({                    
 		"backdrop"  : "static",
 		"keyboard"  : true,
 		"show"      : true                     
 	});
-	
+
 
 
 
@@ -263,12 +270,15 @@ function Modifier(id_modif,old_name,old_radius)
 				nom_modif = $("#myModal4").find("#nom_input").val();
 				radius_modif = $("#myModal4").find("#radius_input").val();
 
-
 				if (nom_modif.length==0) nom_modif = old_name;
 				if (radius_modif.length==0) radius_modif = old_radius;
-
-
-				updatePoint(id_modif,radius_modif,nom_modif); 
+				
+				var pattern = /^\d+$/;
+				numeric = pattern.test(radius_modif);
+				
+				if (numeric) updatePoint(id_modif,radius_modif,nom_modif); 
+				
+				
 
 			}
 	);
@@ -385,7 +395,7 @@ function affiche()
 					{description: "Place : "+json2.expts[i].name+", "+json2.expts[i].radius+"m"+"<br>"+"Subscribers :" + json2.expts[i].users} ,
 					{externalGraphic: '/KasuKasu/data/marker-red.png', graphicHeight: 25, graphicWidth: 21, graphicXOffset:-12, graphicYOffset:-25  }
 			); 
-		
+
 		vectorLayer.addFeatures(feature2);
 		table_feature2.push(feature2);
 

@@ -20,7 +20,7 @@ import exceptions.DatabaseException;
 import utils.Tools;
 
 /**
- *@author ANAGBLA Joan, Cedric Ribeiro */
+ *@author ANAGBLA Joan, Cedric Ribeiro, Lina YAHI */
 public class Items {
 	/**
 	 * Update an Item
