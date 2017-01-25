@@ -1,5 +1,7 @@
 package services;
 
+import java.util.NoSuchElementException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -135,7 +137,7 @@ public class Items {
 	
 	
 	public static void main(String[] args) throws JSONException, DatabaseException {
-		searchItems("Vélo rouge","1");
+		searchItems("Vï¿½lo rouge","1");
 	}
 
 	/**
@@ -187,21 +189,34 @@ public class Items {
 		
 		JSONObject objects = Items.userItems("", userID);
 		int pret = objects.getJSONArray("items").length();
+		System.out.println("Pret: " +pret);
 		
 		JSONObject loaning = Loaning.applicantLoanings(userID);
 		int emprunt = loaning.getJSONArray("loans").length();
+		System.out.println("Emprunt: " +emprunt);
+
 		
 		DBCursor dbc = ItemsDB.userItemsLoaned(userID);
 		int loaned = dbc.count();
+		System.out.println("Loaned: " +loaned);
+
 
 		DBCursor pend = LoaningDB.pendingRequests(userID);
 		int pendR = pend.count();
+		System.out.println("Pending: " +pendR);
+		
+		JSONObject jo = Evaluation.findlistRequest(userID);
+		int back = jo.getJSONArray("result").length();		
+		System.out.println("Back: " +back);
+
 		
 		
 		jar.put("pret",pret);
 		jar.put("emprunt",emprunt);
 		jar.put("loaned",loaned);
 		jar.put("pending",pendR);
+		jar.put("back",back);
+
 
 
 					

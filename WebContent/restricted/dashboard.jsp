@@ -17,12 +17,12 @@
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/aide.js"></script>
 
-<!-- 		<script type="text/javascript"> -->
-<!--  		$(document).ready(function() { -->
-<!--  				trans('createobject.jsp','titre'); -->
-<!--  				trans('createobject.jsp','accueil'); -->
-<!--  			}); -->
-<!-- 			</script>  -->
+<script type="text/javascript">
+  		$(document).ready(function() { 
+ 				trans('dashboard.jsp','titre'); 
+//  				trans('dashboard.jsp','accueil'); 
+  			}); 
+			</script>
 </head>
 
 <body onload="javascript:init();">
@@ -36,11 +36,12 @@
 			<p class='capital'>Bienvenue sur KasuKasu!</p>
 		</div>
 
-		<div align="center">
+		<div class='layer-center'>
 			<p id='act'></p>
 			<p id='emprunt'></p>
 			<p id='pret'></p>
 			<p id='pend'></p>
+			<p id='back'></p>
 			<pre id="contents"></pre>
 		</div>
 

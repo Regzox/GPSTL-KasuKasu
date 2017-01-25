@@ -34,8 +34,14 @@ function init()
 			else if(bool==1) pret.innerHTML='- You lend '+data.loaned+' objects among your '+data.pret+' object(s).';
 
 			pend=document.getElementById('pend');
-			if(bool==0) pend.innerHTML='Vous avez '+data.pending+' demande(s) de prêts en attente'+'<button onclick="locations()">Prêts en attente</button>';
-			else if(bool==1) pend.innerHTML='You have '+data.pending+' pending loan request(s)'+'<button onclick="locations()">Pending requests</button>';
+			if(bool==0) pend.innerHTML='Vous avez '+data.pending+' demande(s) de prêts en attente'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick= locations(\"/KasuKasu/restricted/applicants.jsp\") >Voir</button>';
+			else if(bool==1) pend.innerHTML='You have '+data.pending+' pending loan request(s)'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick=locations(\"/KasuKasu/restricted/applicants.jsp\") >See</button>';
+			
+			back=document.getElementById('back');
+			//if (data.back=="undefined") data.back=0;
+			if(bool==0) back.innerHTML='Vous avez '+data.back+' retrour(s) à valider'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/evaluation.jsp\") >Voir</button>';
+			else if(bool==1) back.innerHTML='You have '+data.back+' return(s) to validate'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick="locations(\"/KasuKasu/restricted/evaluation.jsp\")">See</button>';
+
 
 			//populatePre('aide.txt');
 
@@ -51,7 +57,12 @@ function init()
 
 function locations(href)
 {
-	window.location.href=href;
+	window.location.href=href; 
+}
+
+function locations2()
+{
+	window.location.href='/KasuKasu/restricted/evaluation.jsp'; 
 }
 
 function populatePre(url) {

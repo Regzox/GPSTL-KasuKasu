@@ -1,5 +1,6 @@
 package dao;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -25,6 +26,12 @@ public class EvaluationRequestDB {
 	
 	public static DBCursor find(DBObject evaluationRequest) {
 		return evaluationRequests.find(evaluationRequest);
+	}
+	
+	public static DBCursor findlistRequest(String userID){
+		DBCursor c=evaluationRequests.find( 
+				new BasicDBObject("receiverId",userID));
+		return c;
 	}
 	
 }
