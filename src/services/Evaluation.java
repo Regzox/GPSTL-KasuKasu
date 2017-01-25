@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -17,15 +18,18 @@ import com.mongodb.MongoException;
 import dao.EvaluationDB;
 import dao.EvaluationRequestDB;
 import dao.EvaluationResponseDB;
+import dao.ExchangePointsDB;
+import dao.users.UserDao;
 import entities.EvaluationRequest;
 import entities.EvaluationResponse;
+import exceptions.DatabaseException;
 import json.Error;
 import json.Success;
 import json.Warning;
 import kasudb.KasuDB;
 
 /**
- * Service de gestion des évaluations.
+ * Service de gestion des ï¿½valuations.
  * 
  * @author Daniel RADEAU
  *
@@ -38,7 +42,7 @@ public class Evaluation {
 	public static String DEFAULT_IMAGE = "/KasuKasu/data/profile-icon.png";
 
 	/**
-	 * Insert en base de données une requête d'évaluation
+	 * Insert en base de donnï¿½es une requï¿½te d'ï¿½valuation
 	 * 
 	 * @param senderId
 	 * @param receiverId
@@ -49,11 +53,11 @@ public class Evaluation {
 	public static JSONObject insertRequest(String senderId, String receiverId, String loanId) {
 		EvaluationRequest evr = new EvaluationRequest(senderId, receiverId, loanId);
 		EvaluationRequestDB.insert(evr.toDBObject());
-		return new Success("La requête d'évaluation à bien été mise en base de données");
+		return new Success("La requï¿½te d'ï¿½valuation ï¿½ bien ï¿½tï¿½ mise en base de donnï¿½es");
 	}
 
 	/**
-	 * Insert en base de données une évaluation
+	 * Insert en base de donnï¿½es une ï¿½valuation
 	 * 
 	 * @param senderId
 	 * @param receiverId
@@ -67,11 +71,11 @@ public class Evaluation {
 		EvaluationRequest evr = new EvaluationRequest(senderId, receiverId, loanId);
 		entities.Evaluation ev = new entities.Evaluation(evr, comment, mark);
 		EvaluationDB.insert(ev.toDBObject());
-		return new Success("L'évaluation à bien été mise en base de données");
+		return new Success("L'ï¿½valuation ï¿½ bien ï¿½tï¿½ mise en base de donnï¿½es");
 	}
 
 	/**
-	 * Insert en base de données une response d'évaluation
+	 * Insert en base de donnï¿½es une response d'ï¿½valuation
 	 * 
 	 * @param senderId
 	 * @param receiverId
@@ -87,11 +91,11 @@ public class Evaluation {
 
 		EvaluationResponse evr = new EvaluationResponse(senderId, receiverId, loanId);
 		EvaluationResponseDB.insert(evr.toDBObject());
-		return new Success("La réponse d'évaluation à bien été mise en base de données");
+		return new Success("La rï¿½ponse d'ï¿½valuation ï¿½ bien ï¿½tï¿½ mise en base de donnï¿½es");
 	}
 
 	/**
-	 * Liste l'ensemble des requêtes d'évaluations destinées à l'utilisateur
+	 * Liste l'ensemble des requï¿½tes d'ï¿½valuations destinï¿½es ï¿½ l'utilisateur
 	 * 
 	 * @param userId
 	 * @return
@@ -127,7 +131,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Liste des évaluations soumises ou reçues par un utilisateur
+	 * Liste des ï¿½valuations soumises ou reï¿½ues par un utilisateur
 	 * 
 	 * @param mode
 	 * @param userId
@@ -178,7 +182,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Liste des responses d'évaluations destinées à l'utilisateur
+	 * Liste des responses d'ï¿½valuations destinï¿½es ï¿½ l'utilisateur
 	 * 
 	 * @param userId
 	 * @return
@@ -212,7 +216,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Supprime une requête d'évaluation
+	 * Supprime une requï¿½te d'ï¿½valuation
 	 * 
 	 * @param evaluationRequestId
 	 * @return
@@ -225,7 +229,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Supprime une évaluation
+	 * Supprime une ï¿½valuation
 	 * 
 	 * @param evaluationId
 	 * @return
@@ -238,7 +242,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Supprime une réponse d'évaluation
+	 * Supprime une rï¿½ponse d'ï¿½valuation
 	 * 
 	 * @param evaluationResponseId
 	 * @return
@@ -251,7 +255,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Trouve une requête d'évaluation
+	 * Trouve une requï¿½te d'ï¿½valuation
 	 * 
 	 * @param evaluationRequestId
 	 * @return
@@ -264,7 +268,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Trouve une évaluation
+	 * Trouve une ï¿½valuation
 	 * 
 	 * @param evaluationId
 	 * @return
@@ -277,7 +281,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Trouve une réponse d'évaluation
+	 * Trouve une rï¿½ponse d'ï¿½valuation
 	 * 
 	 * @param evaluationResponseId
 	 * @return
@@ -290,8 +294,8 @@ public class Evaluation {
 	}
 
 	/**
-	 * Prépare une liste de notifications disponibles à partir des requêtes 
-	 * d'évaluation trouvées pour l'utilisateur destinataire passé en paramètre.
+	 * Prï¿½pare une liste de notifications disponibles ï¿½ partir des requï¿½tes 
+	 * d'ï¿½valuation trouvï¿½es pour l'utilisateur destinataire passï¿½ en paramï¿½tre.
 	 * 
 	 * @param userId
 	 * @return
@@ -331,15 +335,15 @@ public class Evaluation {
 			}
 
 		} catch (JSONException e) {
-			return new Error("Erreur dans la déballage de la liste des requêtes d'évaluation json");
+			return new Error("Erreur dans la dï¿½ballage de la liste des requï¿½tes d'ï¿½valuation json");
 		}
 
 		return new Success(notifications);
 	}
 
 	/**
-	 * Prépare une liste de notifications disponibles à partir des responses 
-	 * d'évaluation trouvées pour l'utilisateur destinataire passé en paramètre.
+	 * Prï¿½pare une liste de notifications disponibles ï¿½ partir des responses 
+	 * d'ï¿½valuation trouvï¿½es pour l'utilisateur destinataire passï¿½ en paramï¿½tre.
 	 * 
 	 * @param userId
 	 * @return
@@ -381,7 +385,7 @@ public class Evaluation {
 			}
 
 		} catch (JSONException e) {
-			return new Error("Erreur dans la déballage de la liste des réponses d'évaluation json");
+			return new Error("Erreur dans la dï¿½ballage de la liste des rï¿½ponses d'ï¿½valuation json");
 		}
 
 		return new Success(notifications);
@@ -457,7 +461,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Trouve l'objet emprunté
+	 * Trouve l'objet empruntï¿½
 	 * 
 	 * @param loanId
 	 * @return
@@ -477,7 +481,7 @@ public class Evaluation {
 	}
 
 	/**
-	 * Construit un objet JSON pour la notification à partir d'informations
+	 * Construit un objet JSON pour la notification ï¿½ partir d'informations
 	 * 
 	 * @param sender
 	 * @param image
@@ -524,5 +528,23 @@ public class Evaluation {
 		cev.close();
 
 		return evaluation;
+	}
+	
+	public static JSONObject findlistRequest(String userID) throws JSONException
+	{
+		JSONArray jar=new JSONArray();
+		DBCursor cursor = EvaluationRequestDB.findlistRequest(userID);
+		while (cursor.hasNext())
+		{
+			DBObject dbo=cursor.next();
+			
+
+			jar.put(new JSONObject()
+					.put("senderId",dbo.get("senderId"))
+					.put("receiverId",dbo.get("receiverId"))
+					);
+
+		}
+		return new JSONObject().put("result",jar);
 	}
 }

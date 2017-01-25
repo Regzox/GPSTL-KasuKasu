@@ -1,5 +1,7 @@
 package services;
 
+import java.util.NoSuchElementException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +20,7 @@ import exceptions.DatabaseException;
 import utils.Tools;
 
 /**
- *@author ANAGBLA Joan, Cedric Ribeiro */
+ *@author ANAGBLA Joan, Cedric Ribeiro, Lina YAHI */
 public class Items {
 	/**
 	 * Update an Item
@@ -84,7 +86,7 @@ public class Items {
 	 * Return item's status (availability) 
 	 * this method is a service only to know if yes or not an item is busy  
 	 * true if item is busy (or borrowed), else false.
-	 * if an item doesn't have status it means it's available (by default)
+	 * 
 	 * 
 	 * @param id
 	 * @param title
@@ -93,9 +95,9 @@ public class Items {
 	 * @throws JSONException */
 	public static JSONObject isBusy(String id) throws JSONException {
 		if(ItemsDB.itemStatus(id).equals("borrowed"))
-			return new JSONObject().put("vacationstatus", true);
+			return new JSONObject().put("vacationstatus", true).put("status", "borrowed");
 		if(ItemsDB.itemStatus(id).equals("busy"))
-			return new JSONObject().put("vacationstatus", true);
+			return new JSONObject().put("vacationstatus", true).put("status", "busy");
 		return new JSONObject().put("vacationstatus", false);
 	}	
 
@@ -116,7 +118,7 @@ public class Items {
 		}
 		else{
 			ItemsDB.setItemStatus(id,"available");	
-			return Tools.serviceMessage("Cet objet est de nouveau visible de vos amis");
+			return Tools.serviceMessage("Cet objet est de nouveau visible par vos amis");
 		}
 	}
 
@@ -182,7 +184,7 @@ public class Items {
 
 
 	public static void main(String[] args) throws JSONException, DatabaseException {
-		searchItems("Vélo rouge","1");
+		searchItems("Vï¿½lo rouge","1");
 	}
 
 	/**
@@ -235,20 +237,27 @@ public class Items {
 		JSONObject objects = Items.userItems("", userID);
 		int pret = objects.getJSONArray("items").length();
 
+		
 		JSONObject loaning = Loaning.applicantLoanings(userID);
 		int emprunt = loaning.getJSONArray("loans").length();
+
 
 		DBCursor dbc = ItemsDB.userItemsLoaned(userID);
 		int loaned = dbc.count();
 
+
 		DBCursor pend = LoaningDB.pendingRequests(userID);
 		int pendR = pend.count();
-
+		
+		JSONObject jo = Evaluation.findlistRequest(userID);
+		int back = jo.getJSONArray("result").length();		
 
 		jar.put("pret",pret);
 		jar.put("emprunt",emprunt);
 		jar.put("loaned",loaned);
 		jar.put("pending",pendR);
+		jar.put("back",back);
+
 
 
 

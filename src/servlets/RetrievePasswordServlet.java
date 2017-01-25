@@ -16,17 +16,18 @@ import exceptions.UserNotFoundException;
 import fr.upmc.file.Resource;
 import lingua.Lingua;
 import services.User;
-import servlets.tools.templates.online.OnlineGetServlet;
+import servlets.tools.templates.offline.OfflineGetServlet;
+
 import utils.SendEmail;
 
 /**
- * @author Célien CREMINON
+ * @author Celien CREMINON
  */
-public class RetrievePasswordServlet extends OnlineGetServlet {
+public class RetrievePasswordServlet extends OfflineGetServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Resource resource;
-	
+
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -34,50 +35,48 @@ public class RetrievePasswordServlet extends OnlineGetServlet {
 		resource = ((Resource) this.getServletContext().getAttribute("resource"));
 	}
 
-	
+
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
 		PrintWriter out = response.getWriter();
 		String mail = request.getParameter("mail");
-		
+
 		Cookie[] cookies = request.getCookies();
-			String value = "";
+		String value = "";
 		for (int i = 0; i < cookies.length; i++) {
-		
-				  if(cookies[i].getName().equals("lang"))
-				  {
-					  value = cookies[i].getValue();
-				  }
+
+			if(cookies[i].getName().equals("lang"))
+			{
+				value = cookies[i].getValue();
+			}
 		}
 		if(value.equals(""))
 		{
 			value="fr";
 		}
+
+		try{
+			User.getUser(mail); // Retrait de declaration de entities.User user inutile 
+		} catch(UserNotFoundException e){
+			JSONObject error = new JSONObject();
+			error.put("error", "unknown email");
+			request.getRequestDispatcher(resource.relativePath("error_jsp")).forward(request, response);
+			return;
+		}
+
 		 
-				try{
-					User.getUser(mail); // Retrait de d�claration de entities.User user inutile 
-				} catch(UserNotFoundException e){
-					JSONObject error = new JSONObject();
-					error.put("error", "unknown email");
-					request.getRequestDispatcher(resource.relativePath("error_jsp")).forward(request, response);
-					return;
-				}
-			 
-		String mdp = User.getUser(mail).getPassword(); //TODO PB not safe
-
-		System.out.println("Envoie du mail à : "+ mail+" "+mdp);
-		
-		
 		SendEmail.sendMail(mail,
-							Lingua.get("retMailSubject", value), 
-							Lingua.get("retMailMessage", value) + mdp);
+				Lingua.get("retMailSubject", value), 
+				Lingua.get("retMailMessage", value)
+				+"http://localhost:8080/KasuKasu/confirm?id="+User.getUser(mail).getId()
+				);
 
-		request.getRequestDispatcher(resource.relativePath("portal_jsp")).forward(request, response);
-		
+		response.sendRedirect(resource.absolutePath("portal_jsp"));
+
 		out.flush();
 		out.close();
-		
+
 	}
-	
+
 }

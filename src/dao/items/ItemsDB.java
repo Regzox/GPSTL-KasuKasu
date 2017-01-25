@@ -125,7 +125,7 @@ public class ItemsDB {
 	/**
 	 * return item's status 
 	 * status are borrowed|available|busy
-	 * if an item doesn't have status it means it's available (by default)
+	 * 
 	 * @param id
 	 * @param title
 	 * @param description 
@@ -185,17 +185,23 @@ public class ItemsDB {
 	 * @throws DatabaseException */
 	public static Iterable<DBObject> utherItems(String userID,String query) { 
 		DBCursor dbc = GroupsDB.userGroupsMembership(userID);
-		BasicDBList groupsIDList = new BasicDBList();
+		BasicDBList userMembershipGroupsIDList = new BasicDBList();
 		while(dbc.hasNext())
-			groupsIDList.add(dbc.next().get("_id").toString());
-		System.out.println("ItemDB/utherItems::userGroupsMembership="+groupsIDList);//debug
+			userMembershipGroupsIDList.add(dbc.next().get("_id").toString());
+		System.out.println("ItemDB/utherItems::userGroupsMembership="+userMembershipGroupsIDList);//debug
 
+		//is item acessible bu this user
 		BasicDBList orList = new BasicDBList();
-		orList.add(new BasicDBObject("groups", new BasicDBObject("$in",groupsIDList))); //TODO plutot $elemMatch
+		orList.add(new BasicDBObject(
+				"groups", new BasicDBObject("$elemMatch",
+				new BasicDBObject(
+						"id",new BasicDBObject(
+								"$in",userMembershipGroupsIDList))))
+				);
 		orList.add(new BasicDBObject("groups",new BasicDBObject("$size",0)));
 
 		BasicDBObject constraints = new BasicDBObject("status","available")
-				//.append("$or", orList)//TODO visibilite tester
+				.append("$or", orList)
 				.append("owner",new BasicDBObject("$ne",userID));
 
 		if(query.trim().length()==0) 
@@ -216,7 +222,7 @@ public class ItemsDB {
 	/***************** ITEMS GROUPS (VISIBILITY ) MANAGEMENT *****************/
 
 
-	/** TODO VERIFIER QUE TOUT MARCHE BIEN LORS 
+	/**  
 	 * Add to an item one more groupId 
 	 * @param itemID
 	 * @param groupID */
@@ -231,26 +237,31 @@ public class ItemsDB {
 	}
 
 
-
-
 	/**
-	 * TODO CONTINUE
-	 * remove from an item the specified groupId
+	 * Remove from an item the specified groupId
 	 * @param itemID
 	 * @param groupID */
 	public static void removeGroupFromItem(String itemID, String groupID){	
 		collection.update(new BasicDBObject("_id", new ObjectId(itemID)),
-				new BasicDBObject("$pull", new BasicDBObject("groups.$.id",groupID)));
+				new BasicDBObject("$pull",
+						new BasicDBObject("groups",
+								new BasicDBObject("id",groupID))
+						)
+				);
 	}
 
+	
+	
+	
 	public static void main(String[] args) {
 		System.out.println("Results...\n%");
 
-		//addGroupToItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+		//addGroupToItem("58886d2eed0a14c5a9f5bc2e","58809F2D6D26AA03D268B50B");
 
-		//removeGroupFromItem("58718fc8ee064d4b78a3ef2c","58809f2d6d26aa03d268b50b");
+		System.out.println(getItem("58886d2eed0a14c5a9f5bc2e"));
+		removeGroupFromItem("58886d2eed0a14c5a9f5bc2e","58886d0ced0a14c5a9f5bc2d");
 		
-		System.out.println(userItemsLoaned("586e8cd92736d4e126b99c07"));
+		//System.out.println(userItemsLoaned("586e8cd92736d4e126b99c07"));
 
 		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","");
 		//		Iterable<DBObject> res =userItems("586f67636c7ec4b61187a196","V");
@@ -323,8 +334,4 @@ public class ItemsDB {
 				.append("owner", userID));
 	}
 	
-
-	
-
-
 }

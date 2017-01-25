@@ -109,15 +109,15 @@ html, body, #mapdiv {
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="nom_input"
 									name="nom_input" placeholder="Nom (obligatoire)"
-									required="required">
+									>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label id='porteel' for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="radius_input"
-									type="number" name="radius_input"
-									placeholder="Portée (obligatoire)" required="required">
+									 name="radius_input"
+									placeholder="Portée numérique (obligatoire)" >
 							</div>
 						</div>
 					</form>
@@ -193,7 +193,7 @@ html, body, #mapdiv {
 							<label id="range" for="old_password_input" class="col-xs-3 col-form-label">Portée</label>
 							<div class="col-xs-8">
 								<input class="form-control" value="" id="radius_input"
-									type="number" name="radius_input"
+									 name="radius_input"
 									>
 <!-- 									placeholder="Portée" -->
 							</div>

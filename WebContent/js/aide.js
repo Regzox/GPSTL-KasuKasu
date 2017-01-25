@@ -24,40 +24,52 @@ function init()
 			act = document.getElementById('act');
 			if(bool==0) act.innerHTML=' Actuellement:';
 			else if (bool==1) act.innerHTML=' Currently:';
-			
+
 			emprunt=document.getElementById('emprunt');
-			if(bool==0) emprunt.innerHTML='- <b>Vous <button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick="locations(\'/KasuKasu/restricted/userLoans.jsp\')">empruntez</button>'+data.emprunt+'<b> objet(s),</b>';
-			else if(bool==1) emprunt.innerHTML='- <b>You <button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick="locations(\'/KasuKasu/restricted/userLoans.jsp\')">borrow</button>'+data.emprunt+'<b> object(s),</b>';
+			if(bool==0) emprunt.innerHTML='- Vous empruntez '+data.emprunt+' objet(s),';
+			else if(bool==1) emprunt.innerHTML='- You borrow '+data.emprunt+' object(s),';
 
 			pret=document.getElementById('pret');
-			if(bool==0) pret.innerHTML='- <b>Vous prêtez '+data.loaned+' objets parmi vos  </b>'+data.pret+'<b> objet(s).</b>';
-			else if(bool==1) pret.innerHTML='- <b>You lend '+data.loaned+' objects among your  </b>'+data.pret+' object(s).</b>';
-			
+			if(bool==0) pret.innerHTML='- Vous prêtez '+data.loaned+' objets parmi vos '+data.pret+' objet(s).';
+			else if(bool==1) pret.innerHTML='- You lend '+data.loaned+' objects among your '+data.pret+' object(s).';
+
 			pend=document.getElementById('pend');
-			if(bool==0) pend.innerHTML='<b>Vous avez '+data.pending+' demande(s) de </b>'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;\" onclick="locations(\'/KasuKasu/restricted/applicants.jsp\')">Prêts en attente</button>';
-			else if(bool==1) pend.innerHTML='<b>You have '+data.pending+' </b>'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;\" onclick="locations(\'/KasuKasu/restricted/applicants.jsp\')">Pending requests</button>';
+			if(bool==0) pend.innerHTML='Vous avez '+data.pending+' demande(s) de prêts en attente'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick= locations(\"/KasuKasu/restricted/applicants.jsp\") >Voir</button>';
+			else if(bool==1) pend.innerHTML='You have '+data.pending+' pending loan request(s)'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\" onclick=locations(\"/KasuKasu/restricted/applicants.jsp\") >See</button>';
 			
-			//populatePre('aide.txt'); 
+			back=document.getElementById('back');
+			//if (data.back=="undefined") data.back=0;
+			if(bool==0) back.innerHTML='Vous avez '+data.back+' retrour(s) à valider'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/evaluation.jsp\") >Voir</button>';
+			else if(bool==1) back.innerHTML='You have '+data.back+' return(s) to validate'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick="locations(\"/KasuKasu/restricted/evaluation.jsp\")">See</button>';
+
+
+			//populatePre('aide.txt');
+
 
 		},		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 		}
-		
-		
+
+
 	});
 
 }
 
 function locations(href)
 {
-window.location.href=href;
+	window.location.href=href; 
+}
+
+function locations2()
+{
+	window.location.href='/KasuKasu/restricted/evaluation.jsp'; 
 }
 
 function populatePre(url) {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-        document.getElementById('contents').textContent = this.responseText;
-    };
-    xhr.open('GET', url);
-    xhr.send();
+	var xhr = new XMLHttpRequest();
+	xhr.onload = function () {
+		document.getElementById('contents').textContent = this.responseText;
+	};
+	xhr.open('GET', url);
+	xhr.send();
 }

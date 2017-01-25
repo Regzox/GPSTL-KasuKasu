@@ -41,7 +41,7 @@ public class ConfirmAccountServlet extends HttpServlet {
 			Cookie cookieId = new Cookie("userId", uid);
 			response.addCookie(cookieId);
 			//redirect to dashboard
-			response.sendRedirect(resource.absolutePath("searchitems_jsp"));
+			response.sendRedirect(resource.absolutePath("dashboard_jsp"));
 		} catch ( Exception e ) {
 			e.printStackTrace();
 			response.getWriter().print(new json.Error("Une erreur s'est produite."));
