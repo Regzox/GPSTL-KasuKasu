@@ -19,12 +19,11 @@ function getXMLHttpRequest() {
 }
 
 function trans(page,element){
-	var xhr = getXMLHttpRequest();
 	
 	//get the file name
 	var href = document.location.href;
 	var fileName = href.substr(href.lastIndexOf('/') + 1);
-
+	var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
 	if(fileName == "portal.jsp" || fileName == "")
@@ -38,7 +37,8 @@ function trans(page,element){
 		document.getElementById('btn_en').onclick = function() {
 			createCookie("en");
 			location.reload();
-			}           	
+			}  
+		//TODO Add buttons in the portal.jsp and edit it in the !
 	}
 	//xhr.onreadystatechange = function() {
 
@@ -52,8 +52,10 @@ function trans(page,element){
 				if(document.getElementById(element).type == "text" || document.getElementById(element).type == "password")
 					{
 					//TODO dosn't really work :/
+					alert(document.getElementById(element).placeholder)
 						if(document.getElementById(element).placeholder !="")
 						{
+							
 							document.getElementById(element).placeholder = walk_through(dico[i][page],element,readCookie("lang"));
 						}
 					}
@@ -80,8 +82,12 @@ function printHTML(dom,htm)
 { 
 	$(dom).html(htm);
 }
+
+
 var result;
+
 var language="";
+
 /************************************* Affichage des langues ************************************/
 
 function editLang(lang)
@@ -89,7 +95,6 @@ function editLang(lang)
 	var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
-
 		var dico = JSON.parse(xhr.responseText);
 		var bodymessage="";
 		var endmessage ="</table>";
@@ -104,7 +109,6 @@ function editLang(lang)
 				{
 					for(var element in dico[i][page])
 					{	
-						//for(var l in dico)
 						bodymessage = bodymessage+
 						"<tr style='text-align: left'>" +
 						"<td> "+page+"</td>"+"<td> "+element+"</td>" ;
@@ -113,21 +117,19 @@ function editLang(lang)
 				}	
 		}
 		var elt =message + bodymessage + endmessage;
-		//alert("lang = "+lang)
-		btn = "<button id='save' onclick='saveLang()'>Enregistrer</button>"
+		var btn = "<button id='save' onclick='saveLang()'>Enregistrer</button>"
 		
 		printHTML(document.getElementById("elt"),elt + btn);
 		language = lang;
 }
 /************************************* Ajout d'une nouvelle langue************************************/
-var btn;
+var lang_added;
 function addLang()
 {
 	input_lang = "<input id='input_lang' ></input>"
-	var xhr = getXMLHttpRequest();
+		var xhr = getXMLHttpRequest();
 	xhr.open("GET","/KasuKasu/traduction.json",false);
 	xhr.send();
-
 		var dico = JSON.parse(xhr.responseText);
 		var bodymessage="";
 		var endmessage ="</table>";
@@ -145,14 +147,56 @@ function addLang()
 						bodymessage = bodymessage+
 						"<tr style='text-align: left'>" +
 						"<td> "+page+"</td>"+"<td> "+element+"</td>" ;
-						bodymessage = bodymessage +"<td> <input type='text' value='"+"'></input></td>"+"<td> "+"</tr>";
+						bodymessage = bodymessage +"<td> <input type='text' id='"+page+"_"+element+"'></input></td>"+"<td> "+"</tr>";
 					}
 				}	
 		}
-		var elt =input_lang + message + bodymessage + endmessage;
+		
+		var btn = "<button id='save' onclick='addLanguage()'>Ajouter</button>"
+		var elt = input_lang + message + bodymessage + endmessage + btn;
 		printHTML(document.getElementById("elt"),elt);
-		btn = "<button id='save' onclick='addLanguage()'>Ajouter</button>"
+		
 }
+/******************************* Add a new language and save it to a file*******************************/
+
+function addLanguage()
+{
+	lang_added = document.getElementById('input_lang').value;
+	var lang = lang_added;
+	var xhr = getXMLHttpRequest();
+	xhr.open("GET","/KasuKasu/traduction.json",false);
+	xhr.send();
+	var result = JSON.parse(xhr.responseText);
+	for(var i in result)
+	{
+		for(var page in result[i])
+			{
+				for(var element in result[i][page])
+				{	
+					result[i][page][element][lang] = document.getElementById(page+"_"+element).value;
+				}
+			}	
+	}
+
+	$.ajax({
+		type : "POST",
+		url : SaveLanguageServlet,
+		data : JSON.stringify(result), 
+		dataType : 'json',
+		success :  function()
+		{
+			console.log("OK");
+		},
+		error : function(XHR, testStatus, errorThrown) {
+		//console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
+		}
+		});
+}
+
+
+
+
+
 /********************************************* Sauvegarde des modifications ***********************************/
 
 function saveLang()
@@ -165,7 +209,6 @@ function saveLang()
 				for(var element in result[i][page])
 				{	
 					result[i][page][element][lang] = document.getElementById(page+"_"+element).value;
-					//console.log("result["+i+"]["+page+"]["+element+"]["+lang+"] = " +result[i][page][element][lang]);
 				}
 			}	
 	}
@@ -177,7 +220,7 @@ function saveLang()
 		dataType : 'json',
 		success :  function()
 		{
-			//TODO
+			console.log("OK");
 		},
 		error : function(XHR, testStatus, errorThrown) {
 		//console.log(JSON.stringify(XHR + " " + testStatus + " "	+ errorThrown));
