@@ -7,13 +7,15 @@ if(readCookie("lang") == "en")
 	else
 		if(readCookie("lang") == "fr")
 			bool=0;
+
+
 MESSAGESMAP = new Map();
 SPEAKERSMAP = new Map();
 
 //messsage Constructor 
 function Message(id,type,sender,sendername,recipient,recipientname,message,date){
 	//alert("new message ("+id+","+sender+","+sendername+","
-		//	+recipient+","+recipientname+","+message+","+date+")");
+	//	+recipient+","+recipientname+","+message+","+date+")");
 	this.id=id;
 	this.type=type;
 	this.sender=sender;
@@ -117,8 +119,8 @@ function Speaker(id,type,interlocutor){
 }
 
 Speaker.prototype.getHTML=function(){  
-	var s;
-	s="<tr><td class=\"speakerBox\" id=\"speakerBox-"+this.id+"\">\n";
+	var s="";
+	s+="<tr><td class=\"speakerBox\" id=\"speakerBox-"+this.id+"\">\n";
 	s+="<span style=\"margin-left:45%\" class=\"speaker-visible-infos\" id=\"speaker-visible-infos-"+this.id+"\">\n";
 	s+="<a class=\"speaker-username\" id=\"speaker-username-"+this.id+"\" href=\"conversation.jsp?uther="+this.id+"&interlocutor="+this.interlocutor+"\"><b>"+this.interlocutor+"</b></a>\n";
 	s+="</span>\n";	
@@ -152,11 +154,13 @@ Speaker.traiteReponse = function (result){
 		SPEAKERSMAP.set(speaker.id,speaker);
 
 	var fhtm="<div id=\"universalBox\" align=\"center\">\n<table>";
+	fhtm+="<tr><th class=\"th\"><span style=\"margin-left:45%\">Conversations</span></th></tr>\n";
+
 	if(speakers.length==0)
 	{
 		if(bool==0)
-			fhtm+="<h2 class=\"nothing\">Démarrer une conversation</h2>";
-		
+			fhtm+="<h2 class=\"nothing\">D&eacute;marrer une conversation</h2>";
+
 		if(bool==1)
 			fhtm+="<h2 class=\"nothing\">Start a conversation</h2>";
 	}
@@ -164,7 +168,7 @@ Speaker.traiteReponse = function (result){
 	for(var i=0;i<speakers.length;i++)
 		//alert("messages[i] : "+JSON.stringify(speakers[i]));
 		fhtm+=(speakers[i]).getHTML()+"<br>";
-		
+
 	fhtm+="</table></div>\n"; //universalBox end
 	//alert("#html conversation_mirror: "+fhtm);
 	printHTML("#found-speakers",fhtm);  

@@ -11,34 +11,36 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/inflator/views/groups.js"></script>
-<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript"
+	src="/KasuKasu/js/inflator/views/groups.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	trans('groups.jsp','titre');
-	trans('groups.jsp','create');
-	trans('groups.jsp','submit');
-});
+	$(document).ready(function() {
+		trans('groups.jsp', 'titre');
+		trans('groups.jsp', 'create');
+		trans('groups.jsp', 'submit');
+	});
 </script>
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/jmodal.css" />
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
-
+<link type="text/css" rel="stylesheet"	href="/KasuKasu/css/messenger.css" />
 <title id="titre">Mes Groupes</title>
 </head>
 <body onload="userGroups();">
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
-	
+
 	<div id="page">
 
 		<div class='layer-center'>
 
-			<p id="create" class='capital'>Créer un nouveau groupe</p>
-
-			<div id='notifier'></div>
+			<h1 id="titre" class='capital'>Mes Groupes</h1>
+			<hr style="width: 50%; margin-left: 25%">
 			<br>
+			<h3 id="create" >Créer un nouveau groupe</h3>
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:createGroup(this.gname)">
 
@@ -51,8 +53,8 @@ $(document).ready(function() {
 				<input id="submit" type="submit" class="btn btn-primary btn-block"
 					value="Créer"> <br>
 
-				<div id="found-groups" class="abootsraper"></div>
-
+				<div style="width:150%; margin-left:10%"  id="found-groups" class="abootsraper"></div>
+				<br><br>
 			</form>
 		</div>
 

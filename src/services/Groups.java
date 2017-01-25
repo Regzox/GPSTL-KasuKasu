@@ -1,5 +1,7 @@
 package services;
 
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,7 +116,7 @@ public class Groups {
 					.put("name",dbo.get("name"))
 					.put("type","group")
 					.put("owner",dbo.get("owner"))
-					.put("date",dbo.get("date")));}
+					.put("date",Tools.reshapeDateLong((Date)dbo.get("date"))));}
 		return new JSONObject().put("groups",jar);}
 	
 	

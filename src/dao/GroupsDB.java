@@ -99,7 +99,7 @@ public class GroupsDB{
 	public static void deleteGroup(String gid,String ownerID) throws NotPermitedException{
 		collection.remove(
 				new BasicDBObject()
-				.append("name",gid)
+				.append("_id",new ObjectId(gid))
 				.append("owner",ownerID)
 				);}
 

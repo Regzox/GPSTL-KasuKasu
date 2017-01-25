@@ -25,7 +25,11 @@ Group.traiteReponseJSON=function(json){
 	//alert("Group.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
 	if(jsob.error==undefined){
-		var fhtm="<br><div id=\"groupsBox\">";	
+		var fhtm="<br><div id=\"groupsBox\">\n<table>";	
+		if(bool==0)
+			fhtm+="<tr><th class=\"th\"><span style=\"margin-left:45%\">Mes Groupes</span></th></tr>\n";
+		if(bool==1)
+			fhtm+="<tr><th class=\"th\"><span style=\"margin-left:45%\">My Groups</span></th></tr>\n";
 
 		if(groups .length==0 && bool==0)
 			fhtm+="<h3>Il n'y a aucun groupe pour le moment.</h3>";
@@ -37,7 +41,7 @@ Group.traiteReponseJSON=function(json){
 			fhtm+=(groups[i]).getHTML();
 			//alert("JSOB.htmling : "+groups[i].getHTML());
 		}		
-		fhtm+="</div>\n"; 
+		fhtm+="</table></div>\n"; 
 		//alert("Groups.html = "+fhtm);  
 		printHTML("#found-groups",fhtm); 
 	}else
@@ -47,15 +51,26 @@ Group.traiteReponseJSON=function(json){
 Group.prototype.getHTML=function(){  
 	//alert("Group ->getHtml ");
 	var s;
-	s="<div class=\"groupBox\" id=\"groupBox"+this.id+"\">";
-	s+="<div class=\"group-name\" id=\"group-name"+this.id+"\">" +
+	s="<tr><td class=\"groupBox\" id=\"groupBox"+this.id+"\">";
+
+	s+="<span  style=\"float:left;margin-left:1%;margin-right:3%;\" class=\"group-name\" id=\"group-name"+this.id+"\">" +
 	"<a href=\"" + groupmembers_jsp + "?gid="+this.id+"&gname="+this.name+" \"><b>"+this.name+"</b></a>" +
-	"</div>\n";	
-	s+="<div class=\"group-infos\">";
+	"</span>\n";
+	
+	if(bool==0)
+		s+=" <input style=\"float:right;margin-right:1%;\" type=\"button\" value=\"Supprimer\" class=\"btn btn-primary btn-xs\" " +
+		"id=\"del_grp"+this.id+"\" OnClick=\"deleteGroup('"+this.id+"');\"/>\n";
+	if(bool==1)
+		s+=" <input style=\"float:right;margin-right:1%;\" type=\"button\" value=\"Delete\" class=\"btn btn-primary btn-xs\" " +
+		"id=\"del_grp"+this.id+"\" OnClick=\"deleteGroup('"+this.id+"');\"/>\n";
+	
+	s+="<span style=\"float:right;margin-right:3%;\" class=\"group-infos\">";
 	s+="<span style=\"display:none;\" class=\"hiden-group-info\" id=\"group-group-info"+this.id+"\">"+this.group+"</span>";
 	s+="<span class=\"group-date\" id=\"group-date"+this.id+"\">"+this.date+"</span>\n";
-	s+="</div> ";
-	s+="</div><hr><br>\n";
+	s+="</span> ";
+
+
+	s+="</td></tr>\n";
 	return s;
 };
 
@@ -89,11 +104,27 @@ function createGroup(name){
 	});
 }
 
+
+function deleteGroup(gid){
+	$.ajax({
+		type : "POST",
+		url : DeleteGroupServlet,
+		data : "gid="+gid,
+		dataType : "JSON",
+		success : refresh,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+
+
+
+
 function refresh(result){
 	if(result.error!=undefined)
-		fillNOTIFIER(result.error);
+		openJModal(2000,result.error);	
 	else
-		//window.location.reload();//n'efface pas les inputs! why?
 		window.location.href = groups_jsp;
 }
 

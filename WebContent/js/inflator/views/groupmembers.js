@@ -50,33 +50,33 @@ function ProcessFindUser(rep) {
 			});
 			if(bool==0)
 				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
-				"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher profil </a></td>";
+				"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Afficher </a></td>";
 			if(bool==1)
 				bodymessage+="<tr><td>"+x+"</td><td>"+y+"</td>"+
-				"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show profile </a></td>";
+				"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\"> Show </a></td>";
 			//alert("z="+z+" "+MEM[z]);
-			if(!(MEM[z]!= undefined && MEM[z]!= null))
+			if(!(MEM[z]!= undefined && MEM[z]!= null)){
 				if(bool==0)
-					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					bodymessage+="<td><button class=\"btn btn-primary btn-xs\" " +
 					"id=\"add-"+z+"-to_group-"+GID+"\" " +
 					"onClick=\"addMember('"+GID+"','"+z+"')\">" +
 					"Ajouter au groupe</button>\n</td>";
 				if(bool==1)
-					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					bodymessage+="<td><button class=\"btn btn-primary btn-xs\" " +
 					"id=\"add-"+z+"-to_group-"+GID+"\" " +
 					"onClick=\"addMember('"+GID+"','"+z+"')\">" +
-					"Add to the group</button>\n</td>";
-			else
-				if(bool==1)
-					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					"Add to group</button>\n</td>";
+			}else
+				if(bool==0)
+					bodymessage+="<td><button class=\"btn btn-primary btn-xs\" " +
 					"id=\"remove-"+z+"-to_group-"+GID+"\" " +
 					"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
 					"Retirer du groupe</button>\n</td>";
 				if(bool==1)
-					bodymessage+="<td><button class=\"joanlinkasbutton\" " +
+					bodymessage+="<td><button class=\"btn btn-primary btn-xs\" " +
 					"id=\"remove-"+z+"-to_group-"+GID+"\" " +
 					"onClick=\"removeMember('"+GID+"','"+z+"')\">" +
-					"Remove from the group</button>\n</td>";
+					"Remove from group</button>\n</td>";
 			bodymessage+="</tr>";
 		});
 
@@ -113,7 +113,7 @@ Member.traiteReponseJSON=function(json){
 	//alert("Member.traiteReponseJSON cooked jsob -> "+JSON.stringify(jsob));
 
 	if(jsob.error==undefined){
-		var fhtm="<br><div id=\"membersBox\">";	
+		var fhtm="<br><div id=\"membersBox\">\n<table>";	
 
 		if(members.length==0 && bool==0)
 			fhtm+="<h3>Il n'y a aucun membre pour le moment.</h3>";
@@ -127,7 +127,7 @@ Member.traiteReponseJSON=function(json){
 			//alert("JSOB.htmling : "+members[i].getHTML());
 		}		
 		//alert("MEM="+JSON.stringify(MEM));
-		fhtm+="</div>\n"; 
+		fhtm+="</table></div>\n"; 
 		//alert("Members.html = "+fhtm);  
 		printHTML("#found-members",fhtm); 
 	}else
@@ -139,13 +139,23 @@ Member.traiteReponseJSON=function(json){
 Member.prototype.getHTML=function(){  
 	//alert("Member ->getHtml ");
 	var s;
-	s="<div class=\"MemberBox\" id=\"MemberBox"+this.id+"\">";
-	s+="<div class=\"Member-name\" id=\"Member-name"+this.id+"\">"
-	s+="<a href=\"" + memberprofile_jsp + "?id="+this.id+"\"><b>"+this.name+"</b></a></div>\n";	
-	s+="<div class=\"Member-infos\">";
+	s="<tr class=\"MemberBox\" id=\"MemberBox"+this.id+"\"><td>";
+	s+="<span class=\"Member-name\" id=\"Member-name"+this.id+"\">"
+	s+="<a href=\"" + memberprofile_jsp + "?id="+this.id+"\"><b>"+this.name+"</b></a></span>\n";	
+	s+="<span class=\"Member-infos\">";
 	s+="<span style=\"display:none;\" class=\"hiden-Member-info\" id=\"Member-Member-info"+this.id+"\">"+this.Member+"</span>";
-	s+="</div> ";
-	s+="</div><hr><br>\n";
+	if(bool==0)
+		s+="<span style=\"float:right;margin-right:1%;\" ><button class=\"btn btn-primary btn-xs\" " +
+		"id=\"remove-"+this.id+"-to_group-"+GID+"\" " +
+		"onClick=\"removeMember('"+GID+"','"+this.id+"')\">" +
+		"Retirer du groupe</button>\n</span>";
+	if(bool==1)
+		s+="<span style=\"float:right;margin-right:1%;\" ><button class=\"btn btn-primary btn-xs\" " +
+		"id=\"remove-"+this.id+"-to_group-"+GID+"\" " +
+		"onClick=\"removeMember('"+GID+"','"+this.id+"')\">" +
+		"Remove from group</button>\n</span>";
+	s+="</span> ";
+	s+="</td></tr>\n";
 	return s;
 };
 
@@ -190,7 +200,7 @@ function removeMember(gid,member){
 
 function refresh(result){
 	if(result.error!=undefined)
-		fillNOTIFIER(result.error);
+		openJModal(2000,result.error);
 	else
 		window.location.reload();
 }
