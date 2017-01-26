@@ -40,17 +40,17 @@ function request_item_query(id, begin, end){
 		}
 	});
 }
-function goToSearchItem(){gotoURL(searchitems_jsp);}
+function goToLoanRequests(){gotoURL(userLoans_jsp);}
 function request_item_query_response(rep){
 	if(bool==0)
 		openJModal(2000,
 				"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e ! "
-				,goToSearchItem
+				,goToLoanRequests
 		);
 	if(bool==1)
 		openJModal(2000,
 				"A request for this item has been sent ! "
-				,goToSearchItem
+				,goToLoanRequests
 		);
 }
 
@@ -210,6 +210,7 @@ function request_item(id){
 
 
 function accept_item_request(id_applicant, id_item){	
+	openWaiter();
 	$.ajax({
 		type : "POST",
 		url : AcceptRequestsServlet,
@@ -241,6 +242,7 @@ function accept_item_request_response(rep){
 
 
 function refuse_item_request(id_applicant,id_item){	
+	openWaiter();
 	$.ajax({
 		type : "POST",
 		url : RefuseRequestsServlet,
