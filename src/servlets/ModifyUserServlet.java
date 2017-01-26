@@ -28,7 +28,7 @@ public class ModifyUserServlet extends OnlinePostServlet {
 	public void doBusiness(HttpServletRequest req, HttpServletResponse resp, Map<String, String> params)
 			throws Exception {
 		@SuppressWarnings("unchecked")
-		Map<String, String> map = req.getParameterMap();
+		Map<String, String[]> map = req.getParameterMap();
 		String oldEmail = null, oldPassword = null, email = null, password = null, name = null, firstname = null, phone = null;
 		entities.User oldUser = null, user = null;
 		Cookie[] cookies = req.getCookies();
