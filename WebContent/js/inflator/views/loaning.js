@@ -1,9 +1,11 @@
 bool=0;
 if(readCookie("lang") == "en")
-bool=1;
+	bool=1;
 else
 	if(readCookie("lang") == "fr")
 		bool=0;
+
+
 function Loan(loan_id,item,title,debut,fin,owner,ownername){
 	//alert("new Loan("+loan_id+","+item+","+title+","+debut+","+fin+")");
 	this.loan_id=loan_id;
@@ -59,35 +61,35 @@ function request_item_query_response(rep){
 function request_item(id){	
 
 	if(bool==0)
-	// Add DataPickerHTML
-	$( "#datePickerDialog" ).html(
-			"<div id='myModal' class='modal'>\n" +
-			"<div class='modal-content'>\n"+
-			"<span class='close'>&times;</span>\n"+
-			"<h1>Date de début et de fin du prêt souhaités</h1>\n"+
-			"<strong id='date_error'></strong>\n" +
-			"<table style='margin: auto;'>\n"+
-			"<tr>\n"+
-			"<td>\n"+
-			"<div class='begin_section'>\n" +
-			"<span>Date de début du prêt</span>\n" +
-			"<div id='date_begin'></div>\n" +
-			"</div>\n" +
-			"</td>\n"+
-			"<td>\n"+
+		// Add DataPickerHTML
+		$( "#datePickerDialog" ).html(
+				"<div id='myModal' class='modal'>\n" +
+				"<div class='modal-content'>\n"+
+				"<span class='close'>&times;</span>\n"+
+				"<h1>Date de début et de fin du prêt souhaités</h1>\n"+
+				"<strong id='date_error'></strong>\n" +
+				"<table style='margin: auto;'>\n"+
+				"<tr>\n"+
+				"<td>\n"+
+				"<div class='begin_section'>\n" +
+				"<span>Date de début du prêt</span>\n" +
+				"<div id='date_begin'></div>\n" +
+				"</div>\n" +
+				"</td>\n"+
+				"<td>\n"+
 
-			"<div class='end_section'>\n" +
-			"<span>Date de fin du prêt</span>\n" +
-			"<div id='date_end'></div>\n" +
-			"</div>\n" +
-			"</td>"+
-			"</div>\n"+
-			"</tr>"+
-			"</table>"+
-			"<div class='btn btn-primary btn-xs' id='validate_dates_button'>Ok</div>" +
-			"</div>\n"
+				"<div class='end_section'>\n" +
+				"<span>Date de fin du prêt</span>\n" +
+				"<div id='date_end'></div>\n" +
+				"</div>\n" +
+				"</td>"+
+				"</div>\n"+
+				"</tr>"+
+				"</table>"+
+				"<div class='btn btn-primary btn-xs' id='validate_dates_button'>Ok</div>" +
+				"</div>\n"
 
-	);
+		);
 	if(bool==1)
 		$( "#datePickerDialog" ).html(
 				"<div id='myModal' class='modal'>\n" +
@@ -196,7 +198,7 @@ function request_item(id){
 		}
 		else{
 			if(bool==0)
-			// Show popUp
+				// Show popUp
 				$("#date_error").html("Veuillez sélectionner des dates de début et de fin du prêt.");
 			if(bool==1)
 				// Show popUp
@@ -217,7 +219,7 @@ function accept_item_request(id_applicant, id_item){
 		error : function(xhr,status,errorthrown){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 			if(bool==0)
-			openJModal(2000,"Une erreur s'est produite");
+				openJModal(2000,"Une erreur s'est produite");
 			if(bool==1)
 				openJModal(2000,"An error has occured");
 		}
@@ -226,10 +228,10 @@ function accept_item_request(id_applicant, id_item){
 function goToApplicants(){gotoURL(applicants_jsp);}
 function accept_item_request_response(rep){
 	if(bool==0)
-	openJModal(2000,
-			"Vous venez d'accepter cette requête. Votre ami(e) en sera inform&eacute;(e)."
-			,goToApplicants
-	);
+		openJModal(2000,
+				"Vous venez d'accepter cette requête. Votre ami(e) en sera inform&eacute;(e)."
+				,goToApplicants
+		);
 	if(bool==1)
 		openJModal(2000,
 				"You have accepted this request. Your friend will be informed."
@@ -249,17 +251,17 @@ function refuse_item_request(id_applicant,id_item){
 			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
 			if(bool==0)
 				openJModal(2000,"Une erreur s'est produite");
-				if(bool==1)
-					openJModal(2000,"An error has occured");
+			if(bool==1)
+				openJModal(2000,"An error has occured");
 		}
 	});
 }
 function refuse_item_request_response(rep){
 	if(bool==0)
-	openJModal(2000,
-			"Vous venez de refuser cette requête. Votre ami(e) en sera inform&eacute;(e)."
-			,goToApplicants
-	);
+		openJModal(2000,
+				"Vous venez de refuser cette requête. Votre ami(e) en sera inform&eacute;(e)."
+				,goToApplicants
+		);
 	if(bool==1)
 		openJModal(2000,
 				"You have refused this request. Your friend will be informed."
@@ -279,8 +281,6 @@ function find_user_loans(){
 		}
 	});
 }
-
-
 list_loaning_response = function(json){
 	var jsob =JSON.parse(JSON.stringify(json),mirror);
 	loans = jsob.loans;
@@ -300,13 +300,49 @@ list_loaning_response = function(json){
 		printHTML("#found-loans",fhtm);
 
 		for (var loan of loans) {
-			console.log(loan);
+			//console.log(loan);
 			$("#loanBox" + loan.loan_id).append(makeReturnItemButton(loan));
 		}
 
 	}else
 		console.log("server error ! : " +jsob.error+"\n");
 }
+
+
+
+function find_user_loans_request(){	
+	$.ajax({
+		type : "GET",
+		url : ApplicantRequestsSetvlet,
+		dataType : "JSON",
+		success : list_loaning_request_response,
+		error : function(xhr,status,errorthrown){
+			console.log(JSON.stringify(xhr + " " + status + " " + errorthrown));
+		}
+	});
+}
+list_loaning_request_response = function(json){
+	var jsob =JSON.parse(JSON.stringify(json),mirror);
+	loans_requests = jsob.requests;
+	if(jsob.error==undefined){
+
+		var fhtm="<div id=\"loansBox\" align=\"center\">\n<table>";
+
+		if(loans_requests.length==0 && bool==0)	
+			fhtm+="<h3>Vous n'avez demandé aucun objet.</h3>";
+		if(loans_requests.length==0 && bool==1)	
+			fhtm+="<h3>You haven't request any item.</h3>";
+
+		for(var i in loans_requests)
+			fhtm+= loans_requests[i].getHTML();
+
+		fhtm+="</table></div>\n";
+		printHTML("#found-loans-requests",fhtm);
+
+	}else
+		console.log("server error ! : " +jsob.error+"\n");
+}
+
 
 Loan.prototype.getHTML=function(){  
 	//alert("Loan ->getHtml ");

@@ -15,11 +15,13 @@
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/profile.css" />
 
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/check-connection.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/profile.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {

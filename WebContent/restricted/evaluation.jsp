@@ -16,6 +16,8 @@
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 <script type="text/ecmascript" src="/KasuKasu/js/classes/Element.js"></script>
 <script type="text/ecmascript" src="/KasuKasu/js/classes/Html.js"></script>
 <script type="text/ecmascript" src="/KasuKasu/js/classes/Star.js"></script>
@@ -32,7 +34,7 @@
 <script type="text/ecmascript" src="/KasuKasu/js/classes/EvaluationResponseNotification.js"></script>
 <script type="text/ecmascript" src="/KasuKasu/js/classes/Notifier.js"></script>
 <script type="text/ecmascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 
 
 </head>

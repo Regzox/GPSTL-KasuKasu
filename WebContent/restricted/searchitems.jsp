@@ -11,6 +11,7 @@
 	href="/KasuKasu/css/bootstrap.min.css">
 
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript"
 	src="/KasuKasu/js/inflator/views/loaning.js"></script>
@@ -21,11 +22,10 @@
 
 <link type="text/css" href="/KasuKasu/css/jquery-ui.css"
 	rel="stylesheet" />
-<script type="text/javascript" src="/KasuKasu/js/translation.js"></script>
 
 <link type="text/css" href="/KasuKasu/css/jquery-ui.css" rel="stylesheet" />
 <script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 
 <script>
 	$(document).ready(function() {

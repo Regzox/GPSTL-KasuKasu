@@ -13,9 +13,10 @@
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {

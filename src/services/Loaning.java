@@ -117,20 +117,30 @@ public class Loaning {
 	/**
 	 * List all the current applicant's requests
 	 * @param idApplicant
-	 * @return */
-	public static JSONObject applicantRequests(String idApplicant)throws JSONException {
+	 * @return 
+	 * @throws Exception */
+	public static JSONObject applicantRequests(String idApplicant)throws Exception {
 		JSONArray jar = new JSONArray();
 		DBCursor dbc = LoaningDB.applicantRequests(idApplicant);
-		while(dbc.hasNext())
+		while(dbc.hasNext()){
+			DBObject dbo = dbc.next();
+			entities.User owner = User.getUserById(
+					((String)ItemsDB.getItem((String)dbo.get("id_item")).get("owner"))
+					);
 			jar.put(
 					new JSONObject()
-					.put("loan_request", dbc.next().get("_id"))
-					.put("applicant", dbc.next().get("id_applicant"))
-					.put("item",  dbc.next().get("id_item"))
-					.put("when", Tools.reshapeDateShort((Date)dbc.next().get("when")))
-					.put("debut", Tools.reshapeDateShort((Date)dbc.next().get("debut")))
-					.put("fin", Tools.reshapeDateShort((Date)dbc.next().get("fin")))
+					.put("loan_request_id", dbo.get("_id"))
+					.put("item",  dbo.get("id_item"))
+					.put("title", ItemsDB.getItem(dbo.get("id_item").toString())
+							.get("title"))
+					.put("type", "loan_request")
+					.put("when", Tools.reshapeDateShort((Date)dbo.get("when")))
+					.put("debut", Tools.reshapeDateShort((Date)dbo.get("debut")))
+					.put("fin", Tools.reshapeDateShort((Date)dbo.get("fin")))
+					.put("owner", owner.getId())
+					.put("ownername", owner.getName()+" "+ owner.getFirstname())
 					);
+		}
 		return new JSONObject().put("requests",jar);
 	}
 

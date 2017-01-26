@@ -2,7 +2,7 @@ var result = new Array();
 var result2 = new Array();
 
 bool_trans=0;
-alert(readCookie("lang"))
+//alert(readCookie("lang"))
 
 if(readCookie("lang") == "en")
 	bool_trans=1;
