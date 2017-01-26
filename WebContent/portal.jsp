@@ -44,15 +44,7 @@ $(document).ready(function() {
 				</p>
 				<br><br><br><br>
 			</div>
-
-			<div class="wrapper btn-block">
-				<div class="tier">
-					<button id='btn_en' type="button" class="btn btn-info btn-block">English</button>
-				</div>
-				<div class="tier"></div>
-				<div class="tier">
-					<button id='btn_fr' type="button" class="btn btn-info btn-block">Français</button>
-				</div>
+			<div id='lang'>
 			</div>
 
 			<button id='btn_insc' type="button" class="btn btn-primary btn-block"
