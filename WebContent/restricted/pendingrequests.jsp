@@ -7,11 +7,14 @@
 <!--  <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" /> -->
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
+<link type="text/css" rel="stylesheet"	href="/KasuKasu/css/messenger.css" />
+
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 
 <script type="text/javascript" src="/KasuKasu/js/friendsandrequest.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {

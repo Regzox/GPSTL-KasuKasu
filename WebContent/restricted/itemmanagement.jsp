@@ -17,11 +17,13 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/jmodal.css" />
 
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 <script type="text/javascript" src="/KasuKasu/js/modifyobject.js"></script>
 <script type="text/javascript"
 	src="/KasuKasu/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 
 <script type="text/javascript">

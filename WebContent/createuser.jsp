@@ -9,9 +9,10 @@
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/jmodal.css" />
 
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/enregistrement.js"></script>
 <script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 
 

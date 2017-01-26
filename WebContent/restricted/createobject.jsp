@@ -11,10 +11,11 @@
 	href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/createobject.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -23,7 +24,7 @@ $(document).ready(function() {
 	trans('createobject.jsp','noml');
 	trans('createobject.jsp','descl');
 	trans('createobject.jsp','pts');
-	trans('createobject.jsp','ajout');
+	trans('createobject.jsp','ajout_btn');
 	trans('createobject.jsp','vis');
 	trans('createobject.jsp','submit');
 	trans('createobject.jsp','comment');
@@ -106,7 +107,7 @@ $(document).ready(function() {
 
 
 					<button id='ajout_btn' type="submit" class="positive" name="ajout"
-						id="ajout" style="display: none;">Ajouter un point
+						style="display: none;">Ajouter un point
 						d'échange</button>
 
 					<div id="found-groups" class="abootsraper"></div>

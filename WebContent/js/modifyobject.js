@@ -1,9 +1,3 @@
-bool=0;
-if(document.cookie.search("lang=en")!=-1)
-	bool=1;
-else
-	if(document.cookie.search("lang=fr")!=-1)
-		bool=0;
 function updateItemInformations(){
 	var id=document.getElementById("objectId").value;
 	{
@@ -236,7 +230,7 @@ function getItemBusyStatus(){
 			}
 			else{
 				printHTML('#vacation_control',
-						"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Exposer</button>");
+						"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Sortir du mode vaccances</button>");
 				$("#vacation_control_button").css({
 					"background-color": "#f44336",
 					"color" : "white", 
@@ -251,7 +245,7 @@ function getItemBusyStatus(){
 		}
 		else{
 			printHTML('#vacation_control',
-					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Ranger</button>");
+					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Mettre en vaccances</button>");
 			$("#vacation_control_button").css({
 				"background-color": "white",
 				"color" : "#f44336", 

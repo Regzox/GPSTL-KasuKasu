@@ -14,7 +14,6 @@ import com.mongodb.DBObject;
 import dao.LoaningDB;
 import dao.items.ItemsDB;
 import dao.users.UserDao;
-import exceptions.DatabaseException;
 import exceptions.UserNotFoundException;
 import exceptions.UserNotUniqueException;
 import json.Success;
@@ -36,7 +35,8 @@ public class Loaning {
 	 * @param fin  - End date of the desired loaning.
 	 * @throws Exception 
 	 * @throws  */
-	public static JSONObject requestItem(	String value, 
+	public static JSONObject requestItem(
+			String lang, 
 			String idApplicant,
 			String idItem, 
 			Date debut, 
@@ -61,10 +61,10 @@ public class Loaning {
 				item.get("owner").toString())
 				.getEmail();
 
-		
+
 
 		// Traduction stuff
-		if(value.equals("fr"))
+		if(lang.equals("fr"))
 			SendEmail.sendMail(to, 
 					"[kasukasu] Demande d'emprunt pour l'objet : "+item.get("title"),
 					"Vous avez une demande d'emprunt pour "
@@ -75,7 +75,7 @@ public class Loaning {
 							+ "\nMerci de consulter vos demandes d'emprunt."
 							+ "\n\nL'équipe KasuKasu");
 
-		if(value.equals("en"))
+		if(lang.equals("en"))
 			SendEmail.sendMail(to, 
 					"[kasukasu] Loan request for the item : "+item.get("title"),
 					"You have got a loan request  "
@@ -90,14 +90,65 @@ public class Loaning {
 	}
 
 
+
+	/**
+	 * Zannen means "dommage" (pity) in japanese ;) */
+	public static void zannen(String toEmail, String idItem, String lang){
+		DBObject item = ItemsDB.getItem(idItem);
+
+		if(lang.equals("fr"))
+			SendEmail.sendMail(toEmail, 
+					"[kasukasu] Demande d'emprunt pour l'objet : "+item.get("title"),
+					"Vous avez fait une demande d'emprunt pour "
+							+ "l'objet "+item.get("title")+".\n"
+							+"Malheureusement, cette demande vient d'être refusée "
+							+ "ou l'objet a déjà été prêté à autrui."
+							+ "\n\nL'équipe KasuKasu.");
+
+		if(lang.equals("en"))
+			SendEmail.sendMail(toEmail, 
+					"[kasukasu] Loan request for the item : "+item.get("title"),
+					"You have applied for a loan "
+							+ "for this item : "+item.get("title")+".\n"
+							+ "Unfortunately, this request has been refused "
+							+ "or the object has already been lent to others."
+							+ "\n\nThe KasuKasu team.");
+	}
+	
+	
+	
+	/**
+	 * Yukata means "Dieu merci" (thank god) in japanese ;) */
+	private static void yukata(String toEmail, String idItem, String lang){
+		DBObject item = ItemsDB.getItem(idItem);
+
+		if(lang.equals("fr"))
+			SendEmail.sendMail(toEmail, 
+					"[kasukasu] Demande d'emprunt pour l'objet : "+item.get("title"),
+					"Vous avez fait une demande d'emprunt pour "
+							+ "l'objet "+item.get("title")+".\n"
+							+"Cette demande vient d'être acceptée."
+							+ "\n\nL'équipe KasuKasu.");
+
+		if(lang.equals("en"))
+			SendEmail.sendMail(toEmail, 
+					"[kasukasu] Loan request for the item : "+item.get("title"),
+					"You have applied for a loan "
+							+ "for this item : "+item.get("title")+".\n"
+							+ "This request has been accepted."
+							+ "\n\nThe KasuKasu team.");
+	}
+
+
+
 	/**
 	 * Accept an applicant's request for an item
 	 * @param idRequest 
-	 * @throws JSONException 
-	 * @throws DatabaseException */
-	public static JSONObject acceptRequests(String idApplicant, String idItem) 
-			throws JSONException, DatabaseException{
-		LoaningDB.acceptRequests(idApplicant,idItem);
+	 * @throws Exception */
+	public static JSONObject acceptRequests(String idApplicant, String idItem, String lang) 
+			throws Exception{
+		LoaningDB.acceptRequests(idApplicant,idItem,lang);
+		yukata(UserDao.getUserById(idApplicant).getEmail(),idItem,lang);
 		return Tools.serviceMessage(1);
 	}
 
@@ -106,10 +157,11 @@ public class Loaning {
 	 * Refuse an applicant's request for an item
 	 * @param idRequest 
 	 * @return 
-	 * @throws JSONException */
-	public static JSONObject refuseRequests(String idApplicant, String idItem) 
-			throws JSONException{
+	 * @throws Exception */
+	public static JSONObject refuseRequests(String idApplicant, String idItem, String lang) 
+			throws Exception{
 		LoaningDB.refuseRequests(idApplicant,idItem);
+		zannen(UserDao.getUserById(idApplicant).getEmail(),idItem,lang);
 		return Tools.serviceMessage(1);
 	}
 
@@ -117,20 +169,30 @@ public class Loaning {
 	/**
 	 * List all the current applicant's requests
 	 * @param idApplicant
-	 * @return */
-	public static JSONObject applicantRequests(String idApplicant)throws JSONException {
+	 * @return 
+	 * @throws Exception */
+	public static JSONObject applicantRequests(String idApplicant)throws Exception {
 		JSONArray jar = new JSONArray();
 		DBCursor dbc = LoaningDB.applicantRequests(idApplicant);
-		while(dbc.hasNext())
+		while(dbc.hasNext()){
+			DBObject dbo = dbc.next();
+			entities.User owner = User.getUserById(
+					((String)ItemsDB.getItem((String)dbo.get("id_item")).get("owner"))
+					);
 			jar.put(
 					new JSONObject()
-					.put("loan_request", dbc.next().get("_id"))
-					.put("applicant", dbc.next().get("id_applicant"))
-					.put("item",  dbc.next().get("id_item"))
-					.put("when", Tools.reshapeDateShort((Date)dbc.next().get("when")))
-					.put("debut", Tools.reshapeDateShort((Date)dbc.next().get("debut")))
-					.put("fin", Tools.reshapeDateShort((Date)dbc.next().get("fin")))
+					.put("loan_request_id", dbo.get("_id"))
+					.put("item",  dbo.get("id_item"))
+					.put("title", ItemsDB.getItem(dbo.get("id_item").toString())
+							.get("title"))
+					.put("type", "loan_request")
+					.put("when", Tools.reshapeDateShort((Date)dbo.get("when")))
+					.put("debut", Tools.reshapeDateShort((Date)dbo.get("debut")))
+					.put("fin", Tools.reshapeDateShort((Date)dbo.get("fin")))
+					.put("owner", owner.getId())
+					.put("ownername", owner.getName()+" "+ owner.getFirstname())
 					);
+		}
 		return new JSONObject().put("requests",jar);
 	}
 

@@ -30,6 +30,7 @@ read -p "Enter PASSWORD : " pass;
 read -p "Enter smtp host ex: smtp.gmail.com : " host;
 read -p "Enter smtp port ex: 465 : " port;
 mongo localhost/$DATABASE_NAME --eval "db.${CONFIG_DB_NAME}.update({\"email\":\"mail\"},{\$set:{\"mail\":\"$mail\",\"pass\":\"$pass\",\"host\":\"$host\",\"port\":\"$port\"}},{upsert:true});"
+;;
 2)
 read -p "Enter the mail of the user : " mail;
 mongo localhost/$DATABASE_NAME --eval "db.${USERS_DB_NAME}.update({\"email\":\"$mail\"},{\$set:{\"isAdmin\":\"true\"}});"

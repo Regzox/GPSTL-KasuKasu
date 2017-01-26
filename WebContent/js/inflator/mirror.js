@@ -26,12 +26,22 @@ mirror =(function(key,value){
 	else if(isNumber(key) && value.type=="loan"){ 
 		var l = new Loan(value.loan_id,value.item,value.title,value.debut,value.fin,value.owner,value.ownername);
 		return (l);
+		
+	}
+	
+	else if(isNumber(key) && value.type=="loan_request"){ 
+			var l = new Loan(value.loan_request_id,value.item,value.title,value.debut,value.fin,value.owner,value.ownername);
+			return (l);
 
-	}else if(isNumber(key) && (value.type=="message")){ 
+	}
+	
+	else if(isNumber(key) && (value.type=="message")){ 
 		var m = new Message(value.id,value.type,value.sender,value.sendername,
 				value.recipient,value.recipientname,value.message,value.date);
 		return (m);
-	}else if(isNumber(key) && (value.type=="speaker")){ 
+	}
+	
+	else if(isNumber(key) && (value.type=="speaker")){ 
 		var sp = new Speaker(value.id,value.type,value.interlocutor);
 		return (sp);
 	}

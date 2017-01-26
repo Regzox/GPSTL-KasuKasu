@@ -48,7 +48,7 @@ public class CreateUserServlet extends OfflinePostServlet {
 		try {
 			 user = User.getUser(params.get("email"));
 		} catch ( UserNotFoundException e ) {
-			System.out.println("Utilisateur non trouvé");
+			System.out.println("Utilisateur non trouvï¿½");
 		}
 		
 		if ( user == null ) {
@@ -67,7 +67,7 @@ public class CreateUserServlet extends OfflinePostServlet {
 			response.getWriter().print(( json != null ) ? json : Tools.serviceMessage(1));
 			
 		} else {
-			response.getWriter().print(Tools.serviceMessage("Cet email est déjà utilisé"));
+			response.getWriter().print(Tools.serviceMessage("Cet email est pris"));
 		}		
 
 	}

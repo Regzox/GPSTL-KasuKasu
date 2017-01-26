@@ -24,6 +24,7 @@ public class DeleteGroupServlet extends OnlinePostServlet {
 	@Override
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {
+		System.err.println("AAAAAAAAAAA"+params.get("gid"));
 		response.getWriter().print(Groups.deleteGroup(
 				params.get("gid"),	
 				(String) request.getSession().getAttribute("userId"))

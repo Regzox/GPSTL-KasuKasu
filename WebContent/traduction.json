@@ -175,8 +175,8 @@
 			"en": "New phone number"
 		},
 		"myModalLabel": {
-			"fr": "Valider",
-			"en": "Validate"
+			"fr": "Validation",
+			"en": "Validation"
 		},
 		"verif": {
 			"fr": "Veuillez saisir votre mot de passe pour appliquer les changements",
@@ -193,6 +193,10 @@
 		"old_password_input": {
 			"fr": "Mot de passe actuel (obligatoire)",
 			"en": "Password required"
+		},
+		"valider": {
+			"fr": "Valider",
+			"en": "Validate"
 		}
 	}
 }, {
@@ -204,10 +208,6 @@
 		"rech": {
 			"fr": "Rechercher un utilisateur",
 			"en": "Find a user"
-		},
-		"submit": {
-			"fr": "Chercher",
-			"en": "Search"
 		}
 	}
 }, {
@@ -284,7 +284,7 @@
 			"fr": "Points d'échanges",
 			"en": "Exchange points"
 		},
-		"ajout": {
+		"ajout_btn": {
 			"fr": "Ajouter un point d'échange",
 			"en": "Add an exchange point"
 		},
@@ -310,10 +310,6 @@
 		"manage": {
 			"fr": "Gérer mes objets",
 			"en": "Manage my items"
-		},
-		"submit": {
-			"fr": "Filtrer",
-			"en": "Filter"
 		},
 		"liste": {
 			"fr": "Liste de mes objets",
@@ -390,6 +386,10 @@
 		"help": {
 			"fr": "Aide",
 			"en": "Help"
+		},
+		"gest_lang": {
+			"fr": "Langues",
+			"en": "Languages"
 		}
 	}
 }, {
@@ -419,8 +419,8 @@
 			"en": "Name"
 		},
 		"porteel": {
-			"fr": "Portée",
-			"en": "Range"
+			"fr": "Portée en km",
+			"en": "Range in km"
 		},
 		"radius_input": {
 			"fr": "Portée (obligatoire)",
@@ -660,6 +660,10 @@
 		"accueil": {
 			"fr": "Accueil",
 			"en": "Home"
+		},
+		"bienvenue": {
+			"fr": "Bienvenue sur KasuKasu !",
+			"en": "Welcome to KasuKasu !"
 		}
 	}
 }]

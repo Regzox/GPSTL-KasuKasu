@@ -11,8 +11,11 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import dao.items.ItemsDB;
+import dao.users.UserDao;
 import exceptions.DatabaseException;
 import kasudb.KasuDB;
+import services.Loaning;
+
 
 /**
  * @author ANAGBLA Joan, Celien Creminon, Giuseppe Federico, Wafae Cheglal, Ouiza Bouyahiaoui, Lina YAHI*/
@@ -65,7 +68,7 @@ public class LoaningDB {
 	 * Accept an applicant's request for an item
 	 * @param idRequest 
 	 * @throws DatabaseException */
-	public static void acceptRequests(String idApplicant, String idItem) throws DatabaseException{
+	public static void acceptRequests(String idApplicant, String idItem,String lang) throws DatabaseException{
 		//System.out.println("idApplicant : " + idApplicant+" idItem : "+idItem);//debug
 		DBCursor dbc = requests.find(
 				new BasicDBObject()
@@ -84,13 +87,23 @@ public class LoaningDB {
 				.append("debut", dbo.get("debut")) 
 				.append("fin", dbo.get("fin"))
 				);
-		//TODO avertir applicants malheureux
+
+		//Maketa means perdu/fail in Japanese
+		DBCursor maketa =itemApplicants(idItem);
+		while(maketa.hasNext()){
+			entities.User applicant= UserDao.getUserById(
+					(String)maketa.next().get("id_applicant"));
+			if(!applicant.getId().equals(idApplicant))
+				Loaning.zannen(applicant.getEmail(),idItem,lang);
+		}
+
+
 		requests.remove(new BasicDBObject("id_item",idItem));
 		ItemsDB.setItemStatus(idItem,"borrowed");
 	}
 
 
-	/**		//TODO avertir applicants malheureux
+	/**
 	 * Refuse an applicant's request for an item
 	 * @param idRequest */
 	public static void refuseRequests(String idApplicant, String idItem){
@@ -150,10 +163,8 @@ public class LoaningDB {
 
 
 	/**
-	 * Remove an loan by removing from the collection "loanings" and setting up to 'available' the item referenced in this one
-	 * 
-	 * TODO Push the removed loan to another saving collection
-	 * 
+	 * Remove an loan by removing from the collection "loanings" and setting up 
+	 * to 'available' the item referenced in this one 
 	 * @param id_loan
 	 */
 

@@ -1,9 +1,9 @@
 bool=0;
-	if(document.cookie.search("lang=en")!=-1)
-			bool=1;
-		else
-			if(document.cookie.search("lang=fr")!=-1)
-				bool=0;
+if(readCookie("lang") == "en")
+	bool=1;
+else
+	if(readCookie("lang") == "fr")
+		bool=0;
 
 function enregistrement(formulaire) 
 {
@@ -48,16 +48,16 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	{
 		if(bool==0)
 			printHTML("#error_prenom","Prénom manquant");
-			$("#error_prenom").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_prenom").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		if(bool==1)
 			printHTML("#error_prenom","First name missing");
-			$("#error_prenom").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_prenom").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 
 		//window.scrollTo(0,0);
 		document.getElementById('error_prenom').scrollIntoView();
@@ -68,16 +68,16 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	{
 		if(bool==0)
 			printHTML("#error_nom","Nom manquant");
-			$("#error_nom").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_nom").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		if(bool==1)
 			printHTML("#error_nom","Last name missing");
-			$("#error_nom").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_nom").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		//window.scrollTo(0,0);
 		document.getElementById('error_nom').scrollIntoView();
 		bool = false;
@@ -87,16 +87,16 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	{
 		if(bool==0)
 			printHTML("#error_telephone","Téléphone manquant");
-			$("#error_telephone").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_telephone").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		if(bool==1)
 			printHTML("#error_telephone","Phone number missing");
-			$("#error_telephone").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_telephone").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		//window.scrollTo(0,0);
 		document.getElementById('error_telephone').scrollIntoView();
 		bool = false;
@@ -106,16 +106,16 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	{
 		if(bool==0)
 			printHTML("#error_email","Email manquant");
-			$("#error_email").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_email").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		if(bool==1)
 			printHTML("#error_email","Email missing");
-			$("#error_email").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_email").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		//window.scrollTo(0,0);
 		document.getElementById('error_email').scrollIntoView();
 
@@ -126,16 +126,16 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	{
 		if(bool==0)
 			printHTML("#error_mdp","Mot de passe manquant");		
-			$("#error_mdp").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_mdp").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		if(bool==1)
 			printHTML("#error_mdp","Password missing");		
-			$("#error_mdp").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_mdp").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		//window.scrollTo(0,0);
 		document.getElementById('error_mdp').scrollIntoView();
 
@@ -146,16 +146,16 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	{
 		if(bool==0)
 			printHTML("#error_mdp","Veuillez saisir un mot de passe de taille > 7");
-			$("#error_mdp").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_mdp").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		if(bool==1)
 			printHTML("#error_mdp","Please enter a password > 7");
-			$("#error_mdp").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_mdp").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		//window.scrollTo(0,0);
 		document.getElementById('error_mdp').scrollIntoView();
 
@@ -167,16 +167,16 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	{
 		if(bool==0)
 			printHTML("#error_confirmation","Mots de passe incompatibles");
-			$("#error_confirmation").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_confirmation").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		if(bool==1)
 			printHTML("#error_confirmation","Incompatible passwords");
-			$("#error_confirmation").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_confirmation").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		//window.scrollTo(0,0);
 		document.getElementById('error_confirmation').scrollIntoView();
 
@@ -187,16 +187,16 @@ function verif(prenom,nom, numero, email, mdp, confirmation)
 	{
 		if(bool==0)
 			printHTML("#error_captcha","Ce n'est pas Einstein !");
-			$("#error_captcha").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+		$("#error_captcha").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		if(bool==1)
-		printHTML("#error_captcha","It is not Einstein !");
-			$("#error_captcha").css({
-				"color":"red",
-				"font-size": "80%"
-			});
+			printHTML("#error_captcha","This is not Einstein !");
+		$("#error_captcha").css({
+			"color":"red",
+			"font-size": "80%"
+		});
 		document.getElementById('error_captcha').scrollIntoView();
 
 		return false;
@@ -216,7 +216,7 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 	$.ajax({
 		type : "POST",
 		url : "createuser",
-        async: false,
+		async: false,
 		xhrFields: 
 		{
 			withCredentials: true
@@ -246,20 +246,27 @@ function traiteReponseEnregistrement(rep)
 {
 	if (rep.error != undefined)  
 	{
-		func_erreur_inscription(rep.error);
+		//func_erreur_inscription(rep.error);
+		if(bool==0)
+			openJModal(2000,"Une erreur s'est produite");
+		if(bool==1)
+			openJModal(2000,"An error has been occurred");
+
 	}
 	else if (rep.message!=undefined)
 	{
-		if (rep.message!="1") func_erreur_inscription(rep.message);
+		if (rep.message!="1") //func_erreur_inscription(rep.message);
+			openJModal(2000,rep.message);
+
 		else window.location.href = dashboard_jsp;
 	}
 	else 
 	{
 		window.location.href = dashboard_jsp;
 	}
-	
-	openJModal(2000,"Demande en cours...",dashboard_jsp);
+
 }
+
 
 
 function func_erreur_inscription(msg)
@@ -283,7 +290,7 @@ function printHTML(dom,htm)
 
 function ValidCaptcha()
 {
-	
+
 	if (document.getElementById("einstein").checked)
 	{
 		return true;

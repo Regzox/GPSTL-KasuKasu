@@ -25,14 +25,12 @@
 <title>Gestion des langues</title>
 </head>
 
-<body>
+<body onload='genLang();'>
 <div id='main'>
 	<div id='elt'></div>
+	<div id='lang'></div>
+	<button id='ajout' class="btn btn-info" onclick="addLang()">Ajouter une nouvelle langue</button>
 </div>
-	<button id='fr' onclick="editLang('fr');">Français</button>
-	<button id='en' onclick="editLang('en')">Anglais</button>
-	<button id='ajout' onclick="addLang()">Ajouter une nouvelle langue</button>
-	<div id = 'save'></div>
-	
+
 </body>
 </html>

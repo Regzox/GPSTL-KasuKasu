@@ -1,8 +1,8 @@
 var bool;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")
 	bool=1;
 else
-	if(document.cookie.search("lang=fr")!=-1)
+	if(readCookie("lang") == "fr")
 		bool=0;
 function retrieveFriendsFunc() 
 {
@@ -68,7 +68,7 @@ function ProcessRetrieveFriends(rep)
 		{
 			message = "<table class=\"table\">" +
 			"<tr>" +
-			"<th>Nom</th><th>Prenom</th><th>Profil</th>" +
+			"<th>Nom</th><th>Prénom</th><th>Profil</th>" +
 			"</tr>";
 		}
 	}

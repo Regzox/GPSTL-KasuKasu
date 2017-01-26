@@ -31,14 +31,11 @@ public class RequestItemServlet extends OnlinePostServlet {
 	public void doBusiness(HttpServletRequest request, HttpServletResponse response, Map<String, String> params)
 			throws Exception {	
 			Cookie[] cookies = request.getCookies();
-			String value = "";
-			for (int i = 0; i < cookies.length; i++) {
-			
+			String lang = "";
+			for (int i = 0; i < cookies.length; i++) 
 					  if(cookies[i].getName().equals("lang"))
-					  {
-						  value = cookies[i].getValue();
-					  }
-			}
+						  lang = cookies[i].getValue();
+			
 			
 			// Parse begin/end dates from the request.
 	        SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy");
@@ -46,9 +43,8 @@ public class RequestItemServlet extends OnlinePostServlet {
 	        Date date_debut = parser.parse( request.getParameter("debut") );
 	        Date date_fin = parser.parse( request.getParameter("fin") );
 			
-			
 		response.getWriter().print(
-				Loaning.requestItem(value, 
+				Loaning.requestItem(lang, 
 						(String)request.getSession().getAttribute("userId"),
 						(String) request.getParameter("id"),
 						date_debut, 

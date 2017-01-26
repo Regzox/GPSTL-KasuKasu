@@ -2,10 +2,10 @@
  * ANAGBLA Joan*/
 bool=0;
 applicants_shared_div_state_opened=false;
-if(document.cookie.search("lang=en")!=-1)
+if(readCookie("lang") == "en")	
 	bool=1;
 else
-	if(document.cookie.search("lang=fr")!=-1)
+	if(readCookie("lang") == "fr")
 		bool=0;
 function Item(id,owner,group,date,longitude,latitude,title,description,permission){
 	//alert("new Item("+id+","+title+","+group+","+longitude+","+latitude+","+date+","+description+","+permission+")");
@@ -96,7 +96,7 @@ Item.prototype.getHTML0=function(){
 	var s;
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
-	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
+	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">"; 
 	s+="<b>"+this.title+"</b>";
 	s+="</a>";
 	s+="</div>\n";	
@@ -118,7 +118,7 @@ Item.prototype.getHTML=function(){
 	var s;
 	s="<div class=\"itemBox\" id=\"itemBox"+this.id+"\">";
 	s+="<div class=\"item-title\" id=\"item-title"+this.id+"\">";
-	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">";//TODO PREG REPLACE TITLE IF IS SENT BY URL 
+	s+="<a href=" + item_jsp + "?id="+this.id+"&title="+this.title+">"; 
 	s+="<b>"+this.title+"</b>";
 	s+="</a>";
 	s+="</div>\n";	
@@ -345,7 +345,7 @@ function ProcessFindApplicants(rep) {
 					bodymessage +=
 						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\">Afficher</a></td>"+
 						"<td>" +
-						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignorer\" class=\"btn btn-primary btn-xs\" " +
+						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Refuser\" class=\"btn btn-primary btn-xs\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+iid+"');\"/>\n"+
 						"<input style=\"float:right;\" type=\"button\" value=\"Valider\" class=\"btn btn-primary btn-xs\" " +
 						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/></td>\n";
@@ -353,7 +353,7 @@ function ProcessFindApplicants(rep) {
 					bodymessage +=
 						"<td><a href=\"" + memberprofile_jsp + "?id="+z+"\">Show</a></td>"+
 						"<td>" +
-						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Ignore\" class=\"accept_request_btn\" " +
+						"<input style=\"margin-left:5%;\" type=\"button\" value=\"Refuse\" class=\"accept_request_btn\" " +
 						"id=\"refuse_item_request_btn"+this.id+"\" OnClick=\"refuse_item_request('"+z+"','"+iid+"');\"/>\n"+
 						"<input style=\"float:right;\" type=\"button\" value=\"Validate\" class=\"accept_request_btn\" " +
 						"id=\"accept_item_request_btn"+this.id+"\" OnClick=\"accept_item_request('"+z+"','"+iid+"');\"/></td>\n";

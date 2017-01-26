@@ -45,8 +45,6 @@
 
 	<div id="page">
 
-		<%@ include file="/fragments/interface/menus/myfriends_menu.jspf"%>
-
 		<script type="text/javascript">
 		trans();
 		bool=0;
@@ -58,7 +56,7 @@
 		var notifier = undefined;
 		
 		function loadEvaluationRequestNotifications () {
-			(jQuery)	.get(Evaluation, {
+			(jQuery)	.get("/KasuKasu/evaluation", {
 							resource : "request",
 							action : "list"
 						})
@@ -85,8 +83,7 @@
 								
 								$(erqn.cancel.dom).click (function() {
 			                        $(erqn.dom).remove();
-			                        setEmptyListDisplay();
-			                        $.post(Evaluation, {
+			                        $.post("/KasuKasu/evaluation", {
 			                        	resource : "request",
 			                        	action : "remove",
 			                        	evaluation_request_id : erqn.data.requestId
@@ -109,7 +106,7 @@
 										mark : erqn.evaluation.evaluationWrapper.mark
 				                  	};
 									
-									$	.post(Evaluation, evaluation) // Insertion de l'évaluation
+									$	.post("/KasuKasu/evaluation", evaluation) // Insertion de l'évaluation
 										.done(function (data) {
 											var response = {
 						                    	resource : "response",
@@ -120,7 +117,7 @@
 												loan_id : erqn.data.loanId,
 						                  	};
 											
-											$	.post(Evaluation, response) // Insertion de la réponse
+											$	.post("/KasuKasu/evaluation", response) // Insertion de la réponse
 												.done(function (data) {
 													var request = {
 								                    	resource : "request",
@@ -129,10 +126,9 @@
 								                  	};
 													
 													console.log(request);
-													$	.post(Evaluation, request) // Suppression de la requête
+													$	.post("/KasuKasu/evaluation", request) // Suppression de la requête
 														.done(function (data) {
-															$(erqn.dom).remove();
-															setEmptyListDisplay();
+															(function () {$(erqn.dom).remove();});
 														});
 												});
 										});
@@ -184,7 +180,7 @@
 		}
 		
 		function loadEvaluationResponseNotifications () {
-			(jQuery)	.get ( Evaluation, {
+			(jQuery)	.get ( "/KasuKasu/evaluation", {
 							resource : "response",
 							action : "list"
 						} )
@@ -207,7 +203,7 @@
 								
 								$(ersn.cancel.dom).click( function () {
 									$(ersn.dom).remove();
-									$.post(Evaluation, {
+									$.post("/KasuKasu/evaluation", {
 										resource : "response",
 										action : "remove",
 										evaluation_response_id : ersn_data.responseId
@@ -259,25 +255,13 @@
 						} );
 		}
 		
-		function setEmptyListDisplay () {
-			if ( $("#notifier") != undefined ) {
-				if ( $("#notifier").length == 1 ) {
-					var div = 
-						"<div id='default-msg' class='layer-center capital'>" + ( (bool) ? "Empty notification list" : "Liste de notifications vide" ) + "</div>"
-					$("#page").append(div);
-				}
-			}
-			
-		}
-		
 		window.onload = function () {
 			
 			notifier = new Notifier("notifier");
 			$("#page").append(notifier._dom);
 			
 			loadEvaluationRequestNotifications();
-			loadEvaluationResponseNotifications();
-			setEmptyListDisplay();
+		
 		};
 		
 		</script>

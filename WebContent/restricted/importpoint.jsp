@@ -10,12 +10,13 @@
 <link type="text/css" rel="stylesheet"
 	href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/tether.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/importpoint.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -46,7 +47,6 @@
 <style type="text/css">
 html, body, #mapdiv {
 	overflow: hidden;
-	z-index: 0;
 	width: 100%;
 	height: 100%;
 	margin: 0;
@@ -56,6 +56,24 @@ html, body, #mapdiv {
 .olImageLoadError {
 	display: none;
 }
+
+.split {
+	display: block;
+	width: 100%;
+	height: 50%;
+	width: 100%;
+}
+
+.full {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.centered {
+	align-items: center;
+	justify-content: center;
+}
 </style>
 </head>
 <body onload="javascript:init();">
@@ -63,14 +81,15 @@ html, body, #mapdiv {
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
-	<!-- 	<div id="mapdiv"></div> -->
 	<div id="page">
 
-				<div class="menu captital">
+
+		<div class="menu captital">
 			<div class="wrapper">
 				<div class="tier"></div>
 				<div class="tier">Carte interactive</div>
 				<div class="tier"></div>
+
 			</div>
 		</div>
 
@@ -79,42 +98,46 @@ html, body, #mapdiv {
 				<div id="mapdiv"></div>
 			</div>
 			<div class="demi">
-				<div class="wrapper show" style="size">
-					<div class="tier"></div>
-					<div class="tier capitale">Légende</div>
-					<div class="tier"></div>
-				</div>
-				<div class="layer-center wrapper show">
-					<div class="demi">
-						<div class="demi">
-							<img alt="" src="/KasuKasu/data/marker-red.png" width="40"
-								height="40">
-						</div>
-						<div class="demi">
-							<div id='pts'>Vos lieux d'échange</div>
+				<div class="full">
+					<div class="split centered">
+						<div class="split centered">
+							<div class="split centered">
+								<div class="wrapper centered" style="font-size: 1.33em; font-weight: bold">Légende</div>
+							</div>
+							<div class="split centered">
+								<div class=" wrapper centered">
+	
+									<div class="demi">
+									<img alt="" src="/KasuKasu/data/marker-red.png" width="40"
+											height="40">
+										<div id='pts'>Vos lieux d'échange</div>
+									</div>
+								</div>
+							</div>
+							<div class="split centered">
+								<div class="wrapper centered">
+					
+									<div class="demi">
+									<img alt="" src="/KasuKasu/data/marker.png" width="40"
+											height="40">
+										<div id='pts_amis'>Lieux d'échange de vos amis</div>
+									</div>
+								</div>
+							</div>
+							<div class="split centered">
+								<div class="wrapper centered">Double-cliquez sur la
+									carte pour ajouter un lieu</div>
+							</div>
 						</div>
 					</div>
-					<div class="demi">
-						<div class="demi">
-							<img alt="" src="/KasuKasu/data/marker.png" width="40"
-								height="40">
-						</div>
-						<div class="demi">
-							<div id='pts_amis'>Lieux d'échange de vos amis</div>
-						</div>
-					</div>
-				</div>
-				<div class="layer-center">
-					<div id='comment'>Double-cliquez sur la carte pour ajouter un
-						lieu</div>
 				</div>
 			</div>
 		</div>
-		
+
 		<%@ include file="/fragments/interface/footer.jspf"%>
-
-
 	</div>
+
+
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
@@ -136,25 +159,21 @@ html, body, #mapdiv {
 							<label id='noml' for="old_email_input"
 								class="col-xs-3 col-form-label">Nom</label>
 							<div class="col-xs-8">
-								<input class="form-control" value="" id="nom_input"
-									name="nom_input" placeholder="Nom (obligatoire)">
+								<input class="form-control" value="Mon lieu" id="nom_input"
+									name="nom_input">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label id='porteel' for="old_password_input"
-								class="col-xs-3 col-form-label">Portée</label>
+								class="col-xs-3 col-form-label">Portée en km</label>
 							<div class="col-xs-8">
-								<input class="form-control" value="" id="radius_input"
-									name="radius_input"
-									placeholder="Portée numérique (obligatoire)">
+								<input class="form-control" value="1" id="radius_input"
+									name="radius_input">
 							</div>
 						</div>
 					</form>
 
-
-
-
-
+					<div id='error_add'></div>
 
 				</div>
 
@@ -216,19 +235,18 @@ html, body, #mapdiv {
 							<label id="nom" for="old_email_input"
 								class="col-xs-3 col-form-label">Nom</label>
 							<div class="col-xs-8">
-								<input class="form-control" value="" id="nom_input"
+								<input class="form-control" value="Mon lieu" id="nom_input"
 									name="nom_input">
-
 							</div>
 						</div>
 						<div class="form-group row">
 							<label id="range" for="old_password_input"
-								class="col-xs-3 col-form-label">Portée</label>
+								class="col-xs-3 col-form-label"> Portée en km </label>
 							<div class="col-xs-8">
-								<input class="form-control" value="" id="radius_input"
-									name="radius_input">
+								<input class="form-control" value="1" id="radius_input">
 							</div>
 						</div>
+						<div id='error_modif'></div>
 					</form>
 				</div>
 
@@ -241,6 +259,5 @@ html, body, #mapdiv {
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
