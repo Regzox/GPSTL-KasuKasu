@@ -38,6 +38,14 @@ function init()
 			back=document.getElementById('back');
 			if(bool==0) back.innerHTML='- Vous avez '+data.back+' retrour(s) à valider'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/evaluationRequest.jsp\") >Voir</button>';
 			else if(bool==1) back.innerHTML='- You have '+data.back+' return(s) to validate'+'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick="locations(\"/KasuKasu/restricted/evaluationRequest.jsp\")">Show</button>';
+			
+			friendRequests=document.getElementById('friendRequests');
+			if(bool==0) 
+				friendRequests.innerHTML='- Vous avez '+data.friendRequests+' demande(s) d\'amis à valider'+
+					'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/pendingrequests.jsp\")>Voir</button>';
+			else if(bool==1) 
+				friendRequests.innerHTML='- You have '+data.friendRequests+' friend request(s) to validate'+
+					'<button class=\"btn btn-primary btn-xs\" style=\"margin-left:1px;margin-right:3px;\"onclick= locations(\"/KasuKasu/restricted/pendingrequests.jsp\")>Show</button>';
 
 
 		},		error : function(xhr,status,errorthrown){
