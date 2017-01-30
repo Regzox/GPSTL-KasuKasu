@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="refresh" content="30">
 <title id='titre1'>Conversation with <%=request.getParameter("interlocutor")%></title>
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
