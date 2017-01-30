@@ -202,12 +202,12 @@
 }, {
 	"finduser.jsp": {
 		"titre": {
-			"fr": "Rechercher un utilisateur",
-			"en": "Find a user"
+			"fr": "Rechercher un ami",
+			"en": "Find a friend"
 		},
 		"rech": {
-			"fr": "Rechercher un utilisateur",
-			"en": "Find a user"
+			"fr": "Rechercher un ami",
+			"en": "Find a friend"
 		}
 	}
 }, {

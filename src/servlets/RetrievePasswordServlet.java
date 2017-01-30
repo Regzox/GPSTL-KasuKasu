@@ -16,6 +16,7 @@ import exceptions.UserNotFoundException;
 import fr.upmc.file.Resource;
 import lingua.Lingua;
 import services.User;
+import services.config.Config;
 import servlets.tools.templates.offline.OfflineGetServlet;
 
 import utils.SendEmail;
@@ -69,7 +70,7 @@ public class RetrievePasswordServlet extends OfflineGetServlet {
 		SendEmail.sendMail(mail,
 				Lingua.get("retMailSubject", value), 
 				Lingua.get("retMailMessage", value)
-				+"http://localhost:8080/KasuKasu/confirm?id="+User.getUser(mail).getId()
+				+Config.getDomain()+"/KasuKasu/confirm?id="+User.getUser(mail).getId()
 				);
 
 		response.sendRedirect(resource.absolutePath("portal_jsp"));

@@ -29,6 +29,9 @@ $(document).ready(function() {
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
 	<div id='page'>
+	
+		<%@ include file="/fragments/interface/menus/myfriends_menu.jspf"%>
+	
 		<div class='layer-center'>
 			<div id='notifier'></div>
 		</div>

@@ -19,6 +19,7 @@ import json.Error;
 import json.Success;
 import json.Warning;
 import lingua.Lingua;
+import services.config.Config;
 import utils.SendEmail;
 import utils.Tools;
 
@@ -53,7 +54,7 @@ public class User {
 			SendEmail.sendMail(email,
 					Lingua.get("welcomeMailSubject",value),
 					Lingua.get("welcomeMailMessage",value)
-					+"http://localhost:8080/KasuKasu/confirm?id="+UserDao.getUserByEmail(email).getId()
+					+Config.getDomain()+"/KasuKasu/confirm?id="+UserDao.getUserByEmail(email).getId()
 					);
 		} catch (StringNotFoundException e) { 
 			System.out.println("Dictionary Error : Mail not send");

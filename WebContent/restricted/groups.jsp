@@ -10,6 +10,12 @@
 	href="/KasuKasu/css/bootstrap.min.css">
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
+
+<script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
+<script type="text/javascript"
+	src="/KasuKasu/js/inflator/views/groups.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/inflator/mirror.js"></script>
 <script type="text/javascript"
@@ -36,6 +42,8 @@
 
 	<div id="page">
 
+		<%@ include file="/fragments/interface/menus/myfriends_menu.jspf"%>
+
 		<div class='layer-center'>
 
 			<h1 id="titre" class='capital'>Mes Groupes</h1>
@@ -46,16 +54,25 @@
 				OnSubmit="javascript:createGroup(this.gname)">
 
 				<div class="form-group row">
-					<div class="col-xs-10">
-						<input type="text" class="form-control" name="gname" id="gname">
-					</div>
+					<input type="text" class="form-control" name="gname" id="gname">
 				</div>
+<!-- <<<<<<< HEAD -->
+				
+				<div class="form-group row">
+					<input id="submit" type="submit" class="btn btn-primary btn-block"
+						value="Créer"> <br>
+				</div>
+				
+				<div id="found-groups" class="abootsraper"></div>
+
+<!-- =======
 
 				<input id="submit" type="submit" class="btn btn-primary btn-block"
 					value="Créer"> <br>
 
 				<div style="width:150%; margin-left:10%"  id="found-groups" class="abootsraper"></div>
 				<br><br>
+>>>>>>> d6b792ba44f43b8b4b06652346ff7a14a4bc11e9 -->
 			</form>
 		</div>
 

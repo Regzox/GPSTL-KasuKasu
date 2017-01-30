@@ -250,13 +250,17 @@ public class Items {
 		int pendR = pend.count();
 		
 		JSONObject jo = Evaluation.findlistRequest(userID);
-		int back = jo.getJSONArray("result").length();		
+		int back = jo.getJSONArray("result").length();	
+		
+		// friendRequests length
+		int friendRequests = Friends.pendingRequestsArray(userID).size();
 
 		jar.put("pret",pret);
 		jar.put("emprunt",emprunt);
 		jar.put("loaned",loaned);
 		jar.put("pending",pendR);
 		jar.put("back",back);
+		jar.put("friendRequests", friendRequests);
 
 
 

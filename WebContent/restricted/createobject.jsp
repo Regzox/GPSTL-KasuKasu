@@ -41,6 +41,8 @@ $(document).ready(function() {
 
 	<div id="page">
 
+		<%@ include file="/fragments/interface/menus/useritems_menu.jspf"%>
+
 		<p id='ajout1' class='capital' style='text-align: center'>Ajout
 			d'un objet</p>
 

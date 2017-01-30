@@ -19,39 +19,60 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-	trans('importpoint.jsp','titre');
-	trans('importpoint.jsp','pts');
-	trans('importpoint.jsp','pts_amis');
-	trans('importpoint.jsp','comment');
-	trans('importpoint.jsp','ModalAjout');
-	trans('importpoint.jsp','noml');
-	trans('importpoint.jsp','porteel');
-	trans('importpoint.jsp','radius_input');
-	trans('importpoint.jsp','close');
-	trans('importpoint.jsp','save');
-	trans('importpoint.jsp','comment2');
-	trans('importpoint.jsp','comment3');
-	trans('importpoint.jsp','ModalModif');
-	trans('importpoint.jsp','nom');
-	trans('importpoint.jsp','range');
-	trans('importpoint.jsp','ferm');
-	trans('importpoint.jsp','enreg');
-});
+	$(document).ready(function() {
+		trans('importpoint.jsp', 'titre');
+		trans('importpoint.jsp', 'pts');
+		trans('importpoint.jsp', 'pts_amis');
+		trans('importpoint.jsp', 'comment');
+		trans('importpoint.jsp', 'ModalAjout');
+		trans('importpoint.jsp', 'noml');
+		trans('importpoint.jsp', 'porteel');
+		trans('importpoint.jsp', 'radius_input');
+		trans('importpoint.jsp', 'close');
+		trans('importpoint.jsp', 'save');
+		trans('importpoint.jsp', 'comment2');
+		trans('importpoint.jsp', 'comment3');
+		trans('importpoint.jsp', 'ModalModif');
+		trans('importpoint.jsp', 'nom');
+		trans('importpoint.jsp', 'range');
+		trans('importpoint.jsp', 'ferm');
+		trans('importpoint.jsp', 'enreg');
+	});
 </script>
+
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 
 
 
 <style type="text/css">
 html, body, #mapdiv {
+	overflow: hidden;
 	width: 100%;
 	height: 100%;
 	margin: 0;
+	z-index: 0;
 }
 
 .olImageLoadError {
 	display: none;
+}
+
+.split {
+	display: block;
+	width: 100%;
+	height: 50%;
+	width: 100%;
+}
+
+.full {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.centered {
+	align-items: center;
+	justify-content: center;
 }
 </style>
 </head>
@@ -60,35 +81,63 @@ html, body, #mapdiv {
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
 
-	<!-- 	<div id="mapdiv"></div> -->
 	<div id="page">
 
-		<div class='col-md-6'>
-			<div id="mapdiv" style="width: 500px; height: 500px"></div>
-		</div>
 
-		<div class='modal-body row'>
+		<div class="menu captital">
+			<div class="wrapper">
+				<div class="tier"></div>
+				<div class="tier">Carte interactive</div>
+				<div class="tier"></div>
 
-			<div class='col-md-6'>
-				<p>
-					<img alt="" src="/KasuKasu/data/marker-red.png" width="10"
-						height="10">
-				<div id='pts'>Vos lieux d'échange</div>
-				<br></br> <img alt="" src="/KasuKasu/data/marker.png" width="10"
-					height="10">
-				<div id='pts_amis'>Lieux d'échange de vos amis</div>
-				<br></br>
-				<div id='comment'>Double-cliquez sur la carte pour ajouter un
-					lieu</div>
-
-				</p>
 			</div>
-
-
 		</div>
 
+		<div class="wrapper">
+			<div class="demi">
+				<div id="mapdiv"></div>
+			</div>
+			<div class="demi">
+				<div class="full">
+					<div class="split centered">
+						<div class="split centered">
+							<div class="split centered">
+								<div class="wrapper centered" style="font-size: 1.33em; font-weight: bold">Légende</div>
+							</div>
+							<div class="split centered">
+								<div class=" wrapper centered">
+	
+									<div class="demi">
+									<img alt="" src="/KasuKasu/data/marker-red.png" width="40"
+											height="40">
+										<div id='pts'>Vos lieux d'échange</div>
+									</div>
+								</div>
+							</div>
+							<div class="split centered">
+								<div class="wrapper centered">
+					
+									<div class="demi">
+									<img alt="" src="/KasuKasu/data/marker.png" width="40"
+											height="40">
+										<div id='pts_amis'>Lieux d'échange de vos amis</div>
+									</div>
+								</div>
+							</div>
+							<div class="split centered">
+								<div class="wrapper centered">Double-cliquez sur la
+									carte pour ajouter un lieu</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<%@ include file="/fragments/interface/footer.jspf"%>
 	</div>
+
+
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
@@ -122,15 +171,9 @@ html, body, #mapdiv {
 									name="radius_input">
 							</div>
 						</div>
-
-
 					</form>
-					
-						<div id='error_add'></div>
 
-
-
-
+					<div id='error_add'></div>
 
 				</div>
 
@@ -198,14 +241,12 @@ html, body, #mapdiv {
 						</div>
 						<div class="form-group row">
 							<label id="range" for="old_password_input"
-								class="col-xs-3 col-form-label">Portée en km</label>
+								class="col-xs-3 col-form-label"> Portée en km </label>
 							<div class="col-xs-8">
-								<input class="form-control" value="1" id="radius_input"
-									name="radius_input">
+								<input class="form-control" value="1" id="radius_input">
 							</div>
 						</div>
 						<div id='error_modif'></div>
-
 					</form>
 				</div>
 
@@ -218,6 +259,5 @@ html, body, #mapdiv {
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

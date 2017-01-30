@@ -27,7 +27,7 @@ $(document).ready(function() {
 	trans('finduser.jsp','rech');
 });
 </script>
-<title id='titre'>Rechercher un utilisateur</title>
+<title id='titre'>Rechercher un ami</title>
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/applicants.css"/>
 </head>
 <body>
@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 	<div id='page'>
 		<div class='layer-center'>
-			<p id='rech' class='capital'>Rechercher un utilisateur</p>
+			<p id='rech' class='capital'>Rechercher un ami</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this.query.value)">

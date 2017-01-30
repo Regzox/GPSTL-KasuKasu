@@ -43,6 +43,7 @@
 			<p id='pret'></p>
 			<p id='pend'></p>
 			<p id='back'></p>
+			<p id='friendRequests'></p>
 			<pre id="contents"></pre>
 		</div>
 

@@ -44,12 +44,18 @@ function goToLoanRequests(){gotoURL(userLoans_jsp);}
 function request_item_query_response(rep){
 	if(bool==0)
 		openJModal(2000,
-				"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e ! "
+				"Une demande sur cet objet a &eacute;t&eacute; envoy&eacute;e ! "+
+				"<div class='center'>\n" + 
+					"<div class='btn btn-primary btn-xs' id='validate_dates_button'>Ok</div>\n"+ 
+				"</div>\n" 
 				,goToLoanRequests
 		);
 	if(bool==1)
 		openJModal(2000,
-				"A request for this item has been sent ! "
+				"A request for this item has been sent ! "+
+				"<div class='center'>\n" + 
+					"<div class='btn btn-primary btn-xs' id='validate_dates_button'>Ok</div>\n" +
+				"</div>\n"
 				,goToLoanRequests
 		);
 }

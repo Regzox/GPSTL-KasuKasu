@@ -45,7 +45,7 @@
 				    <div id="rech_user" onclick="
 						if ( !(~$(location).attr('href').indexOf(finduser_jsp)))
 							$(location).attr('href', finduser_jsp);
-					">Rechercher un utilisateur</div>
+					">Rechercher un ami</div>
 					
 					
 				    <div id="liste_amis" onclick="
