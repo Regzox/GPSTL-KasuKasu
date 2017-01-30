@@ -1,7 +1,5 @@
 package dao.config;
 
-import org.bson.types.ObjectId;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -18,9 +16,7 @@ public class configDB {
 		try{
 			DBCursor dbc = config.find(
 					new BasicDBObject()
-					.append("email",new ObjectId("mail")));
-
-
+					.append("email","mail"));
 			mailconfig = dbc.next();
 		}catch(Exception e){
 			mailconfig=null;
