@@ -404,7 +404,7 @@
 		},
 		"pts_amis": {
 			"fr": "Lieux d'échange de mes amis",
-			"en": "My friends exchange pointx"
+			"en": "My friends exchange points"
 		},
 		"comment": {
 			"fr": "Double-cliquez sur la carte pour ajouter un lieu",
@@ -601,7 +601,7 @@
 		},
 		"disc": {
 			"fr": "Déconnexion",
-			"en": "Disconnection"
+			"en": "Log out"
 		}
 	}
 }, {
