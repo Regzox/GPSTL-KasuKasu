@@ -202,11 +202,11 @@
 }, {
 	"finduser.jsp": {
 		"titre": {
-			"fr": "Rechercher un ami",
+			"fr": "Rechercher un(e) ami(e)",
 			"en": "Find a friend"
 		},
 		"rech": {
-			"fr": "Rechercher un ami",
+			"fr": "Rechercher un(e) ami(e)",
 			"en": "Find a friend"
 		}
 	}
@@ -585,8 +585,8 @@
 }, {
 	"footer.jspf": {
 		"footer_email": {
-			"fr": "Contact : kasukasu@gmail.com",
-			"en": "Contact : kasukasu@gmail.com"
+			"fr": "Contact : kasukasufr@gmail.com",
+			"en": "Contact : kasukasufr@gmail.com"
 		},
 		"footer_version": {
 			"fr": "Version : alpha",
