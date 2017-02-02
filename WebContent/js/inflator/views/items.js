@@ -297,6 +297,7 @@ function getItem(id){
 
 function ProcessFindApplicants(rep) {
 	var message;
+	console.log(JSON.stringify(rep));
 	message = "<table class=\"table\"><tr>";
 	if(bool==0){
 		message +="<th>Date de demande</th>";
