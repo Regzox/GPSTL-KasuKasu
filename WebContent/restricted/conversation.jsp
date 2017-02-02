@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="30">
 <title id='titre1'>Conversation with <%=request.getParameter("interlocutor")%></title>
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
@@ -28,7 +27,7 @@
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
 <body id="gc-search"
-	onload=" conversation('<%=request.getParameter("uther")%>')">
+	onload="conversation('<%=request.getParameter("uther")%>')">
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>
