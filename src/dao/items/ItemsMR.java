@@ -41,6 +41,13 @@ public class ItemsMR {
 	 * @throws DatabaseException
 	 * @throws JSONException */
 	public static List<ObjetRSV> pertinence(String query,Iterable<DBObject> input) throws JSONException, DatabaseException{
+		ItemsMR.updateTFDF();
+		//TODO Please, replace this call by the mrProgram that is in
+		//servlets.admin (RestartCUAProgramServlet.java)
+		//the RestartCUAProgramServlet starts a cron program that refresh
+		//tf and df collections in database.
+		//we didn't find the time to find a good way to start the mrProgram at deployment 
+		
 		/** Be aware : 
 		 * D = the corpus total size (number of documents in database).
 		 * DBCursor.count(): Counts the number of objects matching the query.
