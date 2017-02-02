@@ -70,5 +70,6 @@ public class SendEmail {
 	}
 
 	public static void main(String[] args) {
-		sendMail("kasukasufr@gmail.com", "subject", "contenu"); }
+		sendMail("kasukasufr@gmail.com", "subject", "contenu"); 
+		}
 }

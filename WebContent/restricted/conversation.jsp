@@ -27,7 +27,7 @@
 <link rel="stylesheet" type="text/css" href="/KasuKasu/css/sidebar.css" />
 </head>
 <body id="gc-search"
-	onload=" conversation('<%=request.getParameter("uther")%>')">
+	onload="conversation('<%=request.getParameter("uther")%>')">
 
 	<%@ include file="/fragments/interface/navbar.jspf"%>
 	<%@ include file="/fragments/interface/sidebar.jspf"%>

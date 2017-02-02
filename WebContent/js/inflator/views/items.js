@@ -297,6 +297,7 @@ function getItem(id){
 
 function ProcessFindApplicants(rep) {
 	var message;
+	console.log(JSON.stringify(rep));
 	message = "<table class=\"table\"><tr>";
 	if(bool==0){
 		message +="<th>Date de demande</th>";
@@ -321,7 +322,7 @@ function ProcessFindApplicants(rep) {
 			var x,y,z,iid,ititle,debut,fin,when;
 			if(user !='warning'){
 				$.each(profile, function(field, value) {
-					//console.log(field); console.log(value);
+					//console.log(""+field +"-"+value);
 					if(field=='name') x=value;
 					if(field=='firstname') y=value;
 					if(field=='id')	z=value;

@@ -5,9 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/style.css" />
-<link type="text/css" rel="stylesheet"
-	href="/KasuKasu/css/bootstrap.min.css">
 <link type="text/css" rel="stylesheet" href="/KasuKasu/css/jmodal.css" />
+<link type="text/css" href="/KasuKasu/css/jquery-ui.css"
+	rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="/KasuKasu/css/popup.css" />
+
 <script type="text/javascript" src="/KasuKasu/js/utils.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
 <script type="text/javascript"
@@ -17,6 +19,7 @@
 	src="/KasuKasu/js/inflator/views/items.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
+<script type="text/javascript" src="/KasuKasu/js/jquery-ui.js"></script>
 
 
 <script type="text/javascript">

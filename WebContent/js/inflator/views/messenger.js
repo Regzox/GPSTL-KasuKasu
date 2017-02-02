@@ -61,14 +61,16 @@ function new_private_message(uther,msg){
 
 function refreshMSG(result){
 	document.getElementById("new_message-input").value="";
-	refresh();
+	conversation(UTHER);
 }
 
 
+function goToMessenger(){gotoURL(messenger_jsp);}
 function conversation(uther){
 	//alert("conversation with uther : "+uther);
-	if(uther=='null' || uther==undefined)
-		refresh();
+	UTHER=uther;//Globalize uther
+	if(uther==null || uther==undefined || uther=="")
+		openJModal(2000,"Une erreur s'est produite",goToMessenger);
 	else
 		$.ajax({
 			type : "GET",
@@ -106,7 +108,9 @@ Message.TraiteReponse = function(result){
 
 	fhtm+="</table></div>\n"; //universalBox end
 	//alert("#html conversation_mirror: "+fhtm);
-	printHTML("#found-messages",fhtm);  
+	printHTML("#found-messages",fhtm); 
+	
+	setTimeout(function(){ conversation(UTHER); }, 10000); //refresh automatically each 10s
 }
 
 

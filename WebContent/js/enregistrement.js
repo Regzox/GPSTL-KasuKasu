@@ -216,11 +216,11 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 	$.ajax({
 		type : "POST",
 		url : "createuser",
-		async: false,
-		xhrFields: 
-		{
-			withCredentials: true
-		},
+//		async: false,
+//		xhrFields: 
+//		{
+//			withCredentials: true
+//		},
 		data : "prenom=" + prenom + "&nom=" + nom + "&numero=" + numero + "&email="
 		+ email+ "&mdp=" + mdp + "&confirmation=" + confirmation,
 		dataType : "json",
@@ -233,9 +233,6 @@ function enregistre(prenom, nom, numero, email, mdp, confirmation)
 
 		}
 	});
-
-
-
 
 }
 

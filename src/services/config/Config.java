@@ -23,6 +23,7 @@ public class Config {
 			props.put("mail.transport.protocol", "smtp");
 			return props;
 		}catch(Exception e){
+			System.out.println("Mail not configurated");
 			return null;
 		}
 	}
@@ -47,5 +48,10 @@ public class Config {
 	
 	public static void main(String[] args) {
 		setMailConfiguration("kasukasufr@gmail.com","usakusak","smtp.gmail.com","465","http://localhost:8080");
+		System.out.println(configDB.getMailConfig().get("domain").toString());
+		setMailConfiguration("testing@gmail.com","blabla","smtp.gmail.com","465","http://monsite:8080");
+		System.out.println(configDB.getMailConfig().get("domain").toString());
+		System.out.println(configDB.getMailConfig().get("host").toString());
+		System.out.println(configDB.getMailConfig().get("port").toString());
 	}
 }
