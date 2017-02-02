@@ -67,18 +67,18 @@ public class ObjectManagementServlet extends HttpServlet{
 				JSONArray itemExPoints = ExchangePoints.getItemExchangePoints(objectId,userId);
 				JSONArray itemgroups = Items.getGroupsFromItem(objectId,userId);
 
-				System.out.println(iexpts.toString());
-				System.out.println("--------");
-				System.out.println(igrps.toString());
-				System.out.println("---------");
-				System.out.println(itemExPoints.toString());
-				System.out.println("----------");
-				System.out.println(itemgroups.toString());
+//				System.out.println(iexpts.toString());
+//				System.out.println("--------");
+//				System.out.println(igrps.toString());
+//				System.out.println("---------");
+//				System.out.println(itemExPoints.toString());
+//				System.out.println("----------");
+//				System.out.println(itemgroups.toString());
 
 				JSONArray userPoint=new JSONArray();
 				JSONArray userGroup=new JSONArray();
 				JSONArray itemPoint=new JSONArray();
-				JSONArray itemGroup=igrps;
+				JSONArray itemGroup=itemgroups;
 
 				for(int i =0;i<iexpts.length();i++){
 					JSONObject o = new JSONObject();
@@ -103,10 +103,11 @@ public class ObjectManagementServlet extends HttpServlet{
 					o.put("id", ((JSONObject)((JSONObject)itemExPoints.get(i)).get("_id")).get("$oid"));
 					itemPoint.put(o);
 				}
-				System.out.println(userGroup.toString());
-				System.out.println(userPoint.toString());
-				System.out.println(itemGroup.toString());
-				System.out.println(itemPoint.toString());
+//				System.out.println("////////////////");
+//				System.out.println(userGroup.toString());
+//				System.out.println(userPoint.toString());
+//				System.out.println(itemGroup.toString());
+//				System.out.println(itemPoint.toString());
 
 				JSONObject res=new JSONObject();
 				res.put("item", item);
@@ -175,6 +176,7 @@ public class ObjectManagementServlet extends HttpServlet{
 					break;
 				default:
 				}
+				break;
 			}
 			case "groups":{
 				String targetId = (String) request.getParameter("targetid");
@@ -191,8 +193,8 @@ public class ObjectManagementServlet extends HttpServlet{
 					break;
 				default:
 				}
+				break;
 			}
-			break;
 			case "item":{
 				String title = (String) request.getParameter("title");
 				if( title == null ) {

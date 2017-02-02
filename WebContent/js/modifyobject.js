@@ -35,7 +35,7 @@ function processItemInformations(r){
 		for (var i = 0; i < r.itemgroup.length; i++) {
 			var group = r.itemgroup[i];
 			$('#group').prepend("<span id=\"g"+group.id+"\" class=\"tag label label-info\"> <span>"
-					+group.name+"</span> <a><i onclick=\"removeGroup(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
+					+group.nom+"</span> <a><i onclick=\"removeGroup(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
 		}
 	/** MODAL ZONE USER**/
 	if(r.userpoint!=undefined)
@@ -95,7 +95,7 @@ function addZone(form){
 		$('#zone').prepend("<span id=\"z"+id+"\" class=\"tag label label-info\"> <span>"
 				+text+"</span> <a><i onclick=\"removeZone(this)\" class=\"remove glyphicon glyphicon-remove-sign glyphicon-red\"></i></a></span>");
 	}
-	$('#modal-hide').modal('show');
+	$('#modal-zones').modal('hide');
 }
 
 function addGroup(form){
@@ -230,7 +230,7 @@ function getItemBusyStatus(){
 			}
 			else{
 				printHTML('#vacation_control',
-						"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Sortir du mode vaccances</button>");
+						"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\" class=\"button lazyuserbutton\">Sortir du mode vacances</button>");
 				$("#vacation_control_button").css({
 					"background-color": "#f44336",
 					"color" : "white", 
@@ -245,7 +245,7 @@ function getItemBusyStatus(){
 		}
 		else{
 			printHTML('#vacation_control',
-					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Mettre en vaccances</button>");
+					"<button onclick=\"setItemBusyStatus('"+(!vaccation)+"')\" id=\"vacation_control_button\"  class=\"button activuserbutton\">Mettre en vacances</button>");
 			$("#vacation_control_button").css({
 				"background-color": "white",
 				"color" : "#f44336", 
