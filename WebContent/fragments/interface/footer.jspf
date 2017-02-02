@@ -9,7 +9,7 @@ $(document).ready(function() {
 </script>
 <div class="footer">
 	<div class="wrapper">
-		<div id="footer_email" class="tier">Contact : kasukasu@gmail.com</div>
+		<div id="footer_email" class="tier">Contact : kasukasufr@gmail.com</div>
 		<div class="tier"></div>
 		<div id="footer_version" class="tier">Version : alpha</div>
 	</div>
