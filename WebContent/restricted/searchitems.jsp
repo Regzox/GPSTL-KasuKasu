@@ -23,16 +23,8 @@
 <link type="text/css" href="/KasuKasu/css/jquery-ui.css"
 	rel="stylesheet" />
 
-<!-- <<<<<<< HEAD -->
-<link type="text/css" href="/KasuKasu/css/jquery-ui.css"
-	rel="stylesheet" />
 <script type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
-<script type="text/javascript" src="/KasuKasu/js/cookies.js"></script>
-<!-- =======
-<link type="text/css" href="/KasuKasu/css/jquery-ui.css" rel="stylesheet" />
-<script	type="text/javascript" src="/KasuKasu/js/traduction.js"></script>
 
->>>>>>> d6b792ba44f43b8b4b06652346ff7a14a4bc11e9 -->
 
 <script>
 	$(document).ready(function() {
