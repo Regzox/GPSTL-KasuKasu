@@ -216,6 +216,7 @@ function request_item(id){
 
 
 function accept_item_request(id_applicant, id_item){	
+	alert("OO")
 	openWaiter();
 	$.ajax({
 		type : "POST",
@@ -248,6 +249,8 @@ function accept_item_request_response(rep){
 
 
 function refuse_item_request(id_applicant,id_item){	
+	alert("app:"+id_applicant+"itm:"+id_item)
+	
 	openWaiter();
 	$.ajax({
 		type : "POST",

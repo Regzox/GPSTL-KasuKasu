@@ -240,7 +240,7 @@ public class Loaning {
 		DBCursor dbc = LoaningDB.itemApplicants(idItem);
 		JSONObject applicants = new JSONObject();
 		JSONArray jar = new JSONArray();
-
+		DBObject item = ItemsDB.getItem(idItem);
 		while(dbc.hasNext()){
 			DBObject dbo =dbc.next();
 			entities.User applicant = UserDao.getUserById((String)dbo.get("id_applicant"));
@@ -251,6 +251,8 @@ public class Loaning {
 					.put("when",Tools.reshapeDateLong((Date)dbo.get("when")))
 					.put("name", applicant.getName())
 					.put("firstname", applicant.getFirstname())
+					.put("itemid",idItem)
+					.put("itemtitle",item.get("title"))
 					);
 
 			applicants.put("users", jar).put("printobject", false);

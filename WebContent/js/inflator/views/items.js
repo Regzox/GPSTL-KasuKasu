@@ -321,7 +321,7 @@ function ProcessFindApplicants(rep) {
 			var x,y,z,iid,ititle,debut,fin,when;
 			if(user !='warning'){
 				$.each(profile, function(field, value) {
-					//console.log(field); console.log(value);
+					console.log(""+field +"-"+value);
 					if(field=='name') x=value;
 					if(field=='firstname') y=value;
 					if(field=='id')	z=value;
@@ -331,6 +331,7 @@ function ProcessFindApplicants(rep) {
 					if(field=='fin') fin=value;
 					if(field=='when') when=value;
 				});
+				alert(iid);
 				nb++;
 
 				bodymessage +="<tr>";
