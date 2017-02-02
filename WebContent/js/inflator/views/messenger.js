@@ -176,7 +176,5 @@ Speaker.traiteReponse = function (result){
 	fhtm+="</table></div>\n"; //universalBox end
 	//alert("#html conversation_mirror: "+fhtm);
 	printHTML("#found-speakers",fhtm);  
-	
-	setTimeout(function(){ interlocutors(); }, 60000); //refresh automatically each 60s
 }
 
