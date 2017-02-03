@@ -29,8 +29,7 @@ public class SaveLanguageServlet extends HttpServlet {
 		try {
 			if(User.isAdmin((String)request.getSession().getAttribute("userId")))
 			{
-				//TODO save the json object in the traduction.json file
-				File file = new File("/home/ouiza/Bureau/file.txt");
+				File file = new File("/KasuKasu/traduction.json");
 				FileOutputStream f = new FileOutputStream(file);
 
 				BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));

@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 	<div id='page'>
 		<div class='layer-center'>
-			<p id='rech' class='capital'>Rechercher un ami</p>
+			<p id='rech' class='capital'>Rechercher un(e) ami(e)</p>
 
 			<form action="javascript:(function(){return;})()" method="get"
 				OnSubmit="javascript:finduser(this.query.value)">

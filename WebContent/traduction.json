@@ -202,11 +202,11 @@
 }, {
 	"finduser.jsp": {
 		"titre": {
-			"fr": "Rechercher un ami",
+			"fr": "Rechercher un(e) ami(e)",
 			"en": "Find a friend"
 		},
 		"rech": {
-			"fr": "Rechercher un ami",
+			"fr": "Rechercher un(e) ami(e)",
 			"en": "Find a friend"
 		}
 	}
@@ -404,7 +404,7 @@
 		},
 		"pts_amis": {
 			"fr": "Lieux d'échange de mes amis",
-			"en": "My friends exchange pointx"
+			"en": "My friends exchange points"
 		},
 		"comment": {
 			"fr": "Double-cliquez sur la carte pour ajouter un lieu",
@@ -585,8 +585,8 @@
 }, {
 	"footer.jspf": {
 		"footer_email": {
-			"fr": "Contact : kasukasu@gmail.com",
-			"en": "Contact : kasukasu@gmail.com"
+			"fr": "Contact : kasukasufr@gmail.com",
+			"en": "Contact : kasukasufr@gmail.com"
 		},
 		"footer_version": {
 			"fr": "Version : alpha",
@@ -601,7 +601,7 @@
 		},
 		"disc": {
 			"fr": "Déconnexion",
-			"en": "Disconnection"
+			"en": "Log out"
 		}
 	}
 }, {
